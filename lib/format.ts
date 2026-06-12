@@ -1,0 +1,52 @@
+export function formatPrice(price: string | number | null | undefined): string {
+  if (price == null || price === "") return "—";
+  const n = typeof price === "string" ? parseFloat(price) : price;
+  if (!Number.isFinite(n)) return "—";
+  return `$${n.toFixed(2)}`;
+}
+
+export function formatQty(qty: number | null | undefined): string {
+  if (qty == null) return "—";
+  return qty.toLocaleString("en-US");
+}
+
+export function formatSize(sizeMl: number | null | undefined): string {
+  if (!sizeMl) return "";
+  if (sizeMl >= 1000) return `${(sizeMl / 1000).toFixed(sizeMl % 1000 === 0 ? 0 : 2)}L`;
+  return `${sizeMl}ml`;
+}
+
+export function formatAsOf(date: Date | string | null | undefined): string {
+  if (!date) return "no data yet";
+  const d = typeof date === "string" ? new Date(date) : date;
+  return d.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Denver",
+  });
+}
+
+export function timeAgo(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date;
+  const seconds = Math.floor((Date.now() - d.getTime()) / 1000);
+  if (seconds < 90) return "just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 90) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 36) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
+
+/** Title-case DABS ALL-CAPS product names for display. */
+export function displayName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\b[a-z]/g, (c) => c.toUpperCase())
+    .replace(/\b(\d+)\s?Ml\b/gi, "$1ml")
+    .replace(/\bIpa\b/g, "IPA")
+    .replace(/\bDble\b/g, "Double")
+    .replace(/\bVsop\b/g, "VSOP")
+    .replace(/\bXo\b/g, "XO");
+}

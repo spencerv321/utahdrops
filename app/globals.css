@@ -1,26 +1,120 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.5rem;
+  --background: oklch(0.982 0.007 83);
+  --foreground: oklch(0.2 0.028 45);
+  --card: oklch(0.998 0.004 86);
+  --card-foreground: oklch(0.2 0.028 45);
+  --popover: oklch(0.998 0.004 86);
+  --popover-foreground: oklch(0.2 0.028 45);
+  --primary: oklch(0.47 0.14 52);
+  --primary-foreground: oklch(0.98 0.012 85);
+  --secondary: oklch(0.945 0.014 78);
+  --secondary-foreground: oklch(0.3 0.04 45);
+  --muted: oklch(0.95 0.011 82);
+  --muted-foreground: oklch(0.47 0.032 52);
+  --accent: oklch(0.92 0.035 70);
+  --accent-foreground: oklch(0.3 0.05 45);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.985 0.005 90);
+  --border: oklch(0.9 0.014 75);
+  --input: oklch(0.9 0.014 75);
+  --ring: oklch(0.47 0.14 52);
+  --chart-1: oklch(0.55 0.15 45);
+  --chart-2: oklch(0.6 0.12 180);
+  --chart-3: oklch(0.4 0.07 230);
+  --chart-4: oklch(0.75 0.15 85);
+  --chart-5: oklch(0.65 0.18 30);
+  --success: oklch(0.52 0.12 150);
+  --warning: oklch(0.7 0.15 80);
+  --clearance: oklch(0.58 0.16 48);
+}
+
+.dark {
+  --background: oklch(0.18 0.015 50);
+  --foreground: oklch(0.95 0.005 85);
+  --card: oklch(0.22 0.015 50);
+  --card-foreground: oklch(0.95 0.005 85);
+  --popover: oklch(0.22 0.015 50);
+  --popover-foreground: oklch(0.95 0.005 85);
+  --primary: oklch(0.72 0.13 55);
+  --primary-foreground: oklch(0.18 0.02 50);
+  --secondary: oklch(0.27 0.015 55);
+  --secondary-foreground: oklch(0.95 0.005 85);
+  --muted: oklch(0.27 0.015 55);
+  --muted-foreground: oklch(0.68 0.015 70);
+  --accent: oklch(0.3 0.03 60);
+  --accent-foreground: oklch(0.95 0.005 85);
+  --destructive: oklch(0.62 0.19 27);
+  --destructive-foreground: oklch(0.95 0.005 85);
+  --border: oklch(0.3 0.015 55);
+  --input: oklch(0.3 0.015 55);
+  --ring: oklch(0.72 0.13 55);
+  --chart-1: oklch(0.65 0.15 45);
+  --chart-2: oklch(0.65 0.12 180);
+  --chart-3: oklch(0.55 0.08 230);
+  --chart-4: oklch(0.8 0.15 85);
+  --chart-5: oklch(0.7 0.18 30);
+  --success: oklch(0.62 0.12 150);
+  --warning: oklch(0.75 0.15 80);
+  --clearance: oklch(0.72 0.15 55);
 }
 
 @theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-clearance: var(--clearance);
+  --font-sans: var(--font-hanken);
+  --font-display: var(--font-fraunces);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* Headlines carry the one bit of character; UI + data stay grotesque. */
+  h1 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+  }
+  /* Tabular figures everywhere numbers matter (tables, prices, counts). */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
 }
