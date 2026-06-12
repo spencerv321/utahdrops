@@ -4,7 +4,7 @@ import { getProduct } from "@/lib/queries";
 import { displayName, formatPrice, formatSize } from "@/lib/format";
 import { STATUS_LABELS } from "@/lib/config";
 
-export const alt = "Product availability on BevFinder Utah";
+export const alt = "Product availability on Utah Drops";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

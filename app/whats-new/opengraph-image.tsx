@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { OgFrame, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 
-export const alt = "What's new at Utah DABS — restocks, new products, and clearance on BevFinder Utah";
+export const alt = "What's new at Utah DABS — restocks, new products, and clearance on Utah Drops";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

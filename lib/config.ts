@@ -1,4 +1,4 @@
-export const SITE_NAME = "BevFinder Utah";
+export const SITE_NAME = "Utah Drops";
 export const SITE_TAGLINE = "Search, track, and get alerts for Utah liquor inventory";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 

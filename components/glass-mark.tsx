@@ -1,5 +1,5 @@
 /**
- * BevFinder wordmark glyph — a rocks glass with a whiskey fill.
+ * Utah Drops wordmark glyph — a rocks glass with a whiskey fill.
  * Outline inherits the surrounding text color; the fill is the amber accent.
  * Replaces the 🥃 emoji so the brand mark renders consistently everywhere.
  */

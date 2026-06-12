@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "bevfinder",
+      "name": "utahdrops",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["start", "--port", "3010"],
       "port": 3010

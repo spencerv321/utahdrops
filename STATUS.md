@@ -1,10 +1,11 @@
-# BevFinder Utah — build status
+# Utah Drops — build status
 
-_Last updated: 2026-06-09 (paused for the night)_
+_Last updated: 2026-06-12_
 
 A fast front end + alerting layer on top of Utah DABS liquor inventory data.
-See `../dabs-tracker-prd.md` for the full product vision. Working name in the
-UI is **BevFinder Utah** (single constant in `lib/config.ts` — trivial to rename).
+See `../dabs-tracker-prd.md` for the full product vision. Name: **Utah Drops**
+(utahdrops.com — decided 2026-06-12; formerly working name "BevFinder Utah").
+`SITE_NAME` lives in `lib/config.ts`; the scraper User-Agent in `lib/dabs/client.ts`.
 
 ## How to resume
 

@@ -21,7 +21,7 @@ export class ScrapeShapeError extends Error {
 
 export function userAgent(): string {
   const contact = process.env.DABS_CONTACT_EMAIL ?? "unset";
-  return `BevFinderUtah/0.1 (consumer inventory tracker; contact: ${contact})`;
+  return `UtahDrops/0.1 (consumer inventory tracker; contact: ${contact})`;
 }
 
 async function rateLimit() {

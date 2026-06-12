@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { OgFrame, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 import { thirdSaturday } from "@/lib/dabs/allocated";
 
-export const alt = "Utah DABS allocated & rare drop tracker on BevFinder Utah";
+export const alt = "Utah DABS allocated & rare drop tracker on Utah Drops";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 // The countdown depends on the current date — refresh hourly so it never goes stale.

@@ -244,7 +244,7 @@ otp_expiry = 3600
 # content_path = "./supabase/templates/invite.html"
 
 [auth.email.template.magic_link]
-subject = "Your BevFinder Utah sign-in link"
+subject = "Your Utah Drops sign-in link"
 content_path = "./supabase/templates/magic_link.html"
 
 # Uncomment to customize notification email template
