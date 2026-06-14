@@ -1,0 +1,46 @@
+name: Store inventory scrape
+
+# Runs the per-store scraper natively in the Actions runner (not via the Vercel
+# endpoint) so it isn't bound by the 60s Hobby function limit. Each SKU costs
+# two DABS requests at <=1 req/sec, so this is a long-running, budget-limited
+# rotating pass — exactly what a serverless function can't do.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6h (conservative for private-repo Action minutes)
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: "SKUs to scrape this run (overrides STORE_SCRAPE_BUDGET)"
+        required: false
+        default: "300"
+
+concurrency:
+  group: store-inventory
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Scrape per-store inventory
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DABS_CONTACT_EMAIL: ${{ secrets.DABS_CONTACT_EMAIL }}
+          STORE_SCRAPE_BUDGET: ${{ github.event.inputs.budget || '300' }}
+          NODE_ENV: production
+        run: pnpm exec tsx scripts/scrape.ts store-inventory
