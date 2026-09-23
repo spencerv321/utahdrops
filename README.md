@@ -31,7 +31,7 @@ Supabase client is only used for auth.
 
 | Variable | Used by | Notes |
 |---|---|---|
-| `DATABASE_URL` | app + jobs | On Vercel use the **transaction-mode pooler** (port 6543). |
+| `DATABASE_URL` | app + jobs | Supabase pooler URL. On Vercel a session-mode URL (port 5432) is switched to the transaction pooler (6543) automatically (`lib/db.ts`). |
 | `DB_POOL_MAX` | app + jobs | Optional. Defaults to 3 on Vercel, 10 elsewhere. |
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | app | Auth only. |
 | `NEXT_PUBLIC_SITE_URL` | app + emails | e.g. `https://utahdrops.com` |
@@ -55,7 +55,9 @@ Run any job locally with `npx tsx scripts/scrape.ts <job>`.
 
 `keepalive.yml` re-enables the scheduled workflows weekly (GitHub disables them
 in public repos after 60 days without a commit). **`/api/health`** returns 503
-when any job's last success is too old. Point an uptime monitor at it.
+when any job's last success is too old; `health.yml` checks it every 3 hours and
+fails (GitHub emails you) when it's red. `migrate.yml` applies new
+`supabase/migrations/*.sql` to production on every push to `main`.
 
 ## Runbook: data stopped updating
 
@@ -70,5 +72,5 @@ when any job's last success is too old. Point an uptime monitor at it.
 
 ## Migrations
 
-`supabase/migrations/`. Apply to the hosted project with `supabase db push`
-(or paste into the SQL editor).
+`supabase/migrations/`. Applied to production automatically by `migrate.yml`
+(tracked in `public.app_migrations`), or locally with `npx tsx scripts/migrate.ts`.
