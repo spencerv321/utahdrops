@@ -16,13 +16,40 @@ export function ProductTable({ rows }: { rows: ProductRow[] }) {
   if (rows.length === 0) {
     return (
       <div className="rounded-lg border border-dashed p-12 text-center text-muted-foreground">
-        No products match. Try fewer words — DABS names are terse (e.g.
-        &ldquo;eagle rare&rdquo; not &ldquo;Eagle Rare Bourbon 10 Year&rdquo;).
+        No products match. Try fewer words or just the brand — e.g.
+        &ldquo;eagle rare&rdquo; instead of &ldquo;Eagle Rare Bourbon 10 Year&rdquo;.
       </div>
     );
   }
   return (
-    <div className="overflow-x-auto rounded-lg border">
+    <>
+      {/* Phones: one card row per product with the numbers that matter. */}
+      <ul className="divide-y rounded-lg border sm:hidden">
+        {rows.map((p) => (
+          <li key={p.csc} className={cn(!p.in_stock && "opacity-70")}>
+            <Link href={`/product/${p.csc}`} className="flex items-start justify-between gap-3 px-3 py-3">
+              <div className="min-w-0 space-y-1">
+                <div className="font-medium leading-snug">{displayName(p.name)}</div>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+                  <StatusBadge status={p.status} />
+                  <span>{p.category ?? "—"}</span>
+                </div>
+              </div>
+              <div className="shrink-0 text-right">
+                <div className="font-semibold tabular-nums">
+                  {formatPrice(p.current_price)}
+                  {p.is_spa ? <span className="ml-1 text-xs text-destructive">SPA</span> : null}
+                </div>
+                <div className="text-xs tabular-nums text-muted-foreground">
+                  {p.in_stock ? `${formatQty(p.store_qty)} in stores` : "out of stock"}
+                </div>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+    <div className="hidden overflow-x-auto rounded-lg border sm:block">
       <Table>
         <TableHeader>
           <TableRow className="bg-muted/50">
@@ -71,5 +98,6 @@ export function ProductTable({ rows }: { rows: ProductRow[] }) {
         </TableBody>
       </Table>
     </div>
+    </>
   );
 }

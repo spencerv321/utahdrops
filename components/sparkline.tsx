@@ -6,10 +6,13 @@ import type { SnapshotPoint } from "@/lib/queries";
  */
 export function Sparkline({
   points,
+  until,
   width = 640,
   height = 120,
 }: {
   points: SnapshotPoint[];
+  /** Extend the last value to this time (the latest catalog pass). */
+  until?: Date | string | null;
   width?: number;
   height?: number;
 }) {
@@ -23,9 +26,8 @@ export function Sparkline({
 
   const values = points.map((p) => p.store_qty ?? 0);
   const times = points.map((p) => new Date(p.scraped_at).getTime());
-  const now = Date.now();
   const minT = times[0];
-  const maxT = Math.max(now, times[times.length - 1]);
+  const maxT = Math.max(until ? new Date(until).getTime() : 0, times[times.length - 1]);
   const maxV = Math.max(...values, 1);
 
   const pad = 4;

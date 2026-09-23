@@ -18,14 +18,16 @@ export async function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4">
-        <Link href="/" className="flex items-center gap-2">
+      {/* Phones: logo + sign-in on one row, nav on its own scrollable row, so
+          the header never forces the page wider than the viewport. */}
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 px-4 sm:h-14 sm:flex-nowrap">
+        <Link href="/" className="flex h-12 shrink-0 items-center gap-2 sm:h-auto">
           <GlassMark className="size-5 text-foreground" />
-          <span className="font-display text-lg font-semibold tracking-tight">{SITE_NAME}</span>
+          <span className="whitespace-nowrap font-display text-lg font-semibold tracking-tight">{SITE_NAME}</span>
         </Link>
-        <nav className="flex items-center gap-4 text-sm text-muted-foreground">
+        <nav className="order-last -mx-4 flex w-[calc(100%+2rem)] items-center gap-5 overflow-x-auto px-4 pb-2 text-sm text-muted-foreground sm:order-none sm:mx-0 sm:w-auto sm:gap-4 sm:overflow-visible sm:p-0">
           {NAV.map((item) => (
-            <Link key={item.href} href={item.href} className="transition-colors hover:text-foreground">
+            <Link key={item.href} href={item.href} className="whitespace-nowrap py-1 transition-colors hover:text-foreground">
               {item.label}
             </Link>
           ))}

@@ -43,8 +43,12 @@ export function timeAgo(date: Date | string): string {
 export function displayName(name: string): string {
   return name
     .toLowerCase()
-    .replace(/\b[a-z]/g, (c) => c.toUpperCase())
+    // Capitalize word starts, but not after an apostrophe ("Maker's", not "Maker'S")
+    .replace(/(^|[^a-z0-9'’])([a-z])/g, (_, pre, c) => pre + c.toUpperCase())
+    // …except name prefixes like D'Usse, O'Neil
+    .replace(/(^|[^A-Za-z])([DO])(['’])([a-z])/g, (_, pre, l, q, c) => pre + l + q + c.toUpperCase())
     .replace(/\b(\d+)\s?Ml\b/gi, "$1ml")
+    .replace(/\b(\d+(?:\.\d+)?)\s?l\b/gi, "$1L")
     .replace(/\bIpa\b/g, "IPA")
     .replace(/\bDble\b/g, "Double")
     .replace(/\bVsop\b/g, "VSOP")
