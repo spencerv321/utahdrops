@@ -9,7 +9,7 @@ export function GlassMark({ className }: { className?: string }) {
       {/* whiskey fill */}
       <path
         d="M6.7 13.4 H17.3 L16.7 19.1 A2.1 2.1 0 0 1 14.6 21 H9.4 A2.1 2.1 0 0 1 7.3 19.1 Z"
-        className="fill-primary"
+        className="fill-gold"
       />
       {/* glass outline */}
       <path

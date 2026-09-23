@@ -52,12 +52,12 @@ export function EmailCapture() {
         name="email"
         required
         placeholder="you@example.com"
-        className="sm:w-56"
+        className="h-11 bg-card text-base sm:w-64"
         aria-label="Email address"
       />
       <select
         name="segment"
-        className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs"
+        className="h-11 rounded-md border border-input bg-card px-3 text-sm shadow-xs"
         aria-label="I am a"
         defaultValue="consumer"
       >
@@ -66,7 +66,7 @@ export function EmailCapture() {
         <option value="supplier">I&apos;m a supplier / distillery</option>
         <option value="other">Other</option>
       </select>
-      <Button type="submit" size="sm" disabled={pending}>
+      <Button type="submit" disabled={pending} className="h-11 px-5 font-semibold">
         {pending ? "Sending…" : "Email me a sign-in link"}
       </Button>
       {error ? <span className="text-sm text-destructive">{error}</span> : null}

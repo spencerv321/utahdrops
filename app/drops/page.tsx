@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDrops } from "@/lib/queries";
-import { thirdSaturday } from "@/lib/dabs/allocated";
+import { nextDropDate } from "@/lib/dabs/allocated";
 import { formatPrice } from "@/lib/format";
 import { DropAlertSignup } from "@/components/drop-alert-signup";
 import { createClient } from "@/lib/supabase/server";
@@ -30,10 +30,7 @@ export default async function DropsPage() {
 
   // Next drop countdown (MT ≈ UTC-6/-7; date-level precision is plenty)
   const now = new Date();
-  let next = thirdSaturday(now.getUTCFullYear(), now.getUTCMonth());
-  if (now.getTime() > next.getTime() + 86400_000) {
-    next = thirdSaturday(now.getUTCFullYear(), now.getUTCMonth() + 1);
-  }
+  const next = nextDropDate(now);
   const daysOut = Math.max(0, Math.ceil((next.getTime() - now.getTime()) / 86400_000));
 
   // Group by drop date, then by product

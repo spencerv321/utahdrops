@@ -54,3 +54,16 @@ export function displayName(name: string): string {
     .replace(/\bVsop\b/g, "VSOP")
     .replace(/\bXo\b/g, "XO");
 }
+
+/**
+ * DABS store names look like "STORE 41 BOUNTIFUL" (sometimes just "STORE 2").
+ * People know stores by place, so lead with that and keep the number as a hint.
+ */
+export function storeLabel(name: string, city?: string | null): { title: string; number: string | null } {
+  const m = name.match(/^STORE\s*#?\s*(\d+)\s*[-–—]?\s*(.*)$/i);
+  const place = (m ? m[2] : name).trim() || city || "";
+  return {
+    title: place ? displayName(place) : `Store ${m?.[1] ?? ""}`.trim(),
+    number: m ? m[1] : null,
+  };
+}
