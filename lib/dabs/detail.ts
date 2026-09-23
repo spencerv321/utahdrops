@@ -28,11 +28,25 @@ export interface ProductDetail {
  * The detail page is a two-step flow: GetDetailUrl?sku=X stashes the SKU in
  * an ASP.NET TempData cookie (single-use), and ProductDetail/Index consumes
  * it. The cookie from step 1 must ride along on step 2.
+ *
+ * Because the cookie is single-use, retrying step 2 alone can never succeed —
+ * on failure we redo the whole flow once instead.
  */
 export async function fetchProductDetail(sku: string): Promise<ProductDetail> {
+  try {
+    return await fetchProductDetailOnce(sku);
+  } catch (err) {
+    if (err instanceof ScrapeShapeError) throw err;
+    return fetchProductDetailOnce(sku);
+  }
+}
+
+async function fetchProductDetailOnce(sku: string): Promise<ProductDetail> {
   const prime = await politeFetch(
     `${DABS_LOCATOR_URL}/Products/GetDetailUrl?sku=${encodeURIComponent(sku)}`,
-    { headers: { "X-Requested-With": "XMLHttpRequest", Referer: DABS_LOCATOR_URL } }
+    { headers: { "X-Requested-With": "XMLHttpRequest", Referer: DABS_LOCATOR_URL } },
+    undefined,
+    { retries: 1 }
   );
   if (!prime.ok) throw new Error(`GetDetailUrl(${sku}) returned ${prime.status}`);
   const tempData = (prime.headers.getSetCookie?.() ?? [])
@@ -42,7 +56,8 @@ export async function fetchProductDetail(sku: string): Promise<ProductDetail> {
   const res = await politeFetch(
     `${DABS_LOCATOR_URL}/ProductDetail/Index`,
     { headers: { Referer: DABS_LOCATOR_URL } },
-    tempData
+    tempData,
+    { retries: 0 }
   );
   if (!res.ok) throw new Error(`ProductDetail(${sku}) returned ${res.status}`);
   const html = await res.text();

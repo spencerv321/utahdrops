@@ -1,0 +1,27 @@
+name: Keep scheduled workflows enabled
+
+# GitHub disables scheduled workflows in public repos after 60 days without a
+# commit — that silently stopped every scraper on 2026-08-13. Re-enabling via
+# the API weekly keeps them on. This is best-effort (it can't re-enable itself
+# once disabled), so the /api/health monitor is the real safety net.
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-enable scheduled workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          for wf in cron.yml catalog.yml store-inventory.yml keepalive.yml; do
+            gh api -X PUT "repos/$REPO/actions/workflows/$wf/enable" && echo "enabled $wf"
+          done

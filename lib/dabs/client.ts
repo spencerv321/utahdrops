@@ -8,6 +8,7 @@ import { DABS_LOCATOR_URL } from "@/lib/config";
 
 const MIN_INTERVAL_MS = 1100;
 const MAX_RETRIES = 3;
+const REQUEST_TIMEOUT_MS = 30_000;
 
 let lastRequestAt = 0;
 let queue: Promise<unknown> = Promise.resolve();
@@ -30,11 +31,16 @@ async function rateLimit() {
   lastRequestAt = Date.now();
 }
 
-/** All DABS requests funnel through one queue so the 1 req/sec cap is global. */
+/**
+ * All DABS requests funnel through one queue so the 1 req/sec cap is global.
+ * Every request has a timeout so one hung socket can't stall the queue.
+ * Pass `retries: 0` for requests that can't succeed twice (single-use cookies).
+ */
 export function politeFetch(
   url: string,
   init: RequestInit = {},
-  cookies?: string
+  cookies?: string,
+  { retries = MAX_RETRIES }: { retries?: number } = {}
 ): Promise<Response> {
   const task = queue.then(async () => {
     for (let attempt = 0; ; attempt++) {
@@ -42,6 +48,7 @@ export function politeFetch(
       try {
         const res = await fetch(url, {
           ...init,
+          signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
           redirect: init.redirect ?? "follow",
           headers: {
             "User-Agent": userAgent(),
@@ -50,14 +57,14 @@ export function politeFetch(
           },
         });
         if (res.status >= 500 || res.status === 429) {
-          if (attempt >= MAX_RETRIES) {
+          if (attempt >= retries) {
             throw new Error(`DABS request failed after ${attempt + 1} tries: ${res.status} ${url}`);
           }
         } else {
           return res;
         }
       } catch (err) {
-        if (attempt >= MAX_RETRIES) throw err;
+        if (attempt >= retries) throw err;
       }
       await new Promise((r) => setTimeout(r, 2 ** attempt * 2000));
     }

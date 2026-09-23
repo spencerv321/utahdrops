@@ -1,0 +1,39 @@
+name: Catalog scrape
+
+# Runs the full-catalog pass natively in the Actions runner (like
+# store-inventory) instead of through the Vercel function, so it isn't bound by
+# the function time limit or the serverless connection pool.
+
+on:
+  schedule:
+    - cron: "0 6,14,22 * * *" # 3×/day
+  workflow_dispatch:
+
+concurrency:
+  group: catalog
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Scrape catalog
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DABS_CONTACT_EMAIL: ${{ secrets.DABS_CONTACT_EMAIL }}
+          NODE_ENV: production
+        run: pnpm exec tsx scripts/scrape.ts catalog

@@ -180,3 +180,10 @@ export async function getFreshness(): Promise<Date | null> {
     order by finished_at desc limit 1`) as unknown as { finished_at: Date }[];
   return rows[0]?.finished_at ?? null;
 }
+
+/** Catalog freshness plus whether it's older than `staleAfterHours`. */
+export async function getDataStaleness(staleAfterHours = 24) {
+  const freshness = await getFreshness();
+  const stale = !freshness || Date.now() - freshness.getTime() > staleAfterHours * 3600_000;
+  return { freshness, stale };
+}

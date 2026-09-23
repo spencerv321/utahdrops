@@ -5,34 +5,37 @@ import { withRun } from "./run";
 
 /**
  * Per-store pass. Each SKU costs two requests (session prime + detail page),
- * so a full-catalog pass isn't possible every run. Prioritize per the PRD:
- *   (a) watchlisted SKUs
- *   (b) allocated / limited / discontinued (A, L, D) in-stock items
- *   (c) everything else in stock, rotated by last_store_scrape
+ * so a full-catalog pass isn't possible every run. Pick the stalest targets,
+ * with a head start for the ones people care about:
+ *   watchlisted SKUs count as 3 days staler, in-stock allocated / limited /
+ *   discontinued (A, L, D) as 1 day staler, never-scraped SKUs go first.
+ * A pure priority ordering starved everything else whenever the priority
+ * buckets exceeded the budget; staleness-with-boost can't starve anything.
  * Budget is SKUs per run (default 200 ≈ 7½ min at 1.1 s/request).
  */
+const MAX_CONSECUTIVE_FAILURES = 5;
+
 export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCRAPE_BUDGET ?? 200)) {
   return withRun("store_inventory", async () => {
     const targets = await sql<{ csc: string }[]>`
-      select csc from (
-        select p.csc,
-               case
-                 when w.csc is not null then 0
-                 when p.status in ('A', 'L', 'D') then 1
-                 else 2
-               end as priority,
-               p.last_store_scrape
-        from products p
-        left join (select distinct csc from watchlist) w using (csc)
-        where p.in_stock or p.status in ('A', 'L', 'D') or w.csc is not null
-      ) t
-      order by priority, last_store_scrape asc nulls first
+      select p.csc
+      from products p
+      left join (select distinct csc from watchlist) w using (csc)
+      where p.in_stock or w.csc is not null
+      order by
+        coalesce(p.last_store_scrape, 'epoch'::timestamptz)
+          - case
+              when w.csc is not null then interval '3 days'
+              when p.status in ('A', 'L', 'D') then interval '1 day'
+              else interval '0'
+            end asc
       limit ${budget}`;
 
     if (targets.length === 0) return { scraped: 0, note: "no targets" };
 
     let scraped = 0;
     let storeRows = 0;
+    let consecutiveFailures = 0;
     const errors: string[] = [];
 
     for (const { csc } of targets) {
@@ -41,17 +44,21 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
         detail = await fetchProductDetail(csc);
       } catch (err) {
         errors.push(`${csc}: ${err instanceof Error ? err.message : String(err)}`);
-        if (errors.length >= 5) {
-          throw new Error(`store pass aborting after repeated failures: ${errors.join("; ")}`);
+        // Rotate the SKU to the back of the queue so a permanently failing
+        // product can't sit at the front and abort every future run.
+        await sql`update products set last_store_scrape = now() where csc = ${csc}`;
+        if (++consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+          throw new Error(`store pass aborting after ${consecutiveFailures} consecutive failures: ${errors.slice(-MAX_CONSECUTIVE_FAILURES).join("; ")}`);
         }
         continue;
       }
+      consecutiveFailures = 0;
       await persistDetail(detail);
       scraped++;
       storeRows += detail.stores.length;
     }
 
-    return { scraped, store_rows: storeRows, errors };
+    return { scraped, store_rows: storeRows, failed: errors.length, errors: errors.slice(0, 20) };
   });
 }
 
@@ -89,6 +96,20 @@ export async function persistDetail(detail: ProductDetail) {
     qty: s.qty,
     scraped_at: new Date(),
   }));
+
+  // Stores we previously saw stock at but that are missing from this page are
+  // now at zero — otherwise a sell-out leaves phantom stock forever.
+  const seenStoreIds = detail.stores.map((s) => s.storeId);
+  await sql`
+    with gone as (
+      update store_inventory_current
+      set qty = 0, scraped_at = now()
+      where csc = ${detail.sku} and qty > 0
+        and not (store_id = any(${seenStoreIds}::int[]))
+      returning csc, store_id
+    )
+    insert into store_inventory (csc, store_id, qty, scraped_at)
+    select csc, store_id, 0, now() from gone`;
 
   if (current.length > 0) {
     // History rows only where qty actually changed (delta encoding)
