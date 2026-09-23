@@ -263,3 +263,24 @@ export async function getDropListSize(dropDate: string): Promise<number> {
     where drop_date = ${dropDate}`) as unknown as { n: number }[];
   return row?.n ?? 0;
 }
+
+/** Recent changes to one product, newest first, for its history timeline. */
+export async function getProductEvents(csc: string, limit = 8): Promise<EventRow[]> {
+  return (await sql`
+    select e.id, e.csc, e.event_type, e.detail, e.created_at,
+           null as name, null as category, null as status, null as current_price, null as in_stock
+    from inventory_events e
+    where e.csc = ${csc} and e.event_type <> 'store_restock'
+    order by e.created_at desc
+    limit ${limit}`) as unknown as EventRow[];
+}
+
+/** The signed-in user's home stores ("my stores"), in the order they picked them. */
+export async function getUserStoreIds(userId: string | undefined): Promise<number[]> {
+  if (!userId) return [];
+  const rows = (await sql`
+    select store_id from user_stores where user_id = ${userId} order by created_at`) as unknown as {
+    store_id: number;
+  }[];
+  return rows.map((r) => r.store_id);
+}
