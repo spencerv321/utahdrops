@@ -25,6 +25,12 @@ hit DABS, or run Lighthouse against production. Instead I:
 The screenshots in `review/` therefore show **real UI with fake data**. Store names like "STORE 32
 OGDEN" and the product mix are synthetic. The layout, copy, states and bugs are real.
 
+**Update (same day):** you sent a screenshot of the live site
+(`review/live-desktop-home-2026-09-23.jpg`, with your browser bar and bookmarks cropped out).
+It confirms that prod is up and serving from the database, and that the data is frozen at
+**"as of Aug 4, 4:50 PM MT"** (22:50Z, just before the catalog failure streak began). Findings
+it confirms are now marked [V].
+
 ---
 
 ## 1. Executive summary
@@ -35,8 +41,8 @@ OGDEN" and the product mix are synthetic. The layout, copy, states and bugs are 
    **2026-08-13** (`disabled_inactivity`: public repos lose scheduled workflows after 60 days
    without a commit). Nothing has been scraped and no alert has been sent since then **[V]**.
    Before that, the **catalog job had already failed on every run since ~Aug 5** with
-   `canceling statement due to statement timeout` **[V]**. Statewide prices and stock are probably
-   frozen at about **Aug 4, 2026** **[I]**, and the page still says "as of Aug 4".
+   `canceling statement due to statement timeout` **[V]**. Statewide prices and stock are
+   frozen at **Aug 4, 2026, 4:50 PM MT**, and the live home page says exactly that **[V: live screenshot]**.
 2. **The product is well built and the code is clean.** Scraper politeness, delta-encoded
    history, LLM-as-query-translator, compliance copy and OG images are all thoughtful. Build is
    green and typecheck is clean. **Lint fails (2 errors).** There are no tests, no CI, and nothing
@@ -87,7 +93,7 @@ Severity: **critical** (broken now / security-critical) · **high** · **med** �
 | O6 | Reliability | **GitHub cron is lossy and late.** It averaged 11–25 cron runs/day against 29 scheduled, and start times drift up to ~55 min. The "hourly" digest is really every 1–2h. | med | [V] 961 scheduled cron runs analysed | Same fix as O1: move to a real scheduler. | S |
 | O7 | Reliability | **`politeFetch` has no request timeout.** One hung DABS socket stalls the global queue until the 30-min job timeout, and `scrape_runs` rows are left with `ok = null`. | med | [C] `lib/dabs/client.ts:43` | `signal: AbortSignal.timeout(20_000)`; sweep for stale `scrape_runs` (treat as failed). | S |
 | O8 | Ops | **Job-runtime inconsistencies.** Comments say Vercel Hobby has a 60s limit, but the route sets `maxDuration = 300`. The June 14 failures all took ~306s, meaning the function hit its max [I]. Catalog (~30+ DABS requests plus a 28k upsert) is still run through a serverless function. | med | [V] 7 failed runs of ~306s on 2026-06-13/14; `app/api/cron/[job]/route.ts:3`, `cron.yml:15-16` | Run every scraping job in the Actions runner (or on a small always-on worker). Keep the HTTP endpoints only for manual triggers. | S |
-| O9 | Scale | **Unbounded history growth.** `inventory_snapshots`, `store_inventory` and `inventory_events` have no retention or rollup. On the Supabase free tier (500 MB cap) this runs out [I]. Free projects also **pause after 7 days of inactivity**, so the project may be paused right now [I]. | high | [V] local measurement: 125 MB per 1M snapshot rows | Check the Supabase dashboard today. Add daily rollups older than 90 days; prune `store_inventory` to change points; move to Pro ($25/mo) once there are real users. | M |
+| O9 | Scale | **Unbounded history growth.** `inventory_snapshots`, `store_inventory` and `inventory_events` have no retention or rollup. On the Supabase free tier (500 MB cap) this runs out [I]. Free projects also **pause after 7 days of inactivity**. The live site is still serving data (so not paused as of 2026-09-23 [V]), but check the plan and size cap. | high | [V] local measurement: 125 MB per 1M snapshot rows | Check the Supabase dashboard today. Add daily rollups older than 90 days; prune `store_inventory` to change points; move to Pro ($25/mo) once there are real users. | M |
 | O10 | Ops | Actions use Node 20-based `checkout@v4`/`setup-node@v4`/`pnpm/action-setup@v4` (deprecation warnings in logs). | low | [V] run logs | Bump to current majors. | S |
 
 ### 2.2 Correctness
@@ -190,8 +196,14 @@ All screenshots are in `review/` (`desktop-*` = 1366px, `mobile-*` = 390px @2x).
 - **Two search boxes compete** (`desktop-home.jpg`): "Ask in plain English" and "Search 28,000+
   products", each with its own button. A first-time visitor has to decide which one to use
   before they've done anything.
-- **The default result list is alphabetical noise.** 28k rows sorted A→Z, including special
-  orders and out-of-stock items. It's the most prominent thing on the page and the least useful.
+- **The default result list is alphabetical noise** [V: live]. 29,276 rows sorted A→Z. On prod the first
+  rows are "-196 Lemon Seltzer 355ml" (a special order), "-196 Variety 8 Pk", "-196 Zero Sugar…" and
+  "03 Orange Liqour": punctuation-prefixed names, special orders and out-of-stock items. It's the
+  most prominent thing on the page and the least useful. Suggested fix: default to in-stock items
+  sorted by "just restocked" or popularity, exclude `SPECIAL ORDERS%`, and sort on a normalized name
+  that ignores leading punctuation. The placeholder copy also says "28,000+" while the count shows 29,276.
+
+![live home](review/live-desktop-home-2026-09-23.jpg)
 - **Staleness is visible:** "as of Aug 4" is honest, but on a 7-week-old dataset it tells every
   visitor the site is abandoned (O1–O3).
 
@@ -393,8 +405,8 @@ Hobby plan is for non-commercial use**, so moving to Pro (~$20/mo) is a prerequi
 
 ## 6. Open questions for you
 
-1. **Is prod still up?** I couldn't reach utahdrops.com from the sandbox. Is the Supabase project
-   paused or near its size cap? Which plans are you on (Supabase, Vercel, Resend, GitHub)?
+1. ~~Is prod still up?~~ **Answered: yes**, but it's serving Aug 4 data. Still open: is the Supabase
+   project near its size cap? Which plans are you on (Supabase, Vercel, Resend, GitHub)?
 2. **Public or private repo?** Public keeps Actions free, but it's what auto-disabled cron (O1)
    and it exposes the scraper approach. Private costs ~$5–10/mo in Actions minutes at the current
    cadence. Or move scheduling off Actions entirely (recommended).
