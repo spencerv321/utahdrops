@@ -32,7 +32,7 @@ export default async function SearchPage({
       status: params.status,
       inStock: params.instock === "1",
       sort: params.sort as never,
-      page: params.page ? parseInt(params.page, 10) : 1,
+      page: parseInt(params.page ?? "1", 10) || 1,
     }),
     getCategories(),
     getFreshness(),

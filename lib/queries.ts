@@ -25,19 +25,31 @@ export interface SearchFilters {
 
 const PAGE_SIZE = 50;
 
-export async function searchProducts(filters: SearchFilters) {
-  const page = Math.max(0, (filters.page ?? 1) - 1);
-  const tokens = (filters.q ?? "")
+/**
+ * Mirrors products.search_name: drop apostrophes ("maker's" → "makers"), turn
+ * other punctuation into spaces, lowercase. Returns search tokens.
+ */
+export function searchTokens(q: string | undefined, max = 8): string[] {
+  return (q ?? "")
+    .toLowerCase()
+    .replace(/['’`]/g, "")
+    .replace(/[^a-z0-9.]+/g, " ")
     .trim()
     .split(/\s+/)
     .filter(Boolean)
-    .slice(0, 8);
+    .slice(0, max);
+}
+
+export async function searchProducts(filters: SearchFilters) {
+  const requested = Number.isFinite(filters.page) ? Number(filters.page) : 1;
+  const page = Math.min(Math.max(0, requested - 1), 10_000);
+  const tokens = searchTokens(filters.q);
 
   const where = sql`
     where true
     ${tokens.length > 0
       ? tokens.reduce(
-          (acc, t) => sql`${acc} and p.name ilike ${"%" + t + "%"}`,
+          (acc, t) => sql`${acc} and p.search_name like ${"%" + t + "%"}`,
           sql``
         )
       : sql``}
@@ -50,8 +62,10 @@ export async function searchProducts(filters: SearchFilters) {
     filters.sort === "price_asc" ? sql`p.current_price asc nulls last`
     : filters.sort === "price_desc" ? sql`p.current_price desc nulls last`
     : filters.sort === "qty" ? sql`p.store_qty desc nulls last`
-    : tokens.length > 0 ? sql`p.in_stock desc, p.store_qty desc nulls last, p.name asc`
-    : sql`p.name asc`;
+    : filters.sort === "name" ? sql`p.search_name asc`
+    // Best match: in-stock and widely stocked first, so the default list is
+    // bottles people can actually buy rather than A→Z punctuation noise.
+    : sql`p.in_stock desc, p.store_qty desc nulls last, p.search_name asc`;
 
   const rows = (await sql`
     select p.csc, p.name, p.category, p.status, p.size_ml, p.current_price::text,

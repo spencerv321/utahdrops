@@ -56,7 +56,10 @@ export default async function ProductPage({ params }: Props) {
   }
 
   const stocked = stores.filter((s) => s.qty > 0);
-  const storeAsOf = stores[0]?.scraped_at ?? null;
+  const storeAsOf = stores.reduce<Date | null>(
+    (latest, s) => (!latest || s.scraped_at > latest ? s.scraped_at : latest),
+    null
+  );
 
   return (
     <div className="space-y-8">
@@ -80,7 +83,7 @@ export default async function ProductPage({ params }: Props) {
             <p className="max-w-xl text-sm text-muted-foreground">{product.description}</p>
           ) : null}
         </div>
-        <div className="flex flex-col items-end gap-2">
+        <div className="flex flex-col items-start gap-2 sm:items-end">
           <div className="text-3xl font-semibold tabular-nums">
             {formatPrice(product.current_price)}
           </div>
@@ -88,7 +91,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
         <Stat label="In stores statewide" value={formatQty(product.store_qty)} />
         <Stat label="At warehouse" value={formatQty(product.warehouse_qty)} />
         <Stat
@@ -102,7 +105,7 @@ export default async function ProductPage({ params }: Props) {
         <h2 className="text-sm font-semibold text-muted-foreground">
           Statewide quantity — last 90 days
         </h2>
-        <Sparkline points={history} />
+        <Sparkline points={history} until={product.last_seen} />
       </section>
 
       <section className="space-y-2">
@@ -127,7 +130,45 @@ export default async function ProductPage({ params }: Props) {
             in the meantime.
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-lg border">
+          <>
+          {/* Phones: qty up front, tap-to-call and map, no sideways scroll. */}
+          <ul className="divide-y rounded-lg border sm:hidden">
+            {stores.map((s) => (
+              <li
+                key={s.store_id}
+                className={`flex items-center justify-between gap-3 px-3 py-3 ${s.qty === 0 ? "opacity-60" : ""}`}
+              >
+                <div className="min-w-0">
+                  <div className="font-medium">{s.name}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {[s.address, s.city].filter(Boolean).join(", ")}
+                  </div>
+                  <div className="mt-1 flex gap-4 text-sm">
+                    {s.phone ? (
+                      <a className="underline" href={`tel:${s.phone.replace(/[^\d+]/g, "")}`}>
+                        Call
+                      </a>
+                    ) : null}
+                    {s.lat != null ? (
+                      <a
+                        className="underline"
+                        href={`https://maps.google.com/?q=${s.lat},${s.lng}`}
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Map
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-2xl font-semibold tabular-nums">{s.qty}</div>
+                  <div className="text-xs text-muted-foreground">bottles</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden overflow-x-auto rounded-lg border sm:block">
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/50">
@@ -164,6 +205,7 @@ export default async function ProductPage({ params }: Props) {
               </TableBody>
             </Table>
           </div>
+          </>
         )}
       </section>
 
@@ -181,9 +223,9 @@ export default async function ProductPage({ params }: Props) {
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-lg border bg-card p-4">
+    <div className="rounded-lg border bg-card p-3 sm:p-4">
       <div className="text-xs text-muted-foreground">{label}</div>
-      <div className="text-2xl font-semibold tabular-nums">{value}</div>
+      <div className="text-xl font-semibold tabular-nums sm:text-2xl">{value}</div>
       {hint ? <div className="text-xs text-success">{hint}</div> : null}
     </div>
   );

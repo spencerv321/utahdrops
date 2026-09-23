@@ -28,7 +28,7 @@ export function SearchControls({ categories }: { categories: string[] }) {
         <Input
           name="q"
           defaultValue={params.get("q") ?? ""}
-          placeholder="Search 28,000+ products — try “eagle rare” or “high west”"
+          placeholder="Search every DABS product — try “makers mark” or “eagle rare”"
           className="h-11 text-base"
           autoFocus
         />

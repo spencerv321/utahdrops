@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import { geocodeUtah } from "./geocode";
+import { searchTokens } from "@/lib/queries";
 import type { ParsedQuery } from "./parse";
 
 export interface NlProduct {
@@ -47,10 +48,13 @@ function filtersFrom(parsed: ParsedQuery) {
   return sql`
     ${parsed.categories.length > 0 ? sql`and p.category = any(${parsed.categories})` : sql``}
     ${parsed.name_terms.length > 0
-      ? parsed.name_terms.reduce(
-          (acc, t) => sql`${acc} and p.name ilike ${"%" + t + "%"}`,
-          sql``
-        )
+      ? parsed.name_terms
+          .map((t) => searchTokens(t, 6).join(" "))
+          .filter(Boolean)
+          .reduce(
+            (acc, t) => sql`${acc} and p.search_name like ${"%" + t + "%"}`,
+            sql``
+          )
       : sql``}
     ${parsed.price_min != null ? sql`and p.current_price >= ${parsed.price_min}` : sql``}
     ${parsed.price_max != null ? sql`and p.current_price <= ${parsed.price_max}` : sql``}
