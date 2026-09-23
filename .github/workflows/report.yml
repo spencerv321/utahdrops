@@ -1,0 +1,29 @@
+name: Production report
+
+# Read-only diagnostics against the production DB (no emails or user data).
+on:
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: "Look-back window in hours"
+        required: false
+        default: "6"
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Report
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: pnpm exec tsx scripts/report.ts "${{ github.event.inputs.hours }}"
