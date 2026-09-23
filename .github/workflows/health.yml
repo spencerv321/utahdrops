@@ -1,0 +1,21 @@
+name: Health check
+
+# Fails when https://utahdrops.com/api/health reports a stale job, so GitHub
+# emails you about the failed run. Cheap stand-in for an external uptime monitor.
+
+on:
+  schedule:
+    - cron: "40 */3 * * *" # every 3h
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check /api/health
+        run: |
+          code=$(curl -sS -m 60 -o /tmp/health.json -w "%{http_code}" https://utahdrops.com/api/health || echo 000)
+          echo "HTTP $code"
+          cat /tmp/health.json 2>/dev/null || true
+          echo
+          [ "$code" = "200" ] || { echo "::error::utahdrops health check failed (HTTP $code) — see job list above"; exit 1; }

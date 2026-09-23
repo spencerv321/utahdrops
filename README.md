@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Utah Drops
 
-## Getting Started
+Fast search, restock alerts and allocated-drop tracking for Utah's state liquor
+stores ([utahdrops.com](https://utahdrops.com)). Not affiliated with Utah DABS.
 
-First, run the development server:
+Next.js 16 (App Router) · Tailwind 4 · shadcn/ui · Supabase (Postgres + auth) ·
+Resend (email) · Claude Haiku (natural-language search) · GitHub Actions (scrapers).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+DABS locator / allocated page / product-list XLSX
+        │  scrapers (lib/dabs, lib/jobs) — ≤1 req/s, identifiable UA
+        ▼
+Supabase Postgres  ──►  Next.js pages (lib/queries.ts)
+        │
+        └──►  digest job  ──►  Resend emails
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+supabase start                       # local Postgres + auth + Mailpit (needs Docker)
+cp .env.example .env.local           # then fill in values
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Server code talks to Postgres directly via `lib/db.ts` (bypasses RLS). The
+Supabase client is only used for auth.
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Used by | Notes |
+|---|---|---|
+| `DATABASE_URL` | app + jobs | Supabase pooler URL. On Vercel a session-mode URL (port 5432) is switched to the transaction pooler (6543) automatically (`lib/db.ts`). |
+| `DB_POOL_MAX` | app + jobs | Optional. Defaults to 3 on Vercel, 10 elsewhere. |
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | app | Auth only. |
+| `NEXT_PUBLIC_SITE_URL` | app + emails | e.g. `https://utahdrops.com` |
+| `CRON_SECRET` | `/api/cron/[job]` | Bearer token for the HTTP-triggered jobs. |
+| `ANTHROPIC_API_KEY` | NL search | Without it, NL search falls back to keyword search. |
+| `RESEND_API_KEY`, `ALERT_FROM_EMAIL` | digest | Without a key, emails are logged (dry run). |
+| `DABS_CONTACT_EMAIL` | scrapers | Put in the User-Agent. Set it everywhere jobs run. |
+| `STORE_SCRAPE_BUDGET` | store-inventory | SKUs per run. |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GitHub Actions secrets: `DATABASE_URL`, `DABS_CONTACT_EMAIL`, `CRON_SECRET`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Jobs
 
-## Deploy on Vercel
+Run any job locally with `npx tsx scripts/scrape.ts <job>`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Job | Where it runs in prod | Schedule (UTC) |
+|---|---|---|
+| `catalog` | `.github/workflows/catalog.yml` (in the runner) | 06, 14, 22:00 |
+| `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | every 6h |
+| `allocated`, `digest`, `percentiles`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`keepalive.yml` re-enables the scheduled workflows weekly (GitHub disables them
+in public repos after 60 days without a commit). **`/api/health`** returns 503
+when any job's last success is too old; `health.yml` checks it every 3 hours and
+fails (GitHub emails you) when it's red. `migrate.yml` applies new
+`supabase/migrations/*.sql` to production on every push to `main`.
+
+## Runbook: data stopped updating
+
+1. Check `https://utahdrops.com/api/health` to see which job is stale.
+2. Actions tab: are the workflows enabled? Enable them if not. What does the
+   latest failed run's log say?
+3. Supabase dashboard: is the project paused or out of space?
+4. Run the job manually with **Run workflow** on its workflow.
+5. After a gap of more than 48h, the first catalog pass suppresses events on
+   purpose, so weeks of drift aren't emailed as "just restocked". Alerts
+   resume from the next pass.
+
+## Migrations
+
+`supabase/migrations/`. Applied to production automatically by `migrate.yml`
+(tracked in `public.app_migrations`), or locally with `npx tsx scripts/migrate.ts`.

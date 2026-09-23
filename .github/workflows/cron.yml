@@ -7,20 +7,19 @@ name: Utah Drops cron
 
 on:
   schedule:
-    - cron: "0 6,14,22 * * *"  # catalog        — 3×/day
     - cron: "15 13,23 * * *"   # allocated       — 2×/day
     - cron: "0 18 2 * *"       # xlsx            — monthly, 2nd at 18:00
     - cron: "0 7 * * *"        # percentiles     — nightly
     - cron: "5 * * * *"        # digest          — hourly at :05
-  # NOTE: store-inventory is NOT here — it runs natively in store-inventory.yml
-  # (the per-store scrape exceeds Vercel Hobby's 60s function limit).
+  # NOTE: catalog and store-inventory are NOT here — they run natively in
+  # catalog.yml / store-inventory.yml (too slow for a serverless function).
   workflow_dispatch:
     inputs:
       job:
         description: "Job to run manually"
         required: true
         type: choice
-        options: [catalog, allocated, xlsx, percentiles, digest]
+        options: [allocated, xlsx, percentiles, digest]
 
 concurrency:
   group: utahdrops-cron-${{ github.event.schedule || github.event.inputs.job }}
@@ -36,7 +35,6 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           case "${{ github.event.schedule }}" in
-            "0 6,14,22 * * *") JOB=catalog ;;
             "15 13,23 * * *")  JOB=allocated ;;
             "0 18 2 * *")      JOB=xlsx ;;
             "0 7 * * *")       JOB=percentiles ;;

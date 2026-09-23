@@ -1,13 +1,19 @@
 import { sql } from "@/lib/db";
 import { fetchFullCatalog, type CatalogRow } from "@/lib/dabs/catalog";
 import { cleanName, parseSizeMl, parseStatusCode } from "@/lib/dabs/client";
-import { withRun } from "./run";
+import { withRun, lastSuccessfulRun } from "./run";
 
 interface ExistingProduct {
   csc: string;
+  name: string;
+  category: string | null;
   status: string | null;
+  is_spa: boolean;
   current_price: string | null;
+  warehouse_qty: number | null;
   store_qty: number | null;
+  on_order_qty: number | null;
+  in_stock: boolean;
 }
 
 type EventInsert = {
@@ -16,71 +22,108 @@ type EventInsert = {
   detail: Record<string, unknown>;
 };
 
+type Product = ReturnType<typeof normalizeProduct>;
+
 /**
- * Full catalog pass: upsert products, write delta-encoded statewide
+ * If the previous successful pass is older than this, the diff spans too much
+ * time to present as "what just changed" — treat the pass as a re-bootstrap.
+ */
+const CATCH_UP_GAP_MS = 48 * 3600_000;
+
+/**
+ * Full catalog pass: upsert changed products, write delta-encoded statewide
  * snapshots, and diff against previous state to emit inventory_events.
- * On the very first run (empty table) events are suppressed — 28k
- * "new products" on bootstrap would poison the what's-new feed.
+ *
+ * The diff runs in memory against the products table (which always holds the
+ * latest observation), so cost scales with what changed — never with the size
+ * of the snapshot history.
+ *
+ * Events are suppressed on the very first run (28k "new products" would poison
+ * the what's-new feed) and after a long outage (weeks of drift would all be
+ * announced as fresh restocks).
  */
 export async function runCatalogJob() {
+  const lastOk = await lastSuccessfulRun("catalog");
   return withRun("catalog", async () => {
     const rows = await fetchFullCatalog();
-    const scrapedAt = new Date();
 
     const existing = await sql<ExistingProduct[]>`
-      select csc, status, current_price::text, store_qty from products`;
-    const bootstrap = existing.length === 0;
+      select csc, name, category, status, is_spa, current_price::text,
+             warehouse_qty, store_qty, on_order_qty, in_stock
+      from products`;
     const byCsc = new Map(existing.map((p) => [p.csc, p]));
 
-    const events: EventInsert[] = [];
-    const products = rows.map((row) => normalizeProduct(row));
+    const bootstrap = existing.length === 0 || lastOk == null;
+    const catchUp = !bootstrap && Date.now() - lastOk.getTime() > CATCH_UP_GAP_MS;
+    const emitEvents = !bootstrap && !catchUp;
 
-    if (!bootstrap) {
-      for (const p of products) {
-        const prev = byCsc.get(p.csc);
-        if (!prev) {
-          events.push({
-            csc: p.csc,
-            event_type: "new_product",
-            detail: { name: p.name, price: p.current_price, status: p.status },
-          });
-          continue;
-        }
-        const prevPrice = prev.current_price ? parseFloat(prev.current_price) : null;
-        if (p.current_price != null && prevPrice != null && p.current_price !== prevPrice) {
-          events.push({
-            csc: p.csc,
-            event_type: "price_change",
-            detail: { name: p.name, old: prevPrice, new: p.current_price },
-          });
-        }
-        if (p.status && prev.status && p.status !== prev.status) {
-          events.push({
-            csc: p.csc,
-            event_type: "status_change",
-            detail: { name: p.name, old: prev.status, new: p.status },
-          });
-        }
-        const prevQty = prev.store_qty ?? 0;
-        const newQty = p.store_qty ?? 0;
-        if (prevQty === 0 && newQty > 0) {
-          events.push({
-            csc: p.csc,
-            event_type: "restock",
-            detail: { name: p.name, qty: newQty, scope: "statewide" },
-          });
-        } else if (prevQty > 0 && newQty === 0) {
-          events.push({
-            csc: p.csc,
-            event_type: "out_of_stock",
-            detail: { name: p.name, scope: "statewide" },
-          });
-        }
+    const products = rows.map((row) => normalizeProduct(row));
+    const events: EventInsert[] = [];
+    const changed: Product[] = [];
+    const snapshots: Product[] = [];
+
+    for (const p of products) {
+      const prev = byCsc.get(p.csc);
+      if (!prev) {
+        changed.push(p);
+        snapshots.push(p);
+        events.push({
+          csc: p.csc,
+          event_type: "new_product",
+          detail: { name: p.name, price: p.current_price, status: p.status },
+        });
+        continue;
+      }
+
+      const prevPrice = prev.current_price != null ? parseFloat(prev.current_price) : null;
+      const snapshotChanged =
+        prevPrice !== p.current_price ||
+        prev.warehouse_qty !== p.warehouse_qty ||
+        prev.store_qty !== p.store_qty ||
+        prev.on_order_qty !== p.on_order_qty;
+      const rowChanged =
+        snapshotChanged ||
+        prev.name !== p.name ||
+        prev.category !== p.category ||
+        prev.status !== p.status ||
+        prev.is_spa !== p.is_spa ||
+        prev.in_stock !== p.in_stock;
+      if (snapshotChanged) snapshots.push(p);
+      if (rowChanged) changed.push(p);
+
+      if (p.current_price != null && prevPrice != null && p.current_price !== prevPrice) {
+        events.push({
+          csc: p.csc,
+          event_type: "price_change",
+          detail: { name: p.name, old: prevPrice, new: p.current_price },
+        });
+      }
+      if (p.status && prev.status && p.status !== prev.status) {
+        events.push({
+          csc: p.csc,
+          event_type: "status_change",
+          detail: { name: p.name, old: prev.status, new: p.status },
+        });
+      }
+      const prevQty = prev.store_qty ?? 0;
+      const newQty = p.store_qty ?? 0;
+      if (prevQty === 0 && newQty > 0) {
+        events.push({
+          csc: p.csc,
+          event_type: "restock",
+          detail: { name: p.name, qty: newQty, scope: "statewide" },
+        });
+      } else if (prevQty > 0 && newQty === 0) {
+        events.push({
+          csc: p.csc,
+          event_type: "out_of_stock",
+          detail: { name: p.name, scope: "statewide" },
+        });
       }
     }
 
-    // Upsert products in chunks
-    for (const chunk of chunks(products, 1000)) {
+    // Upsert only rows that changed — unchanged rows just get last_seen bumped.
+    for (const chunk of chunks(changed, 1000)) {
       await sql`
         insert into products ${sql(
           chunk,
@@ -101,31 +144,30 @@ export async function runCatalogJob() {
           last_seen = now()`;
     }
 
-    // Delta-encoded snapshots: only rows whose tracked values changed
-    const snapshotRows = await sql<{ count: string }[]>`
-      with latest as (
-        select distinct on (csc) csc, warehouse_qty, store_qty, on_order_qty, price
-        from inventory_snapshots order by csc, scraped_at desc
-      ),
-      incoming as (
-        select csc, warehouse_qty, store_qty, on_order_qty, current_price as price
-        from products where last_seen >= ${scrapedAt}
-      ),
-      inserted as (
-        insert into inventory_snapshots (csc, scraped_at, warehouse_qty, store_qty, on_order_qty, price)
-        select i.csc, now(), i.warehouse_qty, i.store_qty, i.on_order_qty, i.price
-        from incoming i
-        left join latest l using (csc)
-        where l.csc is null
-           or l.warehouse_qty is distinct from i.warehouse_qty
-           or l.store_qty is distinct from i.store_qty
-           or l.on_order_qty is distinct from i.on_order_qty
-           or l.price is distinct from i.price
-        returning 1
-      )
-      select count(*)::text as count from inserted`;
+    const changedSet = new Set(changed.map((p) => p.csc));
+    const unchanged = products.filter((p) => !changedSet.has(p.csc)).map((p) => p.csc);
+    for (const chunk of chunks(unchanged, 5000)) {
+      await sql`update products set last_seen = now() where csc = any(${chunk})`;
+    }
 
-    if (events.length > 0) {
+    // Delta-encoded snapshots: products always hold the previous observation,
+    // so "changed vs products" is exactly "changed vs latest snapshot".
+    for (const chunk of chunks(snapshots, 1000)) {
+      await sql`
+        insert into inventory_snapshots ${sql(
+          chunk.map((p) => ({
+            csc: p.csc,
+            scraped_at: new Date(),
+            warehouse_qty: p.warehouse_qty,
+            store_qty: p.store_qty,
+            on_order_qty: p.on_order_qty,
+            price: p.current_price,
+          })),
+          "csc", "scraped_at", "warehouse_qty", "store_qty", "on_order_qty", "price"
+        )}`;
+    }
+
+    if (emitEvents) {
       for (const chunk of chunks(events, 1000)) {
         await sql`
           insert into inventory_events ${sql(
@@ -137,9 +179,15 @@ export async function runCatalogJob() {
 
     return {
       fetched: rows.length,
-      bootstrap,
-      snapshots_written: Number(snapshotRows[0].count),
-      events: events.length,
+      changed: changed.length,
+      snapshots_written: snapshots.length,
+      events: emitEvents ? events.length : 0,
+      ...(emitEvents
+        ? {}
+        : {
+            events_suppressed: events.length,
+            reason: bootstrap ? "bootstrap" : `catch-up after gap since ${lastOk?.toISOString()}`,
+          }),
     };
   });
 }
