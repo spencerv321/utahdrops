@@ -1,23 +1,24 @@
-import type { Metadata } from "next";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/config";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { TabBar } from "@/components/tab-bar";
 import { StaleDataBanner } from "@/components/stale-data-banner";
 import { AgeGate } from "@/components/age-gate";
 import { Toaster } from "@/components/ui/sonner";
 
-// Grotesque for all UI + data (good tabular figures); Fraunces gives the
-// wordmark and headlines a single deliberate bit of character.
-const sans = Hanken_Grotesk({
-  variable: "--font-hanken",
+// Instrument Sans for UI + data (good tabular figures); Bricolage Grotesque
+// gives the wordmark and headlines their chunky, drop-poster character.
+const sans = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin"],
   display: "swap",
 });
 
-const display = Fraunces({
-  variable: "--font-fraunces",
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
   display: "swap",
 });
@@ -46,6 +47,15 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  // Lets the tab bar pad itself clear of the iPhone home indicator.
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4ede2" },
+    { media: "(prefers-color-scheme: dark)", color: "#14100e" },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -56,11 +66,13 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-sans">
+      {/* Bottom padding keeps content clear of the phone tab bar. */}
+      <body className="flex min-h-full flex-col pb-[calc(4.5rem+env(safe-area-inset-bottom))] font-sans sm:pb-0">
         <SiteHeader />
         <StaleDataBanner />
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">{children}</main>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">{children}</main>
         <SiteFooter />
+        <TabBar />
         <AgeGate />
         <Toaster />
       </body>

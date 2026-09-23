@@ -19,6 +19,7 @@ export interface SearchFilters {
   category?: string;
   status?: string;
   inStock?: boolean;
+  maxPrice?: number;
   sort?: "name" | "price_asc" | "price_desc" | "qty";
   page?: number;
 }
@@ -49,13 +50,15 @@ export async function searchProducts(filters: SearchFilters) {
     where true
     ${tokens.length > 0
       ? tokens.reduce(
-          (acc, t) => sql`${acc} and p.search_name like ${"%" + t + "%"}`,
+          // Names often omit the style ("WELLER 12YR"), so a word may match the category.
+          (acc, t) => sql`${acc} and (p.search_name like ${"%" + t + "%"} or lower(p.category) like ${"%" + t + "%"})`,
           sql``
         )
       : sql``}
     ${filters.category ? sql`and p.category = ${filters.category}` : sql``}
     ${filters.status ? sql`and p.status = ${filters.status}` : sql``}
     ${filters.inStock ? sql`and p.in_stock` : sql``}
+    ${filters.maxPrice ? sql`and p.current_price <= ${filters.maxPrice}` : sql``}
   `;
 
   const orderBy =
@@ -201,4 +204,62 @@ export async function getDataStaleness(staleAfterHours = 24) {
   const freshness = await getFreshness();
   const stale = !freshness || Date.now() - freshness.getTime() > staleAfterHours * 3600_000;
   return { freshness, stale };
+}
+
+export type FeedEvent = EventRow & { size_ml: number | null; store_qty: number | null };
+
+/**
+ * Home "Just happened" feed: the latest change per product, minus noise
+ * (special orders, cheap RTD packs and cans, products nobody can buy), so a
+ * catalog pass full of vodka-seltzer restocks doesn't bury the bourbon.
+ * Widens the window when a quiet week leaves too little to show.
+ */
+export async function getHomeFeed(limit = 12): Promise<FeedEvent[]> {
+  for (const days of [7, 30]) {
+    const rows = (await sql`
+      select * from (
+        select distinct on (e.csc)
+               e.id, e.csc, e.event_type, e.detail, e.created_at,
+               p.name, p.category, p.status, p.current_price::text, p.in_stock,
+               p.size_ml, p.store_qty
+        from inventory_events e
+        join products p using (csc)
+        where e.created_at > now() - make_interval(days => ${days})
+          and e.event_type in ('restock', 'new_product', 'price_change', 'status_change')
+          and p.delisted_at is null
+          and coalesce(p.status, '') not in ('S', 'N', 'X')
+          and coalesce(p.category, '') not like 'SPECIAL ORDERS%'
+          and coalesce(p.current_price, 0) >= 20
+          and coalesce(p.size_ml, 750) >= 375
+          and p.search_name !~ '(\\m\\d+ ?pk\\M|variety|\\mrtd\\M|\\mcans?\\M|seltzer)'
+          -- only real price drops (DABS also shaves cents off, and raises prices)
+          and (e.event_type <> 'price_change'
+               or (e.detail->>'new')::numeric <= (e.detail->>'old')::numeric * 0.95)
+          -- a status change only matters when it's news: clearance or allocation
+          and (e.event_type <> 'status_change' or e.detail->>'new' in ('D', 'A', 'L'))
+          -- restocks of things that are gone again aren't actionable
+          and (e.event_type <> 'restock' or p.in_stock)
+        order by e.csc, e.created_at desc
+      ) latest
+      order by created_at desc
+      limit ${limit}`) as unknown as FeedEvent[];
+    if (rows.length >= 4 || days === 30) return rows;
+  }
+  return [];
+}
+
+/** Which of these products the signed-in user already watches. */
+export async function getWatchedSet(userId: string | undefined, cscs: string[]): Promise<Set<string>> {
+  if (!userId || cscs.length === 0) return new Set();
+  const rows = (await sql`
+    select csc from watchlist where user_id = ${userId} and csc = any(${cscs})`) as unknown as { csc: string }[];
+  return new Set(rows.map((r) => r.csc));
+}
+
+/** Bottles on the list for a given drop date (0 until DABS posts it). */
+export async function getDropListSize(dropDate: string): Promise<number> {
+  const [row] = (await sql`
+    select count(distinct product_name)::int as n from allocated_drops
+    where drop_date = ${dropDate}`) as unknown as { n: number }[];
+  return row?.n ?? 0;
 }

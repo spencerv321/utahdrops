@@ -1,67 +1,100 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* Follow the phone/OS setting: people use this in dim stores at night. */
+@custom-variant dark (@media (prefers-color-scheme: dark));
 
+/*
+ * "Drop Feed" palette: parchment ground, ink text, oxblood brand, gold for the
+ * one call to action that matters on a screen. Event tones (in stock, price
+ * drop, new, clearance) differ in lightness as well as hue.
+ */
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.982 0.007 83);
-  --foreground: oklch(0.2 0.028 45);
-  --card: oklch(0.998 0.004 86);
-  --card-foreground: oklch(0.2 0.028 45);
-  --popover: oklch(0.998 0.004 86);
-  --popover-foreground: oklch(0.2 0.028 45);
-  --primary: oklch(0.47 0.14 52);
-  --primary-foreground: oklch(0.98 0.012 85);
-  --secondary: oklch(0.945 0.014 78);
-  --secondary-foreground: oklch(0.3 0.04 45);
-  --muted: oklch(0.95 0.011 82);
-  --muted-foreground: oklch(0.47 0.032 52);
-  --accent: oklch(0.92 0.035 70);
-  --accent-foreground: oklch(0.3 0.05 45);
-  --destructive: oklch(0.55 0.2 27);
-  --destructive-foreground: oklch(0.985 0.005 90);
-  --border: oklch(0.9 0.014 75);
-  --input: oklch(0.9 0.014 75);
-  --ring: oklch(0.47 0.14 52);
-  --chart-1: oklch(0.55 0.15 45);
-  --chart-2: oklch(0.6 0.12 180);
-  --chart-3: oklch(0.4 0.07 230);
-  --chart-4: oklch(0.75 0.15 85);
-  --chart-5: oklch(0.65 0.18 30);
-  --success: oklch(0.52 0.12 150);
-  --warning: oklch(0.7 0.15 80);
-  --clearance: oklch(0.58 0.16 48);
+  color-scheme: light dark;
+  --radius: 0.75rem;
+  --background: #f4ede2;
+  --foreground: #1c1311;
+  --card: #fffbf4;
+  --card-foreground: #1c1311;
+  --popover: #fffbf4;
+  --popover-foreground: #1c1311;
+  --primary: #7a1e27;
+  --primary-foreground: #fbf3e6;
+  --secondary: #ede3d5;
+  --secondary-foreground: #1c1311;
+  --muted: #ede3d5;
+  --muted-foreground: #5b4a40;
+  --accent: #ede3d5;
+  --accent-foreground: #1c1311;
+  --destructive: #b42318;
+  --destructive-foreground: #fffbf4;
+  --border: #e3d6c4;
+  --input: #cdbba5;
+  --ring: #7a1e27;
+  --brand: #4a1219;
+  --brand-foreground: #fbf3e6;
+  --brand-muted: #e6cfc8;
+  --brand-raised: #5f1c24;
+  --gold: #e3a942;
+  --gold-foreground: #2b0a0e;
+  --success: #17583a;
+  --success-soft: #ddefe2;
+  --warning: #c98a12;
+  --clearance: #2f3a86;
+  --clearance-soft: #e1e4f4;
+  --price-drop: #8a3510;
+  --price-drop-soft: #f7dccb;
+  --fresh: #5e4006;
+  --fresh-soft: #f6e3b8;
+  --chart-1: #7a1e27;
+  --chart-2: #17583a;
+  --chart-3: #2f3a86;
+  --chart-4: #c98a12;
+  --chart-5: #8a3510;
 }
 
-.dark {
-  --background: oklch(0.18 0.015 50);
-  --foreground: oklch(0.95 0.005 85);
-  --card: oklch(0.22 0.015 50);
-  --card-foreground: oklch(0.95 0.005 85);
-  --popover: oklch(0.22 0.015 50);
-  --popover-foreground: oklch(0.95 0.005 85);
-  --primary: oklch(0.72 0.13 55);
-  --primary-foreground: oklch(0.18 0.02 50);
-  --secondary: oklch(0.27 0.015 55);
-  --secondary-foreground: oklch(0.95 0.005 85);
-  --muted: oklch(0.27 0.015 55);
-  --muted-foreground: oklch(0.68 0.015 70);
-  --accent: oklch(0.3 0.03 60);
-  --accent-foreground: oklch(0.95 0.005 85);
-  --destructive: oklch(0.62 0.19 27);
-  --destructive-foreground: oklch(0.95 0.005 85);
-  --border: oklch(0.3 0.015 55);
-  --input: oklch(0.3 0.015 55);
-  --ring: oklch(0.72 0.13 55);
-  --chart-1: oklch(0.65 0.15 45);
-  --chart-2: oklch(0.65 0.12 180);
-  --chart-3: oklch(0.55 0.08 230);
-  --chart-4: oklch(0.8 0.15 85);
-  --chart-5: oklch(0.7 0.18 30);
-  --success: oklch(0.62 0.12 150);
-  --warning: oklch(0.75 0.15 80);
-  --clearance: oklch(0.72 0.15 55);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #14100e;
+    --foreground: #f4ede2;
+    --card: #1e1815;
+    --card-foreground: #f4ede2;
+    --popover: #1e1815;
+    --popover-foreground: #f4ede2;
+    --primary: #e3a942;
+    --primary-foreground: #1c1311;
+    --secondary: #2a221e;
+    --secondary-foreground: #f4ede2;
+    --muted: #2a221e;
+    --muted-foreground: #b8a898;
+    --accent: #2a221e;
+    --accent-foreground: #f4ede2;
+    --destructive: #f07167;
+    --destructive-foreground: #14100e;
+    --border: #332a25;
+    --input: #4a3f38;
+    --ring: #e3a942;
+    --brand: #4a1219;
+    --brand-foreground: #fbf3e6;
+    --brand-muted: #e6cfc8;
+    --brand-raised: #5f1c24;
+    --gold: #e3a942;
+    --gold-foreground: #2b0a0e;
+    --success: #6fcf97;
+    --success-soft: #16301f;
+    --warning: #e3a942;
+    --clearance: #aab3f2;
+    --clearance-soft: #1f2340;
+    --price-drop: #f0a57a;
+    --price-drop-soft: #3a2014;
+    --fresh: #f0c66b;
+    --fresh-soft: #3a2c0c;
+    --chart-1: #e3a942;
+    --chart-2: #6fcf97;
+    --chart-3: #aab3f2;
+    --chart-4: #f0c66b;
+    --chart-5: #f0a57a;
+  }
 }
 
 @theme inline {
@@ -94,10 +127,22 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
   --color-warning: var(--warning);
   --color-clearance: var(--clearance);
-  --font-sans: var(--font-hanken);
-  --font-display: var(--font-fraunces);
+  --color-clearance-soft: var(--clearance-soft);
+  --color-price-drop: var(--price-drop);
+  --color-price-drop-soft: var(--price-drop-soft);
+  --color-fresh: var(--fresh);
+  --color-fresh-soft: var(--fresh-soft);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-raised: var(--brand-raised);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --font-sans: var(--font-instrument);
+  --font-display: var(--font-bricolage);
 }
 
 @layer base {
@@ -107,11 +152,12 @@
   body {
     @apply bg-background text-foreground;
   }
-  /* Headlines carry the one bit of character; UI + data stay grotesque. */
+  /* Chunky display type for headlines; everything else stays in the sans. */
   h1 {
-    font-family: var(--font-fraunces), Georgia, serif;
+    font-family: var(--font-bricolage), system-ui, sans-serif;
     font-optical-sizing: auto;
-    letter-spacing: -0.01em;
+    font-weight: 800;
+    letter-spacing: -0.03em;
   }
   /* Tabular figures everywhere numbers matter (tables, prices, counts). */
   .tabular-nums {

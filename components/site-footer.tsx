@@ -3,13 +3,13 @@ import { EmailCapture } from "@/components/email-capture";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-16 border-t bg-muted/40">
-      <div className="mx-auto max-w-6xl space-y-6 px-4 py-10">
+    <footer className="mt-16 border-t bg-secondary/60">
+      <div className="mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-6">
         <div className="space-y-2">
-          <h2 className="text-sm font-semibold">
+          <h2 className="font-display text-xl font-extrabold tracking-[-0.02em]">
             Know when the list posts and your bottles come back
           </h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Free email alerts for allocated drops and bottles you watch. No password — we send a sign-in link.
           </p>
           <EmailCapture />

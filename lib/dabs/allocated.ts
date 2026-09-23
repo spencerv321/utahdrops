@@ -17,6 +17,15 @@ export function thirdSaturday(year: number, month: number): Date {
   return new Date(Date.UTC(year, month, 1 + firstSaturdayOffset + 14));
 }
 
+/** The next drop day (today counts until the day after), UTC midnight. */
+export function nextDropDate(now = new Date()): Date {
+  const next = thirdSaturday(now.getUTCFullYear(), now.getUTCMonth());
+  if (now.getTime() > next.getTime() + 86400_000) {
+    return thirdSaturday(now.getUTCFullYear(), now.getUTCMonth() + 1);
+  }
+  return next;
+}
+
 /**
  * The list posts ~a week before the drop. Attribute scraped rows to the
  * upcoming third Saturday — or this month's if it was within the last week
