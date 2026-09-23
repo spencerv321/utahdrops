@@ -5,13 +5,19 @@ import { createClient } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { ProductTable } from "@/components/product-table";
 import { AlertPrefs } from "@/components/alert-prefs";
+import { HomeStores, type StoreOption } from "@/components/home-stores";
 import type { ProductRow } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = { title: "Watchlist" };
 
-export default async function WatchlistPage() {
+export default async function WatchlistPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ welcome?: string }>;
+}) {
+  const { welcome } = await searchParams;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/watchlist");
@@ -30,6 +36,12 @@ export default async function WatchlistPage() {
       { watchlist_email: boolean; allocated_email: boolean }[]
     >,
   ]);
+  const [storeOptions, homeRows] = await Promise.all([
+    sql`select id, name, city from stores order by city nulls last, name` as unknown as Promise<StoreOption[]>,
+    sql`select store_id from user_stores where user_id = ${user.id} order by created_at` as unknown as Promise<
+      { store_id: number }[]
+    >,
+  ]);
 
   const prefs = prefRows[0] ?? { watchlist_email: true, allocated_email: false };
 
@@ -38,15 +50,24 @@ export default async function WatchlistPage() {
       <section className="space-y-1 pt-4">
         <h1 className="text-2xl font-semibold tracking-tight">Your watchlist</h1>
         <p className="text-sm text-muted-foreground">
-          Signed in as {user.email}. We check inventory a few times a day and
+          Signed in as {user.email}. We check inventory several times a day and
           email you when something on this list changes.
         </p>
       </section>
+
+      {welcome ? (
+        <div role="status" className="rounded-lg border border-success/30 bg-success/10 p-4 text-sm">
+          <strong>You&apos;re signed in.</strong> Turn on allocated drop alerts below, pick your
+          stores, then tap <em>Watch</em> on any bottle to get an email when it comes back.
+        </div>
+      ) : null}
 
       <AlertPrefs
         watchlistEmail={prefs.watchlist_email}
         allocatedEmail={prefs.allocated_email}
       />
+
+      <HomeStores stores={storeOptions} selected={homeRows.map((r) => r.store_id)} />
 
       {rows.length === 0 ? (
         <div className="rounded-lg border border-dashed p-12 text-center text-muted-foreground">

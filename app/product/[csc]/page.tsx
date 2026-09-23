@@ -10,16 +10,9 @@ import { sql } from "@/lib/db";
 import { StatusBadge } from "@/components/status-badge";
 import { Sparkline } from "@/components/sparkline";
 import { WatchButton } from "@/components/watch-button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { StoreAvailability } from "@/components/store-availability";
 import { displayName, formatAsOf, formatPrice, formatQty, formatSize } from "@/lib/format";
-import { DABS_LOCATOR_URL } from "@/lib/config";
+import { DABS_LOCATOR_URL, SITE_URL } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${displayName(product.name)} — price & availability`,
     description: `Current Utah DABS availability, price history, and per-store quantities for ${displayName(product.name)} (${csc}).`,
+    alternates: { canonical: `/product/${csc}` },
   };
 }
 
@@ -61,8 +55,38 @@ export default async function ProductPage({ params }: Props) {
     null
   );
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: displayName(product.name),
+    sku: product.csc,
+    category: product.category ?? undefined,
+    description: product.description ?? undefined,
+    url: `${SITE_URL}/product/${product.csc}`,
+    ...(product.current_price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: Number(product.current_price).toFixed(2),
+            priceCurrency: "USD",
+            availability: product.in_stock
+              ? "https://schema.org/InStock"
+              : product.delisted_at
+                ? "https://schema.org/Discontinued"
+                : "https://schema.org/OutOfStock",
+            seller: { "@type": "Organization", name: "Utah DABS" },
+          },
+        }
+      : {}),
+  };
+
   return (
     <div className="space-y-8">
+      <script
+        type="application/ld+json"
+        // Escape "<" so product text can never close the script tag.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
@@ -70,6 +94,11 @@ export default async function ProductPage({ params }: Props) {
               {displayName(product.name)}
             </h1>
             <StatusBadge status={product.status} />
+            {product.delisted_at ? (
+              <span className="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                No longer listed by DABS
+              </span>
+            ) : null}
             {product.is_spa ? (
               <span className="text-xs font-medium text-destructive">SPA pricing</span>
             ) : null}
@@ -130,82 +159,18 @@ export default async function ProductPage({ params }: Props) {
             in the meantime.
           </div>
         ) : (
-          <>
-          {/* Phones: qty up front, tap-to-call and map, no sideways scroll. */}
-          <ul className="divide-y rounded-lg border sm:hidden">
-            {stores.map((s) => (
-              <li
-                key={s.store_id}
-                className={`flex items-center justify-between gap-3 px-3 py-3 ${s.qty === 0 ? "opacity-60" : ""}`}
-              >
-                <div className="min-w-0">
-                  <div className="font-medium">{s.name}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {[s.address, s.city].filter(Boolean).join(", ")}
-                  </div>
-                  <div className="mt-1 flex gap-4 text-sm">
-                    {s.phone ? (
-                      <a className="underline" href={`tel:${s.phone.replace(/[^\d+]/g, "")}`}>
-                        Call
-                      </a>
-                    ) : null}
-                    {s.lat != null ? (
-                      <a
-                        className="underline"
-                        href={`https://maps.google.com/?q=${s.lat},${s.lng}`}
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        Map
-                      </a>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="text-2xl font-semibold tabular-nums">{s.qty}</div>
-                  <div className="text-xs text-muted-foreground">bottles</div>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="hidden overflow-x-auto rounded-lg border sm:block">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/50">
-                  <TableHead>Store</TableHead>
-                  <TableHead>Address</TableHead>
-                  <TableHead>City</TableHead>
-                  <TableHead>Phone</TableHead>
-                  <TableHead className="text-right">Qty</TableHead>
-                  <TableHead />
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {stores.map((s) => (
-                  <TableRow key={s.store_id} className={s.qty === 0 ? "opacity-50" : ""}>
-                    <TableCell className="font-medium">{s.name}</TableCell>
-                    <TableCell className="text-sm">{s.address}</TableCell>
-                    <TableCell className="text-sm">{s.city}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{s.phone}</TableCell>
-                    <TableCell className="text-right font-semibold tabular-nums">{s.qty}</TableCell>
-                    <TableCell>
-                      {s.lat != null ? (
-                        <a
-                          className="text-xs text-muted-foreground underline"
-                          href={`https://maps.google.com/?q=${s.lat},${s.lng}`}
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          map
-                        </a>
-                      ) : null}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-          </>
+          <StoreAvailability
+            stores={stores.map((s) => ({
+              store_id: s.store_id,
+              name: s.name,
+              address: s.address,
+              city: s.city,
+              phone: s.phone,
+              lat: s.lat,
+              lng: s.lng,
+              qty: s.qty,
+            }))}
+          />
         )}
       </section>
 

@@ -107,6 +107,8 @@ function EventLine({ type, detail }: { type: string; detail: Record<string, unkn
       return <><PackagePlus className={ICON} />New product · {formatPrice(detail.price as number)}</>;
     case "restock":
       return <><PackageCheck className={ICON} />Back in stock — {String(detail.qty ?? "?")} bottles statewide</>;
+    case "store_restock":
+      return <><PackageCheck className={ICON} />Back at {String(detail.store_name ?? "a store")} — {String(detail.qty ?? "?")} bottles</>;
     case "out_of_stock":
       return <><PackageX className={ICON} />Out of stock statewide</>;
     case "price_change": {

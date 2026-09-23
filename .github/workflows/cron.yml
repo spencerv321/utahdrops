@@ -19,7 +19,12 @@ on:
         description: "Job to run manually"
         required: true
         type: choice
-        options: [allocated, xlsx, percentiles, digest]
+        options: [allocated, xlsx, percentiles, digest, invite-signups]
+      send:
+        description: "invite-signups only: actually send (otherwise dry run)"
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: utahdrops-cron-${{ github.event.schedule || github.event.inputs.job }}
@@ -42,10 +47,12 @@ jobs:
             *)                 JOB="${{ github.event.inputs.job }}" ;;
           esac
           if [ -z "$JOB" ]; then echo "::error::could not resolve job"; exit 1; fi
-          echo "Running job: $JOB"
+          QUERY=""
+          if [ "$JOB" = "invite-signups" ] && [ "${{ github.event.inputs.send }}" = "true" ]; then QUERY="?send=1"; fi
+          echo "Running job: $JOB$QUERY"
           code=$(curl -sS -m 300 -o /tmp/out.json -w "%{http_code}" \
             -H "Authorization: Bearer $CRON_SECRET" \
-            "$BASE_URL/api/cron/$JOB")
+            "$BASE_URL/api/cron/$JOB$QUERY")
           echo "HTTP $code"
           cat /tmp/out.json || true
           echo

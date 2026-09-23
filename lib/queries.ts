@@ -96,8 +96,9 @@ export async function getProduct(csc: string) {
     select csc, name, category, subcategory, status, size_ml, is_spa, description,
            current_price::text, warehouse_qty, store_qty, on_order_qty, in_stock,
            price_percentile_in_category::float8 as price_percentile,
-           first_seen, last_seen, last_store_scrape
+           first_seen, last_seen, last_store_scrape, delisted_at
     from products where csc = ${csc}`) as unknown as (ProductRow & {
+    delisted_at: Date | null;
     subcategory: string | null;
     description: string | null;
     price_percentile: number | null;
@@ -163,7 +164,7 @@ export async function getEvents(type?: string, limit = 100): Promise<EventRow[]>
            p.name, p.category, p.status, p.current_price::text, p.in_stock
     from inventory_events e
     left join products p using (csc)
-    ${type ? sql`where e.event_type = ${type}` : sql``}
+    ${type ? sql`where e.event_type = ${type}` : sql`where e.event_type <> 'store_restock'`}
     order by e.created_at desc
     limit ${limit}`) as unknown as EventRow[];
 }
