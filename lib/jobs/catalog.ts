@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 import { fetchFullCatalog, type CatalogRow } from "@/lib/dabs/catalog";
-import { cleanName, parseSizeMl, parseStatusCode } from "@/lib/dabs/client";
+import { cleanName, parseSizeMl, parseStatusCode, ScrapeShapeError } from "@/lib/dabs/client";
 import { withRun, lastSuccessfulRun } from "./run";
 
 interface ExistingProduct {
@@ -29,6 +29,15 @@ type Product = ReturnType<typeof normalizeProduct>;
  * time to present as "what just changed" — treat the pass as a re-bootstrap.
  */
 const CATCH_UP_GAP_MS = 48 * 3600_000;
+
+/**
+ * DABS occasionally serves a pass where thousands of in-stock products report
+ * store_qty 0 (seen 2026-09-23: ~3k, e.g. Fireball 4,198 → 0 → 4,471 thirty
+ * minutes later). Real statewide sell-outs are a few dozen per pass, so a
+ * pass with more drops-to-zero than this is rejected before writing anything.
+ */
+const MAX_DROPS_TO_ZERO = 200;
+const MAX_DROPS_TO_ZERO_FRACTION = 0.02;
 
 /**
  * Full catalog pass: upsert changed products, write delta-encoded statewide
@@ -61,6 +70,22 @@ export async function runCatalogJob() {
     const events: EventInsert[] = [];
     const changed: Product[] = [];
     const snapshots: Product[] = [];
+
+    let dropsToZero = 0;
+    let previouslyInStock = 0;
+    for (const p of products) {
+      const prev = byCsc.get(p.csc);
+      if (prev && (prev.store_qty ?? 0) > 0) {
+        previouslyInStock++;
+        if ((p.store_qty ?? 0) === 0) dropsToZero++;
+      }
+    }
+    const dropLimit = Math.max(MAX_DROPS_TO_ZERO, previouslyInStock * MAX_DROPS_TO_ZERO_FRACTION);
+    if (!bootstrap && dropsToZero > dropLimit) {
+      throw new ScrapeShapeError(
+        `${dropsToZero} of ${previouslyInStock} in-stock products dropped to 0 in one pass (limit ${Math.round(dropLimit)}) — likely a partial DABS response; not writing`
+      );
+    }
 
     for (const p of products) {
       const prev = byCsc.get(p.csc);
