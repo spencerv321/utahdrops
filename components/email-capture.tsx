@@ -1,23 +1,27 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { MailCheck } from "lucide-react";
 import { signUpForEmails } from "@/app/actions";
+import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 /**
- * The Phase 3 validation instrument: every signup answers the segment
- * question. Do not remove the segment select.
+ * Footer signup. Records the segment answer (the demand-validation instrument
+ * — keep the segment select), then emails a magic link so the address gets
+ * real alerts: signing in lands on the watchlist with drop alerts to turn on.
  */
-export function EmailCapture({ context }: { context?: string }) {
-  const [done, setDone] = useState(false);
+export function EmailCapture() {
+  const [sentTo, setSentTo] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
-  if (done) {
+  if (sentTo) {
     return (
-      <p className="text-sm text-muted-foreground">
-        ✓ You&apos;re on the list. We&apos;ll only email when something changes.
+      <p className="flex items-center gap-2 text-sm text-muted-foreground">
+        <MailCheck className="size-4 text-primary" />
+        Check {sentTo} — tap the link to turn on your alerts.
       </p>
     );
   }
@@ -26,14 +30,23 @@ export function EmailCapture({ context }: { context?: string }) {
     <form
       className="flex flex-col gap-2 sm:flex-row sm:items-center"
       action={(formData) => {
+        setError(null);
         startTransition(async () => {
           const result = await signUpForEmails(formData);
-          if (result.ok) setDone(true);
-          else setError(result.error ?? "Something went wrong.");
+          if (!result.ok || !result.email) {
+            setError(result.error ?? "Something went wrong.");
+            return;
+          }
+          const next = encodeURIComponent("/watchlist?welcome=1");
+          const { error: authError } = await createClient().auth.signInWithOtp({
+            email: result.email,
+            options: { emailRedirectTo: `${window.location.origin}/auth/confirm?next=${next}` },
+          });
+          if (authError) setError("Couldn't send the link — try again in a minute.");
+          else setSentTo(result.email);
         });
       }}
     >
-      {context ? <input type="hidden" name="context" value={context} /> : null}
       <Input
         type="email"
         name="email"
@@ -54,7 +67,7 @@ export function EmailCapture({ context }: { context?: string }) {
         <option value="other">Other</option>
       </select>
       <Button type="submit" size="sm" disabled={pending}>
-        {pending ? "Joining…" : "Get updates"}
+        {pending ? "Sending…" : "Email me a sign-in link"}
       </Button>
       {error ? <span className="text-sm text-destructive">{error}</span> : null}
     </form>

@@ -112,6 +112,26 @@ export async function persistDetail(detail: ProductDetail) {
     select csc, store_id, 0, now() from gone`;
 
   if (current.length > 0) {
+    // Per-store restocks: a store we'd seen at zero now has stock. (A store's
+    // first-ever observation isn't a restock — we don't know what came before.)
+    // These feed "back at my store" alerts for users with that home store.
+    await sql`
+      with incoming as (
+        select * from jsonb_to_recordset(${sql.json(current as never)})
+          as x(csc text, store_id int, qty int)
+      )
+      insert into inventory_events (csc, event_type, detail)
+      select i.csc, 'store_restock', jsonb_build_object(
+               'name', ${detail.name}::text,
+               'store_id', i.store_id,
+               'store_name', s.name,
+               'city', s.city,
+               'qty', i.qty)
+      from incoming i
+      join store_inventory_current c on c.csc = i.csc and c.store_id = i.store_id
+      join stores s on s.id = i.store_id
+      where c.qty = 0 and i.qty > 0`;
+
     // History rows only where qty actually changed (delta encoding)
     await sql`
       with incoming as (

@@ -47,6 +47,14 @@ export async function runDigestJob() {
       where e.created_at > now() - ${LOOKBACK}::interval
         and e.created_at >= w.created_at
         and e.event_type <> 'allocated_drop'
+        and (
+          e.event_type <> 'store_restock'
+          or exists (
+            select 1 from user_stores us
+            where us.user_id = w.user_id
+              and us.store_id = (e.detail->>'store_id')::int
+          )
+        )
         and coalesce(ap.watchlist_email, true)
         and u.email is not null
         and not exists (
@@ -170,6 +178,9 @@ function digestHtml(rows: MatchRow[]): string {
       switch (r.event_type) {
         case "restock":
           line = `<strong>Back in stock</strong> — ${escapeHtml(d.qty ?? "?")} bottles statewide`;
+          break;
+        case "store_restock":
+          line = `<strong>Back at ${escapeHtml(d.store_name)}</strong>${d.city ? ` (${escapeHtml(d.city)})` : ""} — ${escapeHtml(d.qty ?? "?")} bottle${d.qty === 1 ? "" : "s"}`;
           break;
         case "out_of_stock":
           line = `<strong>Out of stock</strong> statewide`;

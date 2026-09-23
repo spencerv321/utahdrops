@@ -141,14 +141,28 @@ export async function runCatalogJob() {
           store_qty = excluded.store_qty,
           on_order_qty = excluded.on_order_qty,
           in_stock = excluded.in_stock,
+          delisted_at = null,
           last_seen = now()`;
     }
 
     const changedSet = new Set(changed.map((p) => p.csc));
     const unchanged = products.filter((p) => !changedSet.has(p.csc)).map((p) => p.csc);
     for (const chunk of chunks(unchanged, 5000)) {
-      await sql`update products set last_seen = now() where csc = any(${chunk})`;
+      await sql`update products set last_seen = now(), delisted_at = null where csc = any(${chunk})`;
     }
+
+    // Products DABS stopped listing. Require ~a day of absence (3 passes) so a
+    // single short fetch can't mass-delist; they stay searchable but show as
+    // no longer listed and out of stock.
+    const [{ delisted }] = await sql<{ delisted: number }[]>`
+      with d as (
+        update products
+        set delisted_at = now(), in_stock = false
+        where delisted_at is null
+          and last_seen < now() - interval '24 hours'
+        returning 1
+      )
+      select count(*)::int as delisted from d`;
 
     // Delta-encoded snapshots: products always hold the previous observation,
     // so "changed vs products" is exactly "changed vs latest snapshot".
@@ -180,6 +194,7 @@ export async function runCatalogJob() {
     return {
       fetched: rows.length,
       changed: changed.length,
+      delisted,
       snapshots_written: snapshots.length,
       events: emitEvents ? events.length : 0,
       ...(emitEvents

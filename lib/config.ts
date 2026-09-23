@@ -1,6 +1,8 @@
 export const SITE_NAME = "Utah Drops";
 export const SITE_TAGLINE = "Search, track, and get alerts for Utah liquor inventory";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_ENV === "production" ? "https://utahdrops.com" : "http://localhost:3000");
 
 export const DABS_LOCATOR_URL =
   "https://webapps2.abc.utah.gov/ProdApps/ProductLocatorCore";
@@ -27,3 +29,6 @@ export const STATUS_LABELS: Record<string, string> = {
   U: "Unavailable soon",
   X: "Discontinued limited",
 };
+
+/** Home stores per user for "back at my store" alerts. */
+export const MAX_HOME_STORES = 3;
