@@ -323,3 +323,55 @@ export async function getAccounts(range: RangeKey) {
 
 export type Dashboard = Awaited<ReturnType<typeof getDashboard>>;
 export type Accounts = Awaited<ReturnType<typeof getAccounts>>;
+
+/**
+ * Rating beta: product viewers vs watchlist adds per badge, with unrated
+ * products as the baseline, plus recent "rating seems wrong" notes.
+ * Viewers = distinct (visitor, product) pairs; rare bottles attract more
+ * interested people anyway, so a higher rate isn't proof the badge caused it.
+ */
+export async function getRatingsBeta(range: RangeKey) {
+  const days = RANGES[range].days;
+  const start = sql`((date_trunc('day', now() at time zone ${TZ}) - make_interval(days => ${days - 1})) at time zone ${TZ})`;
+  const [groups, feedback] = await Promise.all([
+    sql`
+      with rated as (
+        select pr.csc, case when o.csc is not null then o.tier when pr.published then pr.tier end as tier
+        from product_rarity pr left join rarity_overrides o using (csc)
+      ),
+      views as (
+        select csc, count(distinct visitor_id) as viewers from page_events
+        where csc is not null and created_at >= ${start} group by csc
+      ),
+      adds as (select csc, count(*) as adds from watchlist where created_at >= ${start} group by csc),
+      base as (select csc from views union select csc from adds)
+      select coalesce(r.tier, case when r.csc is null then 'no card' else 'not rated' end) as tier,
+             count(*) filter (where v.viewers > 0) as products,
+             coalesce(sum(v.viewers), 0) as viewers,
+             coalesce(sum(a.adds), 0) as adds
+      from base b
+      left join rated r using (csc)
+      left join views v using (csc)
+      left join adds a using (csc)
+      group by 1`.catch(() => []),
+    sql`
+      select f.created_at, f.csc, f.tier_shown, f.message, p.name
+      from rating_feedback f left join products p using (csc)
+      order by f.created_at desc limit 15`.catch(() => []),
+  ]);
+  const order = ["unicorn", "rare", "scarce", "uncommon", "everyday", "not rated", "no card"];
+  return {
+    groups: groups
+      .map((g) => ({ tier: String(g.tier), products: n(g.products), viewers: n(g.viewers), adds: n(g.adds) }))
+      .sort((a, b) => order.indexOf(a.tier) - order.indexOf(b.tier)),
+    feedback: feedback.map((f) => ({
+      createdAt: f.created_at as Date,
+      csc: String(f.csc),
+      name: (f.name as string | null) ?? null,
+      tier: (f.tier_shown as string | null) ?? null,
+      message: String(f.message),
+    })),
+  };
+}
+
+export type RatingsBeta = Awaited<ReturnType<typeof getRatingsBeta>>;

@@ -1,21 +1,18 @@
 import { MapPin } from "lucide-react";
 import { nearLabel, type Area } from "@/lib/area";
-import { formatQty, unitWord } from "@/lib/format";
+import { checkedAgo, formatQty, unitWord } from "@/lib/format";
 import type { Nearby } from "@/lib/queries";
 import { cn } from "@/lib/utils";
 
-const MT = "America/Denver";
-
-/** " · checked Sep 21" when the store-by-store check is over a day and a half old. */
+/** " · checked 5h ago": always shown, since store counts drive where people go. */
 function checkedNote(checkedAt: Date | string): string {
-  const d = new Date(checkedAt);
-  if (Date.now() - d.getTime() <= 36 * 3600_000) return "";
-  return ` · checked ${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: MT })}`;
+  return ` · checked ${checkedAgo(checkedAt)}`;
 }
 
 /**
- * "3 stores near Park City · 14 bottles". Store-by-store stock refreshes in
- * rotation, so an older check says when it was. Unknown (never checked store
+ * "3 stores near Park City · 14 bottles · checked 5h ago". Store-by-store
+ * stock refreshes in rotation, so every count says when it was checked
+ * (checks older than STORE_DATA_MAX_AGE_HOURS aren't shown at all). Unknown (never checked store
  * by store) renders nothing rather than a false "none".
  */
 export function NearbyStock({

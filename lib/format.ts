@@ -153,6 +153,15 @@ export function whenLabel(date: Date | string | null | undefined): string {
   return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: MT })} at ${time}`;
 }
 
+/** Compact age of a store check: "12m ago", "5h ago", or "Sep 21". */
+export function checkedAgo(date: Date | string, now = Date.now()): string {
+  const d = typeof date === "string" ? new Date(date) : date;
+  const mins = Math.max(0, Math.round((now - d.getTime()) / 60_000));
+  if (mins < 60) return `${Math.max(mins, 1)}m ago`;
+  if (mins < 24 * 60) return `${Math.round(mins / 60)}h ago`;
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: MT });
+}
+
 /** Group label for a day of activity: "Today", "Yesterday", "Mon, Sep 21". */
 export function dayLabel(date: Date | string): string {
   const d = typeof date === "string" ? new Date(date) : date;

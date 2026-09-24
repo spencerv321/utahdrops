@@ -21,6 +21,7 @@ import { StoreAvailability, type HomeStore } from "@/components/store-availabili
 import { RarityCard } from "@/components/rarity-card";
 import {
   categoryLabel,
+  checkedAgo,
   displayName,
   formatAsOf,
   formatPrice,
@@ -157,7 +158,9 @@ export default async function ProductPage({ params }: Props) {
                 <Check className="mt-0.5 size-4 shrink-0" aria-hidden />
                 <span>
                   In stores: {formatQty(product.store_qty)} {unit.many} statewide
-                  {storesWithStock > 0 ? ` (at least ${storesWithStock} stores)` : ""}
+                  {storesWithStock > 0 && storeAsOf
+                    ? ` (at least ${storesWithStock} stores, checked ${checkedAgo(storeAsOf)})`
+                    : ""}
                 </span>
               </span>
             ) : (
@@ -186,7 +189,7 @@ export default async function ProductPage({ params }: Props) {
         </section>
       </div>
 
-      {rarity ? <RarityCard rarity={rarity} /> : null}
+      {rarity ? <RarityCard csc={csc} rarity={rarity} /> : null}
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
         <section className="space-y-4" aria-labelledby="where-title">

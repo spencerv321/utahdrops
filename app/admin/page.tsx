@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { adminEmails, isAdmin } from "@/lib/admin";
 import { JOB_MAX_AGE_HOURS } from "@/lib/config";
-import { getAccounts, getDashboard, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
+import { getAccounts, getDashboard, getRatingsBeta, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
 import { TrendChart } from "@/components/admin/trend-chart";
 import { AutoRefresh } from "@/components/admin/auto-refresh";
 import { cn } from "@/lib/utils";
@@ -175,6 +175,7 @@ const SECTIONS = [
   ["content", "Content"],
   ["audience", "Audience"],
   ["users", "Users"],
+  ["ratings", "Ratings"],
   ["data", "Data"],
 ] as const;
 
@@ -200,7 +201,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   }
 
   const range = parseRange((await searchParams).range);
-  const [d, a] = await Promise.all([getDashboard(range), getAccounts(range)]);
+  const [d, a, rb] = await Promise.all([getDashboard(range), getAccounts(range), getRatingsBeta(range)]);
   const c: Kpis = d.current;
   const p: Kpis = d.previous;
   const bounce = (k: Kpis) => (k.sessions ? (k.bounced / k.sessions) * 100 : 0);
@@ -387,6 +388,67 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           </Panel>
           <Panel title="Most-watched bottles" note="watchers">
             <BarList rows={a.watched} empty="Nobody is watching anything yet." />
+          </Panel>
+        </div>
+      </Section>
+
+      <Section id="ratings" title="Ratings (beta)">
+        <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
+          <Panel title="Watchlist adds per product viewer" note="viewer = one visitor on one bottle page">
+            {rb.groups.length ? (
+              <div className="-mx-2 overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="text-left text-xs text-subtle-foreground">
+                    <tr>
+                      <th className="px-2 pb-2 font-normal">Badge</th>
+                      <th className="px-2 pb-2 text-right font-normal">Bottles viewed</th>
+                      <th className="px-2 pb-2 text-right font-normal">Viewers</th>
+                      <th className="px-2 pb-2 text-right font-normal">Adds</th>
+                      <th className="px-2 pb-2 text-right font-normal">Adds / 100 viewers</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rb.groups.map((g) => (
+                      <tr key={g.tier} className="border-t">
+                        <td className="px-2 py-2 capitalize">{g.tier}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(g.products)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(g.viewers)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(g.adds)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">
+                          {g.viewers ? ((100 * g.adds) / g.viewers).toFixed(1) : "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="px-2 pt-3 text-xs text-subtle-foreground">
+                  Rare bottles draw more interested people anyway, so a higher rate isn&apos;t proof the badge caused it.
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm text-subtle-foreground">No bottle views in range.</p>
+            )}
+          </Panel>
+          <Panel title="“Rating seems wrong” notes" note="newest first">
+            {rb.feedback.length ? (
+              <ul className="divide-y text-sm">
+                {rb.feedback.map((f) => (
+                  <li key={f.createdAt.toString() + f.csc} className="space-y-1 py-2">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <Link prefetch={false} href={`/product/${f.csc}`} className="truncate font-medium hover:underline">
+                        {f.name ?? f.csc}
+                      </Link>
+                      <span className="shrink-0 text-xs text-subtle-foreground">
+                        {f.tier ?? "not rated"} · {shortDate(f.createdAt)}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground">{f.message}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-subtle-foreground">No notes yet.</p>
+            )}
           </Panel>
         </div>
       </Section>

@@ -72,8 +72,18 @@ scheduled workflows are enabled; `/api/health` is green.
 - Badges withheld for reused DABS codes (several vintages) and low confidence.
 - Bottles released by drawing that DABS doesn't list get a "not currently
   listed" page (product row marked delisted).
-- Stale store data (>7 days) is now treated as unknown site-wide.
-- Next: watch how people use it; improve store-scraper coverage in parallel.
+- Stale store data (>7 days) is treated as unknown site-wide, and every
+  store count shows when it was checked ("checked 5h ago").
+- "Does this rating seem wrong?" notes land in `rating_feedback`; /admin →
+  Ratings shows them plus watchlist adds per 100 product viewers by badge
+  (unrated as baseline; rare bottles draw interest anyway, so it's not proof).
+- Store coverage gap (found 2026-09-24): before the Sep 23 fix the store job's
+  priority queue starved ordinary in-stock bottles — 2,304 in-stock products
+  had never been store-checked, incl. 699 of the 713 biggest sellers (Tito's).
+  The Sep 23 oldest-first rotation reaches all ~5.4k in ~5 days; confirm with
+  `report.yml` → `storecoverage` after Sep 28. Popular bottles get ratings
+  ~10 in-stock days after their first store check.
+- Next: get people onto rated bottle pages; read the feedback notes.
 
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of

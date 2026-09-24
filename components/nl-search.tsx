@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
 import { StatusBadge } from "@/components/status-badge";
-import { categoryLabel, displayName, formatPrice, productTitle } from "@/lib/format";
+import { categoryLabel, checkedAgo, displayName, formatPrice, productTitle } from "@/lib/format";
 import type { NlResult } from "@/lib/nl/search";
 
 type State =
@@ -115,6 +115,11 @@ function Answer({ result }: { result: NlResult }) {
               </p>
               <p className="mb-2 text-xs text-muted-foreground">
                 {group.address}, {group.city}
+                {group.products.some((p) => p.checked_at)
+                  ? ` · counts checked ${checkedAgo(
+                      group.products.reduce((old, p) => (p.checked_at && p.checked_at < old ? p.checked_at : old), group.products.find((p) => p.checked_at)!.checked_at!)
+                    )}`
+                  : ""}
               </p>
               {group.products.length === 0 ? (
                 <p className="text-sm text-muted-foreground">No matches at this store.</p>

@@ -1,5 +1,6 @@
 import type { ProductRarity, RarityTier } from "@/lib/queries";
 import { cn } from "@/lib/utils";
+import { RatingFeedback } from "@/components/rating-feedback";
 
 const MT = "America/Denver";
 
@@ -20,7 +21,7 @@ function day(d: Date | string): string {
  * plain-language line, and the evidence behind it. Current stock lives in the
  * price panel and "Where to find it", timestamped separately.
  */
-export function RarityCard({ rarity }: { rarity: ProductRarity }) {
+export function RarityCard({ csc, rarity }: { csc: string; rarity: ProductRarity }) {
   const tier = rarity.tier ? TIERS[rarity.tier] : null;
   return (
     <section aria-labelledby="rarity-title" className="space-y-3 rounded-lg border p-4 sm:p-5">
@@ -55,6 +56,7 @@ export function RarityCard({ rarity }: { rarity: ProductRarity }) {
           entries per bottle aren&apos;t your odds of winning. Current stock is shown separately.
         </p>
       </details>
+      <RatingFeedback csc={csc} tier={rarity.tier} />
     </section>
   );
 }
