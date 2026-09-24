@@ -7,6 +7,13 @@ config({ path: ".env.local", quiet: true });
  * behind them. Prints no emails or user data.
  */
 async function main() {
+  // These modes must work even when the session pooler (5432) is full, so go
+  // through the transaction pooler (6543), which has its own client limit.
+  if (["auth", "conns"].includes(process.argv[2] ?? "") && process.env.DATABASE_URL) {
+    const u = new URL(process.env.DATABASE_URL);
+    if (u.hostname.endsWith(".pooler.supabase.com")) u.port = "6543";
+    process.env.DATABASE_URL = u.toString();
+  }
   if (process.argv[2] === "pdata") {
     process.env.VERCEL = "";
     const q = await import("../lib/queries");
@@ -43,6 +50,34 @@ async function main() {
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
   if (process.argv[2] === "pooler") return pooler();
+  if (process.argv[2] === "conns" || process.argv[2] === "auth") {
+    // Who holds database connections right now (session-pooler exhaustion).
+    console.log("\n## connections by client\n" + JSON.stringify(await sql`
+      select usename, application_name, client_addr::text, state, count(*)::int as n,
+             min(backend_start) as oldest_start, max(now() - state_change)::text as longest_in_state,
+             left(max(regexp_replace(query, '\s+', ' ', 'g')), 120) as sample_query
+      from pg_stat_activity where backend_type = 'client backend'
+      group by 1, 2, 3, 4 order by n desc`, null, 1));
+    if (process.argv[2] === "conns") return sql.end();
+  }
+  if (process.argv[2] === "auth") {
+    // Where sign-ups stall. Counts and timings only; no emails.
+    const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 1)}`);
+    show("accounts by state", await sql`
+      select (last_sign_in_at is not null) as signed_in, (email_confirmed_at is not null) as confirmed,
+             count(*)::int as n, min(created_at) as first, max(created_at) as last
+      from auth.users group by 1, 2 order by 1, 2`);
+    show("per account (anonymised)", await sql`
+      select row_number() over (order by created_at)::int as n,
+             created_at, confirmation_sent_at, email_confirmed_at, recovery_sent_at, last_sign_in_at,
+             raw_app_meta_data->>'provider' as provider
+      from auth.users order by created_at`);
+    show("identities", await sql`select provider, count(*)::int from auth.identities group by 1`);
+    show("footer signups not yet accounts", await sql`
+      select count(*)::int from email_signups s
+      where not exists (select 1 from auth.users u where lower(u.email) = s.email)`);
+    return sql.end();
+  }
   if (process.argv[2] === "slow") {
     const rows = await sql`
       select calls, round(max_exec_time)::int as max_ms, round(mean_exec_time::numeric, 1) as mean_ms,

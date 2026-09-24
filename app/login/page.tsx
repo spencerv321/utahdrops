@@ -7,9 +7,9 @@ export const metadata: Metadata = { title: "Sign in" };
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string }>;
+  searchParams: Promise<{ next?: string; error?: string }>;
 }) {
-  const { next } = await searchParams;
+  const { next, error } = await searchParams;
   return (
     <div className="mx-auto max-w-md space-y-6 pt-4 sm:pt-12">
       <div className="space-y-2">
@@ -32,6 +32,12 @@ export default async function LoginPage({
           Know the minute the allocated list posts.
         </li>
       </ul>
+      {error === "link" && (
+        <p role="alert" className="rounded-md border border-destructive/40 px-4 py-3 text-sm">
+          That sign-in link didn&apos;t work. Links work once, for an hour, and in the browser you
+          asked from. Enter your email for a fresh one.
+        </p>
+      )}
       <LoginForm next={next ?? "/"} />
       <p className="text-xs text-muted-foreground">
         We only email you about bottles and drops you ask about. Not affiliated with DABS.
