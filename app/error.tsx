@@ -29,7 +29,7 @@ export default function Error({
         >
           Try again
         </button>
-        <Link href="/" className="inline-flex h-12 items-center rounded-md border border-input px-5">
+        <Link prefetch={false} href="/" className="inline-flex h-12 items-center rounded-md border border-input px-5">
           Go home
         </Link>
       </div>

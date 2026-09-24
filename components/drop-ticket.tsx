@@ -72,7 +72,7 @@ export async function DropTicket({
           </p>
         )}
         {listPosted(listSize) ? (
-          <Link
+          <Link prefetch={false}
             href="/drops"
             className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 text-[15px] font-semibold text-primary-foreground hover:opacity-90 sm:w-auto"
           >

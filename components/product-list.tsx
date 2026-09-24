@@ -36,7 +36,7 @@ export function ProductList({
         const note = listingNote(p.status);
         return (
           <li key={p.csc} className="flex items-center gap-3 py-3">
-            <Link href={`/product/${p.csc}`} className="group flex min-w-0 flex-1 items-start gap-3 lg:items-center">
+            <Link prefetch={false} href={`/product/${p.csc}`} className="group flex min-w-0 flex-1 items-start gap-3 lg:items-center">
               <BottleGlyph kind={productKind(p.category, p.size_ml)} className="mt-0.5 h-14 w-10 lg:mt-0" />
               {/* Phones: stacked. Desktop: bottle | availability | price, like a shelf list. */}
               <span className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_17rem_6rem] lg:items-center lg:gap-6">

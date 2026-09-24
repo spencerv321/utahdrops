@@ -10,7 +10,7 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-8 px-4 sm:px-6">
-        <Link href="/" aria-label="Utah Drops, home" className="shrink-0 text-[15px]">
+        <Link prefetch={false} href="/" aria-label="Utah Drops, home" className="shrink-0 text-[15px]">
           <Wordmark />
         </Link>
         <NavLinks />
@@ -23,7 +23,7 @@ export async function SiteHeader() {
               </button>
             </form>
           ) : (
-            <Link href="/login" className="flex h-11 items-center px-1 text-sm text-muted-foreground hover:text-foreground">
+            <Link prefetch={false} href="/login" className="flex h-11 items-center px-1 text-sm text-muted-foreground hover:text-foreground">
               Sign in
             </Link>
           )}

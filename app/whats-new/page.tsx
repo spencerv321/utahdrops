@@ -46,7 +46,7 @@ export default async function WhatsNewPage({
 
       <nav aria-label="Filter" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
         {TABS.map((tab) => (
-          <Link
+          <Link prefetch={false}
             key={tab.key}
             href={tab.key ? `/whats-new?type=${tab.key}` : "/whats-new"}
             aria-current={active === tab.key ? "page" : undefined}

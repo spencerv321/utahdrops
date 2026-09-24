@@ -10,7 +10,7 @@ export default function NotFound() {
         by name instead.
       </p>
       <SearchBox examples />
-      <Link href="/" className="inline-flex min-h-11 items-center underline underline-offset-4">
+      <Link prefetch={false} href="/" className="inline-flex min-h-11 items-center underline underline-offset-4">
         Back to home
       </Link>
     </div>

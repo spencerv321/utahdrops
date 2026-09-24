@@ -88,7 +88,7 @@ export function HomeFeed({
               const meta = [sizeLabel(e.size_ml), categoryLabel(e.category)].filter(Boolean).join(" · ");
               return (
                 <li key={e.id} className="flex items-center gap-3 py-3">
-                  <Link
+                  <Link prefetch={false}
                     href={e.csc ? `/product/${e.csc}` : "/drops"}
                     className="group flex min-w-0 flex-1 items-center gap-3"
                   >

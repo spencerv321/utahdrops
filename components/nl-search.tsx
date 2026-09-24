@@ -122,7 +122,7 @@ function Answer({ result }: { result: NlResult }) {
                 <ul className="space-y-1.5">
                   {group.products.map((p) => (
                     <li key={p.csc} className="flex items-baseline justify-between gap-2 text-sm">
-                      <Link href={`/product/${p.csc}`} className="font-medium hover:underline">
+                      <Link prefetch={false} href={`/product/${p.csc}`} className="font-medium hover:underline">
                         {displayName(p.name)}
                       </Link>
                       <span className="whitespace-nowrap text-muted-foreground tabular-nums">
@@ -141,7 +141,7 @@ function Answer({ result }: { result: NlResult }) {
         <ul className="divide-y border-y">
           {result.products.map((p) => (
             <li key={p.csc}>
-              <Link
+              <Link prefetch={false}
                 href={`/product/${p.csc}`}
                 className="flex min-h-14 items-center justify-between gap-3 py-2.5 hover:bg-raised/50"
               >
