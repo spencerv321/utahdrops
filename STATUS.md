@@ -18,16 +18,15 @@ scheduled workflows are enabled; `/api/health` is green.
   stock, footer signup sends a real magic link, AI-search rate limits,
   open-redirect fix.
 
-## Redesign (direction C, "Drop Feed")
-- PR #7 (merged, live): new palette + fonts, automatic dark mode, phone tab
-  bar, jobs-first home (search, drop countdown, "Just happened" feed),
-  one search box at `/search` (AI for questions, keyword fallback without
-  it), product page led by "where can I get it" (your store if signed in,
-  nearest if not).
-- Next PR: Drops, What's New, Watchlist, sign-in, branded error/404/loading
-  screens, home-screen icon + web manifest.
-- Mockups: design canvas "Utah Drops redesign directions" (claude.ai
-  artifact; opens on desktop, not in the iOS app).
+## Redesign
+- PRs #7 and #8 (live): first redesign pass (jobs-first home, one search box,
+  "where can I get it" product page, drops/what's new/watchlist, app icon).
+- Field-guide iteration (this branch): espresso theme with amber/burgundy/green
+  used by job, Instrument Serif + Instrument Sans, drop "ticket", activity as
+  day-grouped rows, browse-by-taste shortcuts on real DABS categories, bottle
+  names without the size suffix, bottles vs units by category, listing status
+  kept separate from availability, manual area picker (no geolocation needed).
+- No product photos exist in the data; a neutral container glyph stands in.
 
 ## Pending decisions
 - Invite email for the 2 legacy footer signups: built, **not sent** — owner said

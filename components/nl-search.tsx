@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
 import { StatusBadge } from "@/components/status-badge";
-import { displayName, formatPrice } from "@/lib/format";
+import { categoryLabel, displayName, formatPrice, productTitle } from "@/lib/format";
 import type { NlResult } from "@/lib/nl/search";
 
 type State =
@@ -65,7 +65,7 @@ export function AskResults({ query, keywordHits }: { query: string; keywordHits:
 
   if (state.kind === "unavailable" || state.kind === "error") {
     return (
-      <div className="rounded-2xl border border-dashed p-8 text-center text-muted-foreground">
+      <div className="border-y py-8 text-center text-muted-foreground">
         No bottle names match those words. Try just the brand or style, like
         &ldquo;laphroaig&rdquo; or &ldquo;scotch&rdquo;, then use the filters.
       </div>
@@ -73,16 +73,16 @@ export function AskResults({ query, keywordHits }: { query: string; keywordHits:
   }
 
   return (
-    <section aria-live="polite" className="space-y-3 rounded-3xl border bg-card p-4 sm:p-5">
-      <p className="flex items-center gap-2 text-sm font-bold">
-        <Sparkles className="size-4 text-gold" aria-hidden />
-        {state.kind === "loading" ? "Reading your question…" : "Best matches for your question"}
+    <section aria-live="polite" className="space-y-3 rounded-lg bg-card p-4 sm:p-5">
+      <p className="flex items-center gap-2 text-sm font-medium">
+        <Sparkles className="size-4 text-primary" aria-hidden />
+        {state.kind === "loading" ? "Reading your question…" : "Matches for your question"}
       </p>
 
       {state.kind === "loading" ? (
         <div className="space-y-2" aria-hidden>
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-12 animate-pulse rounded-xl bg-secondary" />
+            <div key={i} className="h-12 rounded-md bg-raised motion-safe:animate-pulse" />
           ))}
         </div>
       ) : null}
@@ -99,7 +99,7 @@ function Answer({ result }: { result: NlResult }) {
       <div className="flex flex-wrap items-center gap-1.5 text-sm">
         <span className="text-muted-foreground">Searched for</span>
         {result.interpretation.map((chip) => (
-          <span key={chip} className="rounded-full bg-secondary px-2.5 py-0.5 font-medium">
+          <span key={chip} className="rounded-sm bg-raised px-2 py-0.5">
             {chip}
           </span>
         ))}
@@ -108,7 +108,7 @@ function Answer({ result }: { result: NlResult }) {
       {result.mode === "stores" ? (
         <div className="grid gap-3 md:grid-cols-3">
           {result.stores.map((group) => (
-            <div key={group.store_id} className="rounded-2xl border bg-background p-3">
+            <div key={group.store_id} className="border-t pt-3">
               <p className="font-semibold">
                 {group.store_name}
                 <span className="ml-1.5 font-normal text-muted-foreground">{group.distance_mi} mi</span>
@@ -138,20 +138,20 @@ function Answer({ result }: { result: NlResult }) {
       ) : result.products.length === 0 ? (
         <p className="text-sm text-muted-foreground">Nothing matched that. Try loosening the price or category.</p>
       ) : (
-        <ul className="divide-y rounded-2xl border bg-background">
+        <ul className="divide-y border-y">
           {result.products.map((p) => (
             <li key={p.csc}>
               <Link
                 href={`/product/${p.csc}`}
-                className="flex min-h-14 items-center justify-between gap-3 px-4 py-2.5 hover:bg-secondary/50"
+                className="flex min-h-14 items-center justify-between gap-3 py-2.5 hover:bg-raised/50"
               >
                 <span className="min-w-0">
-                  <span className="block font-semibold">{displayName(p.name)}</span>
-                  <span className="block text-xs text-muted-foreground">{p.category}</span>
+                  <span className="block font-medium">{productTitle(p.name, null)}</span>
+                  <span className="block text-xs text-subtle-foreground">{categoryLabel(p.category)}</span>
                 </span>
                 <span className="flex shrink-0 items-center gap-2">
                   <StatusBadge status={p.status} />
-                  <span className="w-16 text-right font-semibold tabular-nums">{formatPrice(p.current_price)}</span>
+                  <span className="w-16 text-right font-medium tabular-nums">{formatPrice(p.current_price)}</span>
                 </span>
               </Link>
             </li>

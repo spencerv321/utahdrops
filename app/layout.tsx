@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
+import { Instrument_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/config";
 import { SiteHeader } from "@/components/site-header";
@@ -9,16 +9,19 @@ import { StaleDataBanner } from "@/components/stale-data-banner";
 import { AgeGate } from "@/components/age-gate";
 import { Toaster } from "@/components/ui/sonner";
 
-// Instrument Sans for UI + data (good tabular figures); Bricolage Grotesque
-// gives the wordmark and headlines their chunky, drop-poster character.
+// A deliberate pair from one family: Instrument Sans (variable) for everything
+// you read or tap, Instrument Serif (one weight + italic, OFL) for the
+// wordmark, headlines and the drop date. Two small self-hosted files.
 const sans = Instrument_Sans({
-  variable: "--font-instrument",
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const display = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const display = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -50,10 +53,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   // Lets the tab bar pad itself clear of the iPhone home indicator.
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4ede2" },
-    { media: "(prefers-color-scheme: dark)", color: "#14100e" },
-  ],
+  themeColor: "#15100d",
 };
 
 export default function RootLayout({
@@ -64,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${display.variable} h-full antialiased`}
+      className={`dark ${sans.variable} ${display.variable} h-full antialiased`}
     >
       {/* Bottom padding keeps content clear of the phone tab bar. */}
       <body className="flex min-h-full flex-col pb-[calc(4.5rem+env(safe-area-inset-bottom))] font-sans sm:pb-0">

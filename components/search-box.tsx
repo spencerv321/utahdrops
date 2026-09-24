@@ -2,33 +2,37 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const EXAMPLES = ["Blanton's", "Weller", "peaty scotch under $60", "allocated bourbon"];
+// Queries the product handles today: exact names via keyword search, and
+// questions via AI search (with a keyword fallback for price caps and styles).
+const EXAMPLES = ["Blanton's", "Dry white wine under $20", "Peaty scotch under $60", "Prosecco"];
 
 /**
- * The one search box. Brand names go to keyword search; questions ("peaty
- * scotch under $60 near me") are answered by AI search on the results page.
- * A plain GET form, so it works before any JavaScript loads.
+ * The one search box. A plain GET form to /search, so it works before any
+ * JavaScript loads and keeps the query in the URL.
  */
 export function SearchBox({
   defaultValue,
   examples = false,
   autoFocus = false,
+  hidden,
   className,
 }: {
   defaultValue?: string;
   examples?: boolean;
   autoFocus?: boolean;
+  /** Filters to carry along when searching again from the results page. */
+  hidden?: Record<string, string | undefined>;
   className?: string;
 }) {
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-2.5", className)}>
       <form action="/search" role="search" className="relative">
         <label htmlFor="site-search" className="sr-only">
-          Search every bottle, or ask a question
+          Search bottles by name, or describe what you want
         </label>
         <Search
           aria-hidden
-          className="pointer-events-none absolute top-1/2 left-4 size-[22px] -translate-y-1/2 text-foreground"
+          className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
         />
         <input
           id="site-search"
@@ -36,25 +40,31 @@ export function SearchBox({
           type="search"
           enterKeyHint="search"
           autoComplete="off"
+          autoCapitalize="off"
           defaultValue={defaultValue}
           autoFocus={autoFocus}
-          placeholder="Blanton's, Weller, peaty scotch…"
-          className="h-14 w-full rounded-2xl border-2 border-foreground bg-card pr-4 pl-12 text-[17px] shadow-[0_3px_0_var(--foreground)] outline-none placeholder:text-muted-foreground focus-visible:ring-4 focus-visible:ring-ring/30 sm:h-16 sm:text-lg"
+          placeholder="Search by name, or describe it"
+          className="h-13 w-full rounded-md border border-input bg-raised pr-4 pl-12 text-[17px] text-foreground outline-none placeholder:text-subtle-foreground focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-14"
         />
+        {hidden
+          ? Object.entries(hidden).map(([k, v]) => (v ? <input key={k} type="hidden" name={k} value={v} /> : null))
+          : null}
       </form>
       {examples ? (
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-muted-foreground">Try</span>
-          {EXAMPLES.map((ex) => (
-            <Link
-              key={ex}
-              href={`/search?q=${encodeURIComponent(ex)}`}
-              className="inline-flex h-9 items-center rounded-full border bg-card px-3.5 font-medium transition-colors hover:border-foreground"
-            >
-              {ex}
-            </Link>
+        <p className="flex flex-wrap items-baseline gap-x-1 text-sm text-muted-foreground">
+          <span className="mr-1">Try</span>
+          {EXAMPLES.map((ex, i) => (
+            <span key={ex} className="inline-flex items-baseline">
+              <Link
+                href={`/search?q=${encodeURIComponent(ex)}`}
+                className="inline-flex min-h-9 items-center text-foreground underline decoration-border underline-offset-4 hover:decoration-primary"
+              >
+                {ex}
+              </Link>
+              {i < EXAMPLES.length - 1 ? <span aria-hidden className="px-1.5 text-subtle-foreground">·</span> : null}
+            </span>
           ))}
-        </div>
+        </p>
       ) : null}
     </div>
   );

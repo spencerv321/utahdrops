@@ -38,5 +38,8 @@ export function roughQuery(q: string): { q: string; maxPrice?: number; status?: 
     .split(/\s+/)
     .map((w) => w.replace(/[^a-z0-9']/g, ""))
     .filter((w) => w && !QUESTION_WORDS.has(w) && !/^\d+$/.test(w) && !FILLER.includes(w));
-  return { q: words.join(" "), maxPrice: price ? Number(price[1]) : undefined, status };
+  // "white wine" → "white": the style lives in the category ("WHITE VARIETAL - …").
+  const color = words.some((w) => ["red", "white", "rose", "rosé", "sparkling"].includes(w));
+  const kept = color ? words.filter((w) => w !== "wine") : words;
+  return { q: kept.join(" "), maxPrice: price ? Number(price[1]) : undefined, status };
 }

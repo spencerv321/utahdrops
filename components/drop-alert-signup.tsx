@@ -2,52 +2,63 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { Bell, BellOff } from "lucide-react";
+import { Bell, Check } from "lucide-react";
 import { toast } from "sonner";
 import { setAlertPrefs } from "@/app/actions";
 
-const button =
-  "flex h-12 w-full items-center justify-center gap-2 rounded-xl text-[15px] font-bold transition-colors disabled:opacity-70";
-
-/** "Email me when the list posts": the monthly drop alert toggle (sits on the brand hero). */
+/**
+ * "Email me when the list posts": the monthly allocated-list alert. Signed-out
+ * visitors go sign in first (and land back on Drops).
+ */
 export function DropAlertSignup({ signedIn, optedIn }: { signedIn: boolean; optedIn: boolean }) {
   const [on, setOn] = useState(optedIn);
   const [pending, startTransition] = useTransition();
+  const button =
+    "inline-flex min-h-11 w-full min-w-0 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-center text-[15px] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60 sm:w-auto";
 
   if (!signedIn) {
     return (
-      <Link href="/login?next=/drops" className={`${button} bg-gold text-gold-foreground`}>
-        <Bell className="size-[18px]" aria-hidden />
-        Email me when the list posts
+      <Link href="/login?next=/drops" className={button}>
+        <Bell className="size-4" aria-hidden />
+        Email me the list
       </Link>
     );
   }
 
-  return (
-    <div className="space-y-2">
-      <button
-        type="button"
-        aria-pressed={on}
-        disabled={pending}
-        className={on ? `${button} border-2 border-brand-foreground/50 text-brand-foreground` : `${button} bg-gold text-gold-foreground`}
-        onClick={() => {
-          const next = !on;
-          setOn(next);
-          startTransition(async () => {
-            const result = await setAlertPrefs({ allocatedEmail: next });
-            if (!result.ok) {
-              setOn(!next);
-              toast.error("Couldn't save that. Try again.");
-            }
-          });
-        }}
-      >
-        {on ? <BellOff className="size-[18px]" aria-hidden /> : <Bell className="size-[18px]" aria-hidden />}
-        {on ? "Turn off drop alerts" : "Email me when the list posts"}
-      </button>
-      <p className="text-center text-sm text-brand-muted">
-        {on ? "You're set: one email the moment the list posts." : "One email a month, the moment the list posts."}
+  function toggle(next: boolean) {
+    setOn(next);
+    startTransition(async () => {
+      const result = await setAlertPrefs({ allocatedEmail: next });
+      if (!result.ok) {
+        setOn(!next);
+        toast.error("Couldn't save that. Try again.");
+      }
+    });
+  }
+
+  if (on) {
+    return (
+      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm" role="status">
+        <span className="inline-flex items-center gap-1.5 font-medium">
+          <Check className="size-4 text-primary" aria-hidden />
+          We&apos;ll email you when it posts.
+        </span>
+        <button
+          type="button"
+          disabled={pending}
+          onClick={() => toggle(false)}
+          className="min-h-11 text-brand-muted underline underline-offset-4 hover:text-brand-foreground"
+        >
+          Turn off
+        </button>
       </p>
-    </div>
+    );
+  }
+
+  return (
+    <button type="button" disabled={pending} onClick={() => toggle(true)} className={button}>
+      <Bell className="size-4" aria-hidden />
+      Email me the list
+    </button>
   );
 }

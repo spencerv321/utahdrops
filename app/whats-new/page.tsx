@@ -41,10 +41,10 @@ export default async function WhatsNewPage({
 
   return (
     <div className="space-y-5">
-      <section className="space-y-1 pt-2">
-        <h1 className="text-4xl leading-none sm:text-5xl">What&apos;s new</h1>
+      <section className="space-y-2 pt-2 sm:pt-6">
+        <h1 className="text-5xl leading-none sm:text-6xl">What&apos;s new</h1>
         <p className="text-muted-foreground">
-          Every change we spot between DABS updates: the page DABS can&apos;t show you.
+          Every change we spot between DABS updates: restocks, new listings, price moves and sell-outs.
         </p>
       </section>
 
@@ -55,8 +55,8 @@ export default async function WhatsNewPage({
             href={tab.key ? `/whats-new?type=${tab.key}` : "/whats-new"}
             aria-current={active === tab.key ? "page" : undefined}
             className={cn(
-              "inline-flex h-10 shrink-0 items-center rounded-full border px-4 text-sm font-semibold transition-colors",
-              active === tab.key ? "border-foreground bg-foreground text-background" : "bg-card hover:border-foreground"
+              "inline-flex h-10 shrink-0 items-center rounded-md border px-3.5 text-sm transition-colors",
+              active === tab.key ? "border-primary bg-primary/12" : "border-border hover:border-input"
             )}
           >
             {tab.label}

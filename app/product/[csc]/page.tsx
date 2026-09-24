@@ -17,8 +17,21 @@ import { StockChart } from "@/components/stock-chart";
 import { WatchButton } from "@/components/watch-button";
 import { ShareButton } from "@/components/share-button";
 import { StoreAvailability, type HomeStore } from "@/components/store-availability";
-import { EventTag, eventTagKey } from "@/components/event-tag";
-import { displayName, formatAsOf, formatPrice, formatQty, formatSize } from "@/lib/format";
+import {
+  categoryLabel,
+  displayName,
+  formatAsOf,
+  formatPrice,
+  formatQty,
+  listingNote,
+  productKind,
+  productTitle,
+  sizeLabel,
+  unitWord,
+  whenLabel,
+} from "@/lib/format";
+import { BottleGlyph } from "@/components/bottle-glyph";
+import { Check } from "lucide-react";
 import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
@@ -32,8 +45,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProduct(csc);
   if (!product) return { title: "Not found" };
   return {
-    title: `${displayName(product.name)} — price & availability`,
-    description: `Current Utah DABS availability, price history, and per-store quantities for ${displayName(product.name)} (${csc}).`,
+    title: `${productTitle(product.name, product.size_ml)} ${sizeLabel(product.size_ml)} — price & where to find it`,
+    description: `Price, stock at Utah state liquor stores, and price history for ${productTitle(product.name, product.size_ml)} ${sizeLabel(product.size_ml)} (DABS ${csc}).`,
     alternates: { canonical: `/product/${csc}` },
   };
 }
@@ -56,17 +69,19 @@ export default async function ProductPage({ params }: Props) {
       ? ((await sql`select id, name, city from stores where id = any(${homeIds})`) as unknown as HomeStore[])
       : [];
 
-  const name = displayName(product.name);
+  const name = productTitle(product.name, product.size_ml);
+  const unit = { one: unitWord(product.category, product.size_ml, 1), many: unitWord(product.category, product.size_ml, 2) };
   const storeAsOf = stores.reduce<Date | null>(
     (latest, s) => (!latest || s.scraped_at > latest ? s.scraped_at : latest),
     null
   );
   const storesWithStock = stores.filter((s) => s.qty > 0).length;
+  const note = listingNote(product.status);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name,
+    name: displayName(product.name),
     sku: product.csc,
     category: product.category ?? undefined,
     description: product.description ?? undefined,
@@ -89,78 +104,103 @@ export default async function ProductPage({ params }: Props) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10 pt-2 sm:pt-6">
       <script
         type="application/ld+json"
         // Escape "<" so product text can never close the script tag.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      {/* Hero: what it is, what it costs, and the one action that matters. */}
-      <section className="-mx-4 -mt-6 space-y-4 bg-brand px-4 pt-5 pb-6 text-brand-foreground sm:mx-0 sm:mt-0 sm:rounded-3xl sm:p-8">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2 text-[13px] text-brand-muted">
-            {product.status ? (
-              <span className="rounded-md bg-gold px-1.5 py-0.5 text-[11px] font-extrabold tracking-[0.06em] text-gold-foreground uppercase">
-                {STATUS_LABELS[product.status] ?? product.status}
-              </span>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
+        {/* Is this the right bottle? */}
+        <header className="flex gap-4">
+          <BottleGlyph kind={productKind(product.category, product.size_ml)} className="h-24 w-[4.5rem] sm:h-32 sm:w-24" />
+          <div className="min-w-0 flex-1 space-y-2">
+            {product.category ? (
+              <Link
+                href={`/search?category=${encodeURIComponent(product.category)}&instock=1`}
+                className="kicker inline-block text-muted-foreground hover:text-foreground"
+              >
+                {categoryLabel(product.category)}
+              </Link>
             ) : null}
-            <span>
-              {[product.category && displayName(product.category), formatSize(product.size_ml), `#${product.csc}`]
-                .filter(Boolean)
-                .join(" · ")}
-            </span>
+            <h1 className="font-sans text-[1.75rem] leading-tight font-medium tracking-[-0.015em] sm:text-4xl">{name}</h1>
+            <p className="text-[15px] text-muted-foreground">
+              {[sizeLabel(product.size_ml), note].filter(Boolean).join(" · ")}
+            </p>
+            {product.description ? (
+              <p className="max-w-prose pt-1 text-[15px] leading-relaxed text-muted-foreground">{product.description}</p>
+            ) : null}
           </div>
           <ShareButton
             title={name}
-            className="-mt-2 -mr-2 flex size-11 shrink-0 items-center justify-center rounded-full hover:bg-brand-raised"
+            className="-mt-1 -mr-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
           />
-        </div>
-        <h1 className="text-4xl leading-none sm:text-5xl">{name}</h1>
-        {product.description ? (
-          <p className="max-w-2xl text-[15px] text-brand-muted">{product.description}</p>
-        ) : null}
-        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
-          <p className="font-display text-4xl font-extrabold text-gold tabular-nums">
-            {formatPrice(product.current_price)}
-            {product.is_spa ? (
-              <span className="ml-2 align-middle text-sm font-bold text-brand-foreground">On sale</span>
-            ) : null}
-          </p>
-          <p className="text-sm text-brand-muted">{priceNote(history)}</p>
-        </div>
-        {product.delisted_at ? (
-          <p className="rounded-xl bg-brand-raised px-3 py-2 text-sm">
-            DABS no longer lists this product. It may not come back.
-          </p>
-        ) : null}
-        <WatchButton csc={csc} initialWatched={watchedSet.has(csc)} signedIn={!!user} />
-      </section>
+        </header>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-12">
-        <section className="space-y-3" aria-labelledby="where-title">
+        {/* What does it cost, is it anywhere, and how do I hear when it changes? */}
+        <section aria-label="Price and availability" className="space-y-4 rounded-lg bg-card p-4 sm:p-5 lg:self-start">
           <div className="flex items-baseline justify-between gap-3">
-            <h2 id="where-title" className="font-display text-2xl font-extrabold tracking-[-0.02em]">
+            <p className="text-3xl font-medium tabular-nums">{formatPrice(product.current_price)}</p>
+            {product.is_spa ? <span className="text-sm font-medium text-price-drop">On sale</span> : null}
+          </div>
+          <p className="-mt-2 text-sm text-muted-foreground">{priceNote(history)}</p>
+          <p className="text-[15px]">
+            {product.in_stock ? (
+              <span className="inline-flex items-start gap-1.5 font-medium text-success">
+                <Check className="mt-0.5 size-4 shrink-0" aria-hidden />
+                <span>
+                  In stores: {formatQty(product.store_qty)} {unit.many} statewide
+                  {storesWithStock > 0 ? ` (at least ${storesWithStock} stores)` : ""}
+                </span>
+              </span>
+            ) : (
+              <span className="text-muted-foreground">Not in stores right now.</span>
+            )}
+          </p>
+          {product.delisted_at ? (
+            <p className="text-sm text-warning">DABS no longer lists this product, so it may not come back.</p>
+          ) : null}
+          <div className="space-y-2 border-t pt-4">
+            <WatchButton csc={csc} initialWatched={watchedSet.has(csc)} signedIn={!!user} />
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              We check DABS several times a day and email you when it&apos;s back in stores, sells out, or changes
+              price. At most one email an hour.
+            </p>
+          </div>
+          <p className="text-xs text-subtle-foreground">
+            Price and statewide count from DABS {whenLabel(product.last_seen)}.
+          </p>
+        </section>
+      </div>
+
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
+        <section className="space-y-4" aria-labelledby="where-title">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h2 id="where-title" className="font-display text-[2rem] leading-none sm:text-4xl">
               Where to find it
             </h2>
             {storeAsOf ? (
-              <span className="text-xs text-muted-foreground">counted {formatAsOf(storeAsOf)} MT</span>
+              <span className="text-[13px] text-muted-foreground">Store counts from {whenLabel(storeAsOf)}</span>
             ) : null}
           </div>
           {stores.length === 0 ? (
-            <div className="rounded-2xl border border-dashed p-6 text-[15px] text-muted-foreground">
-              We haven&apos;t collected store-by-store counts for this bottle yet.{" "}
-              {product.in_stock
-                ? `DABS shows ${formatQty(product.store_qty)} in stores statewide.`
-                : "DABS shows none in stores right now."}{" "}
-              Check the{" "}
-              <a className="font-semibold text-primary underline" href={DABS_LOCATOR_URL} rel="noopener">
-                official locator
-              </a>{" "}
-              for which stores.
+            <div className="space-y-2 border-y py-5 text-[15px]">
+              <p>We don&apos;t have store-by-store counts for this bottle yet.</p>
+              <p className="text-muted-foreground">
+                {product.in_stock
+                  ? `DABS shows ${formatQty(product.store_qty)} ${unit.many} in stores statewide. `
+                  : "DABS shows none in stores right now. "}
+                The{" "}
+                <a className="text-foreground underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
+                  official locator
+                </a>{" "}
+                lists stores by name.
+              </p>
             </div>
           ) : (
             <StoreAvailability
+              unit={unit}
               homeStores={homeStores}
               stores={stores.map((s) => ({
                 store_id: s.store_id,
@@ -176,93 +216,101 @@ export default async function ProductPage({ params }: Props) {
           )}
           {!user ? (
             <p className="text-sm text-muted-foreground">
-              <Link href={`/login?next=/product/${csc}`} className="font-semibold text-primary underline">
+              <Link href={`/login?next=/product/${csc}`} className="text-foreground underline underline-offset-4">
                 Sign in
               </Link>{" "}
-              and pick your store to see it here first.
+              and pick your store to see it listed first.
             </p>
           ) : homeStores.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              <Link href="/watchlist" className="font-semibold text-primary underline">
+              <Link href="/watchlist" className="text-foreground underline underline-offset-4">
                 Pick your store
               </Link>{" "}
-              to see it here first and get &ldquo;back at my store&rdquo; alerts.
+              to see it listed first and get &ldquo;back at my store&rdquo; emails.
             </p>
           ) : null}
         </section>
 
-        <div className="space-y-8">
-          <div className="grid grid-cols-3 gap-2">
-            <Stat value={formatQty(product.store_qty)} label="bottles in stores" hint={stores.length ? `at ${storesWithStock} stores` : undefined} />
-            <Stat value={formatQty(product.warehouse_qty)} label="at warehouse" />
-            <Stat value={formatQty(product.on_order_qty)} label="on order" good={(product.on_order_qty ?? 0) > 0} />
-          </div>
-
+        <div className="space-y-10">
           <section className="space-y-3" aria-labelledby="history-title">
-            <h2 id="history-title" className="font-display text-2xl font-extrabold tracking-[-0.02em]">
-              Bottles in stores, last 90 days
+            <h2 id="history-title" className="font-display text-[2rem] leading-none sm:text-4xl">
+              Last 90 days
             </h2>
+            <p className="text-sm text-muted-foreground">{unit.many.replace(/^./, (c) => c.toUpperCase())} in stores statewide.</p>
             {history.length >= 2 ? (
               <StockChart
                 points={history.map((p) => ({ t: new Date(p.scraped_at).getTime(), v: p.store_qty ?? 0 }))}
                 until={new Date(product.last_seen).getTime()}
               />
             ) : (
-              <p className="rounded-2xl border border-dashed p-6 text-sm text-muted-foreground">
-                The chart fills in after a few days of tracking.
-              </p>
+              <p className="border-y py-5 text-sm text-muted-foreground">The chart fills in after a few days of tracking.</p>
             )}
           </section>
 
           {events.length > 0 ? (
             <section className="space-y-3" aria-labelledby="changes-title">
-              <h2 id="changes-title" className="font-display text-2xl font-extrabold tracking-[-0.02em]">
+              <h2 id="changes-title" className="font-display text-[2rem] leading-none sm:text-4xl">
                 What changed
               </h2>
-              <ol className="space-y-0">
+              <ol className="divide-y border-y">
                 {events.map((e) => (
-                  <li key={e.id} className="flex gap-3">
-                    <div className="flex w-3 flex-col items-center" aria-hidden>
-                      <span className="mt-1.5 size-3 rounded-full bg-primary" />
-                      <span className="w-0.5 flex-1 bg-border" />
-                    </div>
-                    <div className="space-y-1 pb-5">
-                      <p className="flex items-center gap-2 text-[13px] font-semibold text-muted-foreground">
-                        {new Date(e.created_at).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          timeZone: "America/Denver",
-                        })}
-                        <EventTag tag={eventTagKey(e.event_type, e.detail)} />
-                      </p>
-                      <p className="font-semibold">{eventText(e)}</p>
-                    </div>
+                  <li key={e.id} className="flex items-baseline gap-4 py-2.5">
+                    <span className="w-14 shrink-0 text-[13px] text-subtle-foreground tabular-nums">
+                      {new Date(e.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        timeZone: "America/Denver",
+                      })}
+                    </span>
+                    <span className="text-[15px]">{eventText(e, unit.many)}</span>
                   </li>
                 ))}
               </ol>
             </section>
           ) : null}
+
+          <details className="group border-y">
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-[15px]">
+              DABS listing details
+              <span aria-hidden className="text-muted-foreground transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 pb-4 text-sm">
+              <Detail term="Name at DABS">{product.name}</Detail>
+              <Detail term="DABS code">{product.csc}</Detail>
+              <Detail term="Listing status">
+                {product.status ? `${STATUS_LABELS[product.status] ?? product.status}` : "—"}
+                <span className="block text-xs text-subtle-foreground">How DABS carries it, not whether it&apos;s on a shelf.</span>
+              </Detail>
+              <Detail term="In stores">{formatQty(product.store_qty)}</Detail>
+              <Detail term="At the DABS warehouse">
+                {formatQty(product.warehouse_qty)}
+                <span className="block text-xs text-subtle-foreground">Not for sale there; stock waiting to ship to stores.</span>
+              </Detail>
+              <Detail term="On order">{formatQty(product.on_order_qty)}</Detail>
+              <Detail term="DABS category">{product.category ?? "—"}</Detail>
+              <Detail term="Last in the catalog">{formatAsOf(product.last_seen)} MT</Detail>
+            </dl>
+          </details>
         </div>
       </div>
 
-      <p className="text-xs text-muted-foreground">
-        Counts come from public DABS pages and can lag. Call ahead or check the{" "}
-        <a className="underline" href={DABS_LOCATOR_URL} rel="noopener">
+      <p className="text-xs text-subtle-foreground">
+        Counts come from public DABS pages and can lag. Call ahead, or check the{" "}
+        <a className="underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
           official DABS locator
-        </a>{" "}
-        before driving. Last seen in the catalog {formatAsOf(product.last_seen)} MT.
+        </a>
+        , before you drive.
       </p>
     </div>
   );
 }
 
-function Stat({ value, label, hint, good }: { value: string; label: string; hint?: string; good?: boolean }) {
+function Detail({ term, children }: { term: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border bg-card p-3">
-      <p className={`font-display text-2xl font-extrabold tabular-nums ${good ? "text-success" : ""}`}>{value}</p>
-      <p className="text-xs text-muted-foreground">{label}</p>
-      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
-    </div>
+    <>
+      <dt className="text-muted-foreground">{term}</dt>
+      <dd className="tabular-nums">{children}</dd>
+    </>
   );
 }
 
@@ -285,11 +333,11 @@ function priceNote(history: SnapshotPoint[]): string {
   return "Same price for the last 90 days";
 }
 
-function eventText(e: EventRow): string {
+function eventText(e: EventRow, units: string): string {
   const d = e.detail;
   switch (e.event_type) {
     case "restock":
-      return `Back in stores · ${formatQty(Number(d.qty))} bottles statewide`;
+      return `Back in stores: ${formatQty(Number(d.qty))} ${units} statewide`;
     case "out_of_stock":
       return "Sold out statewide";
     case "new_product":

@@ -40,9 +40,9 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
   };
 
   return (
-    <div className="space-y-3 rounded-2xl border bg-card p-4 sm:p-5">
+    <div className="space-y-3">
       <div className="space-y-1">
-        <h2 className="font-display text-xl font-extrabold tracking-[-0.02em]">Your stores</h2>
+        <h2 className="font-display text-[2rem] leading-none sm:text-4xl">Your stores</h2>
         <p className="text-sm text-muted-foreground">
           Pick up to {MAX_HOME_STORES} stores you shop at. Product pages show them first, and your
           alerts say when a bottle is back at one of them.
@@ -54,7 +54,7 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
           {chosen.map((id) => {
             const s = byId.get(id);
             return (
-              <li key={id} className="flex h-10 items-center gap-1 rounded-full border bg-background pr-0.5 pl-4 text-sm font-semibold">
+              <li key={id} className="flex h-10 items-center gap-1 rounded-md bg-raised pr-0.5 pl-3 text-sm">
                 {s ? label(s) : `Store ${id}`}
                 <button
                   type="button"
@@ -88,7 +88,7 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
             id="home-store"
             value={pick}
             onChange={(e) => setPick(e.target.value)}
-            className="h-11 rounded-xl border border-input bg-background px-3 text-base sm:w-80"
+            className="h-11 rounded-md border border-input bg-raised px-3 text-base sm:w-80"
           >
             <option value="">Choose a store…</option>
             {stores
@@ -99,7 +99,7 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
                 </option>
               ))}
           </select>
-          <Button type="submit" disabled={!pick || pending} className="h-11 rounded-xl px-5 font-bold">
+          <Button type="submit" disabled={!pick || pending} className="h-11 rounded-md border border-input bg-transparent px-5 font-medium text-foreground hover:bg-card">
             Add store
           </Button>
         </form>

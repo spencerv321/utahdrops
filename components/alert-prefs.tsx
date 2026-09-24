@@ -17,7 +17,7 @@ export function AlertPrefs({
   const [, startTransition] = useTransition();
 
   return (
-    <div className="divide-y rounded-2xl border bg-card">
+    <div className="divide-y border-y">
       <Row
         id="watch-email"
         title="Watchlist emails"
@@ -60,9 +60,9 @@ function Row({
   onChange: (value: boolean) => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 p-4">
+    <div className="flex items-center justify-between gap-4 py-4">
       <Label htmlFor={id} className="block cursor-pointer space-y-1">
-        <span className="block text-base font-bold">{title}</span>
+        <span className="block text-base font-medium">{title}</span>
         <span className="block text-sm font-normal text-muted-foreground">{hint}</span>
       </Label>
       <Switch id={id} checked={checked} onCheckedChange={onChange} className="scale-125" />

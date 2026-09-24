@@ -1,111 +1,83 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Follow the phone/OS setting: people use this in dim stores at night. */
-@custom-variant dark (@media (prefers-color-scheme: dark));
+/* One theme: warm espresso, like a bottle shop after dark. The `dark` class is
+   always on <html>, so shadcn's dark: variants match the palette. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * "Drop Feed" palette: parchment ground, ink text, oxblood brand, gold for the
- * one call to action that matters on a screen. Event tones (in stock, price
- * drop, new, clearance) differ in lightness as well as hue.
+ * Utah Drops tokens — "field guide" palette.
+ * Contrast (WCAG, on --background): foreground 15.6, muted 8.5, subtle 6.2,
+ * amber 9.5, green 10.7. Controls' --input border is 3.8:1.
+ * Accent use is deliberate: amber = the one selected/primary action,
+ * burgundy = the allocated drop, green = in stock (always with text).
  */
 :root {
-  color-scheme: light dark;
-  --radius: 0.75rem;
-  --background: #f4ede2;
-  --foreground: #1c1311;
-  --card: #fffbf4;
-  --card-foreground: #1c1311;
-  --popover: #fffbf4;
-  --popover-foreground: #1c1311;
-  --primary: #7a1e27;
-  --primary-foreground: #fbf3e6;
-  --secondary: #ede3d5;
-  --secondary-foreground: #1c1311;
-  --muted: #ede3d5;
-  --muted-foreground: #5b4a40;
-  --accent: #ede3d5;
-  --accent-foreground: #1c1311;
-  --destructive: #b42318;
-  --destructive-foreground: #fffbf4;
-  --border: #e3d6c4;
-  --input: #cdbba5;
-  --ring: #7a1e27;
-  --brand: #4a1219;
-  --brand-foreground: #fbf3e6;
-  --brand-muted: #e6cfc8;
-  --brand-raised: #5f1c24;
-  --gold: #e3a942;
-  --gold-foreground: #2b0a0e;
-  --success: #17583a;
-  --success-soft: #ddefe2;
-  --warning: #c98a12;
-  --clearance: #2f3a86;
-  --clearance-soft: #e1e4f4;
-  --price-drop: #8a3510;
-  --price-drop-soft: #f7dccb;
-  --fresh: #5e4006;
-  --fresh-soft: #f6e3b8;
-  --chart-1: #7a1e27;
-  --chart-2: #17583a;
-  --chart-3: #2f3a86;
-  --chart-4: #c98a12;
-  --chart-5: #8a3510;
-}
+  color-scheme: dark;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #14100e;
-    --foreground: #f4ede2;
-    --card: #1e1815;
-    --card-foreground: #f4ede2;
-    --popover: #1e1815;
-    --popover-foreground: #f4ede2;
-    --primary: #e3a942;
-    --primary-foreground: #1c1311;
-    --secondary: #2a221e;
-    --secondary-foreground: #f4ede2;
-    --muted: #2a221e;
-    --muted-foreground: #b8a898;
-    --accent: #2a221e;
-    --accent-foreground: #f4ede2;
-    --destructive: #f07167;
-    --destructive-foreground: #14100e;
-    --border: #332a25;
-    --input: #4a3f38;
-    --ring: #e3a942;
-    --brand: #4a1219;
-    --brand-foreground: #fbf3e6;
-    --brand-muted: #e6cfc8;
-    --brand-raised: #5f1c24;
-    --gold: #e3a942;
-    --gold-foreground: #2b0a0e;
-    --success: #6fcf97;
-    --success-soft: #16301f;
-    --warning: #e3a942;
-    --clearance: #aab3f2;
-    --clearance-soft: #1f2340;
-    --price-drop: #f0a57a;
-    --price-drop-soft: #3a2014;
-    --fresh: #f0c66b;
-    --fresh-soft: #3a2c0c;
-    --chart-1: #e3a942;
-    --chart-2: #6fcf97;
-    --chart-3: #aab3f2;
-    --chart-4: #f0c66b;
-    --chart-5: #f0a57a;
-  }
+  /* surfaces */
+  --background: #15100d; /* espresso */
+  --card: #1d1713; /* open panels, rows on hover */
+  --raised: #271f1a; /* featured panels, inputs */
+  --border: #3a2f27; /* hairline rules */
+  --input: #806c5b; /* control outlines (3:1) */
+
+  /* text */
+  --foreground: #f3e8d6; /* cream */
+  --muted-foreground: #bcab95;
+  --subtle-foreground: #a3917c;
+
+  /* accents */
+  --primary: #e7ae4b; /* amber: primary action, selected state, brand emphasis */
+  --primary-foreground: #1a120c;
+  --brand: #6b1a24; /* burgundy: allocated drop */
+  --brand-raised: #7e2530;
+  --brand-foreground: #f3e8d6;
+  --brand-muted: #e2c3bd;
+  --success: #86d3a2; /* in stock */
+  --success-soft: #173024;
+  --destructive: #f2917f;
+  --destructive-foreground: #15100d;
+  --warning: #e7ae4b;
+  --clearance: #b3bbf2;
+  --clearance-soft: #1f2340;
+  --price-drop: #f0a57a;
+  --price-drop-soft: #3a2014;
+  --fresh: #f0c66b;
+  --fresh-soft: #33270d;
+
+  /* shadcn aliases */
+  --card-foreground: var(--foreground);
+  --popover: var(--raised);
+  --popover-foreground: var(--foreground);
+  --secondary: var(--raised);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--raised);
+  --accent: var(--raised);
+  --accent-foreground: var(--foreground);
+  --ring: var(--primary);
+  --gold: var(--primary);
+  --gold-foreground: var(--primary-foreground);
+  --chart-1: var(--primary);
+  --chart-2: var(--success);
+  --chart-3: var(--clearance);
+  --chart-4: var(--fresh);
+  --chart-5: var(--price-drop);
+
+  /* shape: mostly rules and rows; radius only where a container earns it */
+  --radius: 0.625rem;
 }
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: 0.875rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-raised: var(--raised);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -114,6 +86,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
@@ -141,26 +114,96 @@
   --color-brand-raised: var(--brand-raised);
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
-  --font-sans: var(--font-instrument);
-  --font-display: var(--font-bricolage);
+  /* Instrument Sans for everything you read or tap; Instrument Serif only for
+     brand and editorial moments (wordmark, headlines, the drop date). */
+  --font-sans: var(--font-instrument-sans);
+  --font-display: var(--font-instrument-serif);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-background text-foreground;
+    /* Break a word only when it can't fit (large text sizes, narrow columns). */
+    overflow-wrap: anywhere;
+    /* Instrument Sans's kerning table mis-spaces some capital pairs ("DA BS")
+       in Chromium; plain spacing reads better for UI text. The serif keeps
+       its kerning (see h1 / .font-display). */
+    font-kerning: none;
   }
-  /* Chunky display type for headlines; everything else stays in the sans. */
-  h1 {
-    font-family: var(--font-bricolage), system-ui, sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+  /* One clear, consistent focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
   }
-  /* Tabular figures everywhere numbers matter (tables, prices, counts). */
+  h1,
+  .font-display {
+    font-family: var(--font-instrument-serif), Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    font-kerning: normal;
+  }
   .tabular-nums {
     font-variant-numeric: tabular-nums;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Small-caps style label used for eyebrows and section kickers. */
+  .kicker {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  /*
+   * Signature detail: the drop "ticket". A perforated line with half-circle
+   * notches separates the stub (date) from the body. Pure CSS masks, so it
+   * adapts to any width and stays crisp.
+   */
+  .ticket {
+    --notch: 9px;
+    --stub: 7.5rem;
+    position: relative;
+  }
+  /* Notches are page-colored circles (not a CSS mask), so text inside the
+     ticket renders exactly like everywhere else. */
+  .ticket::before,
+  .ticket::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--stub) - var(--notch));
+    width: calc(var(--notch) * 2);
+    height: calc(var(--notch) * 2);
+    border-radius: 9999px;
+    background: var(--background);
+  }
+  .ticket::before {
+    top: calc(var(--notch) * -1);
+  }
+  .ticket::after {
+    bottom: calc(var(--notch) * -1);
+  }
+  .ticket-perf {
+    background-image: linear-gradient(to bottom, currentColor 50%, transparent 50%);
+    background-size: 1px 8px;
+    background-repeat: repeat-y;
+    width: 1px;
   }
 }

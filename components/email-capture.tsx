@@ -28,7 +28,7 @@ export function EmailCapture() {
 
   return (
     <form
-      className="flex flex-col gap-2 sm:flex-row sm:items-center"
+      className="flex flex-wrap items-center gap-2"
       action={(formData) => {
         setError(null);
         startTransition(async () => {
@@ -52,12 +52,12 @@ export function EmailCapture() {
         name="email"
         required
         placeholder="you@example.com"
-        className="h-11 bg-card text-base sm:w-64"
+        className="h-11 min-w-0 flex-[1_1_14rem] border-input bg-raised text-base"
         aria-label="Email address"
       />
       <select
         name="segment"
-        className="h-11 rounded-md border border-input bg-card px-3 text-sm shadow-xs"
+        className="h-11 min-w-0 flex-[1_1_10rem] rounded-md border border-input bg-raised px-3 text-sm"
         aria-label="I am a"
         defaultValue="consumer"
       >
@@ -66,7 +66,7 @@ export function EmailCapture() {
         <option value="supplier">I&apos;m a supplier / distillery</option>
         <option value="other">Other</option>
       </select>
-      <Button type="submit" disabled={pending} className="h-11 px-5 font-semibold">
+      <Button type="submit" disabled={pending} className="h-auto min-h-11 min-w-0 flex-[1_1_auto] px-5 font-semibold whitespace-normal">
         {pending ? "Sending…" : "Email me a sign-in link"}
       </Button>
       {error ? <span className="text-sm text-destructive">{error}</span> : null}
