@@ -34,6 +34,18 @@ export const STATUS_LABELS: Record<string, string> = {
   X: "Discontinued limited",
 };
 
+/**
+ * Store-by-store checks older than this are treated as unknown everywhere on
+ * the site. The store job normally re-checks a bottle every 1–4 days, so this
+ * only trips after an outage or when rotation falls far behind.
+ */
+export const STORE_DATA_MAX_AGE_HOURS = 7 * 24;
+
+export function isFreshStoreCheck(checkedAt: Date | string | null | undefined, now = Date.now()): boolean {
+  if (!checkedAt) return false;
+  return now - new Date(checkedAt).getTime() <= STORE_DATA_MAX_AGE_HOURS * 3600_000;
+}
+
 /** Home stores per user for "back at my store" alerts. */
 export const MAX_HOME_STORES = 3;
 

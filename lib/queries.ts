@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { sql } from "@/lib/db";
+import { STORE_DATA_MAX_AGE_HOURS } from "@/lib/config";
 
 export interface ProductRow {
   csc: string;
@@ -80,7 +81,8 @@ export async function searchProducts(filters: SearchFilters) {
     : nearStoreIds.length > 0
       ? sql`p.in_stock desc,
             exists (select 1 from store_inventory_current c
-                    where c.csc = p.csc and c.qty > 0 and c.store_id = any(${nearStoreIds})) desc,
+                    where c.csc = p.csc and c.qty > 0 and c.store_id = any(${nearStoreIds})
+                      and c.scraped_at > now() - make_interval(hours => ${STORE_DATA_MAX_AGE_HOURS})) desc,
             p.store_qty desc nulls last, p.search_name asc`
       : sql`p.in_stock desc, p.store_qty desc nulls last, p.search_name asc`;
 
@@ -353,7 +355,8 @@ export interface Nearby {
 
 /**
  * Per-store stock near a point for a batch of products. Products we've never
- * checked store by store are absent (unknown), not zero.
+ * checked store by store, or not within STORE_DATA_MAX_AGE_HOURS, are absent
+ * (unknown), not zero.
  */
 export async function getNearby(
   cscs: string[],
@@ -375,6 +378,44 @@ export async function getNearby(
       ))) <= ${miles} as near
     ) n
     where c.csc = any(${cscs})
+      and c.scraped_at > now() - make_interval(hours => ${STORE_DATA_MAX_AGE_HOURS})
     group by c.csc`) as unknown as { csc: string; stores: number; units: number; checked_at: Date }[];
   return new Map(rows.map((r) => [r.csc, { stores: r.stores, units: r.units, checkedAt: r.checked_at }]));
+}
+
+export type RarityTier = "everyday" | "uncommon" | "scarce" | "rare" | "unicorn";
+
+export interface ProductRarity {
+  /** Badge to show, after manual overrides; null = facts only. */
+  tier: RarityTier | null;
+  headline: string;
+  explanation: string;
+  evidence: string[];
+  computedAt: Date;
+  reviewedOn: Date | null;
+}
+
+/** The Utah Drops availability assessment (beta) for a product, if any. */
+export async function getProductRarity(csc: string): Promise<ProductRarity | null> {
+  const rows = (await sql`
+    select pr.tier, pr.published, pr.headline, pr.explanation, pr.evidence, pr.computed_at,
+           o.csc is not null as has_override, o.tier as override_tier,
+           o.explanation as override_explanation, o.reviewed_on
+    from product_rarity pr
+    left join rarity_overrides o using (csc)
+    where pr.csc = ${csc}`.catch(() => [])) as unknown as {
+    tier: RarityTier | null; published: boolean; headline: string; explanation: string; evidence: string[];
+    computed_at: Date; has_override: boolean; override_tier: RarityTier | null;
+    override_explanation: string | null; reviewed_on: Date | null;
+  }[];
+  const r = rows[0];
+  if (!r) return null;
+  return {
+    tier: r.has_override ? r.override_tier : r.published ? r.tier : null,
+    headline: r.headline,
+    explanation: (r.has_override && r.override_explanation) || r.explanation,
+    evidence: r.evidence ?? [],
+    computedAt: r.computed_at,
+    reviewedOn: r.has_override ? r.reviewed_on : null,
+  };
 }

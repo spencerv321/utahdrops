@@ -5,6 +5,7 @@ import {
   getProduct,
   getProductEvents,
   getProductHistory,
+  getProductRarity,
   getStoreAvailability,
   getUserStoreIds,
   getWatchedSet,
@@ -17,6 +18,7 @@ import { StockChart } from "@/components/stock-chart";
 import { WatchButton } from "@/components/watch-button";
 import { ShareButton } from "@/components/share-button";
 import { StoreAvailability, type HomeStore } from "@/components/store-availability";
+import { RarityCard } from "@/components/rarity-card";
 import {
   categoryLabel,
   displayName,
@@ -32,7 +34,7 @@ import {
 } from "@/lib/format";
 import { BottleGlyph } from "@/components/bottle-glyph";
 import { Check } from "lucide-react";
-import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS } from "@/lib/config";
+import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, isFreshStoreCheck } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
 
@@ -53,12 +55,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { csc } = await params;
-  const [product, history, stores, events, user] = await Promise.all([
+  const [product, history, stores, events, user, rarity] = await Promise.all([
     getProduct(csc),
     getProductHistory(csc),
     getStoreAvailability(csc),
     getProductEvents(csc),
     getCurrentUser(),
+    getProductRarity(csc),
   ]);
   if (!product) notFound();
 
@@ -74,8 +77,12 @@ export default async function ProductPage({ params }: Props) {
     (latest, s) => (!latest || s.scraped_at > latest ? s.scraped_at : latest),
     null
   );
-  const storesWithStock = stores.filter((s) => s.qty > 0).length;
+  // Store-by-store checks older than a week aren't shown as current anywhere.
+  const storesFresh = isFreshStoreCheck(storeAsOf);
+  const storesWithStock = storesFresh ? stores.filter((s) => s.qty > 0).length : 0;
   const note = listingNote(product.status);
+  // Bottles DABS releases by drawing aren't "gone for good" when unlisted.
+  const drawingRelease = !!rarity?.evidence.some((e) => e.startsWith("DABS drawing"));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -158,7 +165,11 @@ export default async function ProductPage({ params }: Props) {
             )}
           </p>
           {product.delisted_at ? (
-            <p className="text-sm text-warning">DABS no longer lists this product, so it may not come back.</p>
+            drawingRelease ? (
+              <p className="text-sm text-warning">Not currently listed. DABS has released it through drawings.</p>
+            ) : (
+              <p className="text-sm text-warning">DABS no longer lists this product, so it may not come back.</p>
+            )
           ) : null}
           <div className="space-y-2 border-t pt-4">
             <WatchButton csc={csc} initialWatched={watchedSet.has(csc)} signedIn={!!user} />
@@ -168,10 +179,14 @@ export default async function ProductPage({ params }: Props) {
             </p>
           </div>
           <p className="text-xs text-subtle-foreground">
-            Price and statewide count from DABS {whenLabel(product.last_seen)}.
+            {product.delisted_at && drawingRelease
+              ? "Price from its most recent DABS drawing."
+              : `Price and statewide count from DABS ${whenLabel(product.last_seen)}.`}
           </p>
         </section>
       </div>
+
+      {rarity ? <RarityCard rarity={rarity} /> : null}
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
         <section className="space-y-4" aria-labelledby="where-title">
@@ -179,7 +194,7 @@ export default async function ProductPage({ params }: Props) {
             <h2 id="where-title" className="font-display text-[2rem] leading-none sm:text-4xl">
               Where to find it
             </h2>
-            {storeAsOf ? (
+            {storeAsOf && storesFresh ? (
               <span className="text-[13px] text-muted-foreground">Store counts from {whenLabel(storeAsOf)}</span>
             ) : null}
           </div>
@@ -196,6 +211,44 @@ export default async function ProductPage({ params }: Props) {
                 </a>{" "}
                 lists stores by name.
               </p>
+            </div>
+          ) : !storesFresh ? (
+            <div className="space-y-3 border-y py-5 text-[15px]">
+              <p>
+                Store-by-store counts were last checked {whenLabel(storeAsOf)}, too long ago to rely on. We&apos;ll
+                refresh them soon.
+              </p>
+              <p className="text-muted-foreground">
+                {product.in_stock
+                  ? `Right now DABS shows ${formatQty(product.store_qty)} ${unit.many} in stores statewide. `
+                  : "Right now DABS shows none in stores. "}
+                The{" "}
+                <a className="text-foreground underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
+                  official locator
+                </a>{" "}
+                lists stores by name.
+              </p>
+              <details className="group">
+                <summary className="cursor-pointer text-sm text-muted-foreground">
+                  Show last known stores ({whenLabel(storeAsOf)})
+                </summary>
+                <div className="pt-3 opacity-70">
+                  <StoreAvailability
+                    unit={unit}
+                    homeStores={homeStores}
+                    stores={stores.map((s) => ({
+                      store_id: s.store_id,
+                      name: s.name,
+                      address: s.address,
+                      city: s.city,
+                      phone: s.phone,
+                      lat: s.lat,
+                      lng: s.lng,
+                      qty: s.qty,
+                    }))}
+                  />
+                </div>
+              </details>
             </div>
           ) : (
             <StoreAvailability
