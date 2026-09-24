@@ -6,6 +6,8 @@ config({ path: ".env.local", quiet: true });
  * volume by type, and samples of recent events with the snapshot history
  * behind them. Prints no emails or user data.
  */
+const show0 = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0)}`);
+
 async function main() {
   // These modes must work even when the session pooler (5432) is full, so go
   // through the transaction pooler (6543), which has its own client limit.
@@ -50,9 +52,15 @@ async function main() {
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
   if (process.argv[2] === "pooler") return pooler();
-  if (process.argv[2] === "storediag") {
-    // Per-store history for one product: rows per day, and stores with stock per day.
-    const csc = process.argv[3] ?? "018006";
+  if (process.argv[2]?.startsWith("storediag")) {
+    // Per-store history for one product ("storediag:038176"): rows per day, current rows, rotation.
+    const csc = process.argv[2].split(":")[1] ?? process.argv[3] ?? "018006";
+    show0("product", await sql`select csc, name, status, in_stock, store_qty, last_store_scrape, first_seen, last_seen, delisted_at from products where csc = ${csc}`);
+    show0("history rows total", await sql`select count(*)::int as rows, min(scraped_at) as first, max(scraped_at) as last from store_inventory where csc = ${csc}`);
+    show0("rotation position (targets ahead of it)", await sql`
+      select count(*)::int as ahead from products p
+      where (p.in_stock or exists (select 1 from watchlist w where w.csc = p.csc))
+        and coalesce(p.last_store_scrape, 'epoch') < (select coalesce(last_store_scrape, 'epoch') from products where csc = ${csc})`);
     const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
     show("current", await sql`select count(*)::int as rows, count(*) filter (where qty > 0)::int as stocked, min(scraped_at) as oldest, max(scraped_at) as newest from store_inventory_current where csc = ${csc}`);
     show("history rows by day", await sql`
@@ -62,6 +70,24 @@ async function main() {
       from store_inventory where csc = ${csc} group by 1 order by 1`);
     show("store runs (last 40)", await sql`select started_at, ok, detail - 'errors' as detail from scrape_runs where job = 'store_inventory' order by started_at desc limit 40`);
     show("store runs per day", await sql`select (started_at at time zone 'America/Denver')::date::text as d, count(*)::int as runs, count(*) filter (where ok)::int as ok from scrape_runs where job = 'store_inventory' group by 1 order by 1`);
+    return sql.end();
+  }
+  if (process.argv[2] === "storecoverage") {
+    // Which in-stock products have per-store history, by statewide stock size.
+    show0("in-stock products with any store history before the outage (Aug 14), by statewide bottles", await sql`
+      select case when store_qty >= 1000 then '1000+' when store_qty >= 200 then '200-999' when store_qty >= 50 then '50-199' else '1-49' end as bucket,
+             count(*)::int as products,
+             count(*) filter (where exists (select 1 from store_inventory s where s.csc = p.csc and s.scraped_at < '2026-08-14'))::int as with_history,
+             count(*) filter (where last_store_scrape is null)::int as never_attempted
+      from products p where in_stock and delisted_at is null group by 1 order by 1`);
+    show0("recent store-run errors", await sql`
+      select started_at, detail->'failed' as failed, detail->'errors' as errors from scrape_runs
+      where job = 'store_inventory' and detail ? 'errors' order by started_at desc limit 6`);
+    show0("largest in-stock products with no pre-outage history", await sql`
+      select csc, name, store_qty, last_store_scrape from products p
+      where in_stock and delisted_at is null
+        and not exists (select 1 from store_inventory s where s.csc = p.csc and s.scraped_at < '2026-08-14')
+      order by store_qty desc limit 15`);
     return sql.end();
   }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);

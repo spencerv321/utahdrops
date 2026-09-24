@@ -14,6 +14,7 @@ export interface NlProduct {
   in_stock: boolean;
   price_percentile: number | null;
   qty_at_store?: number;
+  checked_at?: string;
 }
 
 export interface NlStoreGroup {
@@ -106,7 +107,7 @@ export async function runNlSearch(
         select p.csc, p.name, p.category, p.status, p.current_price::text,
                p.store_qty, p.in_stock,
                p.price_percentile_in_category::float8 as price_percentile,
-               c.qty as qty_at_store
+               c.qty as qty_at_store, c.scraped_at as checked_at
         from store_inventory_current c
         join products p using (csc)
         where c.store_id = ${store.id} and c.qty > 0

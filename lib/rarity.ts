@@ -31,7 +31,7 @@ import type { ReservedSql } from "postgres";
  * Anything else gets facts only (no tier). DABS labels (status, "allocated"
  * class, special-order class) are shown separately and never change a tier.
  */
-export const RARITY_METHOD = "v3-beta";
+export const RARITY_METHOD = "v3.1-beta";
 export const RARITY_TZ = "America/Denver";
 
 // ── thresholds (proposed; tuned from the review) ─────────────────────────
@@ -632,7 +632,7 @@ export function classifyRarity(input: {
   if (latestDraw) {
     const tier: RarityTier = latestDraw.bottles != null && latestDraw.bottles <= T.unicornDrawingBottles ? "unicorn" : "rare";
     return result("DABS drawing", tier, "high", "Released through a DABS drawing",
-      `DABS offered ${latestDraw.bottles ?? "a few"} bottle${latestDraw.bottles === 1 ? "" : "s"} statewide by drawing in ${titleCase(latestDraw.drawing)}.`,
+      `${latestDraw.bottles ?? "A few"} bottle${latestDraw.bottles === 1 ? " was" : "s were"} offered in this drawing (${titleCase(latestDraw.drawing)}) — not a count of every bottle that reached Utah.`,
       `latest drawing ${latestDraw.bottles ?? "?"} bottles (${tier === "unicorn" ? "≤" : ">"} ${T.unicornDrawingBottles})`);
   }
   if (status === "S") return result("Special order", null, null, "Special order", "Ordered through DABS rather than stocked on shelves.", "DABS status S");
@@ -651,13 +651,21 @@ export function classifyRarity(input: {
   // Allocated drops support the assessment; shelf evidence decides when it's there.
   if (drop && !(enoughDays && share! >= T.shelfDecides)) {
     const rarelyOnShelves = !k || !enoughDays || share! < T.hardToFind;
-    const rare = rarelyOnShelves && drop.totalBottles <= T.rareDropTotalBottles && s.bottles12 <= T.rareMaxSales12;
+    // Being newly observed isn't historical rarity: Rare needs months of
+    // sales records, and no recorded sales at all means no badge yet.
+    const established = s.recordMonths12 >= 6 && s.bottles12 > 0;
+    const rare = established && rarelyOnShelves && drop.totalBottles <= T.rareDropTotalBottles && s.bottles12 <= T.rareMaxSales12;
     const tier: RarityTier = rare ? "rare" : "scarce";
+    if (s.bottles12 === 0) {
+      return result("Allocated release", tier, "low", "Released through DABS allocated drops",
+        `Newly seen in DABS's allocated drops; no sales recorded yet, so we're not rating it.`,
+        `newly observed: drops total ${drop.totalBottles} bottles, no recorded sales yet`);
+    }
     return result("Allocated release", tier, enoughDays || !k ? "high" : "medium", "Released through DABS allocated drops",
       rare
         ? `Only ${n(drop.totalBottles)} bottles showed up in DABS's documented allocated drops, and it's rarely on shelves.`
         : `Sold through DABS's monthly allocated drops${enoughDays ? ` and on shelves ${pctStr(share!)} of the days we checked` : ""}.`,
-      `drops total ${drop.totalBottles} bottles, sales ${s.bottles12}/12mo, ${enoughDays ? `in stock ${pctStr(share!)}` : "shelf data thin"} → ${tier}`);
+      `drops total ${drop.totalBottles} bottles, sales ${s.bottles12}/12mo over ${s.recordMonths12} months, ${enoughDays ? `in stock ${pctStr(share!)}` : "shelf data thin"} → ${tier}`);
   }
 
   if (!k) return result("Facts only", null, null, "Not currently listed", "DABS doesn't list this bottle right now.", "not in the current catalog; no verified drawing/drop");
