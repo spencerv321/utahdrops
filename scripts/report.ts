@@ -127,8 +127,9 @@ async function discover(sql: typeof import("../lib/db").sql) {
   show("thresholds", [DISCOVER]);
   show("back-after-a-while coverage (unbroken catalog passes since)", [await backCoverage()]);
   for (const view of ["scarce", "back", "price"] as const) {
+    const t0 = Date.now();
     const items = rankView(await getDiscoverCandidates(view, null), view, { hasArea: false });
-    show(`${view}: ${items.length} qualify statewide; top 10`, items.slice(0, 10).map((i) => ({
+    show(`${view}: ${items.length} qualify statewide (query ${Date.now() - t0} ms); top 10`, items.slice(0, 10).map((i) => ({
       csc: i.csc, name: i.name, size_ml: i.sizeMl, price: i.price, tier: i.tier, statewide_bottles: i.storeQty,
       statewide_at: i.statewideAt, store_checked_at: i.storeCheckedAt, reason: reasonFor(view, i),
       ...(view === "back" ? { out_since: i.outSince, back_at: i.backAt } : {}),

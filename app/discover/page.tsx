@@ -151,7 +151,9 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
           {hasArea
             ? nearbyOnly
               ? `Only bottles reported at a store within ${NEARBY_MILES} miles in the last ${DISCOVER.nearbyMaxAgeHours} hours.`
-              : `${nearCount} of ${results.length} reported ${nearLabel(area!)} in the last ${DISCOVER.nearbyMaxAgeHours} hours; the rest are statewide only.`
+              : results.length > 0
+                ? `${nearCount} of ${results.length} reported ${nearLabel(area!)} in the last ${DISCOVER.nearbyMaxAgeHours} hours; the rest are statewide only.`
+                : `Nearby means a store within ${NEARBY_MILES} miles, checked in the last ${DISCOVER.nearbyMaxAgeHours} hours.`
             : "Across Utah."}{" "}
           Statewide stock from DABS {whenLabel(freshness)}. Stock changes; confirm with the store before you go.
         </p>
@@ -220,6 +222,9 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
                 <span className="text-foreground">Back after a while:</span> out of stock statewide for at least{" "}
                 {DISCOVER.back.absenceDays} days while our checks were running (a gap in our checks doesn&apos;t
                 count), and first seen back in the last {DISCOVER.back.returnedWithinDays} days.
+                {coverage?.earliest
+                  ? ` Not shown yet: our checks have run without a break only since ${shortDay(coverage.since!)}, so the first confirmed returns can appear around ${shortDay(coverage.earliest)}.`
+                  : ""}
               </li>
               <li>
                 <span className="text-foreground">Price drops:</span> DABS&apos;s price fell at least{" "}
@@ -256,7 +261,7 @@ function Empty({
 }) {
   const link = "inline-flex min-h-11 items-center gap-1 text-[15px] font-medium underline decoration-primary underline-offset-4";
   return (
-    <div className="space-y-3 border-y py-8">
+    <div className="space-y-3 border-b py-8">
       {nearbyOnly && areaText ? (
         <>
           <p className="font-display text-2xl leading-tight">Nothing confirmed {areaText} in the last 24 hours</p>
@@ -307,7 +312,7 @@ function BackUnavailable({
   href: (p: { view?: DiscoverView; n?: number }) => string;
 }) {
   return (
-    <div className="space-y-3 border-y py-8">
+    <div className="space-y-3 border-b py-8">
       <p className="font-display text-2xl leading-tight">Not enough history yet</p>
       <p className="max-w-prose text-[15px] text-muted-foreground">
         To say a bottle is back after {DISCOVER.back.absenceDays}+ days, we need to have watched it the whole time.

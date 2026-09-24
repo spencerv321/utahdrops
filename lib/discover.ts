@@ -120,7 +120,12 @@ async function back(area: Area | null): Promise<Row[]> {
   return (await sql`
     with ${n.cte}
     cand as (
-      select p.csc from products p where ${eligible()}
+      -- a return inside the window leaves an in-stock snapshot inside it
+      select p.csc from products p
+      where ${eligible()}
+        and exists (select 1 from inventory_snapshots s
+                    where s.csc = p.csc and coalesce(s.store_qty, 0) > 0
+                      and s.scraped_at > now() - make_interval(days => ${b.returnedWithinDays}))
     ),
     last_zero as (
       select s.csc, max(s.scraped_at) as z_last

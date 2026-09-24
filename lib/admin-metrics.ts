@@ -375,3 +375,66 @@ export async function getRatingsBeta(range: RangeKey) {
 }
 
 export type RatingsBeta = Awaited<ReturnType<typeof getRatingsBeta>>;
+
+/**
+ * "Worth a look" (/discover): unique and returning visitors from page_events,
+ * actions from discover_events, by view and surface. Confirmed = the watch was
+ * actually added (after email verification for signed-out visitors), not the
+ * Watch tap. Rare bottles draw interested people anyway, so a higher rate for
+ * one view isn't proof the badge or the page caused it.
+ */
+export async function getDiscovery(range: RangeKey) {
+  const days = RANGES[range].days;
+  const start = sql`((date_trunc('day', now() at time zone ${TZ}) - make_interval(days => ${days - 1})) at time zone ${TZ})`;
+  const [visits, byView, useful] = await Promise.all([
+    sql`
+      with v as (
+        select visitor_id, count(distinct session_id) as sessions from page_events
+        where path = '/discover' and created_at >= ${start} group by visitor_id
+      )
+      select count(*) as visitors, count(*) filter (where sessions >= 2) as returning,
+             (select count(distinct visitor_id) from page_events where path = '/' and created_at >= ${start}) as home_visitors
+      from v`.catch(() => []),
+    sql`
+      select surface, view,
+             count(distinct visitor_id) filter (where kind = 'click') as clickers,
+             count(*) filter (where kind = 'click') as clicks,
+             count(*) filter (where kind = 'watch_click') as watch_clicks,
+             count(*) filter (where kind = 'watch_request') as email_requests,
+             count(*) filter (where kind = 'watch_added') as confirmed
+      from discover_events where created_at >= ${start} and view is not null
+      group by 1, 2`.catch(() => []),
+    sql`
+      select count(*) filter (where kind = 'useful_yes') as yes, count(*) filter (where kind = 'useful_no') as no
+      from discover_events where created_at >= ${start}`.catch(() => []),
+  ]);
+  const v = visits[0] ?? {};
+  const rows = byView.map((r) => ({
+    surface: String(r.surface),
+    view: String(r.view),
+    clickers: n(r.clickers),
+    clicks: n(r.clicks),
+    watchClicks: n(r.watch_clicks),
+    emailRequests: n(r.email_requests),
+    confirmed: n(r.confirmed),
+  }));
+  const order = ["scarce", "back", "price"];
+  rows.sort((a, b) => a.surface.localeCompare(b.surface) || order.indexOf(a.view) - order.indexOf(b.view));
+  const onPage = rows.filter((r) => r.surface === "discover");
+  const sum = (f: (r: (typeof rows)[number]) => number, list = onPage) => list.reduce((a, r) => a + f(r), 0);
+  const [clickers] = await sql`
+    select count(distinct visitor_id) as n from discover_events
+    where created_at >= ${start} and surface = 'discover' and kind = 'click'`.catch(() => [{ n: 0 }]);
+  return {
+    visitors: n(v.visitors),
+    returning: n(v.returning),
+    homeVisitors: n(v.home_visitors),
+    clickers: n(clickers?.n),
+    watchClicks: sum((r) => r.watchClicks),
+    confirmed: sum((r) => r.confirmed),
+    rows,
+    useful: { yes: n(useful[0]?.yes), no: n(useful[0]?.no) },
+  };
+}
+
+export type Discovery = Awaited<ReturnType<typeof getDiscovery>>;
