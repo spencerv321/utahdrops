@@ -1,6 +1,6 @@
 # Utah Drops — status
 
-_Last updated: 2026-09-24 (PRs #25–#27)_
+_Last updated: 2026-09-24 (PRs #25–#27, Worth a look)_
 
 **Production is healthy.** Statewide stock refreshes 3×/day, store-by-store every 4h; all
 scheduled workflows are enabled; `/api/health` is green.
@@ -117,6 +117,21 @@ scheduled workflows are enabled; `/api/health` is green.
   on target (8 = DABS 500s); in-stock checked <1d 1,157 · 1–3d 253 · never
   2,168 · >7d 1,833.
 
+## Worth a look (/discover)
+- Three views (rules in README → Worth a look, thresholds in `lib/discover-rules.ts`),
+  homepage preview of up to 3, "Worth a look" in the desktop nav, share card.
+- First production review (2026-09-24, `report.yml` → `discover`): Scarce 10
+  bottles (all rated via allocated drops, e.g. Tears of Llorona, Old Forester
+  Single Barrel Rye Barrel Proof); nearby-confirmed within 24h: 2 near Salt
+  Lake City / Park City, 3 near St. George, 0 near Provo; 6 of 10 had no store
+  check since Aug 13 (rotation still catching up). Price drops 0 (the 8 price
+  changes since the Sep 23 restart were 5 increases and 3 small drops).
+  Back after a while 0 and hidden: unbroken catalog history only since Sep 23,
+  so the first confirmable returns are ~Oct 23.
+- Measurement: `/admin` → Discovery (unique and returning /discover visitors,
+  product click-through, confirmed watches per 100 visitors, by view and
+  home vs page, "Was this useful?").
+
 ### Open items (next session: pick these up)
 - **Verify the new store schedule** with `report.yml` → `freshness`
   (Claude check-ins scheduled Sep 25, 26, 27 and 29; if this session is gone,
@@ -124,6 +139,8 @@ scheduled workflows are enabled; `/api/health` is green.
   target except DABS-500 SKUs, never/>7d buckets ~0 by Sep 27–28.
 - If it passes, change `WATCH_REFRESH_NOTE` (`lib/config.ts`) and the digest
   footer from "about twice a day" to the measured frequency.
+- Re-run `report.yml` → `discover` after Sep 28 (store rotation caught up) and
+  after Oct 23 (Back view can first appear); check /admin → Discovery weekly.
 - **Owner test** (2026-09-24, partial): the request and confirm email worked,
   but the link was opened in a different browser already signed in as the
   owner's main account. Supabase's confirm-signup link (PKCE `?code=`) only

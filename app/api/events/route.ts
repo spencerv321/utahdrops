@@ -4,6 +4,8 @@ import { sql } from "@/lib/db";
 import { releaseIdleConnections } from "@/lib/db-release";
 import { SITE_URL } from "@/lib/config";
 import { browserOf, deviceOf, isBot, osOf, referrerHost, sourceOf } from "@/lib/analytics";
+import { recordDiscoverEvent } from "@/lib/discover-events";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 /**
  * Page-view beacon from components/page-tracker.tsx. Always answers 204:
@@ -30,6 +32,16 @@ const Body = z.object({
   utm_campaign: text(150),
 });
 
+/** An action on a "Worth a look" result (lib/beacon.ts sendDiscoverEvent). */
+const Action = z.object({
+  action: z.object({
+    kind: z.enum(["click", "watch_click", "useful_yes", "useful_no"]),
+    source: z.string().max(40),
+    csc: z.string().regex(/^\d{6}$/).nullish(),
+  }),
+  visitor: z.string().regex(/^[\w-]{8,64}$/),
+});
+
 const NO_CONTENT = () => new NextResponse(null, { status: 204 });
 
 function decode(v: string): string {
@@ -50,7 +62,15 @@ export async function POST(req: NextRequest) {
   const ua = req.headers.get("user-agent") ?? "";
   if (isBot(ua)) return NO_CONTENT();
 
-  const parsed = Body.safeParse(await req.json().catch(() => null));
+  const json = await req.json().catch(() => null);
+  const action = Action.safeParse(json);
+  if (action.success) {
+    const a = action.data;
+    const user = await getCurrentUser().catch(() => null);
+    await recordDiscoverEvent(a.action.kind, a.action.source, { csc: a.action.csc, visitorId: a.visitor, user });
+    return NO_CONTENT();
+  }
+  const parsed = Body.safeParse(json);
   if (!parsed.success) return NO_CONTENT();
   const b = parsed.data;
   if (b.path.startsWith("/admin") || b.path.startsWith("/api")) return NO_CONTENT();

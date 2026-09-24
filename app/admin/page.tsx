@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { adminEmails, isAdmin } from "@/lib/admin";
 import { JOB_MAX_AGE_HOURS } from "@/lib/config";
-import { getAccounts, getDashboard, getRatingsBeta, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
+import { getAccounts, getDashboard, getDiscovery, getRatingsBeta, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
 import { TrendChart } from "@/components/admin/trend-chart";
 import { AutoRefresh } from "@/components/admin/auto-refresh";
 import { cn } from "@/lib/utils";
@@ -176,6 +176,7 @@ const SECTIONS = [
   ["audience", "Audience"],
   ["users", "Users"],
   ["ratings", "Ratings"],
+  ["discovery", "Discovery"],
   ["data", "Data"],
 ] as const;
 
@@ -201,7 +202,13 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   }
 
   const range = parseRange((await searchParams).range);
-  const [d, a, rb] = await Promise.all([getDashboard(range), getAccounts(range), getRatingsBeta(range)]);
+  const [d, a, rb, dv] = await Promise.all([
+    getDashboard(range),
+    getAccounts(range),
+    getRatingsBeta(range),
+    getDiscovery(range),
+  ]);
+  const pct = (x: number, of: number) => (of ? `${((100 * x) / of).toFixed(1)}%` : "—");
   const c: Kpis = d.current;
   const p: Kpis = d.previous;
   const bounce = (k: Kpis) => (k.sessions ? (k.bounced / k.sessions) * 100 : 0);
@@ -451,6 +458,58 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             )}
           </Panel>
         </div>
+      </Section>
+
+      <Section id="discovery" title="Worth a look">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <Stat label="Unique visitors to /discover" value={num(dv.visitors)} hint={`${num(dv.homeVisitors)} saw the home page (preview shows when something qualifies)`} />
+          <Stat label="Product click-through" value={pct(dv.clickers, dv.visitors)} hint={`${num(dv.clickers)} visitors clicked a bottle`} />
+          <Stat
+            label="Confirmed watches / 100 visitors"
+            value={dv.visitors ? ((100 * dv.confirmed) / dv.visitors).toFixed(1) : "—"}
+            hint={`${num(dv.confirmed)} added, from ${num(dv.watchClicks)} Watch taps (on /discover)`}
+          />
+          <Stat label="Returning visitors" value={pct(dv.returning, dv.visitors)} hint={`${num(dv.returning)} came back in another session`} />
+        </div>
+        <Panel title="By view" note="home = the homepage preview">
+          {dv.rows.length ? (
+            <div className="-mx-2 overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="text-left text-xs text-subtle-foreground">
+                  <tr>
+                    <th className="px-2 pb-2 font-normal">Where</th>
+                    <th className="px-2 pb-2 font-normal">View</th>
+                    <th className="px-2 pb-2 text-right font-normal">Bottle clicks</th>
+                    <th className="px-2 pb-2 text-right font-normal">Clickers</th>
+                    <th className="px-2 pb-2 text-right font-normal">Watch taps</th>
+                    <th className="px-2 pb-2 text-right font-normal">Email asked</th>
+                    <th className="px-2 pb-2 text-right font-normal">Confirmed watches</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dv.rows.map((r) => (
+                    <tr key={r.surface + r.view} className="border-t">
+                      <td className="px-2 py-2">{r.surface}</td>
+                      <td className="px-2 py-2">{r.view}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{num(r.clicks)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{num(r.clickers)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{num(r.watchClicks)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{num(r.emailRequests)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{num(r.confirmed)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-sm text-subtle-foreground">No clicks or watches from discovery in range.</p>
+          )}
+          <p className="pt-3 text-xs text-subtle-foreground">
+            “Was this useful?” {num(dv.useful.yes)} yes · {num(dv.useful.no)} not really. A confirmed watch is one
+            actually added (after the email link for signed-out visitors), not a tap. Scarce bottles draw interested
+            people anyway, so a higher rate for one view isn&apos;t proof the badge or the page caused it.
+          </p>
+        </Panel>
       </Section>
 
       <Section id="data" title="Data freshness">

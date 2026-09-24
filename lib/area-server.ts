@@ -18,3 +18,16 @@ export async function getAreaOptions(): Promise<Area[]> {
   }
   return [...byLabel.values()].sort((a, b) => a.label.localeCompare(b.label));
 }
+
+/**
+ * Area for a shareable page: an explicit ?area=<store city> wins over the
+ * cookie. `label` is set only for store-city areas, which are safe to put in
+ * a link; "Near you" (coordinates) never goes in a URL.
+ */
+export async function getPageArea(param: string | undefined): Promise<{ area: Area | null; label: string | null }> {
+  const options = await getAreaOptions();
+  const fromUrl = param ? options.find((a) => a.label.toLowerCase() === param.trim().toLowerCase()) : undefined;
+  const area = fromUrl ?? (await getArea());
+  const label = area && options.some((a) => a.label === area.label) ? area.label : null;
+  return { area, label };
+}

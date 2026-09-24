@@ -41,7 +41,7 @@ test("rejects unknown products and stores", async () => {
 
 test("adds the watch and store once; repeated callbacks change nothing", async () => {
   const id = (await createWatchIntent(EMAIL.toUpperCase(), csc, storeId))!;
-  assert.deepEqual(await peekWatchIntent(id), { csc, storeId });
+  assert.deepEqual(await peekWatchIntent(id), { csc, storeId, source: null });
 
   const first = await applyWatchIntent(id, user);
   assert.equal(first.status, "added");

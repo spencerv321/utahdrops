@@ -16,6 +16,16 @@ function day(d: Date | string): string {
   return new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: MT });
 }
 
+/** The tier badge alone (lists). Words, never color alone. */
+export function RarityBadge({ tier, className }: { tier: RarityTier; className?: string }) {
+  const t = TIERS[tier];
+  return (
+    <span className={cn("rounded-sm px-1.5 py-0.5 text-[11px] font-semibold tracking-[0.08em] uppercase", t.className, className)}>
+      {t.name}
+    </span>
+  );
+}
+
 /**
  * Utah Drops availability rating (beta): a collectible-style badge with a
  * plain-language line, and the evidence behind it. Current stock lives in the

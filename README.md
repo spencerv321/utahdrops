@@ -107,6 +107,21 @@ latest check contradicts) and dates every line. `report.yml` → `freshness`
 shows capacity, watched-bottle freshness, overdue and failing checks, and
 baseline coverage.
 
+**Worth a look** (`/discover`, preview on the homepage): three discovery
+views with rules in `lib/discover-rules.ts` (all thresholds in `DISCOVER`) and
+SQL in `lib/discover.ts`. Every result is in stock by a catalog pass < 24h old
+and sold at ordinary retail (no special orders, delisted products or anything
+DABS releases by drawing). *Scarce*: published Scarce/Rare/Unicorn tier or a
+manual override. *Back after a while*: out statewide ≥ 30 days with no catalog
+gap > 48h inside the absence, previously in stock, back within 14 days (hidden
+until anything qualifies). *Price drops*: latest `price_change` ≥ 10% and ≥ $3,
+within 30 days, still the current price, previous price held ≥ 7 days, not a
+reused code. "Nearby" = a positive store row within 10 mi from a successful
+check < 24h old; otherwise "none near" (full check < 24h) or "not checked".
+Clicks, Watch taps and completed watches go to `discover_events` (watch
+attribution rides `watch_intents.source` through sign-in); `/admin` →
+Discovery. Review real candidates with `report.yml` → `discover`.
+
 Store-by-store counts older than 7 days (`STORE_DATA_MAX_AGE_HOURS`) are
 treated as unknown everywhere: near-me counts and ordering, AI search, and the
 product page (which then shows a dated "last known" list behind a toggle).

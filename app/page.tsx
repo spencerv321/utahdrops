@@ -12,6 +12,9 @@ import { DropTicket } from "@/components/drop-ticket";
 import { HomeFeed } from "@/components/home-feed";
 import { Freshness } from "@/components/freshness";
 import { SHORTCUTS, shortcutHref } from "@/lib/browse";
+import { getAllDiscover } from "@/lib/discover";
+import { mixPreview } from "@/lib/discover-rules";
+import { DiscoverPreview } from "@/components/discover-preview";
 
 export const dynamic = "force-dynamic";
 
@@ -33,16 +36,24 @@ export default async function HomePage({
     redirect(`/search?${next.toString()}`);
   }
 
-  const [user, feed, counts, area, areas] = await Promise.all([
+  const area = await getArea();
+  const [user, fullFeed, counts, areas, discover] = await Promise.all([
     getCurrentUser(),
     getHomeFeed(10),
     getShortcutCounts(SHORTCUTS),
-    getArea(),
     getAreaOptions(),
+    // The preview is optional: a failure here must never break the homepage.
+    getAllDiscover(area?.lat ?? null, area?.lng ?? null).catch((err) => {
+      console.error("[home] discover preview failed", err);
+      return null;
+    }),
   ]);
+  const picks = discover ? mixPreview(discover, { hasArea: !!area }) : [];
+  // With the preview showing, keep the page about as long as before.
+  const feed = picks.length > 0 ? fullFeed.slice(0, 6) : fullFeed;
   const feedCscs = feed.map((e) => e.csc).filter((c): c is string => !!c);
   const [watched, optedIn, nearby] = await Promise.all([
-    getWatchedSet(user?.id, feedCscs),
+    getWatchedSet(user?.id, [...feedCscs, ...picks.map((p) => p.item.csc)]),
     user
       ? (sql`select allocated_email from alert_prefs where user_id = ${user.id}` as unknown as Promise<
           { allocated_email: boolean }[]
@@ -105,6 +116,8 @@ export default async function HomePage({
           </ul>
         </nav>
       </section>
+
+      {picks.length > 0 ? <DiscoverPreview picks={picks} area={area} watched={watched} signedIn={!!user} /> : null}
 
       <div className={user ? "max-w-3xl" : "grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14"}>
         <section className="space-y-4" aria-labelledby="feed-title">

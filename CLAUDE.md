@@ -64,6 +64,17 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   catalog; sends no email). Report modes worth knowing: `freshness`,
   `searchcheck`, `storediag:<csc>`, `storecoverage`.
 
+## Worth a look (/discover)
+- Discovery rules, not rarity: thresholds live only in `DISCOVER`
+  (`lib/discover-rules.ts`). Never loosen one to fill the page; review real
+  candidates with `report.yml` → `discover`. Nearby claims need a successful
+  store check < 24h; unknown stays "not checked", never "none".
+- Allocated-drop and drawing quantities are never stock; drawing products are
+  excluded from actionable lists.
+- `discover_events` counts actions; a confirmed watch is `watch_added`,
+  written only when a watch is actually added (signed-in toggle or verified
+  intent), never on the Watch tap. Headless browsers are dropped as bots.
+
 ## Data gotchas
 - DABS sometimes returns bogus zero quantities; the catalog job rejects passes
   where too many in-stock products drop to 0. Don't remove that guard.

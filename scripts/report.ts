@@ -115,6 +115,80 @@ async function freshness(sql: typeof import("../lib/db").sql) {
   return sql.end();
 }
 
+/**
+ * "Worth a look" review: what each view would show statewide (up to 10, with
+ * the facts that qualify each), how many are confirmed near a few areas, and
+ * why in-stock scarce bottles were left out. Product data only.
+ */
+async function discover(sql: typeof import("../lib/db").sql) {
+  const { getDiscoverCandidates, backCoverage } = await import("../lib/discover");
+  const { DISCOVER, rankView, reasonFor, nearState } = await import("../lib/discover-rules");
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  show("thresholds", [DISCOVER]);
+  show("back-after-a-while coverage (unbroken catalog passes since)", [await backCoverage()]);
+  for (const view of ["scarce", "back", "price"] as const) {
+    const t0 = Date.now();
+    const items = rankView(await getDiscoverCandidates(view, null), view, { hasArea: false });
+    show(`${view}: ${items.length} qualify statewide (query ${Date.now() - t0} ms); top 10`, items.slice(0, 10).map((i) => ({
+      csc: i.csc, name: i.name, size_ml: i.sizeMl, price: i.price, tier: i.tier, statewide_bottles: i.storeQty,
+      statewide_at: i.statewideAt, store_checked_at: i.storeCheckedAt, reason: reasonFor(view, i),
+      ...(view === "back" ? { out_since: i.outSince, back_at: i.backAt } : {}),
+      ...(view === "price" ? { old_price: i.oldPrice, drop_at: i.dropAt } : {}),
+    })));
+  }
+  const areas = [
+    { label: "Salt Lake City", lat: 40.7608, lng: -111.891 },
+    { label: "Park City", lat: 40.6461, lng: -111.498 },
+    { label: "Provo", lat: 40.2338, lng: -111.6585 },
+    { label: "St. George", lat: 37.0965, lng: -113.5684 },
+  ];
+  const near: Record<string, unknown>[] = [];
+  for (const a of areas) {
+    for (const view of ["scarce", "back", "price"] as const) {
+      const items = await getDiscoverCandidates(view, a);
+      const states = items.map((i) => nearState(i, true).kind);
+      near.push({
+        area: a.label, view, qualify: items.length,
+        near: states.filter((k) => k === "near").length,
+        none_near_fresh_check: states.filter((k) => k === "not-near").length,
+        not_checked_24h: states.filter((k) => k === "unknown").length,
+      });
+    }
+  }
+  show(`nearby (within 10 mi, successful check < ${DISCOVER.nearbyMaxAgeHours}h)`, near);
+  show("in-stock scarce+ bottles left out, by reason", await sql`
+    with t as (
+      select p.*, case when o.csc is not null then o.tier when pr.published then pr.tier end as tier
+      from products p join product_rarity pr using (csc) left join rarity_overrides o using (csc)
+      where p.in_stock and coalesce(p.store_qty, 0) > 0
+    )
+    select case
+             when exists (select 1 from rhdp_drawings d where d.item_code = t.csc) then 'released by drawing'
+             when delisted_at is not null then 'delisted'
+             when coalesce(status, '') in ('S', 'N') or coalesce(category, '') like 'SPECIAL ORDERS%' then 'special order / unavailable'
+             when last_seen <= now() - make_interval(hours => ${DISCOVER.statewideMaxAgeHours}) then 'statewide data stale'
+             when current_price is null then 'no price'
+             else 'shown' end as outcome,
+           count(*)::int as products, (array_agg(csc || ' ' || name order by csc))[1:5] as examples
+    from t where tier in ('scarce', 'rare', 'unicorn') group by 1 order by 2 desc`);
+  show("price drops seen in window but left out (latest change per product)", await sql`
+    with latest as (
+      select distinct on (e.csc) e.csc, e.created_at, (e.detail->>'old')::numeric as old_price, (e.detail->>'new')::numeric as new_price
+      from inventory_events e where e.event_type = 'price_change' order by e.csc, e.created_at desc, e.id desc
+    )
+    select case
+             when l.new_price >= l.old_price then 'latest change is an increase'
+             when l.old_price - l.new_price < ${DISCOVER.price.minDollars} or l.old_price - l.new_price < l.old_price * ${DISCOVER.price.minPct} then 'drop below threshold'
+             when l.new_price <> p.current_price then 'current price differs'
+             when not p.in_stock then 'not in stock'
+             else 'other (stale, special order, drawing, reused code, or unstable previous price)' end as outcome,
+           count(*)::int as products
+    from latest l join products p using (csc)
+    where l.created_at > now() - make_interval(days => ${DISCOVER.price.withinDays})
+    group by 1 order by 2 desc`);
+  return sql.end();
+}
+
 async function main() {
   // These modes must work even when the session pooler (5432) is full, so go
   // through the transaction pooler (6543), which has its own client limit.
@@ -198,6 +272,7 @@ async function main() {
     return sql.end();
   }
   if (process.argv[2] === "freshness") return freshness(sql);
+  if (process.argv[2] === "discover") return discover(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");
     const ok = await runSearchCheck();
