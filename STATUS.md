@@ -62,16 +62,18 @@ scheduled workflows are enabled; `/api/health` is green.
   emails) or `conns` (who holds DB connections).
 
 ## Rarity tiers ("Utah availability") — in progress, internal only
-- Idea: tiers (working names Everyday · Uncommon · Scarce · Rare · Unicorn) from
-  our own stock history, with DABS monthly sales as context and DABS status
-  kept as separate labels. Nothing on the site until the owner reviews results.
-- Done: `sales` job imports DABS monthly Sales Analysis reports (May 2025 →)
-  with source/audit fields; `report.yml` mode `rarity` prints the review
-  (tier samples, near-cutoff products, least confident, "absent vs zero" check).
-- Only ~5.2k of ~26k listed products are shelf items (status 1/L/T/A); S =
-  special order ("orderable"), U/D/X/N get no tier.
-- Next: owner reviews the `rarity` report → tune cutoffs/names → nightly job +
-  `product_rarity` table (method version, hysteresis) → badge + "why this tier".
+- Nothing on the site yet. Method v2 (`lib/rarity.ts`) keeps three kinds of
+  evidence separate: recorded sales (DABS monthly reports, context only),
+  shelf availability (share of observed days in stock + typical store count),
+  and access method verified from DABS pages (RHDP drawings by item code,
+  allocated drops by exact name). Review with `report.yml` → `rarity`.
+- Data: `sales` job (monthly reports, May 2025 →), `rhdp` job (drawings;
+  DABS only shows recent ones, so we keep history; no winner names).
+- Only ~5.2k of ~26k listed products are shelf items (status 1/L/T/A).
+- The Aug 4 – Sep 22 2026 scraper outage is excluded from all availability
+  math; holiday products wait for Nov–Dec observations.
+- Next: owner reviews v2 → small beta showing facts broadly, tiers only where
+  the evidence supports them.
 
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of

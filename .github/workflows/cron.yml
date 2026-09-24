@@ -11,6 +11,7 @@ on:
     - cron: "0 18 2 * *"       # xlsx            — monthly, 2nd at 18:00
     - cron: "0 7 * * *"        # percentiles     — nightly
     - cron: "23 * * * *"       # digest          — hourly at :23 (off-peak minute; GitHub drops many top-of-hour runs)
+    - cron: "37 15 * * *"      # rhdp            — daily (DABS drawing page)
   # NOTE: catalog and store-inventory are NOT here — they run natively in
   # catalog.yml / store-inventory.yml (too slow for a serverless function).
   workflow_dispatch:
@@ -19,7 +20,7 @@ on:
         description: "Job to run manually"
         required: true
         type: choice
-        options: [allocated, xlsx, percentiles, digest, invite-signups]
+        options: [allocated, xlsx, percentiles, digest, rhdp, invite-signups]
       send:
         description: "invite-signups only: actually send (otherwise dry run)"
         required: false
@@ -44,6 +45,7 @@ jobs:
             "0 18 2 * *")      JOB=xlsx ;;
             "0 7 * * *")       JOB=percentiles ;;
             "23 * * * *")      JOB=digest ;;
+            "37 15 * * *")     JOB=rhdp ;;
             *)                 JOB="${{ github.event.inputs.job }}" ;;
           esac
           if [ -z "$JOB" ]; then echo "::error::could not resolve job"; exit 1; fi
