@@ -6,19 +6,29 @@ import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { toggleWatch } from "@/app/actions";
 import { cn } from "@/lib/utils";
+import { sendDiscoverEvent, visitorId } from "@/lib/beacon";
 
-/** Compact watch toggle for list rows. Signed-out visitors sign in with the bottle remembered. */
+/**
+ * Compact watch toggle for list rows. Signed-out visitors sign in with the
+ * bottle remembered. `source` ("discover:price") attributes the watch to a
+ * "Worth a look" result, through sign-in if needed. `label` shows a word
+ * beside the star.
+ */
 export function WatchStar({
   csc,
   name,
   initialWatched,
   signedIn,
+  source,
+  label = false,
   className,
 }: {
   csc: string;
   name: string;
   initialWatched: boolean;
   signedIn: boolean;
+  source?: string;
+  label?: boolean;
   className?: string;
 }) {
   const router = useRouter();
@@ -33,20 +43,23 @@ export function WatchStar({
       title={watched ? "Watching" : "Watch for restocks"}
       disabled={pending}
       className={cn(
-        "flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-card disabled:opacity-60",
-        watched ? "text-primary" : "text-subtle-foreground hover:text-foreground",
+        label
+          ? "inline-flex h-11 shrink-0 items-center gap-1.5 rounded-md border border-input px-3 text-sm font-medium transition-colors hover:border-primary disabled:opacity-60"
+          : "flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-card disabled:opacity-60",
+        watched ? "text-primary" : label ? "text-foreground" : "text-subtle-foreground hover:text-foreground",
         className
       )}
       onClick={() => {
+        if (source && !watched) sendDiscoverEvent("watch_click", source, csc);
         if (!signedIn) {
           // Sign in with this bottle remembered; the watch is added after they verify.
-          router.push(`/login?watch=${csc}`);
+          router.push(`/login?watch=${csc}${source ? `&src=${encodeURIComponent(source)}` : ""}`);
           return;
         }
         const next = !watched;
         setWatched(next);
         startTransition(async () => {
-          const result = await toggleWatch(csc, next);
+          const result = await toggleWatch(csc, next, source && next ? { source, visitorId: visitorId() } : undefined);
           if (!result.ok) {
             setWatched(!next);
             toast.error(
@@ -61,6 +74,7 @@ export function WatchStar({
       }}
     >
       <Star className={cn("size-5", watched && "fill-current")} strokeWidth={1.7} aria-hidden />
+      {label ? (watched ? "Watching" : "Watch") : null}
     </button>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown, MapPin } from "lucide-react";
 import type { Area } from "@/lib/area";
 import { locate, rememberArea } from "@/lib/area-client";
@@ -13,23 +13,39 @@ const ALL = "__all";
 /**
  * "Where are you?" beside the search box. A native select (fast, accessible,
  * good on phones) styled as a field. Choosing refreshes the page so counts
- * switch to "near you" without an account.
+ * switch to "near you" without an account. With `urlParam`, a store-city area
+ * also goes in the URL (?area=Park%20City) so the page can be shared; "Near
+ * you" never does (no coordinates in links).
  */
 export function AreaPicker({
   areas,
   current,
+  urlParam,
   className,
 }: {
   areas: Area[];
   current: Area | null;
+  urlParam?: string;
   className?: string;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const search = useSearchParams();
   const [pending, startTransition] = useTransition();
   const [status, setStatus] = useState<"idle" | "locating" | "denied">("idle");
 
   function apply(area: Area | null) {
     rememberArea(area);
+    if (urlParam) {
+      const next = new URLSearchParams(search.toString());
+      if (area && area.label !== "Near you") next.set(urlParam, area.label);
+      else next.delete(urlParam);
+      if (!area) next.delete("near");
+      next.delete("n");
+      const qs = next.toString();
+      startTransition(() => router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false }));
+      return;
+    }
     startTransition(() => router.refresh());
   }
 
