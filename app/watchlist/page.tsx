@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
-import { ProductTable } from "@/components/product-table";
+import { ProductList } from "@/components/product-list";
 import { AlertPrefs } from "@/components/alert-prefs";
 import { HomeStores, type StoreOption } from "@/components/home-stores";
 import type { ProductRow } from "@/lib/queries";
@@ -22,21 +22,19 @@ export default async function WatchlistPage({
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/watchlist");
 
-  const [rows, prefRows] = await Promise.all([
+  const [rows, prefRows, storeOptions, homeRows] = await Promise.all([
     sql`
       select p.csc, p.name, p.category, p.status, p.size_ml, p.current_price::text,
              p.warehouse_qty, p.store_qty, p.on_order_qty, p.in_stock, p.is_spa
       from watchlist w
       join products p using (csc)
       where w.user_id = ${user.id}
-      order by p.name` as unknown as Promise<ProductRow[]>,
+      order by p.in_stock desc, p.name` as unknown as Promise<ProductRow[]>,
     sql`
       select watchlist_email, allocated_email from alert_prefs
       where user_id = ${user.id}` as unknown as Promise<
       { watchlist_email: boolean; allocated_email: boolean }[]
     >,
-  ]);
-  const [storeOptions, homeRows] = await Promise.all([
     sql`select id, name, city from stores order by city nulls last, name` as unknown as Promise<StoreOption[]>,
     sql`select store_id from user_stores where user_id = ${user.id} order by created_at` as unknown as Promise<
       { store_id: number }[]
@@ -44,42 +42,56 @@ export default async function WatchlistPage({
   ]);
 
   const prefs = prefRows[0] ?? { watchlist_email: true, allocated_email: false };
+  const inStock = rows.filter((r) => r.in_stock).length;
 
   return (
     <div className="space-y-8">
-      <section className="space-y-1 pt-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Your watchlist</h1>
-        <p className="text-sm text-muted-foreground">
-          Signed in as {user.email}. We check inventory several times a day and
-          email you when something on this list changes.
+      <section className="space-y-1 pt-2">
+        <h1 className="text-4xl leading-none sm:text-5xl">Your watchlist</h1>
+        <p className="text-muted-foreground">
+          We check stock several times a day and email {user.email} when something changes.
         </p>
       </section>
 
       {welcome ? (
-        <div role="status" className="rounded-lg border border-success/30 bg-success/10 p-4 text-sm">
-          <strong>You&apos;re signed in.</strong> Turn on allocated drop alerts below, pick your
-          stores, then tap <em>Watch</em> on any bottle to get an email when it comes back.
+        <div role="status" className="rounded-2xl bg-success-soft p-4 text-[15px] text-success">
+          <strong>You&apos;re in.</strong> Pick your stores and turn on drop alerts below, then tap the star
+          on any bottle to get an email when it&apos;s back.
         </div>
       ) : null}
 
-      <AlertPrefs
-        watchlistEmail={prefs.watchlist_email}
-        allocatedEmail={prefs.allocated_email}
-      />
+      <section className="space-y-3" aria-labelledby="bottles-title">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 id="bottles-title" className="font-display text-2xl font-extrabold tracking-[-0.02em]">
+            Bottles you watch
+          </h2>
+          {rows.length > 0 ? (
+            <span className="text-sm text-muted-foreground">
+              {inStock} of {rows.length} in stores now
+            </span>
+          ) : null}
+        </div>
+        {rows.length === 0 ? (
+          <div className="rounded-2xl border border-dashed p-8 text-center text-muted-foreground">
+            Nothing yet.{" "}
+            <Link href="/search" className="font-semibold text-primary underline">
+              Find a bottle
+            </Link>{" "}
+            and tap its star.
+          </div>
+        ) : (
+          <ProductList rows={rows} watched={new Set(rows.map((r) => r.csc))} signedIn />
+        )}
+      </section>
 
       <HomeStores stores={storeOptions} selected={homeRows.map((r) => r.store_id)} />
 
-      {rows.length === 0 ? (
-        <div className="rounded-lg border border-dashed p-12 text-center text-muted-foreground">
-          Nothing watched yet.{" "}
-          <Link href="/" className="underline">
-            Find a bottle
-          </Link>{" "}
-          and tap Watch.
-        </div>
-      ) : (
-        <ProductTable rows={rows} />
-      )}
+      <section className="space-y-3" aria-labelledby="alerts-title">
+        <h2 id="alerts-title" className="font-display text-2xl font-extrabold tracking-[-0.02em]">
+          Email alerts
+        </h2>
+        <AlertPrefs watchlistEmail={prefs.watchlist_email} allocatedEmail={prefs.allocated_email} />
+      </section>
     </div>
   );
 }

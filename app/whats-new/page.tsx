@@ -1,21 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUp,
-  PackageCheck,
-  PackagePlus,
-  PackageX,
-  Sparkle,
-} from "lucide-react";
-import { getEvents } from "@/lib/queries";
-import { StatusBadge } from "@/components/status-badge";
-import { displayName, formatPrice, timeAgo } from "@/lib/format";
-import { STATUS_LABELS } from "@/lib/config";
+import { getEvents, getWatchedSet } from "@/lib/queries";
+import { createClient } from "@/lib/supabase/server";
+import { HomeFeed } from "@/components/home-feed";
 import { cn } from "@/lib/utils";
-
-const ICON = "inline-block size-3.5 mr-1.5 align-[-0.15em]";
 
 export const dynamic = "force-dynamic";
 
@@ -27,10 +15,11 @@ export const metadata: Metadata = {
 
 const TABS = [
   { key: "", label: "Everything" },
-  { key: "new_product", label: "New products" },
-  { key: "restock", label: "Restocks" },
-  { key: "status_change", label: "Status changes" },
+  { key: "restock", label: "Back in stock" },
+  { key: "new_product", label: "New" },
   { key: "price_change", label: "Price changes" },
+  { key: "status_change", label: "Status changes" },
+  { key: "out_of_stock", label: "Sold out" },
 ] as const;
 
 export default async function WhatsNewPage({
@@ -39,27 +28,35 @@ export default async function WhatsNewPage({
   searchParams: Promise<{ type?: string }>;
 }) {
   const { type } = await searchParams;
-  const events = await getEvents(type || undefined);
+  const active = TABS.find((t) => t.key === (type ?? ""))?.key ?? "";
+  const supabase = await createClient();
+  const [events, { data: { user } }] = await Promise.all([
+    getEvents(active || undefined),
+    supabase.auth.getUser(),
+  ]);
+  const watched = await getWatchedSet(
+    user?.id,
+    events.map((e) => e.csc).filter((c): c is string => !!c)
+  );
 
   return (
-    <div className="space-y-6">
-      <section className="space-y-1 pt-4">
-        <h1 className="text-2xl font-semibold tracking-tight">What&apos;s new at DABS</h1>
-        <p className="text-sm text-muted-foreground">
-          Every change we detect between scrapes — the page DABS can&apos;t show you.
+    <div className="space-y-5">
+      <section className="space-y-1 pt-2">
+        <h1 className="text-4xl leading-none sm:text-5xl">What&apos;s new</h1>
+        <p className="text-muted-foreground">
+          Every change we spot between DABS updates: the page DABS can&apos;t show you.
         </p>
       </section>
 
-      <nav className="flex flex-wrap gap-1.5">
+      <nav aria-label="Filter" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
         {TABS.map((tab) => (
           <Link
             key={tab.key}
             href={tab.key ? `/whats-new?type=${tab.key}` : "/whats-new"}
+            aria-current={active === tab.key ? "page" : undefined}
             className={cn(
-              "rounded-full border px-3 py-1 text-sm transition-colors",
-              (type ?? "") === tab.key
-                ? "border-primary bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:text-foreground"
+              "inline-flex h-10 shrink-0 items-center rounded-full border px-4 text-sm font-semibold transition-colors",
+              active === tab.key ? "border-foreground bg-foreground text-background" : "bg-card hover:border-foreground"
             )}
           >
             {tab.label}
@@ -67,73 +64,12 @@ export default async function WhatsNewPage({
         ))}
       </nav>
 
-      {events.length === 0 ? (
-        <div className="rounded-lg border border-dashed p-12 text-center text-muted-foreground">
-          Nothing yet — events appear once the scraper has two passes to compare.
-        </div>
-      ) : (
-        <ul className="divide-y rounded-lg border">
-          {events.map((e) => (
-            <li key={e.id} className="flex items-center justify-between gap-3 px-4 py-3">
-              <div className="min-w-0 space-y-0.5">
-                {e.csc ? (
-                  <Link href={`/product/${e.csc}`} className="font-medium hover:underline">
-                    {e.name ? displayName(e.name) : e.csc}
-                  </Link>
-                ) : (
-                  <span className="font-medium">Allocated list posted</span>
-                )}
-                <div className="text-sm text-muted-foreground">
-                  <EventLine type={e.event_type} detail={e.detail} />
-                </div>
-              </div>
-              <div className="flex shrink-0 items-center gap-3">
-                {e.csc ? <StatusBadge status={e.status} /> : null}
-                <span className="w-16 text-right text-xs text-muted-foreground">
-                  {timeAgo(e.created_at)}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <HomeFeed
+        events={events}
+        watched={watched}
+        signedIn={!!user}
+        empty="Nothing here yet. Changes show up once DABS updates its numbers."
+      />
     </div>
   );
-}
-
-function EventLine({ type, detail }: { type: string; detail: Record<string, unknown> }) {
-  switch (type) {
-    case "new_product":
-      return <><PackagePlus className={ICON} />New product · {formatPrice(detail.price as number)}</>;
-    case "restock":
-      return <><PackageCheck className={ICON} />Back in stock — {String(detail.qty ?? "?")} bottles statewide</>;
-    case "store_restock":
-      return <><PackageCheck className={ICON} />Back at {String(detail.store_name ?? "a store")} — {String(detail.qty ?? "?")} bottles</>;
-    case "out_of_stock":
-      return <><PackageX className={ICON} />Out of stock statewide</>;
-    case "price_change": {
-      const oldP = Number(detail.old);
-      const newP = Number(detail.new);
-      const drop = newP < oldP;
-      return (
-        <span className={drop ? "text-success" : ""}>
-          {drop ? <ArrowDown className={ICON} /> : <ArrowUp className={ICON} />}
-          {formatPrice(oldP)} → {formatPrice(newP)}
-        </span>
-      );
-    }
-    case "status_change":
-      return (
-        <>
-          <ArrowRight className={ICON} />
-          {STATUS_LABELS[String(detail.old)] ?? detail.old} →{" "}
-          {STATUS_LABELS[String(detail.new)] ?? detail.new}
-          {detail.new === "D" ? " — clearance window" : ""}
-        </>
-      );
-    case "allocated_drop":
-      return <><Sparkle className={ICON} />{String(detail.count ?? "")} products on the list — <Link href="/drops" className="underline">see the drop</Link></>;
-    default:
-      return <>{type}</>;
-  }
 }

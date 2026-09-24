@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { setHomeStores } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { MAX_HOME_STORES } from "@/lib/config";
+import { storeLabel } from "@/lib/format";
 
 export interface StoreOption {
   id: number;
@@ -28,20 +29,23 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
       const result = await setHomeStores(next);
       if (!result.ok) {
         setChosen(previous);
-        setError("Couldn't save — try again.");
+        setError("Couldn't save. Try again.");
       }
     });
   }
 
-  const label = (s: StoreOption) => (s.city ? `${s.name} — ${s.city}` : s.name);
+  const label = (s: StoreOption) => {
+    const l = storeLabel(s.name, s.city);
+    return l.number ? `${l.title} (#${l.number})` : l.title;
+  };
 
   return (
-    <div className="space-y-3 rounded-lg border bg-card p-4">
-      <div>
-        <h2 className="text-sm font-semibold">My stores</h2>
+    <div className="space-y-3 rounded-2xl border bg-card p-4 sm:p-5">
+      <div className="space-y-1">
+        <h2 className="font-display text-xl font-extrabold tracking-[-0.02em]">Your stores</h2>
         <p className="text-sm text-muted-foreground">
-          Pick up to {MAX_HOME_STORES} stores you shop at. When something on your watchlist
-          comes back at one of them, your alert says so.
+          Pick up to {MAX_HOME_STORES} stores you shop at. Product pages show them first, and your
+          alerts say when a bottle is back at one of them.
         </p>
       </div>
 
@@ -50,16 +54,16 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
           {chosen.map((id) => {
             const s = byId.get(id);
             return (
-              <li key={id} className="flex items-center gap-1 rounded-full border bg-background py-1 pl-3 pr-1 text-sm">
+              <li key={id} className="flex h-10 items-center gap-1 rounded-full border bg-background pr-0.5 pl-4 text-sm font-semibold">
                 {s ? label(s) : `Store ${id}`}
                 <button
                   type="button"
-                  className="rounded-full p-1 text-muted-foreground hover:text-foreground"
+                  className="flex size-9 items-center justify-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground"
                   aria-label={`Remove ${s?.name ?? `store ${id}`}`}
                   disabled={pending}
                   onClick={() => save(chosen.filter((c) => c !== id))}
                 >
-                  <X className="size-3.5" />
+                  <X className="size-4" />
                 </button>
               </li>
             );
@@ -84,7 +88,7 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
             id="home-store"
             value={pick}
             onChange={(e) => setPick(e.target.value)}
-            className="h-9 rounded-md border border-input bg-transparent px-3 text-sm sm:w-80"
+            className="h-11 rounded-xl border border-input bg-background px-3 text-base sm:w-80"
           >
             <option value="">Choose a store…</option>
             {stores
@@ -95,7 +99,7 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
                 </option>
               ))}
           </select>
-          <Button type="submit" size="sm" disabled={!pick || pending} className="h-9">
+          <Button type="submit" disabled={!pick || pending} className="h-11 rounded-xl px-5 font-bold">
             Add store
           </Button>
         </form>

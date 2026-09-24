@@ -27,15 +27,16 @@ export function AgeGate() {
       aria-labelledby="age-gate-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm"
     >
-      <div className="mx-4 max-w-md rounded-xl border bg-card p-8 text-center shadow-lg">
-        <GlassMark className="mx-auto mb-3 size-10 text-foreground" />
-        <h2 id="age-gate-title" className="mb-2 font-display text-xl font-semibold">Are you 21 or older?</h2>
+      <div className="mx-4 max-w-md rounded-3xl border bg-card p-8 text-center shadow-lg">
+        <GlassMark className="mx-auto mb-3 size-12 text-foreground" />
+        <h2 id="age-gate-title" className="mb-2 font-display text-3xl font-extrabold tracking-[-0.03em]">Are you 21 or older?</h2>
         <p className="mb-6 text-sm text-muted-foreground">
           {SITE_NAME} shows inventory for Utah state liquor stores. You must be
           of legal drinking age to use this site.
         </p>
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-col justify-center gap-2 sm:flex-row">
           <Button
+            className="h-12 rounded-xl px-6 text-base font-bold"
             onClick={() => {
               document.cookie = `${COOKIE}=1; path=/; max-age=${60 * 60 * 24 * 365}`;
               setDismissed(true);
@@ -43,7 +44,7 @@ export function AgeGate() {
           >
             I&apos;m 21 or older
           </Button>
-          <Button variant="outline" asChild>
+          <Button variant="outline" asChild className="h-12 rounded-xl px-6 text-base">
             <a href="https://abs.utah.gov">No, take me away</a>
           </Button>
         </div>
