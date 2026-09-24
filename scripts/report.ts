@@ -14,32 +14,68 @@ const show0 = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JS
  * ordinary rotation reaches. Counts and product codes only; no user data.
  */
 async function freshness(sql: typeof import("../lib/db").sql) {
-  const { WATCH_SHARE, WATCH_TARGET_HOURS } = await import("../lib/jobs/store-inventory");
+  const { WATCH_SHARE, WATCH_TARGET_HOURS, WATCH_RECHECK_HOURS, ROTATION_TARGET_HOURS } = await import("../lib/jobs/store-inventory");
+  const { storeCapacity } = await import("../lib/jobs/store-capacity");
   const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
-  // Rates over the time actually covered (up to 7 days), not a fixed week.
-  const [cap] = await sql<{ runs: number; ok: number; scraped: number; failed: number; watched_targets: number; days: number }[]>`
-    select greatest(extract(epoch from now() - min(started_at)) / 86400, 0.25)::float8 as days,
-           count(*)::int as runs, count(*) filter (where ok)::int as ok,
-           coalesce(sum((detail->>'scraped')::int), 0)::int as scraped,
-           coalesce(sum((detail->>'failed')::int), 0)::int as failed,
-           coalesce(sum((detail->>'watched_targets')::int), 0)::int as watched_targets
-    from scrape_runs where job = 'store_inventory' and started_at > now() - interval '7 days'`;
+  // Every store run in the last 7 days: did it finish, how long, how much, and the gap since the previous one.
+  const runs = await sql<{
+    started_at: Date; ok: boolean | null; killed: boolean; minutes: number | null; gap_hours: number | null;
+    attempted: number | null; scraped: number | null; failed: number | null; watched: number | null; stopped_early: boolean | null;
+  }[]>`
+    select started_at, ok,
+           finished_at is null and started_at < now() - interval '45 minutes' as killed,
+           round(extract(epoch from finished_at - started_at) / 60, 1)::float8 as minutes,
+           round(extract(epoch from started_at - lag(started_at) over (order by started_at)) / 3600, 1)::float8 as gap_hours,
+           coalesce((detail->>'attempted')::int, (detail->>'scraped')::int + (detail->>'failed')::int) as attempted,
+           (detail->>'scraped')::int as scraped, (detail->>'failed')::int as failed,
+           (detail->>'watched_targets')::int as watched, (detail->>'stopped_early')::boolean as stopped_early
+    from scrape_runs where job = 'store_inventory' and started_at > now() - interval '7 days'
+    order by started_at`;
+  show("store runs, last 7 days (killed = never finished, e.g. hit the job timeout)", runs);
+  const done = runs.filter((r) => r.ok && r.attempted);
+  const sum = (f: (r: (typeof runs)[number]) => number | null) => done.reduce((a, r) => a + (f(r) ?? 0), 0);
+  const days = runs.length ? Math.max(0.25, Math.min(7, (Date.now() - runs[0].started_at.getTime()) / 86_400_000)) : 0;
+  const gaps = runs.map((r) => r.gap_hours).filter((g): g is number => g != null).sort((a, b) => a - b);
   const [counts] = await sql<{ watched: number; in_stock: number }[]>`
     select (select count(distinct csc)::int from watchlist) as watched,
            (select count(*)::int from products where in_stock and delisted_at is null) as in_stock`;
-  const days = Math.min(7, cap.days ?? 7);
-  const perDay = cap.scraped / days;
-  const watchedPerDay = Math.min(counts.watched * (24 / WATCH_TARGET_HOURS), perDay * WATCH_SHARE);
-  show("capacity (store runs, last 7 days or since the first run in that window)", [{
-    ...cap,
+  const observed = {
     days_covered: +days.toFixed(1),
-    runs_per_day: +(cap.runs / days).toFixed(1),
-    checks_per_day: Math.round(perDay),
-    distinct_watched_products: counts.watched,
-    watched_checks_needed_per_day: Math.round(counts.watched * (24 / WATCH_TARGET_HOURS)),
-    watched_slots_per_run: `${Math.round(WATCH_SHARE * 100)}% of budget`,
+    runs: runs.length,
+    ok: runs.filter((r) => r.ok).length,
+    failed: runs.filter((r) => r.ok === false).length,
+    killed: runs.filter((r) => r.killed).length,
+    stopped_early: runs.filter((r) => r.stopped_early).length,
+    runs_per_day: days ? +(runs.length / days).toFixed(1) : 0,
+    gap_hours_median: gaps.length ? gaps[Math.floor(gaps.length / 2)] : null,
+    gap_hours_max: gaps.length ? gaps[gaps.length - 1] : null,
+    seconds_per_sku: sum((r) => r.attempted) ? +((sum((r) => r.minutes) * 60) / sum((r) => r.attempted)).toFixed(2) : null,
+    failure_rate: sum((r) => r.attempted) ? +(sum((r) => r.failed) / sum((r) => r.attempted)).toFixed(3) : null,
+    successful_checks_per_day: days ? Math.round(sum((r) => r.scraped) / days) : 0,
+    watched_checks_per_day: days ? Math.round(sum((r) => r.watched) / days) : 0,
+  };
+  show("observed", [observed]);
+  // The same model the schedule was sized with, fed with what was observed.
+  const model = storeCapacity({
+    inStock: counts.in_stock,
+    watched: counts.watched,
+    runsPerDay: observed.runs_per_day || 6,
+    budget: done.length ? Math.max(...done.map((r) => r.attempted ?? 0)) : 400,
+    secondsPerSku: observed.seconds_per_sku ?? 2.3,
+    failureRate: observed.failure_rate ?? 0.01,
+    watchRecheckHours: WATCH_RECHECK_HOURS,
+    watchShare: WATCH_SHARE,
+    timeBudgetMinutes: 25,
+    delayJitterHours: Math.max(0, (observed.gap_hours_max ?? 4) - 24 / (observed.runs_per_day || 6)),
+  });
+  show("capacity vs targets", [{
     in_stock_products: counts.in_stock,
-    est_full_rotation_days: perDay > watchedPerDay ? +(counts.in_stock / (perDay - watchedPerDay)).toFixed(1) : null,
+    distinct_watched_products: counts.watched,
+    ...model,
+    rotation_target_days: ROTATION_TARGET_HOURS / 24,
+    rotation_ok: model.rotationDays <= ROTATION_TARGET_HOURS / 24,
+    watched_target_hours: WATCH_TARGET_HOURS,
+    watched_ok: model.watchedWorstHours <= WATCH_TARGET_HOURS,
   }]);
   show(`watched bottles by last successful store check (target ${WATCH_TARGET_HOURS}h)`, await sql`
     select case when p.store_checked_at is null then 'never'
@@ -63,7 +99,7 @@ async function freshness(sql: typeof import("../lib/db").sql) {
   show("baseline coverage: in-stock products by last successful store check", await sql`
     select case when store_checked_at is null then 'never'
                 when store_checked_at > now() - interval '1 day' then '< 1 day'
-                when store_checked_at > now() - interval '3 days' then '1-3 days'
+                when store_checked_at > now() - interval '3 days' then '1-3 days (target)'
                 when store_checked_at > now() - interval '7 days' then '3-7 days'
                 else 'over 7 days (shown as unknown)' end as age,
            count(*)::int as products

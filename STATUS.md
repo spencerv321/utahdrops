@@ -95,6 +95,11 @@ scheduled workflows are enabled; `/api/health` is green.
   adds it after the email link; confirmation on the product page.
 - Store job: reserved watched-bottle share, attempt vs success timestamps,
   failure backoff; digest drops superseded events and dates each line.
+- Store schedule (2026-09-24 review of 244 runs): GitHub never dropped a
+  slot while enabled but starts runs ~2h late (median 110 min, max 5.8h);
+  20 runs in June–July were killed at the 30-min timeout. Now every 4h at
+  :37, 400 SKUs, 25-min scrape budget, 40-min job timeout. Earlier note
+  that "GitHub skips half the runs" was wrong (a delayed run was miscounted).
 - Still to prove in production: a real first-time sign-in through the watch
   flow (owner test), and `report.yml` → `freshness` after a few store runs.
 
