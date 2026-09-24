@@ -29,5 +29,7 @@ export async function GET(request: NextRequest) {
   revalidatePath("/watchlist");
   const params = new URLSearchParams({ watch: result.status });
   if (result.store) params.set("store", result.store);
+  // Opened in a browser signed in as someone else: the page names both addresses.
+  if (result.status === "mismatch") params.set("intent", id);
   return NextResponse.redirect(new URL(`/product/${result.csc}?${params}`, request.url));
 }
