@@ -80,7 +80,7 @@ export async function rarityReport(sql: Sql) {
     out(`    intermittent <${T.scarceMaxVolume} → Scarce; sporadic <${T.rareMaxVolume} → Rare; sporadic ≤${T.unicornMaxVolume} with top-2 months ≥${T.unicornConcentration * 100}% → Unicorn; otherwise Uncommon`);
     out(`  evidence floor: <${T.minEvidenceBottles} bottles recorded in all months → insufficient; special-order class or case-size-only sales never seen on shelves → insufficient`);
     out(`  seasonal (holiday product / summer seen 2 years) with ≥${T.everydayVolume} btl/12mo → at most Uncommon; gift/value-added packs → at most Uncommon`);
-    out(`  corroboration: Scarce needs a release pattern (≥2 selling runs split by ≥${T.releaseGapMonths} empty months; a run counts if ≥${T.minRunBottles} bottles and ≥${T.minRunShare * 100}% of the product's total) or on shelves ≤${T.rarelyStocked * 100}% of observed days (must have been seen at least once; never seen = weak evidence, corroborates nothing)`);
+    out(`  corroboration: Scarce needs a release pattern (≥2 selling runs split by ≥${T.releaseGapMonths} empty months; a run counts if ≥${T.minRunBottles} bottles and ≥${T.minRunShare * 100}% of the product's total) or on shelves ≤${T.rarelyStocked * 100}% of observed days (must have been seen on shelves AND seen selling out; never seen, or only in its current stretch, corroborates nothing)`);
     out(`    Rare needs a release pattern or ≤${T.veryRarelyStocked * 100}% on shelves; Unicorn needs BOTH (one alone → Rare); none → insufficient evidence`);
     out(`    regular sellers on shelves ≤${T.veryRarelyStocked * 100}% of days → Scarce; ≤${T.rarelyStocked * 100}% → at least Uncommon (availability, not volume)`);
     out(`  decisive: on shelves ≥${T.consistentlyStocked * 100}% of ≥${T.minObservedDays} observed days → at most Uncommon (strong evidence against rarity)`);
@@ -234,7 +234,7 @@ function fmt(r: Row): string {
     (s.notInReport12 ? ` (${s.notInReport12} not in report` + (s.explicitZero12 ? `, ${s.explicitZero12} zero)` : ")") : s.explicitZero12 ? ` (${s.explicitZero12} zero)` : "") +
     ` · top-2 ${s.top2Share12 != null ? Math.round(s.top2Share12 * 100) + "%" : "–"} · runs ${s.runsAll} · first ${s.firstRecord ?? "–"} last ${s.lastSold ?? "–"} · [${s.pattern16}]`;
   const stock = !k ? "stock: not in catalog"
-    : `stock: ${k.in_stock_days}/${k.observed_days} obs days · stores ${k.stores_seen} seen/${k.stores_now} now${k.has_store_data ? "" : " (no store rows)"} · peak ${k.peak_shelf ?? "–"} · ${k.in_stock_now ? "on shelves now" : "not on shelves now"}`;
+    : `stock: ${k.in_stock_days}/${k.observed_days} obs days · sold out ${k.sellouts}× · stores ${k.stores_seen} seen/${k.stores_now} now${k.has_store_data ? "" : " (no store rows)"} · peak ${k.peak_shelf ?? "–"} · ${k.in_stock_now ? "on shelves now" : "not on shelves now"}`;
   const dabs = `DABS status ${r.status ?? "?"}${isAllocatedLabel(r.status, r.className) ? ", allocated label" : ""}`;
   const reason = "reason" in o ? o.reason : "";
   return `${verdict} | ${r.name} [${r.code}] ${r.className ?? "?"} · ${dabs}${s.seasonal ? ` · season: ${s.seasonal}` : ""}\n      ${sales}\n      ${stock}\n      why: ${reason}`;

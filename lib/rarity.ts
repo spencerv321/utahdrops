@@ -22,7 +22,7 @@ import type { ReservedSql } from "postgres";
  * - DABS status/labels decide eligibility and are shown separately; they
  *   never raise or lower the computed tier.
  */
-export const RARITY_METHOD = "v1.1-sales-led";
+export const RARITY_METHOD = "v1.2-sales-led";
 export const RARITY_TZ = "America/Denver";
 
 // ── thresholds (proposed; tuned from the review) ─────────────────────────
@@ -75,6 +75,7 @@ export interface StockMetrics {
   observed_days: number; // days with a successful pass since the product was known
   in_stock_days: number;
   restocks: number;
+  sellouts: number; // in stock on one observed day, out on the next observed day
   stores_seen: number;
   stores_now: number;
   has_store_data: boolean;
@@ -154,7 +155,8 @@ export async function buildStockMetrics(
     avail as (
       select csc, count(*)::int as observed_days,
              count(*) filter (where in_stock)::int as in_stock_days,
-             count(*) filter (where in_stock and prev = false)::int as restocks
+             count(*) filter (where in_stock and prev = false)::int as restocks,
+             count(*) filter (where not in_stock and prev = true)::int as sellouts
       from seq group by csc
     ),
     shelf as (
@@ -191,6 +193,7 @@ export async function buildStockMetrics(
            coalesce(a.observed_days, 0) as observed_days,
            coalesce(a.in_stock_days, 0) as in_stock_days,
            coalesce(a.restocks, 0) as restocks,
+           coalesce(a.sellouts, 0) as sellouts,
            coalesce(st.stores_seen, 0) as stores_seen,
            coalesce(sn.stores_now, 0) as stores_now,
            sn.csc is not null as has_store_data,
@@ -441,16 +444,19 @@ export function classifyRarity(
   const observed = k ? k.observed_days : 0;
   const stockKnown = observed >= T.minObservedDays;
   const inShare = stockKnown ? k!.in_stock_days / observed : null;
-  const seen = !!k && k.in_stock_days > 0;
+  // "Rarely on shelves" needs a bottle we saw come AND go: one only on
+  // shelves in its current stretch may simply have arrived during the outage.
+  const seen = !!k && k.in_stock_days > 0 && k.sellouts > 0;
   const consistently = inShare != null && inShare >= T.consistentlyStocked;
   const rarely = inShare != null && seen && inShare <= T.rarelyStocked;
   const veryRarely = inShare != null && seen && inShare <= T.veryRarelyStocked;
-  const neverSeen = stockKnown && !seen;
+  const neverSeen = stockKnown && !!k && k.in_stock_days === 0;
+  const onlyCurrent = stockKnown && !!k && k.in_stock_days > 0 && k.sellouts === 0;
   const stockText = !k
     ? "no stock observations (not in catalog)"
     : !stockKnown
       ? `only ${observed} observed days`
-      : `on shelves ${k.in_stock_days}/${observed} observed days (${pctStr(inShare!)})${k.stores_seen ? ` across ${k.stores_seen} stores` : ""}`;
+      : `on shelves ${k.in_stock_days}/${observed} observed days (${pctStr(inShare!)})${k.stores_seen ? ` across ${k.stores_seen} stores` : ""}${k.sellouts ? `, sold out ${k.sellouts}×` : k.in_stock_days ? ", never seen selling out (may be a recent arrival)" : ""}`;
   const insufficient = (candidate: RarityTier | null, reason: string): RarityOutcome => ({ kind: "insufficient", candidate, reason, score });
 
   // Sales evidence.
@@ -497,11 +503,11 @@ export function classifyRarity(
         "Unicorn needs both → Rare"
       );
     } else {
-      return insufficient(candidate, `${salesText}; low/concentrated sales alone (release? unpopular? ending?) — no repeated release pattern, and ${stockText}${neverSeen ? " (never seen: weak evidence)" : ""}`);
+      return insufficient(candidate, `${salesText}; low/concentrated sales alone (release? unpopular? ending?) — no repeated release pattern, and ${stockText}${neverSeen ? " (never seen: weak evidence)" : onlyCurrent ? " (only seen in its current stretch: may be a recent arrival)" : ""}`);
     }
   } else if (candidate === "rare") {
     if (releasePattern || veryRarely) why.push(releasePattern ? `${s.runsAll} separate selling runs` : "", stockText);
-    else return insufficient(candidate, `${salesText}; sporadic low sales alone — no release pattern, and ${stockText}${neverSeen ? " (never seen: weak evidence)" : ""}`);
+    else return insufficient(candidate, `${salesText}; sporadic low sales alone — no release pattern, and ${stockText}${neverSeen ? " (never seen: weak evidence)" : onlyCurrent ? " (only seen in its current stretch: may be a recent arrival)" : ""}`);
   } else if (candidate === "scarce") {
     if (releasePattern || rarely) why.push(releasePattern ? `${s.runsAll} separate selling runs` : "", stockText);
     else {
