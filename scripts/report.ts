@@ -10,6 +10,14 @@ async function main() {
   const { sql } = await import("../lib/db");
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
+  if (process.argv[2] === "slow") {
+    const rows = await sql`
+      select calls, round(max_exec_time)::int as max_ms, round(mean_exec_time::numeric, 1) as mean_ms,
+             left(regexp_replace(query, '\\s+', ' ', 'g'), 400) as query
+      from pg_stat_statements order by max_exec_time desc limit 12`;
+    for (const r of rows) console.log(JSON.stringify(r));
+    return sql.end();
+  }
   const hours = Number(process.argv[2] ?? 6);
   const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 1)}`);
 
