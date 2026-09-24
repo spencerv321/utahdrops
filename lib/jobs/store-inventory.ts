@@ -11,8 +11,8 @@ import { withRun } from "./run";
  *
  *   1. Watched bottles: up to WATCH_SHARE of the budget goes to watchlisted
  *      products not checked in the last WATCH_RECHECK_HOURS, oldest first,
- *      so with the 6-hourly schedule each is re-checked about every run
- *      (target: within WATCH_TARGET_HOURS).
+ *      so with runs every 4h each is re-checked at every run (target: within
+ *      WATCH_TARGET_HOURS even when GitHub starts a run hours late).
  *   2. Everything else in stock: the rest of the budget, oldest successful
  *      check first (allocated / limited / clearance get a 1-day head start),
  *      so ordinary bottles keep rotating and can't be starved.
@@ -20,12 +20,26 @@ import { withRun } from "./run";
  * A failed attempt records the attempt and backs the product off
  * (6h, 12h, 24h, 48h, then 72h) without touching its last successful check,
  * so old counts never look freshly verified and a broken page can't block
- * the queue. Capacity math is in scripts/report.ts (mode "freshness").
+ * the queue.
+ *
+ * Each run also has a wall-clock budget (STORE_TIME_BUDGET_MINUTES) below the
+ * workflow's 30-minute timeout: when DABS is slow the run stops early and
+ * records what it did, instead of being killed (a killed run skips the
+ * digest and leaves an unfinished scrape_runs row). Watched bottles go first,
+ * so a short run only trims the rotation.
+ *
+ * Sizing (lib/jobs/store-capacity.ts, report.ts mode "freshness"): runs
+ * every 4h, 400 SKUs each, ~2.3 s per SKU at the 1.1 s request pacing
+ * (≈15 min), which cycles ~5.4k in-stock bottles in ~2.5 days
+ * (ROTATION_TARGET_HOURS) with watched bottles re-checked every run.
  */
 const MAX_CONSECUTIVE_FAILURES = 5;
 export const WATCH_SHARE = 0.4;
-export const WATCH_RECHECK_HOURS = 4;
+export const WATCH_RECHECK_HOURS = 3;
 export const WATCH_TARGET_HOURS = 12;
+/** Ordinary in-stock bottles: re-checked well inside the 7-day "unknown" cutoff. */
+export const ROTATION_TARGET_HOURS = 72;
+const TIME_BUDGET_MS = Number(process.env.STORE_TIME_BUDGET_MINUTES ?? 25) * 60_000;
 
 export async function selectStoreTargets(budget: number): Promise<{ watched: string[]; rotation: string[] }> {
   const watchSlots = Math.floor(budget * WATCH_SHARE);
@@ -80,9 +94,13 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
     let scraped = 0;
     let storeRows = 0;
     let consecutiveFailures = 0;
+    let attempted = 0;
     const errors: string[] = [];
+    const started = Date.now();
 
     for (const csc of targets) {
+      if (Date.now() - started > TIME_BUDGET_MS) break;
+      attempted++;
       let detail: ProductDetail;
       try {
         detail = await fetchProductDetail(csc);
@@ -102,6 +120,10 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
 
     return {
       scraped,
+      attempted,
+      // Stopped at the time budget before reaching every target (DABS slow).
+      stopped_early: attempted < targets.length,
+      seconds: Math.round((Date.now() - started) / 1000),
       watched_targets: watched.length,
       rotation_targets: rotation.length,
       store_rows: storeRows,

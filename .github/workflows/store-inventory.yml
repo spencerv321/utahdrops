@@ -5,15 +5,23 @@ name: Store inventory scrape
 # two DABS requests at <=1 req/sec, so this is a long-running, budget-limited
 # rotating pass — exactly what a serverless function can't do.
 
+# Schedule and size (2026-09-24 review of 244 scheduled runs): GitHub never
+# dropped a slot while the workflow was enabled, but starts runs ~2h late
+# (median 110 min, p90 180, max 350), and in June–July 20 runs were killed at
+# the 30-minute timeout. So: an off-peak minute (GitHub is busiest at :00),
+# every 4h, 400 SKUs (~15 min at the 1.1 s DABS pacing), and a scrape time
+# budget (STORE_TIME_BUDGET_MINUTES, 25) under a 40-minute job timeout that
+# leaves room for the slowest single SKU (~5 min of retries) plus the digest.
+# Capacity math: scripts/report.ts mode "freshness".
 on:
   schedule:
-    - cron: "0 */6 * * *" # every 6h (conservative for private-repo Action minutes)
+    - cron: "37 */4 * * *"
   workflow_dispatch:
     inputs:
       budget:
         description: "SKUs to scrape this run (overrides STORE_SCRAPE_BUDGET)"
         required: false
-        default: "300"
+        default: "400"
 
 concurrency:
   group: store-inventory
@@ -22,7 +30,7 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -41,7 +49,8 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DABS_CONTACT_EMAIL: ${{ secrets.DABS_CONTACT_EMAIL }}
-          STORE_SCRAPE_BUDGET: ${{ github.event.inputs.budget || '300' }}
+          STORE_SCRAPE_BUDGET: ${{ github.event.inputs.budget || '400' }}
+          STORE_TIME_BUDGET_MINUTES: "25"
           NODE_ENV: production
         run: pnpm exec tsx scripts/scrape.ts store-inventory
 
