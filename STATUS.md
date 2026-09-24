@@ -48,10 +48,25 @@ scheduled workflows are enabled; `/api/health` is green.
   name/size/vintage, then tone/crop and store in Supabase Storage. Needs
   `SERPAPI_KEY` (or Brave) and `ANTHROPIC_API_KEY` as Actions secrets.
 
-## Admin dashboard (this branch)
-- `/admin`: live visitors, traffic, sources, top pages/bottles/searches,
-  audience, accounts & alerts, job freshness. Own first-party tracking
-  (`page_events`), no third-party analytics. Needs `ADMIN_EMAILS` in Vercel.
+## Admin dashboard + sign-in fix (PRs #16–#18, live)
+- `/admin` is live for `ADMIN_EMAILS` (set in Vercel): live visitors, traffic,
+  sources, top pages/bottles/searches, audience, accounts & alerts, job
+  freshness. First-party tracking in `page_events` since 2026-09-24 (one test
+  visit from Claude that night). Alert email links carry `utm_source=email`.
+- Sign-in fix: new accounts' first email link (`?code=`) was confirmed but
+  never signed in; every account that got in had to ask for a second link.
+  `/auth/confirm` now handles `?code=`; failed links explain themselves.
+  Not yet proven with a real first-time sign-in (owner to test with a
+  `+test` Gmail address).
+- Diagnostics: `report.yml` with hours=`auth` (where sign-ups stall, no
+  emails) or `conns` (who holds DB connections).
+
+## Watch
+- 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of
+  idle Vercel connections; jobs/report couldn't connect, the site was fine.
+  Cleared on its own. If jobs fail with EMAXCONNSESSION, run report `conns`.
+- 6 accounts never clicked their first email (spam, typos, or lost
+  interest; unknown).
 
 ## Pending decisions
 - Invite email for the 2 legacy footer signups: built, **not sent** — owner said
