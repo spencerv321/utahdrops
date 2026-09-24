@@ -28,6 +28,11 @@ scheduled workflows are enabled; `/api/health` is green.
   kept separate from availability, manual area picker (no geolocation needed).
 - No product photos exist in the data; a neutral container glyph stands in.
 
+## Admin dashboard (this branch)
+- `/admin`: live visitors, traffic, sources, top pages/bottles/searches,
+  audience, accounts & alerts, job freshness. Own first-party tracking
+  (`page_events`), no third-party analytics. Needs `ADMIN_EMAILS` in Vercel.
+
 ## Pending decisions
 - Invite email for the 2 legacy footer signups: built, **not sent** — owner said
   wait. Send by running `cron.yml` with job `invite-signups` and `send` checked.

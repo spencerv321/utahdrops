@@ -1,19 +1,13 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { releaseIdleConnections } from "@/lib/db-release";
+import { JOB_MAX_AGE_HOURS as MAX_AGE_HOURS } from "@/lib/config";
 
 /**
  * Freshness check for uptime monitors: 503 when any job's last success is
  * older than its budget (roughly 2–3× its schedule). Point a free monitor
  * (Better Stack, UptimeRobot, Healthchecks.io) at this URL.
  */
-const MAX_AGE_HOURS: Record<string, number> = {
-  catalog: 12,
-  store_inventory: 18,
-  allocated: 24,
-  digest: 4,
-};
-
 export async function GET() {
   releaseIdleConnections();
   const rows = (await sql`
