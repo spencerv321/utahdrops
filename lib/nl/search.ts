@@ -1,4 +1,5 @@
 import { sql } from "@/lib/db";
+import { STORE_DATA_MAX_AGE_HOURS } from "@/lib/config";
 import { geocodeUtah } from "./geocode";
 import { searchTokens } from "@/lib/queries";
 import type { ParsedQuery } from "./parse";
@@ -109,6 +110,7 @@ export async function runNlSearch(
         from store_inventory_current c
         join products p using (csc)
         where c.store_id = ${store.id} and c.qty > 0
+          and c.scraped_at > now() - make_interval(hours => ${STORE_DATA_MAX_AGE_HOURS})
         ${filtersFrom(parsed)}
         order by ${orderFor(parsed)}
         limit ${parsed.limit}`) as unknown as NlProduct[];

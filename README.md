@@ -54,6 +54,7 @@ Run any job locally with `npx tsx scripts/scrape.ts <job>`.
 | `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | every 6h |
 | `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
 | `sales` | `.github/workflows/sales.yml` (in the runner) | Mondays 16:40 |
+| `rarity` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
 
 `sales` imports DABS's monthly Sales Analysis reports
 (abs.utah.gov/vendors/sales-analysis, May 2025 onward) into `sales_reports` /
@@ -65,8 +66,16 @@ DABS's own total; months already in are skipped except the newest two
 received. `rhdp` records DABS's Rare High Demand Product drawings (product, item code,
 bottles offered, entries) from the public drawing page into `rhdp_drawings`;
 winner names on that page are never stored. Sales, drawings, allocated drops
-and our stock history feed the rarity prototype (`lib/rarity.ts`, internal
-only): dispatch `report.yml` with `rarity` for the review report.
+and our stock history feed the availability rating (beta, `lib/rarity.ts`):
+the `rarity` job writes `product_rarity`, and product pages show a badge
+(Everyday → Unicorn) only where `published` is true. Manual corrections go in
+`rarity_overrides` (tier, or null to hide the badge, plus a note and review
+date); they win over the computed tier. Dispatch `report.yml` with `rarity` to
+review what the job would publish.
+
+Store-by-store counts older than 7 days (`STORE_DATA_MAX_AGE_HOURS`) are
+treated as unknown everywhere: near-me counts and ordering, AI search, and the
+product page (which then shows a dated "last known" list behind a toggle).
 
 `keepalive.yml` re-enables the scheduled workflows weekly (GitHub disables them
 in public repos after 60 days without a commit). **`/api/health`** returns 503

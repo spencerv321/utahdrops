@@ -61,19 +61,19 @@ scheduled workflows are enabled; `/api/health` is green.
 - Diagnostics: `report.yml` with hours=`auth` (where sign-ups stall, no
   emails) or `conns` (who holds DB connections).
 
-## Rarity tiers ("Utah availability") — in progress, internal only
-- Nothing on the site yet. Method v2 (`lib/rarity.ts`) keeps three kinds of
-  evidence separate: recorded sales (DABS monthly reports, context only),
-  shelf availability (share of observed days in stock + typical store count),
-  and access method verified from DABS pages (RHDP drawings by item code,
-  allocated drops by exact name). Review with `report.yml` → `rarity`.
-- Data: `sales` job (monthly reports, May 2025 →), `rhdp` job (drawings;
-  DABS only shows recent ones, so we keep history; no winner names).
-- Only ~5.2k of ~26k listed products are shelf items (status 1/L/T/A).
-- The Aug 4 – Sep 22 2026 scraper outage is excluded from all availability
-  math; holiday products wait for Nov–Dec observations.
-- Next: owner reviews v2 → small beta showing facts broadly, tiers only where
-  the evidence supports them.
+## Rarity tiers ("Utah Drops rating · beta")
+- Product pages show a badge (Everyday / Uncommon / Scarce / Rare / Unicorn)
+  with a plain-language line and the dated evidence behind it; products
+  without enough evidence show the facts only. Written daily by the `rarity`
+  job into `product_rarity`; manual corrections in `rarity_overrides`.
+- Evidence: DABS monthly sales (context), our shelf history (days in stock +
+  typical store count), DABS drawings (`rhdp` job; item code, bottles,
+  entries; no winner names) and allocated drops (exact name → one code).
+- Badges withheld for reused DABS codes (several vintages) and low confidence.
+- Bottles released by drawing that DABS doesn't list get a "not currently
+  listed" page (product row marked delisted).
+- Stale store data (>7 days) is now treated as unknown site-wide.
+- Next: watch how people use it; improve store-scraper coverage in parallel.
 
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of
