@@ -124,9 +124,18 @@ scheduled workflows are enabled; `/api/health` is green.
   target except DABS-500 SKUs, never/>7d buckets ~0 by Sep 27–28.
 - If it passes, change `WATCH_REFRESH_NOTE` (`lib/config.ts`) and the digest
   footer from "about twice a day" to the measured frequency.
-- **Owner test** (not yet done): private window → utahdrops.com/product/016850
-  → Watch → "Also at my store" → new `+test` Gmail → tap the link → expect
-  "You're watching … and when it's back at <store>".
+- **Owner test** (2026-09-24, partial): the request and confirm email worked,
+  but the link was opened in a different browser already signed in as the
+  owner's main account. Supabase's confirm-signup link (PKCE `?code=`) only
+  completes in the browser that asked, so the watch was correctly not added;
+  PR #29 now explains that on the page. Retest by opening the link in the
+  same browser (or after the template change below).
+- **Supabase email templates (owner, dashboard → Authentication → Email
+  Templates):** switch "Confirm signup" and "Magic Link" to token-hash links,
+  `{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email`, so links work in
+  any browser/device (`/auth/confirm` already handles `token_hash`; all three
+  sign-in forms send `emailRedirectTo=/auth/confirm?next=…`), and replace the
+  generic "Confirm your email address" copy, which reads as phishing.
 
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of
