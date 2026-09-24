@@ -35,6 +35,23 @@ async function main() {
     select e.event_type, count(distinct w.user_id)::int as users, count(*)::int as pairs
     from inventory_events e join watchlist w using (csc)
     where e.created_at > now() - make_interval(hours => ${hours}) group by 1`);
+  // Catalog shape (for UI copy and units): categories, sizes, statuses, names.
+  show("categories", await sql`
+    select category, count(*)::int as total, count(*) filter (where in_stock)::int as in_stock,
+           percentile_cont(0.5) within group (order by current_price)::numeric(10,2) as median_price,
+           (array_agg(name order by store_qty desc nulls last))[1:3] as sample_names
+    from products where delisted_at is null
+    group by 1 order by 2 desc`);
+  show("sizes (ml)", await sql`
+    select size_ml, count(*)::int from products where delisted_at is null group by 1 order by 2 desc limit 15`);
+  show("statuses", await sql`
+    select status, count(*)::int, count(*) filter (where in_stock)::int as in_stock
+    from products where delisted_at is null group by 1 order by 2 desc`);
+  show("store names", await sql`select id, name, city from stores order by id limit 12`);
+  show("store coverage", await sql`
+    select count(distinct csc)::int as products_with_store_counts,
+           (select count(*)::int from products where in_stock and delisted_at is null) as in_stock_products
+    from store_inventory_current`);
   await sql.end();
 }
 main().catch((e) => { console.error(e); process.exit(1); });
