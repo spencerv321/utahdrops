@@ -5,6 +5,9 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  // Signed-out visitors have no session to refresh; skip the auth client.
+  if (!request.cookies.getAll().some((c) => c.name.startsWith("sb-"))) return response;
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -25,7 +28,9 @@ export async function proxy(request: NextRequest) {
   );
 
   // Touching auth here keeps tokens fresh for server components downstream.
-  await supabase.auth.getUser();
+  // getClaims() refreshes an expiring token like getUser() does, but checks a
+  // still-valid one locally instead of calling Supabase Auth on every request.
+  await supabase.auth.getClaims();
 
   return response;
 }

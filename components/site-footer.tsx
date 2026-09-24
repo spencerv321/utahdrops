@@ -1,11 +1,10 @@
 import { DABS_ALLOCATED_URL, DABS_LOCATOR_URL, SITE_NAME } from "@/lib/config";
 import { EmailCapture } from "@/components/email-capture";
 import { Wordmark } from "@/components/wordmark";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 export async function SiteFooter() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   return (
     <footer className="mt-20 border-t">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">

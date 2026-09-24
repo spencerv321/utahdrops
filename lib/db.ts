@@ -36,7 +36,13 @@ export const sql =
   globalThis.__sql ??
   postgres(resolveDatabaseUrl(process.env.DATABASE_URL!, onVercel), {
     max: Number(process.env.DB_POOL_MAX ?? (onVercel ? 3 : 10)),
-    idle_timeout: 20,
+    // Vercel freezes the function between requests, and a connection left
+    // open while frozen dies silently: the next page's queries then wait on it
+    // forever (the "pages never load" bug). So close idle connections fast;
+    // releaseIdleConnections() keeps the function awake long enough to do it.
+    idle_timeout: onVercel ? 2 : 20,
+    max_lifetime: 60 * 5,
+    connect_timeout: 10,
     prepare: false, // required for Supabase transaction-mode pooling
   });
 

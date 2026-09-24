@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { getHomeFeed, getShortcutCounts, getWatchedSet } from "@/lib/queries";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { SearchBox } from "@/components/search-box";
 import { DropTicket } from "@/components/drop-ticket";
@@ -30,9 +30,8 @@ export default async function HomePage({
     redirect(`/search?${next.toString()}`);
   }
 
-  const supabase = await createClient();
-  const [{ data: { user } }, feed, counts] = await Promise.all([
-    supabase.auth.getUser(),
+  const [user, feed, counts] = await Promise.all([
+    getCurrentUser(),
     getHomeFeed(10),
     getShortcutCounts(SHORTCUTS),
   ]);

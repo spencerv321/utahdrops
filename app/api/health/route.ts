@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
+import { releaseIdleConnections } from "@/lib/db-release";
 
 /**
  * Freshness check for uptime monitors: 503 when any job's last success is
@@ -14,6 +15,7 @@ const MAX_AGE_HOURS: Record<string, number> = {
 };
 
 export async function GET() {
+  releaseIdleConnections();
   const rows = (await sql`
     select job, max(finished_at) as last_ok
     from scrape_runs

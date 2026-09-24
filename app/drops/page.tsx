@@ -5,7 +5,7 @@ import { getDrops, getUserStoreIds, type DropRow } from "@/lib/queries";
 import { nextDropDate } from "@/lib/dabs/allocated";
 import { formatPrice, productTitle, sizeFromName, sizeLabel, storeLabel } from "@/lib/format";
 import { DropTicket } from "@/components/drop-ticket";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { DABS_ALLOCATED_URL } from "@/lib/config";
 
@@ -21,8 +21,7 @@ const dateLabel = (iso: string, opts: Intl.DateTimeFormatOptions) =>
   new Date(iso + "T00:00:00Z").toLocaleDateString("en-US", { ...opts, timeZone: "UTC" });
 
 export default async function DropsPage() {
-  const supabase = await createClient();
-  const [drops, { data: { user } }] = await Promise.all([getDrops(), supabase.auth.getUser()]);
+  const [drops, user] = await Promise.all([getDrops(), getCurrentUser()]);
 
   let optedIn = false;
   if (user) {

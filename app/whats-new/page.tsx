@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getEvents, getWatchedSet } from "@/lib/queries";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { HomeFeed } from "@/components/home-feed";
 import { cn } from "@/lib/utils";
 
@@ -29,11 +29,7 @@ export default async function WhatsNewPage({
 }) {
   const { type } = await searchParams;
   const active = TABS.find((t) => t.key === (type ?? ""))?.key ?? "";
-  const supabase = await createClient();
-  const [events, { data: { user } }] = await Promise.all([
-    getEvents(active || undefined),
-    supabase.auth.getUser(),
-  ]);
+  const [events, user] = await Promise.all([getEvents(active || undefined), getCurrentUser()]);
   const watched = await getWatchedSet(
     user?.id,
     events.map((e) => e.csc).filter((c): c is string => !!c)

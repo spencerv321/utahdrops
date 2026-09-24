@@ -8,6 +8,7 @@ config({ path: ".env.local", quiet: true });
  */
 async function main() {
   const { sql } = await import("../lib/db");
+  if (process.argv[2] === "perf") return perf(sql);
   const hours = Number(process.argv[2] ?? 6);
   const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 1)}`);
 
@@ -54,4 +55,76 @@ async function main() {
     from store_inventory_current`);
   await sql.end();
 }
+/**
+ * `report.ts perf`: why is the site slow? Times the live pages (from the
+ * Actions runner), the queries behind them, and lists table sizes and the
+ * slowest statements if pg_stat_statements is available. Read-only.
+ */
+async function perf(sql: typeof import("../lib/db").sql) {
+  const q = await import("../lib/queries");
+  const { SHORTCUTS } = await import("../lib/browse");
+  const site = process.env.SITE ?? "https://utahdrops.com";
+  const [{ csc }] = (await sql`
+    select csc from products where in_stock order by store_qty desc nulls last limit 1`) as unknown as { csc: string }[];
+  const db = new URL(process.env.DATABASE_URL ?? "http://x");
+  console.log(`db host: ${db.hostname}:${db.port}`);
+
+  console.log("\n## live pages (4 runs each, ms)");
+  for (const path of ["/api/health", "/", "/search?q=weller", `/product/${csc}`, "/drops", "/whats-new"]) {
+    const runs: string[] = [];
+    let meta = "";
+    for (let i = 0; i < 4; i++) {
+      const t = Date.now();
+      try {
+        const res = await fetch(site + path, { signal: AbortSignal.timeout(30_000), headers: { "user-agent": "utahdrops-report" } });
+        await res.text();
+        runs.push(`${res.status}:${Date.now() - t}`);
+        meta = `vercel-id=${res.headers.get("x-vercel-id")} cache=${res.headers.get("x-vercel-cache")}`;
+      } catch (e) {
+        runs.push(`ERR(${(e as Error).name}):${Date.now() - t}`);
+      }
+    }
+    console.log(`${path.padEnd(22)} ${runs.join("  ")}  ${meta}`);
+  }
+
+  const time = async (label: string, fn: () => Promise<unknown>) => {
+    const ms: number[] = [];
+    for (let i = 0; i < 3; i++) {
+      const t = Date.now();
+      try { await fn(); ms.push(Date.now() - t); } catch (e) { console.log(`${label}: ERROR ${(e as Error).message}`); return; }
+    }
+    console.log(`${label.padEnd(28)} ${ms.join(" / ")} ms`);
+  };
+  console.log("\n## queries from the runner (3 runs each)");
+  await time("select 1", () => sql`select 1`);
+  await time("getFreshness", () => q.getFreshness());
+  await time("getHomeFeed(10)", () => q.getHomeFeed(10));
+  await time("getShortcutCounts", () => q.getShortcutCounts(SHORTCUTS));
+  await time("getDropListSize", () => q.getDropListSize("2026-10-17"));
+  await time("searchProducts(weller)", () => q.searchProducts({ q: "weller" }));
+  await time("searchProducts(default)", () => q.searchProducts({}));
+  await time("getCategories", () => q.getCategories());
+  await time("getProduct", () => q.getProduct(csc));
+  await time("getProductHistory", () => q.getProductHistory(csc));
+  await time("getStoreAvailability", () => q.getStoreAvailability(csc));
+  await time("getProductEvents", () => q.getProductEvents(csc));
+  await time("getEvents()", () => q.getEvents());
+  await time("getDrops", () => q.getDrops());
+
+  console.log("\n## table sizes");
+  console.log(JSON.stringify(await sql`
+    select relname as table, n_live_tup::int as rows, pg_size_pretty(pg_total_relation_size(relid)) as size
+    from pg_stat_user_tables order by pg_total_relation_size(relid) desc limit 12`, null, 1));
+  try {
+    console.log("\n## slowest statements (pg_stat_statements)");
+    console.log(JSON.stringify(await sql`
+      select calls::int, round(mean_exec_time::numeric, 1) as mean_ms, round(total_exec_time::numeric) as total_ms,
+             left(regexp_replace(query, '\s+', ' ', 'g'), 160) as query
+      from pg_stat_statements order by total_exec_time desc limit 12`, null, 1));
+  } catch (e) {
+    console.log(`not available: ${(e as Error).message}`);
+  }
+  await sql.end();
+}
+
 main().catch((e) => { console.error(e); process.exit(1); });
