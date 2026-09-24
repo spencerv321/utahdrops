@@ -75,8 +75,8 @@ export function storeLabel(name: string, city?: string | null): { title: string;
  * drop that suffix and show the size separately. Nothing else is rewritten:
  * abbreviations and truncations stay as DABS wrote them.
  */
-export function productTitle(name: string, sizeMl?: number | null): string {
-  let n = name.trim();
+export function productTitle(name: string | null, sizeMl?: number | null): string {
+  let n = (name ?? "").trim();
   if (sizeMl) {
     const size = String(sizeMl >= 1000 && sizeMl % 1000 === 0 ? sizeMl / 1000 : sizeMl);
     const units = "(?:ml|m|l|ltr|liter)?";
@@ -194,8 +194,8 @@ export function listingNote(status: string | null | undefined): string | null {
 }
 
 /** Size in ml parsed from the end of a DABS name ("… 750ML", "… 1.75L"), for rows with no size column. */
-export function sizeFromName(name: string): number | null {
-  const m = name.trim().match(/(\d+(?:\.\d+)?)\s?(ml|l)$/i);
+export function sizeFromName(name: string | null): number | null {
+  const m = (name ?? "").trim().match(/(\d+(?:\.\d+)?)\s?(ml|l)$/i);
   if (!m) return null;
   const n = Number(m[1]);
   return m[2].toLowerCase() === "l" ? Math.round(n * 1000) : Math.round(n);
