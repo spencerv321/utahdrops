@@ -1,5 +1,5 @@
 export const SITE_NAME = "Utah Drops";
-export const SITE_TAGLINE = "Search, track, and get alerts for Utah liquor inventory";
+export const SITE_TAGLINE = "Find any bottle at Utah's state liquor stores";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_ENV === "production" ? "https://utahdrops.com" : "http://localhost:3000");

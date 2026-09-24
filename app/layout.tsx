@@ -28,7 +28,7 @@ const display = Instrument_Serif({
 });
 
 const DESCRIPTION =
-  "Fast search, restock alerts, price history, and allocated-drop tracking for Utah's state liquor stores. Not affiliated with Utah DABS.";
+  "Stock and prices at every Utah state liquor store, updated several times a day. Save a bottle and we'll email you when it's back. Independent, not affiliated with Utah DABS.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

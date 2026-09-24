@@ -24,6 +24,8 @@ export interface SearchFilters {
   sale?: boolean;
   sort?: "name" | "price_asc" | "price_desc" | "qty";
   page?: number;
+  /** With the default sort: bottles on a shelf within `miles` of here come first. */
+  near?: { lat: number; lng: number; miles: number };
 }
 
 const PAGE_SIZE = 50;
@@ -64,14 +66,23 @@ export async function searchProducts(filters: SearchFilters) {
     ${filters.sale ? sql`and p.is_spa` : sql``}
   `;
 
+  const nearStoreIds = filters.near && !filters.sort ? await storesWithin(filters.near) : [];
+
   const orderBy =
     filters.sort === "price_asc" ? sql`p.current_price asc nulls last`
     : filters.sort === "price_desc" ? sql`p.current_price desc nulls last`
     : filters.sort === "qty" ? sql`p.store_qty desc nulls last`
     : filters.sort === "name" ? sql`p.search_name asc`
     // Best match: in-stock and widely stocked first, so the default list is
-    // bottles people can actually buy rather than A→Z punctuation noise.
-    : sql`p.in_stock desc, p.store_qty desc nulls last, p.search_name asc`;
+    // bottles people can actually buy rather than A→Z punctuation noise. With
+    // an area, bottles on a shelf nearby lead (primary-key lookups against the
+    // handful of stores in range).
+    : nearStoreIds.length > 0
+      ? sql`p.in_stock desc,
+            exists (select 1 from store_inventory_current c
+                    where c.csc = p.csc and c.qty > 0 and c.store_id = any(${nearStoreIds})) desc,
+            p.store_qty desc nulls last, p.search_name asc`
+      : sql`p.in_stock desc, p.store_qty desc nulls last, p.search_name asc`;
 
   const rows = (await sql`
     select p.csc, p.name, p.category, p.status, p.size_ml, p.current_price::text,
@@ -88,6 +99,17 @@ export async function searchProducts(filters: SearchFilters) {
     page: page + 1,
     pageSize: PAGE_SIZE,
   };
+}
+
+/** Store ids within `miles` of a point. */
+async function storesWithin(at: { lat: number; lng: number; miles: number }): Promise<number[]> {
+  const rows = (await sql`
+    select id from stores
+    where lat is not null and 3959 * 2 * asin(least(1, sqrt(
+      sin(radians(lat - ${at.lat}) / 2) ^ 2 +
+      cos(radians(${at.lat})) * cos(radians(lat)) * sin(radians(lng - ${at.lng}) / 2) ^ 2
+    ))) <= ${at.miles}`) as unknown as { id: number }[];
+  return rows.map((r) => r.id);
 }
 
 export async function getCategories(): Promise<string[]> {
