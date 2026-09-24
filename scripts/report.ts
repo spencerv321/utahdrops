@@ -6,6 +6,8 @@ config({ path: ".env.local", quiet: true });
  * volume by type, and samples of recent events with the snapshot history
  * behind them. Prints no emails or user data.
  */
+const show0 = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0)}`);
+
 async function main() {
   // These modes must work even when the session pooler (5432) is full, so go
   // through the transaction pooler (6543), which has its own client limit.
@@ -50,9 +52,15 @@ async function main() {
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
   if (process.argv[2] === "pooler") return pooler();
-  if (process.argv[2] === "storediag") {
-    // Per-store history for one product: rows per day, and stores with stock per day.
-    const csc = process.argv[3] ?? "018006";
+  if (process.argv[2]?.startsWith("storediag")) {
+    // Per-store history for one product ("storediag:038176"): rows per day, current rows, rotation.
+    const csc = process.argv[2].split(":")[1] ?? process.argv[3] ?? "018006";
+    show0("product", await sql`select csc, name, status, in_stock, store_qty, last_store_scrape, first_seen, last_seen, delisted_at from products where csc = ${csc}`);
+    show0("history rows total", await sql`select count(*)::int as rows, min(scraped_at) as first, max(scraped_at) as last from store_inventory where csc = ${csc}`);
+    show0("rotation position (targets ahead of it)", await sql`
+      select count(*)::int as ahead from products p
+      where (p.in_stock or exists (select 1 from watchlist w where w.csc = p.csc))
+        and coalesce(p.last_store_scrape, 'epoch') < (select coalesce(last_store_scrape, 'epoch') from products where csc = ${csc})`);
     const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
     show("current", await sql`select count(*)::int as rows, count(*) filter (where qty > 0)::int as stocked, min(scraped_at) as oldest, max(scraped_at) as newest from store_inventory_current where csc = ${csc}`);
     show("history rows by day", await sql`
