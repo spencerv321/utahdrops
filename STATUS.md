@@ -26,12 +26,35 @@ scheduled workflows are enabled; `/api/health` is green.
   day-grouped rows, browse-by-taste shortcuts on real DABS categories, bottle
   names without the size suffix, bottles vs units by category, listing status
   kept separate from availability, manual area picker (no geolocation needed).
-- No product photos exist in the data; a neutral container glyph stands in.
+- PRs #9–#13: production stability (session pooler, one DB error no longer
+  crashes the server, less link prefetch fan-out, `report.yml` modes).
+- PR #14 (live): area picker in the search bar (All of Utah / use my location /
+  any store city; cookie `ud_area`, no account needed, shared with product
+  pages), "N stores near <area> · X bottles" on result and feed rows (10 mi,
+  shows the check date when >36h old; never-checked products show nothing),
+  homepage hero with the drop ticket beside the headline, full-width search,
+  browse shortcuts as buttons, and a toned Park City Main Street photo
+  (Unsplash, royalty-free) behind the hero.
+- PR #15: share previews (OG images) redone in the site's look (fonts and
+  backgrounds in `assets/`), and "near you first" search ordering when an area
+  is picked (default sort only; no area = unchanged "in stock first").
+
+## Product photos (not started for real)
+- No product photos exist in the data, and DABS has none anywhere (checked the
+  locator detail pages and abs.utah.gov); a neutral container glyph stands in.
+- Pilot (2026-09-24, kept in git history at `fcc5ffd`): free Bing image
+  scraping from Actions returned junk (1 of 28 correct). Plan: a paid image
+  search API (SerpAPI or Brave) + Claude vision to verify each match against
+  name/size/vintage, then tone/crop and store in Supabase Storage. Needs
+  `SERPAPI_KEY` (or Brave) and `ANTHROPIC_API_KEY` as Actions secrets.
 
 ## Pending decisions
 - Invite email for the 2 legacy footer signups: built, **not sent** — owner said
   wait. Send by running `cron.yml` with job `invite-signups` and `send` checked.
 
 ## Next
+- Product photos (above), once the owner adds the API keys.
+- Nice-to-have: near-you counts on the browse buttons (low value; results
+  already show them).
 - Remaining review items (see `REVIEW.md` §4): push/PWA alerts, price history
   chart, drop-day experience, tests for the scraper parsers.
