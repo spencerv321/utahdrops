@@ -50,6 +50,7 @@ async function main() {
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
   if (process.argv[2] === "pooler") return pooler();
+  if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
   if (process.argv[2] === "conns" || process.argv[2] === "auth") {
     // Who holds database connections right now (session-pooler exhaustion).
     console.log("\n## connections by client\n" + JSON.stringify(await sql`

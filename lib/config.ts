@@ -10,6 +10,8 @@ export const DABS_ALLOCATED_URL =
   "https://abs.utah.gov/shop-products/allocatedandrare/";
 export const DABS_PRODUCT_LIST_PAGE =
   "https://abs.utah.gov/shop-products/interactive-product-list/";
+export const DABS_SALES_ANALYSIS_PAGE =
+  "https://abs.utah.gov/vendors/sales-analysis/";
 
 /** Compliance: every inventory display must carry "as of" + official link. */
 export const DABS_DISCLAIMER =

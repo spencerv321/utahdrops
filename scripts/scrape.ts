@@ -9,6 +9,8 @@ const JOBS: Record<string, () => Promise<unknown>> = {
   xlsx: () => import("../lib/jobs/xlsx").then((m) => m.runXlsxJob()),
   percentiles: () => import("../lib/jobs/percentiles").then((m) => m.runPercentilesJob()),
   digest: () => import("../lib/jobs/digest").then((m) => m.runDigestJob()),
+  sales: () =>
+    import("../lib/jobs/sales").then((m) => m.runSalesJob({ refresh: process.env.SALES_REFRESH === "1" })),
 };
 
 async function main() {

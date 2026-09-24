@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       hours:
-        description: "Look-back window in hours"
+        description: "Look-back window in hours, or a mode (rarity, auth, conns, perf, activity, slow)"
         required: false
         default: "6"
 
