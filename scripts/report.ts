@@ -7,6 +7,19 @@ config({ path: ".env.local", quiet: true });
  * behind them. Prints no emails or user data.
  */
 async function main() {
+  if (process.argv[2] === "pdata") {
+    process.env.VERCEL = "";
+    const q = await import("../lib/queries");
+    for (const csc of ["918885", "102334", "005586"]) {
+      const [p, h, st, ev] = await Promise.all([q.getProduct(csc), q.getProductHistory(csc), q.getStoreAvailability(csc), q.getProductEvents(csc)]);
+      console.log("=====", csc);
+      console.log(JSON.stringify(p));
+      console.log("history", h.length, JSON.stringify(h.slice(0, 3)), JSON.stringify(h.slice(-3)));
+      console.log("stores", st.length, JSON.stringify(st.slice(0, 2)));
+      console.log("events", JSON.stringify(ev));
+    }
+    process.exit(0);
+  }
   if (process.argv[2] === "product") {
     // Same settings as Vercel: pooled port, 3 connections, 2s idle close.
     process.env.VERCEL = "1";

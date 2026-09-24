@@ -5,14 +5,15 @@ declare global {
 }
 
 /**
- * On Vercel, many short-lived instances each open their own pool, which
- * exhausted Supabase's session-mode pooler (EMAXCONNSESSION). Its
- * transaction-mode pooler on the same host (port 6543) multiplexes instead,
- * so switch to it automatically. Jobs in the Actions runner (one long process)
- * keep the URL as given.
+ * Supabase's transaction-mode pooler (port 6543) is opt-in via
+ * DB_TRANSACTION_POOLER=1. On Vercel it left connections stuck until the
+ * database's 2-minute statement timeout, hanging every page queued behind
+ * them, while the session-mode pooler (5432, what the jobs use) never has.
+ * Session mode used to run out of connections (EMAXCONNSESSION) when idle
+ * connections lingered; they now close after 2s (see idle_timeout below).
  */
 export function resolveDatabaseUrl(url: string, onVercel: boolean): string {
-  if (!onVercel) return url;
+  if (!onVercel || process.env.DB_TRANSACTION_POOLER !== "1") return url;
   try {
     const u = new URL(url);
     if (u.hostname.endsWith(".pooler.supabase.com") && u.port === "5432") {
