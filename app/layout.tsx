@@ -8,6 +8,7 @@ import { TabBar } from "@/components/tab-bar";
 import { StaleDataBanner } from "@/components/stale-data-banner";
 import { AgeGate } from "@/components/age-gate";
 import { Toaster } from "@/components/ui/sonner";
+import { releaseIdleConnections } from "@/lib/db-release";
 
 // A deliberate pair from one family: Instrument Sans (variable) for everything
 // you read or tap, Instrument Serif (one weight + italic, OFL) for the
@@ -61,6 +62,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  releaseIdleConnections();
   return (
     <html
       lang="en"

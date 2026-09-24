@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { sql } from "@/lib/db";
 
 export interface ProductRow {
@@ -96,7 +97,8 @@ export async function getCategories(): Promise<string[]> {
   return rows.map((r) => r.category);
 }
 
-export async function getProduct(csc: string) {
+/** Cached per request: the page and its metadata both look the product up. */
+export const getProduct = cache(async (csc: string) => {
   const rows = (await sql`
     select csc, name, category, subcategory, status, size_ml, is_spa, description,
            current_price::text, warehouse_qty, store_qty, on_order_qty, in_stock,
@@ -112,7 +114,7 @@ export async function getProduct(csc: string) {
     last_store_scrape: Date | null;
   })[];
   return rows[0] ?? null;
-}
+});
 
 export interface SnapshotPoint {
   scraped_at: Date;
@@ -197,14 +199,17 @@ export async function getDrops(): Promise<DropRow[]> {
     limit 1000`) as unknown as DropRow[];
 }
 
-/** Freshness for the "as of" labels: when did the last successful catalog pass finish? */
-export async function getFreshness(): Promise<Date | null> {
+/**
+ * Freshness for the "as of" labels: when did the last successful catalog pass
+ * finish? Cached per request (the banner and the home page both ask).
+ */
+export const getFreshness = cache(async (): Promise<Date | null> => {
   const rows = (await sql`
     select finished_at from scrape_runs
     where job = 'catalog' and ok = true
     order by finished_at desc limit 1`) as unknown as { finished_at: Date }[];
   return rows[0]?.finished_at ?? null;
-}
+});
 
 /** Catalog freshness plus whether it's older than `staleAfterHours`. */
 export async function getDataStaleness(staleAfterHours = 24) {

@@ -3,17 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { sql } from "@/lib/db";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getCurrentUser } from "@/lib/supabase/server";
 import { MAX_HOME_STORES } from "@/lib/config";
 
 /** Watchlisted SKUs get scrape priority, so keep one account from hogging it. */
 const MAX_WATCHLIST = 50;
 
-async function currentUser() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  return user;
-}
+const currentUser = getCurrentUser;
 
 const Signup = z.object({
   email: z.string().trim().toLowerCase().email().max(254),

@@ -11,7 +11,7 @@ import {
   type EventRow,
   type SnapshotPoint,
 } from "@/lib/queries";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { StockChart } from "@/components/stock-chart";
 import { WatchButton } from "@/components/watch-button";
@@ -53,13 +53,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { csc } = await params;
-  const supabase = await createClient();
-  const [product, history, stores, events, { data: { user } }] = await Promise.all([
+  const [product, history, stores, events, user] = await Promise.all([
     getProduct(csc),
     getProductHistory(csc),
     getStoreAvailability(csc),
     getProductEvents(csc),
-    supabase.auth.getUser(),
+    getCurrentUser(),
   ]);
   if (!product) notFound();
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { ProductList } from "@/components/product-list";
 import { AlertPrefs } from "@/components/alert-prefs";
@@ -18,8 +18,7 @@ export default async function WatchlistPage({
   searchParams: Promise<{ welcome?: string }>;
 }) {
   const { welcome } = await searchParams;
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/login?next=/watchlist");
 
   const [rows, prefRows, storeOptions, homeRows] = await Promise.all([

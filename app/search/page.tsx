@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getCategories, getWatchedSet, searchProducts, searchTokens } from "@/lib/queries";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { SearchBox } from "@/components/search-box";
 import { SearchControls } from "@/components/search-controls";
 import { ProductList } from "@/components/product-list";
@@ -44,7 +44,6 @@ export default async function SearchPage({
 }) {
   const params = await searchParams;
   const q = typeof params.q === "string" ? params.q.trim() : "";
-  const supabase = await createClient();
   const filters = {
     category: params.category,
     status: params.status,
@@ -54,10 +53,10 @@ export default async function SearchPage({
     sort: params.sort as never,
     page: parseInt(params.page ?? "1", 10) || 1,
   };
-  const [exact, categories, { data: { user } }] = await Promise.all([
+  const [exact, categories, user] = await Promise.all([
     searchProducts({ q, ...filters }),
     getCategories(),
-    supabase.auth.getUser(),
+    getCurrentUser(),
   ]);
   // A question rarely matches product names word for word ("peaty scotch
   // under $60"), so fall back to its nouns plus any price cap or status.
