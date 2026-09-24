@@ -9,6 +9,7 @@ const TAGS: Record<string, { label: string; className: string }> = {
   allocated: { label: "Now allocated", className: "bg-fresh-soft text-fresh" },
   limited: { label: "Now limited", className: "bg-fresh-soft text-fresh" },
   out_of_stock: { label: "Sold out", className: "bg-secondary text-muted-foreground" },
+  allocated_drop: { label: "Drop list", className: "bg-fresh-soft text-fresh" },
 };
 
 /** Which tag an inventory event earns (price changes split by direction). */

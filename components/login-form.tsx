@@ -13,9 +13,12 @@ export function LoginForm({ next }: { next: string }) {
 
   if (sent) {
     return (
-      <div className="rounded-lg border bg-card p-6 text-center text-sm">
-        <MailCheck className="mx-auto mb-2 size-6 text-primary" />
-        Check your email — the sign-in link is on its way.
+      <div role="status" className="space-y-2 rounded-2xl border bg-card p-6 text-center">
+        <MailCheck className="mx-auto size-8 text-primary" aria-hidden />
+        <p className="font-display text-xl font-extrabold">Check your email</p>
+        <p className="text-sm text-muted-foreground">
+          Tap the link we just sent to sign in. It can take a minute; check spam if it doesn&apos;t show.
+        </p>
       </div>
     );
   }
@@ -39,8 +42,20 @@ export function LoginForm({ next }: { next: string }) {
         });
       }}
     >
-      <Input type="email" name="email" required placeholder="you@example.com" className="h-11" />
-      <Button type="submit" className="h-11 w-full" disabled={pending}>
+      <label htmlFor="login-email" className="text-sm font-semibold">
+        Email
+      </label>
+      <Input
+        id="login-email"
+        type="email"
+        name="email"
+        required
+        autoComplete="email"
+        inputMode="email"
+        placeholder="you@example.com"
+        className="h-12 bg-card text-base"
+      />
+      <Button type="submit" className="h-12 w-full rounded-xl text-base font-bold" disabled={pending}>
         {pending ? "Sending…" : "Email me a sign-in link"}
       </Button>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}

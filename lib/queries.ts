@@ -161,15 +161,15 @@ export interface EventRow {
   in_stock: boolean | null;
 }
 
-export async function getEvents(type?: string, limit = 100): Promise<EventRow[]> {
+export async function getEvents(type?: string, limit = 100): Promise<FeedEvent[]> {
   return (await sql`
     select e.id, e.csc, e.event_type, e.detail, e.created_at,
-           p.name, p.category, p.status, p.current_price::text, p.in_stock
+           p.name, p.category, p.status, p.current_price::text, p.in_stock, p.size_ml, p.store_qty
     from inventory_events e
     left join products p using (csc)
     ${type ? sql`where e.event_type = ${type}` : sql`where e.event_type <> 'store_restock'`}
     order by e.created_at desc
-    limit ${limit}`) as unknown as EventRow[];
+    limit ${limit}`) as unknown as FeedEvent[];
 }
 
 export interface DropRow {
@@ -180,13 +180,18 @@ export interface DropRow {
   store_text: string | null;
   county: string | null;
   csc: string | null;
+  store_id: number | null;
+  store_name: string | null;
+  store_city: string | null;
 }
 
 export async function getDrops(): Promise<DropRow[]> {
   return (await sql`
-    select drop_date::text, product_name, bottle_qty, price::text, store_text, county, csc
-    from allocated_drops
-    order by drop_date desc, product_name asc, store_text asc
+    select d.drop_date::text, d.product_name, d.bottle_qty, d.price::text, d.store_text, d.county, d.csc,
+           d.store_id, s.name as store_name, s.city as store_city
+    from allocated_drops d
+    left join stores s on s.id = d.store_id
+    order by d.drop_date desc, d.product_name asc, d.bottle_qty desc nulls last, d.store_text asc
     limit 1000`) as unknown as DropRow[];
 }
 
