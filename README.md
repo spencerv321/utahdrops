@@ -95,7 +95,7 @@ home store) once, for the account with that email, within 24h
 ones; nothing suppresses statewide alerts.
 
 **Freshness**: statewide counts come from the catalog pass (3×/day). Each
-store pass (every 6h, 300 SKUs) reserves up to 40% of its budget for watched
+store pass (scheduled every 6h, ~2/day actually run; 300 SKUs) reserves up to 40% of its budget for watched
 bottles not checked in 4h, then rotates everything else in stock oldest-first.
 Products keep `last_store_scrape` (last attempt), `store_checked_at` (last
 success) and a failure backoff (`store_retry_at`: 6h → 72h). The digest skips

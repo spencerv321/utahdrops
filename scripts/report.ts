@@ -16,8 +16,10 @@ const show0 = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JS
 async function freshness(sql: typeof import("../lib/db").sql) {
   const { WATCH_SHARE, WATCH_TARGET_HOURS } = await import("../lib/jobs/store-inventory");
   const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
-  const [cap] = await sql<{ runs: number; ok: number; scraped: number; failed: number; watched_targets: number }[]>`
-    select count(*)::int as runs, count(*) filter (where ok)::int as ok,
+  // Rates over the time actually covered (up to 7 days), not a fixed week.
+  const [cap] = await sql<{ runs: number; ok: number; scraped: number; failed: number; watched_targets: number; days: number }[]>`
+    select greatest(extract(epoch from now() - min(started_at)) / 86400, 0.25)::float8 as days,
+           count(*)::int as runs, count(*) filter (where ok)::int as ok,
            coalesce(sum((detail->>'scraped')::int), 0)::int as scraped,
            coalesce(sum((detail->>'failed')::int), 0)::int as failed,
            coalesce(sum((detail->>'watched_targets')::int), 0)::int as watched_targets
@@ -25,11 +27,13 @@ async function freshness(sql: typeof import("../lib/db").sql) {
   const [counts] = await sql<{ watched: number; in_stock: number }[]>`
     select (select count(distinct csc)::int from watchlist) as watched,
            (select count(*)::int from products where in_stock and delisted_at is null) as in_stock`;
-  const perDay = cap.scraped / 7;
+  const days = Math.min(7, cap.days ?? 7);
+  const perDay = cap.scraped / days;
   const watchedPerDay = Math.min(counts.watched * (24 / WATCH_TARGET_HOURS), perDay * WATCH_SHARE);
-  show("capacity (last 7 days of store runs)", [{
+  show("capacity (store runs, last 7 days or since the first run in that window)", [{
     ...cap,
-    runs_per_day: +(cap.runs / 7).toFixed(1),
+    days_covered: +days.toFixed(1),
+    runs_per_day: +(cap.runs / days).toFixed(1),
     checks_per_day: Math.round(perDay),
     distinct_watched_products: counts.watched,
     watched_checks_needed_per_day: Math.round(counts.watched * (24 / WATCH_TARGET_HOURS)),

@@ -238,7 +238,7 @@ function digestHtml(rows: MatchRow[]): string {
       <ul>${items}</ul>
       ${more}
       <p style="color:#777;font-size:12px">From public Utah DABS pages: statewide counts update about 3 times a day,
-      store-by-store counts for watched bottles about every 6–12 hours. Stock can sell out between checks; call the
+      store-by-store counts for watched bottles about twice a day. Stock can sell out between checks; call the
       store before you drive. Not affiliated with Utah DABS.
       <a href="${SITE_URL}/watchlist?${UTM}">Manage alerts</a></p>
     </div>`;
