@@ -55,7 +55,7 @@ export async function rarityReport(sql: Sql) {
       const sales = computeSalesMetrics(h, reportMonths, catalogFirst, k.name);
       rows.push({
         code: k.csc, name: k.name, className: h?.className ?? k.category, status: k.status,
-        inCatalog: true, sales, stock: k, o: classifyRarity(k.status, sales, k),
+        inCatalog: true, sales, stock: k, o: classifyRarity(k.status, sales, k, { name: k.name, className: h?.className ?? k.category }),
       });
     }
     // Sales-only codes (not in our catalog): classified without stock data.
@@ -67,7 +67,7 @@ export async function rarityReport(sql: Sql) {
       if (sales.bottles12 === 0) continue;
       salesOnly.push({
         code: h.code, name: h.names.at(-1) ?? h.code, className: h.className, status: h.status,
-        inCatalog: false, sales, stock: undefined, o: classifyRarity(h.status, sales, undefined),
+        inCatalog: false, sales, stock: undefined, o: classifyRarity(h.status, sales, undefined, { name: h.names.at(-1) ?? "", className: h.className }),
       });
     }
 
@@ -78,11 +78,13 @@ export async function rarityReport(sql: Sql) {
     out(`  sales pattern: regular = sales in ≥${T.regularShare * 100}% of eligible months; sporadic = <${T.sporadicShare * 100}%; intermittent between`);
     out(`  sales-only candidate: regular ≥${T.everydayVolume} btl/12mo → Everyday; regular <${T.everydayVolume} → Uncommon;`);
     out(`    intermittent <${T.scarceMaxVolume} → Scarce; sporadic <${T.rareMaxVolume} → Rare; sporadic ≤${T.unicornMaxVolume} with top-2 months ≥${T.unicornConcentration * 100}% → Unicorn; otherwise Uncommon`);
-    out(`  corroboration: Scarce needs a release pattern (≥2 selling runs split by ≥${T.releaseGapMonths} empty months; a run counts if ≥${T.minRunBottles} bottles and ≥${T.minRunShare * 100}% of the product's total) or on shelves ≤${T.rarelyStocked * 100}% of observed days (not widely)`);
+    out(`  evidence floor: <${T.minEvidenceBottles} bottles recorded in all months → insufficient; special-order class or case-size-only sales never seen on shelves → insufficient`);
+    out(`  seasonal (holiday product / summer seen 2 years) with ≥${T.everydayVolume} btl/12mo → at most Uncommon; gift/value-added packs → at most Uncommon`);
+    out(`  corroboration: Scarce needs a release pattern (≥2 selling runs split by ≥${T.releaseGapMonths} empty months; a run counts if ≥${T.minRunBottles} bottles and ≥${T.minRunShare * 100}% of the product's total) or on shelves ≤${T.rarelyStocked * 100}% of observed days (must have been seen at least once; never seen = weak evidence, corroborates nothing)`);
     out(`    Rare needs a release pattern or ≤${T.veryRarelyStocked * 100}% on shelves; Unicorn needs BOTH (one alone → Rare); none → insufficient evidence`);
-    out(`    regular sellers on shelves ≤${T.veryRarelyStocked * 100}% of days → Scarce (availability, not volume)`);
-    out(`  cap: on shelves ≥${T.consistentlyStocked * 100}% of ≥${T.minObservedDays} observed days → at most Uncommon`);
-    out(`  "widely stocked" = ≥${T.wideStores} stores seen, or (no store rows) ≥${T.widePeakBottles} bottles on shelves at peak`);
+    out(`    regular sellers on shelves ≤${T.veryRarelyStocked * 100}% of days → Scarce; ≤${T.rarelyStocked * 100}% → at least Uncommon (availability, not volume)`);
+    out(`  decisive: on shelves ≥${T.consistentlyStocked * 100}% of ≥${T.minObservedDays} observed days → at most Uncommon (strong evidence against rarity)`);
+    out(`  Rare+ that is on shelves now at ≥5 stores or ≥100 bottles → low confidence (the outage hides Aug–Sep; may be a recent arrival)`);
     out(`  DABS status: S → orderable; D/X/N/U → winding down (no tier); status and DABS 'allocated' labels never change the tier`);
     out(`  confidence: high = 12 eligible months + ≥45 observed days + store rows; medium = 9 months + ≥${T.minObservedDays} days; else low`);
 
