@@ -13,6 +13,7 @@ import {
   type SnapshotPoint,
 } from "@/lib/queries";
 import { getCurrentUser } from "@/lib/supabase/server";
+import { intentEmail } from "@/lib/watch-intent";
 import { sql } from "@/lib/db";
 import { StockChart } from "@/components/stock-chart";
 import { WatchButton } from "@/components/watch-button";
@@ -42,7 +43,7 @@ export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ csc: string }>;
-  searchParams: Promise<{ watch?: string; store?: string }>;
+  searchParams: Promise<{ watch?: string; store?: string; intent?: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -58,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params, searchParams }: Props) {
   const { csc } = await params;
-  const { watch: watchResult, store: storeResult } = await searchParams;
+  const { watch: watchResult, store: storeResult, intent } = await searchParams;
   const [product, history, stores, events, user, rarity] = await Promise.all([
     getProduct(csc),
     getProductHistory(csc),
@@ -69,7 +70,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
   ]);
   if (!product) notFound();
 
-  const [watchedSet, homeIds, watchEmailOn] = await Promise.all([
+  const [watchedSet, homeIds, watchEmailOn, requestedFor] = await Promise.all([
     getWatchedSet(user?.id, [csc]),
     getUserStoreIds(user?.id),
     user
@@ -77,6 +78,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
           { watchlist_email: boolean }[]
         >).then((r) => r[0]?.watchlist_email ?? true)
       : Promise.resolve(true),
+    user && watchResult === "mismatch" ? intentEmail(intent) : Promise.resolve(null),
   ]);
   const homeStores =
     homeIds.length > 0
@@ -132,6 +134,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
           email={user.email ?? null}
           homeStores={homeStores}
           emailsOn={watchEmailOn}
+          requestedFor={requestedFor}
         />
       ) : null}
       <script
@@ -400,7 +403,9 @@ function WatchConfirmation({
   email,
   homeStores,
   emailsOn,
+  requestedFor,
 }: {
+  requestedFor: string | null;
   result: string;
   storeResult?: string;
   name: string;
@@ -442,6 +447,21 @@ function WatchConfirmation({
           <Link prefetch={false} href="/watchlist" className="underline underline-offset-4">
             Manage your watchlist
           </Link>
+        </p>
+      </div>
+    );
+  }
+
+  if (result === "mismatch" && requestedFor) {
+    return (
+      <div role="alert" className={`${box} border-warning/50`}>
+        <p className="font-medium">
+          This link was for {requestedFor}, but this browser is signed in as {email ?? "another account"}, so we
+          didn&apos;t add the watch here.
+        </p>
+        <p className="text-muted-foreground">
+          To finish, open the link in the browser where you asked for it. Or tap Watch this bottle below to watch it
+          on {email ?? "this account"} instead.
         </p>
       </div>
     );

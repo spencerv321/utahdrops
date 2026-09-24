@@ -50,6 +50,13 @@ export async function peekWatchIntent(id: string): Promise<{ csc: string; storeI
   return rows[0] ? { csc: rows[0].csc, storeId: rows[0].store_id } : null;
 }
 
+/** Which email a request was made for (to explain a signed-in-as-someone-else mismatch). */
+export async function intentEmail(id: string | undefined): Promise<string | null> {
+  if (!isIntentId(id)) return null;
+  const rows = await sql<{ email: string }[]>`select email from watch_intents where id = ${id}`;
+  return rows[0]?.email ?? null;
+}
+
 /** Add the requested watch (and store) for this signed-in user. */
 export async function applyWatchIntent(id: string, user: { id: string; email?: string | null }): Promise<IntentResult> {
   const none: IntentResult = { status: "not_found", csc: null, storeId: null, store: null };
