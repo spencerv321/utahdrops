@@ -61,6 +61,18 @@ scheduled workflows are enabled; `/api/health` is green.
 - Diagnostics: `report.yml` with hours=`auth` (where sign-ups stall, no
   emails) or `conns` (who holds DB connections).
 
+## Rarity tiers ("Utah availability") — in progress, internal only
+- Idea: tiers (working names Everyday · Uncommon · Scarce · Rare · Unicorn) from
+  our own stock history, with DABS monthly sales as context and DABS status
+  kept as separate labels. Nothing on the site until the owner reviews results.
+- Done: `sales` job imports DABS monthly Sales Analysis reports (May 2025 →)
+  with source/audit fields; `report.yml` mode `rarity` prints the review
+  (tier samples, near-cutoff products, least confident, "absent vs zero" check).
+- Only ~5.2k of ~26k listed products are shelf items (status 1/L/T/A); S =
+  special order ("orderable"), U/D/X/N get no tier.
+- Next: owner reviews the `rarity` report → tune cutoffs/names → nightly job +
+  `product_rarity` table (method version, hysteresis) → badge + "why this tier".
+
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of
   idle Vercel connections; jobs/report couldn't connect, the site was fine.
