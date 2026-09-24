@@ -51,7 +51,7 @@ async function main() {
              count(*)::int as n, min(created_at) as first, max(created_at) as last
       from auth.users group by 1, 2 order by 1, 2`);
     show("per account (anonymised)", await sql`
-      select row_number() over (order by created_at)::int as n, split_part(email, '@', 2) as domain,
+      select row_number() over (order by created_at)::int as n,
              created_at, confirmation_sent_at, email_confirmed_at, recovery_sent_at, last_sign_in_at,
              raw_app_meta_data->>'provider' as provider
       from auth.users order by created_at`);
