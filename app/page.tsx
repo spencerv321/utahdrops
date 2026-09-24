@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -54,9 +55,22 @@ export default async function HomePage({
     <div className="space-y-12 sm:space-y-16">
       {/* Phones: headline, search, browse, then the drop. Desktop: headline beside the drop, search full width under both. */}
       <section
-        className="grid grid-cols-1 gap-6 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-x-14 lg:gap-y-6 lg:pt-12"
+        className="relative isolate grid grid-cols-1 gap-6 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-x-14 lg:gap-y-6 lg:pt-12"
         aria-labelledby="hero-title"
       >
+        {/* Park City's Main Street, toned to the espresso palette and faded into the page so text stays readable. */}
+        <div aria-hidden className="pointer-events-none absolute -top-6 bottom-16 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden">
+          <Image
+            src="/hero-main-street.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_40%] opacity-40 lg:opacity-70"
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-background from-15% via-background/80 via-45% to-background/10" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/30 via-50% to-background/40" />
+        </div>
         <div className="space-y-3 lg:self-end">
           <h1 id="hero-title" className="text-[2.7rem] leading-[0.98] sm:text-6xl lg:text-7xl">
             Find the bottle.
