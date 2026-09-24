@@ -26,6 +26,26 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   sandbox, so DB-side diagnostics still go through `report.yml`; test UI
   locally (Postgres 16 + seeded data + Playwright with Chromium at /opt/pw-browsers).
 
+- Local testing with real data works: Postgres 16 is installed (`service
+  postgresql start`), then create a DB, stub `auth` (schema, `auth.users`,
+  `auth.uid()`, roles anon/authenticated/service_role), run
+  `npx tsx scripts/migrate.ts`, `scripts/scrape.ts catalog`, and a small
+  `store-inventory` pass (`STORE_SCRAPE_BUDGET=100`). Leave
+  `DABS_CONTACT_EMAIL` blank locally. Playwright + Chromium work for
+  screenshots against `localhost` (Chromium doesn't trust the sandbox proxy
+  CA, so it can't load outside sites; use Node fetch/curl for those).
+- The auto-mode safety check may block steps that look like widening your
+  own access (editing agent instructions, certificate trust, workarounds
+  after a refusal). Stop and ask the owner; don't route around it.
+
+## Design notes
+- Espresso/amber/burgundy theme, Instrument Serif + Sans. Share cards
+  (`opengraph-image` routes) use `lib/og.tsx` with TTF fonts and pre-toned
+  JPEGs in `assets/` (Satori can't read WOFF2 or WebP).
+- Visitor area lives in the `ud_area` cookie (`lib/area*.ts`); "near" = 10 mi.
+  Per-store stock refreshes in rotation (~1–4 days old), so "near" counts
+  show their check date when older than 36h.
+
 ## Data gotchas
 - DABS sometimes returns bogus zero quantities; the catalog job rejects passes
   where too many in-stock products drop to 0. Don't remove that guard.

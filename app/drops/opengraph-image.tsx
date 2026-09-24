@@ -1,38 +1,52 @@
 import { ImageResponse } from "next/og";
-import { OgFrame, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
-import { thirdSaturday } from "@/lib/dabs/allocated";
+import { C, OgCard, OG_CONTENT_TYPE, OG_SIZE, ogAssets } from "@/lib/og";
+import { nextDropDate } from "@/lib/dabs/allocated";
 
-export const alt = "Utah DABS allocated & rare drop tracker on Utah Drops";
+export const alt = "The next allocated drop at Utah's state liquor stores, on Utah Drops";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 // The countdown depends on the current date — refresh hourly so it never goes stale.
 export const revalidate = 3600;
 
-export default function Image() {
-  // Next third-Saturday drop (mirrors the countdown on /drops).
+// Drop dates are UTC midnight; format in UTC so the day doesn't slip (matches the site).
+const utc = (d: Date, opts: Intl.DateTimeFormatOptions) => d.toLocaleDateString("en-US", { ...opts, timeZone: "UTC" });
+
+export default async function Image() {
+  const { fonts, bgDim } = await ogAssets();
   const now = new Date();
-  let next = thirdSaturday(now.getUTCFullYear(), now.getUTCMonth());
-  if (now.getTime() > next.getTime() + 86400_000) {
-    next = thirdSaturday(now.getUTCFullYear(), now.getUTCMonth() + 1);
-  }
+  const next = nextDropDate(now);
   const daysOut = Math.max(0, Math.ceil((next.getTime() - now.getTime()) / 86400_000));
-  // thirdSaturday() returns UTC midnight; format in UTC so the calendar date
-  // doesn't slip back a day (matches the /drops page).
-  const dateLabel = next.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+  const countdown = daysOut === 0 ? "Today" : daysOut === 1 ? "Tomorrow" : `In ${daysOut} days`;
 
   return new ImageResponse(
     (
-      <OgFrame
-        eyebrow="Allocated &amp; Rare"
-        title={`Next drop: ${dateLabel}`}
-        subtitle="The list, store assignments, and an alert the moment it posts."
-        pill={{ label: daysOut === 0 ? "Today" : `${daysOut} days out`, tone: "amber" }}
-      />
+      <OgCard background={bgDim} footer="utahdrops.com · Independent, not DABS">
+        {/* the drop "ticket", as on the site */}
+        <div style={{ display: "flex", width: 1056, height: 330, borderRadius: 20, background: C.brand, color: C.cream }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: 300 }}>
+            <div style={{ display: "flex", fontSize: 26, fontWeight: 600, letterSpacing: 5, color: C.brandMuted }}>
+              {utc(next, { weekday: "short" }).toUpperCase()}
+            </div>
+            <div style={{ display: "flex", fontFamily: "Serif", fontSize: 110, lineHeight: 1, marginTop: 8 }}>
+              {utc(next, { month: "short", day: "numeric" })}
+            </div>
+            <div style={{ display: "flex", fontSize: 28, color: C.brandMuted, marginTop: 14 }}>{countdown}</div>
+          </div>
+          <div style={{ display: "flex", width: 0, height: 290, marginTop: 20, borderLeft: `3px dashed ${C.brandMuted}55` }} />
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1, padding: "0 56px" }}>
+            <div style={{ display: "flex", fontSize: 24, fontWeight: 600, letterSpacing: 4, color: C.amber }}>
+              NEXT ALLOCATED DROP
+            </div>
+            <div style={{ display: "flex", fontFamily: "Serif", fontSize: 60, lineHeight: 1.05, marginTop: 16 }}>
+              DABS’s rarest bottles, at select stores.
+            </div>
+            <div style={{ display: "flex", fontSize: 28, color: C.brandMuted, marginTop: 18 }}>
+              Get the list by email the moment it posts.
+            </div>
+          </div>
+        </div>
+      </OgCard>
     ),
-    { ...size }
+    { ...size, fonts }
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getCategories, getNearby, getWatchedSet, searchProducts, searchTokens } from "@/lib/queries";
 import { getArea, getAreaOptions } from "@/lib/area-server";
-import { NEARBY_MILES } from "@/lib/area";
+import { NEARBY_MILES, nearLabel } from "@/lib/area";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { SearchBox } from "@/components/search-box";
 import { SearchControls } from "@/components/search-controls";
@@ -46,6 +46,7 @@ export default async function SearchPage({
 }) {
   const params = await searchParams;
   const q = typeof params.q === "string" ? params.q.trim() : "";
+  const area = await getArea();
   const filters = {
     category: params.category,
     status: params.status,
@@ -54,12 +55,12 @@ export default async function SearchPage({
     maxPrice: Number(params.max) > 0 ? Number(params.max) : undefined,
     sort: params.sort as never,
     page: parseInt(params.page ?? "1", 10) || 1,
+    near: area ? { lat: area.lat, lng: area.lng, miles: NEARBY_MILES } : undefined,
   };
-  const [exact, categories, user, area, areas] = await Promise.all([
+  const [exact, categories, user, areas] = await Promise.all([
     searchProducts({ q, ...filters }),
     getCategories(),
     getCurrentUser(),
-    getArea(),
     getAreaOptions(),
   ]);
   // A question rarely matches product names word for word ("peaty scotch
@@ -160,7 +161,7 @@ export default async function SearchPage({
               : q
                 ? `${results.total.toLocaleString()} match${results.total === 1 ? "" : "es"} for “${q}”`
                 : `${results.total.toLocaleString()} bottles`}
-            {params.sort ? "" : " · in stock first"}
+            {params.sort ? "" : area ? ` · ${nearLabel(area)} first` : " · in stock first"}
             {totalPages > 1 ? ` · page ${results.page} of ${totalPages.toLocaleString()}` : ""}
           </p>
           {results.rows.length === 0 ? (
