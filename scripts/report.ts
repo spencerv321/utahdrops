@@ -85,7 +85,7 @@ async function freshness(sql: typeof import("../lib/db").sql) {
                 else 'over 3 days' end as age,
            count(*)::int as products
     from products p where p.csc in (select csc from watchlist) group by 1 order by 1`);
-  show("overdue watched bottles (no successful check in 24h)", await sql`
+  show("overdue watched bottles (no successful check in 24h; failures > 0 = DABS's detail page errors for it, retried with backoff and right after a catalog restock)", await sql`
     select p.csc, p.name, p.in_stock, p.store_checked_at, p.last_store_scrape as last_attempt,
            p.store_check_failures as failures, p.store_retry_at as next_retry
     from products p where p.csc in (select csc from watchlist)
