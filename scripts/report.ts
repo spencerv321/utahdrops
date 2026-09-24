@@ -10,6 +10,7 @@ async function main() {
   const { sql } = await import("../lib/db");
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
+  if (process.argv[2] === "pooler") return pooler();
   if (process.argv[2] === "slow") {
     const rows = await sql`
       select calls, round(max_exec_time)::int as max_ms, round(mean_exec_time::numeric, 1) as mean_ms,
@@ -169,4 +170,33 @@ async function activity(sql: typeof import("../lib/db").sql) {
     console.log("connections:", JSON.stringify(c));
   }
   await sql.end();
+}
+
+/** Query through the transaction pooler (port 6543) exactly like Vercel does, timing each query. */
+async function pooler() {
+  const postgres = (await import("postgres")).default;
+  const { resolveDatabaseUrl } = await import("../lib/db");
+  const url = resolveDatabaseUrl(process.env.DATABASE_URL!, true);
+  console.log("port:", new URL(url).port);
+  const db = postgres(url, { max: 3, idle_timeout: 2, max_lifetime: 300, connect_timeout: 10, prepare: false });
+  const q = await import("../lib/queries");
+  void q;
+  const timed = async (label: string, run: () => Promise<unknown>) => {
+    const t = Date.now();
+    const r = await Promise.race([
+      run().then(() => "ok", (e: Error) => "ERR " + e.message),
+      new Promise((res) => setTimeout(() => res("HUNG"), 15_000)),
+    ]);
+    return `${label}:${r}:${Date.now() - t}`;
+  };
+  for (let round = 1; round <= 8; round++) {
+    const out = await Promise.all(
+      [1, 2, 3, 4, 5].map((i) => timed(String(i), () => db`select count(*) from products where in_stock and csc > ${String(i)}`))
+    );
+    console.log(`round ${round}`, out.join("  "));
+    // Alternate short and long idle gaps (connections close after 2s idle).
+    await new Promise((r) => setTimeout(r, round % 2 ? 500 : 5_000));
+  }
+  await db.end({ timeout: 2 });
+  process.exit(0);
 }
