@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronDown, LocateFixed, Navigation, Phone } from "lucide-react";
 import { storeLabel } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { AREA_EVENT, LOCATION_STORAGE_KEY, locate as locateArea, rememberArea } from "@/lib/area-client";
 
 export interface StoreRow {
   store_id: number;
@@ -25,31 +26,21 @@ export interface HomeStore {
 
 type Coords = { lat: number; lng: number };
 
-// The visitor's last location, remembered so return visits sort by distance
-// without asking again. localStorage can throw (private mode) — then we just
-// don't remember.
-const STORAGE_KEY = "ud_location";
-const listeners = new Set<() => void>();
+// The visitor's last location (see lib/area-client), so return visits sort by
+// distance without asking again. localStorage can throw (private mode) — then
+// we just don't remember.
 function readSaved(): string | null {
   try {
-    return window.localStorage.getItem(STORAGE_KEY);
+    return window.localStorage.getItem(LOCATION_STORAGE_KEY);
   } catch {
     return null;
   }
 }
-function save(coords: Coords) {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(coords));
-  } catch {
-    // not persisted; fine
-  }
-  listeners.forEach((l) => l());
-}
 function subscribe(listener: () => void) {
-  listeners.add(listener);
+  window.addEventListener(AREA_EVENT, listener);
   window.addEventListener("storage", listener);
   return () => {
-    listeners.delete(listener);
+    window.removeEventListener(AREA_EVENT, listener);
     window.removeEventListener("storage", listener);
   };
 }
@@ -124,18 +115,13 @@ export function StoreAvailability({
   const mineInStock = inStock.filter((r) => r.mine).sort((a, b) => b.qty - a.qty)[0];
 
   function locate() {
-    if (!("geolocation" in navigator)) {
-      setStatus("denied");
-      return;
-    }
     setStatus("locating");
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        save({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    locateArea().then(
+      (area) => {
+        rememberArea(area);
         setStatus("idle");
       },
-      () => setStatus("denied"),
-      { maximumAge: 600_000, timeout: 8000 }
+      () => setStatus("denied")
     );
   }
 
@@ -171,7 +157,7 @@ export function StoreAvailability({
             defaultValue=""
             onChange={(e) => {
               const area = areas.find(([name]) => name === e.target.value);
-              if (area) save(area[1]);
+              if (area) rememberArea({ label: area[0], ...area[1] });
             }}
           >
             <option value="" disabled>

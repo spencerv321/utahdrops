@@ -12,7 +12,9 @@ import {
   sizeLabel,
   unitWord,
 } from "@/lib/format";
-import type { ProductRow } from "@/lib/queries";
+import type { Nearby, ProductRow } from "@/lib/queries";
+import type { Area } from "@/lib/area";
+import { NearbyStock } from "@/components/nearby-stock";
 
 /**
  * Results as compact rows: which bottle (name, size, style), what it costs,
@@ -23,10 +25,14 @@ export function ProductList({
   rows,
   watched,
   signedIn,
+  area,
+  nearby,
 }: {
   rows: ProductRow[];
   watched: Set<string>;
   signedIn: boolean;
+  area?: Area | null;
+  nearby?: Map<string, Nearby>;
 }) {
   return (
     <ul className="divide-y border-y">
@@ -39,7 +45,7 @@ export function ProductList({
             <Link prefetch={false} href={`/product/${p.csc}`} className="group flex min-w-0 flex-1 items-start gap-3 lg:items-center">
               <BottleGlyph kind={productKind(p.category, p.size_ml)} className="mt-0.5 h-14 w-10 lg:mt-0" />
               {/* Phones: stacked. Desktop: bottle | availability | price, like a shelf list. */}
-              <span className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_17rem_6rem] lg:items-center lg:gap-6">
+              <span className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem_6rem] lg:items-center lg:gap-6">
                 <span className="block min-w-0">
                   <span className="flex items-baseline justify-between gap-3">
                     <span className="line-clamp-2 text-[16px] font-medium group-hover:underline group-hover:underline-offset-4">
@@ -63,6 +69,9 @@ export function ProductList({
                       {(p.on_order_qty ?? 0) > 0 ? ` · ${formatQty(p.on_order_qty)} on order` : ""}
                     </span>
                   )}
+                  {p.in_stock ? (
+                    <NearbyStock area={area} nearby={nearby?.get(p.csc)} category={p.category} sizeMl={p.size_ml} />
+                  ) : null}
                   {p.is_spa || note ? (
                     <span className="inline-flex gap-2">
                       {p.is_spa ? <span className="font-medium text-price-drop">On sale</span> : null}

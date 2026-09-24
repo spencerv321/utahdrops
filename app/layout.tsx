@@ -69,7 +69,7 @@ export default function RootLayout({
       className={`dark ${sans.variable} ${display.variable} h-full antialiased`}
     >
       {/* Bottom padding keeps content clear of the phone tab bar. */}
-      <body className="flex min-h-full flex-col pb-[calc(4.5rem+env(safe-area-inset-bottom))] font-sans sm:pb-0">
+      <body className="flex min-h-full flex-col overflow-x-clip pb-[calc(4.5rem+env(safe-area-inset-bottom))] font-sans sm:pb-0">
         <SiteHeader />
         <StaleDataBanner />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">{children}</main>

@@ -12,7 +12,9 @@ import {
   sizeLabel,
   unitWord,
 } from "@/lib/format";
-import type { FeedEvent } from "@/lib/queries";
+import type { FeedEvent, Nearby } from "@/lib/queries";
+import type { Area } from "@/lib/area";
+import { NearbyStock } from "@/components/nearby-stock";
 import { cn } from "@/lib/utils";
 
 /** What changed, as a short colored label (always words, never color alone). */
@@ -58,11 +60,15 @@ export function HomeFeed({
   watched,
   signedIn,
   empty = "Quiet stretch. Restocks, new listings and price drops show up here after each DABS update.",
+  area,
+  nearby,
 }: {
   events: FeedEvent[];
   watched: Set<string>;
   signedIn: boolean;
   empty?: string;
+  area?: Area | null;
+  nearby?: Map<string, Nearby>;
 }) {
   if (events.length === 0) {
     return <p className="border-y py-8 text-center text-muted-foreground">{empty}</p>;
@@ -106,6 +112,15 @@ export function HomeFeed({
                         <span className={cn("font-medium", c.tone)}>{c.label}</span>
                         <span className="text-muted-foreground"> · {availability(e)}</span>
                       </span>
+                      {e.csc && e.in_stock ? (
+                        <NearbyStock
+                          area={area}
+                          nearby={nearby?.get(e.csc)}
+                          category={e.category}
+                          sizeMl={e.size_ml}
+                          className="mt-0.5 text-[13px]"
+                        />
+                      ) : null}
                       {meta ? <span className="block truncate text-xs text-subtle-foreground">{meta}</span> : null}
                     </span>
                   </Link>

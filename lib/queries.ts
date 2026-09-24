@@ -311,3 +311,48 @@ export async function getShortcutCounts(shortcuts: { category?: string; max?: nu
     from products where in_stock and delisted_at is null`) as unknown as Record<string, number>[];
   return shortcuts.map((_, i) => row?.["c" + i] ?? 0);
 }
+
+/** Areas for the location picker: one per store city, at its stores' center. */
+export const getAreas = cache(async (): Promise<{ city: string; lat: number; lng: number }[]> => {
+  return (await sql`
+    select city, avg(lat)::float8 as lat, avg(lng)::float8 as lng
+    from stores
+    where city is not null and lat is not null and lng is not null
+    group by city
+    order by city`) as unknown as { city: string; lat: number; lng: number }[];
+});
+
+export interface Nearby {
+  stores: number;
+  units: number;
+  /** Oldest per-store check among nearby stores (store data refreshes in rotation). */
+  checkedAt: Date;
+}
+
+/**
+ * Per-store stock near a point for a batch of products. Products we've never
+ * checked store by store are absent (unknown), not zero.
+ */
+export async function getNearby(
+  cscs: string[],
+  at: { lat: number; lng: number },
+  miles: number
+): Promise<Map<string, Nearby>> {
+  if (cscs.length === 0) return new Map();
+  const rows = (await sql`
+    select c.csc,
+           count(*) filter (where n.near and c.qty > 0)::int as stores,
+           coalesce(sum(c.qty) filter (where n.near and c.qty > 0), 0)::int as units,
+           min(c.scraped_at) as checked_at
+    from store_inventory_current c
+    join stores s on s.id = c.store_id
+    cross join lateral (
+      select s.lat is not null and 3959 * 2 * asin(least(1, sqrt(
+        sin(radians(s.lat - ${at.lat}) / 2) ^ 2 +
+        cos(radians(${at.lat})) * cos(radians(s.lat)) * sin(radians(s.lng - ${at.lng}) / 2) ^ 2
+      ))) <= ${miles} as near
+    ) n
+    where c.csc = any(${cscs})
+    group by c.csc`) as unknown as { csc: string; stores: number; units: number; checked_at: Date }[];
+  return new Map(rows.map((r) => [r.csc, { stores: r.stores, units: r.units, checkedAt: r.checked_at }]));
+}

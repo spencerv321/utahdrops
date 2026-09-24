@@ -19,9 +19,12 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   type, samples). Extend `scripts/report.ts` rather than guessing.
 - Jobs can be run manually from Actions: `catalog.yml`, `store-inventory.yml`,
   `cron.yml` (input `job`), `health.yml`, `keepalive.yml`.
-- The Claude sandbox cannot reach utahdrops.com or DABS (egress policy). Verify
-  prod via Actions logs / `report.yml`; test UI locally (Postgres 16 + seeded
-  data + Playwright with Chromium at /opt/pw-browsers).
+- The cloud sandbox has open web access (DABS, utahdrops.com, the wider web).
+  Hit live sources directly when building or debugging scrapers. If a host is
+  ever refused, check it with curl before assuming a policy block — some sites
+  (e.g. Total Wine) 403 bots on their own. Production secrets aren't in the
+  sandbox, so DB-side diagnostics still go through `report.yml`; test UI
+  locally (Postgres 16 + seeded data + Playwright with Chromium at /opt/pw-browsers).
 
 ## Data gotchas
 - DABS sometimes returns bogus zero quantities; the catalog job rejects passes

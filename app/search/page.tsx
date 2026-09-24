@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { getCategories, getWatchedSet, searchProducts, searchTokens } from "@/lib/queries";
+import { getCategories, getNearby, getWatchedSet, searchProducts, searchTokens } from "@/lib/queries";
+import { getArea, getAreaOptions } from "@/lib/area-server";
+import { NEARBY_MILES } from "@/lib/area";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { SearchBox } from "@/components/search-box";
 import { SearchControls } from "@/components/search-controls";
@@ -53,10 +55,12 @@ export default async function SearchPage({
     sort: params.sort as never,
     page: parseInt(params.page ?? "1", 10) || 1,
   };
-  const [exact, categories, user] = await Promise.all([
+  const [exact, categories, user, area, areas] = await Promise.all([
     searchProducts({ q, ...filters }),
     getCategories(),
     getCurrentUser(),
+    getArea(),
+    getAreaOptions(),
   ]);
   // A question rarely matches product names word for word ("peaty scotch
   // under $60"), so fall back to its nouns plus any price cap or status.
@@ -72,7 +76,11 @@ export default async function SearchPage({
           inStock: filters.inStock || !rough.status,
         })
       : exact;
-  const watched = await getWatchedSet(user?.id, results.rows.map((r) => r.csc));
+  const cscs = results.rows.map((r) => r.csc);
+  const [watched, nearby] = await Promise.all([
+    getWatchedSet(user?.id, cscs),
+    area ? getNearby(cscs.filter((_, i) => results.rows[i].in_stock), area, NEARBY_MILES) : Promise.resolve(undefined),
+  ]);
 
   // Questions go to AI search; so do multi-word searches keyword search can't match.
   const ask = q.length >= 2 && (looksLikeQuestion(q) || exact.total === 0) && searchTokens(q).length >= 2;
@@ -111,6 +119,8 @@ export default async function SearchPage({
       <SearchBox
         defaultValue={q}
         autoFocus={!q && pills.length === 0}
+        areas={areas}
+        area={area}
         hidden={{ category: params.category, instock: params.instock, sale: params.sale, max: params.max, sort: params.sort }}
       />
       <div className="space-y-3">
@@ -161,7 +171,7 @@ export default async function SearchPage({
               </p>
             </div>
           ) : (
-            <ProductList rows={results.rows} watched={watched} signedIn={!!user} />
+            <ProductList rows={results.rows} watched={watched} signedIn={!!user} area={area} nearby={nearby} />
           )}
         </section>
       ) : null}
