@@ -50,6 +50,20 @@ async function main() {
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
   if (process.argv[2] === "pooler") return pooler();
+  if (process.argv[2] === "storediag") {
+    // Per-store history for one product: rows per day, and stores with stock per day.
+    const csc = process.argv[3] ?? "018006";
+    const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+    show("current", await sql`select count(*)::int as rows, count(*) filter (where qty > 0)::int as stocked, min(scraped_at) as oldest, max(scraped_at) as newest from store_inventory_current where csc = ${csc}`);
+    show("history rows by day", await sql`
+      select (scraped_at at time zone 'America/Denver')::date::text as d, count(*)::int as rows,
+             count(*) filter (where qty > 0)::int as pos, count(*) filter (where qty = 0)::int as zero,
+             count(distinct store_id)::int as stores, count(distinct scraped_at)::int as passes
+      from store_inventory where csc = ${csc} group by 1 order by 1`);
+    show("store runs (last 40)", await sql`select started_at, ok, detail - 'errors' as detail from scrape_runs where job = 'store_inventory' order by started_at desc limit 40`);
+    show("store runs per day", await sql`select (started_at at time zone 'America/Denver')::date::text as d, count(*)::int as runs, count(*) filter (where ok)::int as ok from scrape_runs where job = 'store_inventory' group by 1 order by 1`);
+    return sql.end();
+  }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
   if (process.argv[2] === "conns" || process.argv[2] === "auth") {
     // Who holds database connections right now (session-pooler exhaustion).
