@@ -1,33 +1,11 @@
-import { Badge } from "@/components/ui/badge";
-import { STATUS_LABELS } from "@/lib/config";
-import { cn } from "@/lib/utils";
+import { listingNote } from "@/lib/format";
 
-// Four semantic tones, not nine colors: in-stock (good), watch (allocated/
-// limited/soon), clearance (D — limited qty left, the hunter's signal), and
-// faded (gone / special-order). Meaning over decoration.
-const GOOD = "bg-success-soft text-success border-transparent";
-const WATCH = "bg-primary/10 text-primary border-transparent";
-const CLEARANCE = "bg-clearance-soft text-clearance border-transparent";
-const FADED = "bg-muted text-muted-foreground border-transparent";
-
-const STYLES: Record<string, string> = {
-  "1": GOOD,
-  A: WATCH,
-  L: WATCH,
-  P: WATCH,
-  T: WATCH,
-  U: WATCH,
-  D: CLEARANCE,
-  X: FADED,
-  N: FADED,
-  S: FADED,
-};
-
+/**
+ * DABS listing status as quiet text. Listing status says how DABS carries a
+ * product, not whether it's on a shelf, so it stays visually secondary.
+ */
 export function StatusBadge({ status }: { status: string | null }) {
-  if (!status) return null;
-  return (
-    <Badge variant="outline" className={cn("rounded-md font-semibold", STYLES[status] ?? "")}>
-      {STATUS_LABELS[status] ?? status}
-    </Badge>
-  );
+  const note = listingNote(status);
+  if (!note) return null;
+  return <span className="text-xs text-subtle-foreground">{note}</span>;
 }

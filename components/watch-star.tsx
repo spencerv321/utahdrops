@@ -34,12 +34,14 @@ export function WatchStar({
       title={watched ? "Watching" : "Watch for restocks"}
       disabled={pending}
       className={cn(
-        "flex size-11 shrink-0 items-center justify-center rounded-full text-primary transition-colors hover:bg-secondary disabled:opacity-60",
+        "flex size-11 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-card disabled:opacity-60",
+        watched ? "text-primary" : "text-subtle-foreground hover:text-foreground",
         className
       )}
       onClick={() => {
         if (!signedIn) {
-          router.push(`/login?next=${encodeURIComponent(pathname)}`);
+          // Come back to the same results (query and filters included).
+          router.push(`/login?next=${encodeURIComponent(pathname + window.location.search)}`);
           return;
         }
         const next = !watched;
@@ -59,7 +61,7 @@ export function WatchStar({
         });
       }}
     >
-      <Star className={cn("size-[22px]", watched && "fill-current")} aria-hidden />
+      <Star className={cn("size-5", watched && "fill-current")} strokeWidth={1.7} aria-hidden />
     </button>
   );
 }

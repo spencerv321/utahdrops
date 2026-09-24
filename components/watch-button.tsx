@@ -29,8 +29,8 @@ export function WatchButton({
       aria-pressed={watched}
       disabled={pending}
       className={cn(
-        "flex h-13 w-full items-center justify-center gap-2 rounded-2xl px-5 text-base font-bold transition-colors disabled:opacity-70 sm:w-auto",
-        watched ? "border-2 border-brand-foreground/60 text-brand-foreground" : "bg-brand-foreground text-brand",
+        "flex h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-base font-semibold transition-opacity disabled:opacity-70",
+        watched ? "border border-input text-foreground hover:bg-raised" : "bg-primary text-primary-foreground hover:opacity-90",
         className
       )}
       onClick={() => {
@@ -53,8 +53,8 @@ export function WatchButton({
         });
       }}
     >
-      <Star className={cn("size-5", watched && "fill-current")} aria-hidden />
-      {watched ? "Watching · we'll email you" : "Watch · email me when it's back"}
+      <Star className={cn("size-5", watched && "fill-current text-primary")} aria-hidden />
+      {watched ? "Watching this bottle" : "Watch this bottle"}
     </button>
   );
 }

@@ -1,36 +1,32 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/actions";
-import { Button } from "@/components/ui/button";
-import { GlassMark } from "@/components/glass-mark";
+import { Wordmark } from "@/components/wordmark";
 import { NavLinks } from "@/components/nav-links";
-import { SITE_NAME } from "@/lib/config";
 
 export async function SiteHeader() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 sm:h-16 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-1.5" aria-label={`${SITE_NAME} home`}>
-          <GlassMark className="size-6 text-foreground" />
-          <span className="font-display text-[23px] font-extrabold lowercase tracking-[-0.03em]">
-            {SITE_NAME}
-          </span>
+    <header className="sticky top-0 z-40 border-b bg-background">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-8 px-4 sm:px-6">
+        <Link href="/" aria-label="Utah Drops, home" className="shrink-0 text-[15px]">
+          <Wordmark />
         </Link>
         <NavLinks />
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto">
+          {/* Deliberately quiet: signing in happens naturally when you save a bottle. */}
           {user ? (
             <form action={signOut}>
-              <Button variant="ghost" type="submit" className="h-11 text-muted-foreground">
+              <button type="submit" className="h-11 px-1 text-sm text-muted-foreground hover:text-foreground">
                 Sign out
-              </Button>
+              </button>
             </form>
           ) : (
-            <Button asChild className="h-10 rounded-full px-4 font-semibold sm:h-10">
-              <Link href="/login">Sign in</Link>
-            </Button>
+            <Link href="/login" className="flex h-11 items-center px-1 text-sm text-muted-foreground hover:text-foreground">
+              Sign in
+            </Link>
           )}
         </div>
       </div>

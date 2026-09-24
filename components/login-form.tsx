@@ -13,9 +13,9 @@ export function LoginForm({ next }: { next: string }) {
 
   if (sent) {
     return (
-      <div role="status" className="space-y-2 rounded-2xl border bg-card p-6 text-center">
+      <div role="status" className="space-y-2 border-y py-8 text-center">
         <MailCheck className="mx-auto size-8 text-primary" aria-hidden />
-        <p className="font-display text-xl font-extrabold">Check your email</p>
+        <p className="font-display text-3xl">Check your email</p>
         <p className="text-sm text-muted-foreground">
           Tap the link we just sent to sign in. It can take a minute; check spam if it doesn&apos;t show.
         </p>
@@ -53,9 +53,9 @@ export function LoginForm({ next }: { next: string }) {
         autoComplete="email"
         inputMode="email"
         placeholder="you@example.com"
-        className="h-12 bg-card text-base"
+        className="h-12 border-input bg-raised text-base"
       />
-      <Button type="submit" className="h-12 w-full rounded-xl text-base font-bold" disabled={pending}>
+      <Button type="submit" className="h-12 w-full rounded-md text-base font-semibold" disabled={pending}>
         {pending ? "Sending…" : "Email me a sign-in link"}
       </Button>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}

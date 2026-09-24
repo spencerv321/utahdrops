@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { getDrops, getUserStoreIds, type DropRow } from "@/lib/queries";
 import { nextDropDate } from "@/lib/dabs/allocated";
-import { displayName, formatPrice, storeLabel } from "@/lib/format";
-import { DropAlertSignup } from "@/components/drop-alert-signup";
+import { formatPrice, productTitle, sizeFromName, sizeLabel, storeLabel } from "@/lib/format";
+import { DropTicket } from "@/components/drop-ticket";
 import { createClient } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { DABS_ALLOCATED_URL } from "@/lib/config";
@@ -34,11 +34,9 @@ export default async function DropsPage() {
   }
   const homeIds = new Set(await getUserStoreIds(user?.id));
 
-  // Next drop countdown (MT ≈ UTC-6/-7; date-level precision is plenty)
   const now = new Date();
   const next = nextDropDate(now);
   const nextIso = next.toISOString().slice(0, 10);
-  const daysOut = Math.max(0, Math.ceil((next.getTime() - now.getTime()) / 86400_000));
   const listPosted = drops.some((d) => d.drop_date === nextIso);
   const listPostsAround = new Date(next.getTime() - 7 * 86400_000).toISOString().slice(0, 10);
 
@@ -53,69 +51,57 @@ export default async function DropsPage() {
   }
 
   return (
-    <div className="space-y-10">
-      <section className="-mx-4 -mt-6 space-y-5 bg-brand px-4 pt-6 pb-7 text-brand-foreground sm:mx-0 sm:mt-0 sm:rounded-3xl sm:p-8">
-        <p className="text-xs font-bold tracking-[0.1em] text-gold uppercase">Next allocated drop</p>
-        <div className="space-y-1">
-          <h1 className="text-6xl leading-[0.85] tracking-[-0.05em] sm:text-7xl">
-            {dateLabel(nextIso, { month: "short", day: "numeric" })}
-          </h1>
-          <p className="text-base text-brand-muted">
-            {dateLabel(nextIso, { weekday: "long" })} ·{" "}
-            {daysOut === 0 ? "it's drop day" : `${daysOut} day${daysOut === 1 ? "" : "s"} out`}
+    <div className="space-y-12 pt-2 sm:pt-6">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end lg:gap-14">
+        <header className="space-y-3">
+          <p className="kicker text-muted-foreground">Allocated &amp; rare</p>
+          <h1 className="text-5xl leading-[0.95] sm:text-6xl">The monthly drop</h1>
+          <p className="max-w-prose text-[17px] leading-relaxed text-muted-foreground">
+            Some bottles are in such short supply that DABS allocates them: Blanton&apos;s, Weller, E.H. Taylor and
+            friends. They go to a set list of stores on the third Saturday of the month, and DABS posts that list
+            about a week before.
           </p>
-        </div>
-        <ol className="grid grid-cols-3 gap-2">
-          <Step when={listPosted ? "Posted" : `~${dateLabel(listPostsAround, { month: "short", day: "numeric" })}`} what="DABS posts the list" />
-          <Step when="Minutes later" what="We email you" />
-          <Step when={dateLabel(nextIso, { month: "short", day: "numeric" })} what="Bottles hit stores" />
-        </ol>
-        <div className="max-w-md">
-          <DropAlertSignup signedIn={!!user} optedIn={optedIn} />
-        </div>
-        <p className="text-sm text-brand-muted">
-          DABS releases allocated bottles on the third Saturday of each month. Lottery bottles go through{" "}
-          <a
-            className="font-semibold text-brand-foreground underline"
-            href="https://webapps2.abc.utah.gov/ProdApps/RareHighDemandProducts"
-            rel="noopener"
-          >
-            DABS&apos;s drawing
-          </a>{" "}
-          instead.
-        </p>
-      </section>
+        </header>
+        <DropTicket size="large" explain={false} signedIn={!!user} optedIn={optedIn} />
+      </div>
+
+      <ol className="grid divide-y border-y sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <Step n={1} when={listPosted ? "Posted" : `Around ${dateLabel(listPostsAround, { month: "short", day: "numeric" })}`} what="DABS posts the list of bottles and stores." />
+        <Step n={2} when="Minutes later" what="We email everyone with drop alerts on." />
+        <Step n={3} when={dateLabel(nextIso, { weekday: "short", month: "short", day: "numeric" })} what="Bottles go out at the listed stores." />
+      </ol>
 
       {byDate.size === 0 ? (
-        <div className="rounded-2xl border border-dashed p-10 text-center text-muted-foreground">
-          No drop list captured yet. It posts about a week before the third Saturday.
-        </div>
+        <p className="border-y py-10 text-center text-muted-foreground">
+          No list captured yet. It posts about a week before the third Saturday.
+        </p>
       ) : (
         [...byDate.entries()].map(([date, products]) => (
-          <section key={date} className="space-y-3" aria-labelledby={`drop-${date}`}>
-            <div>
-              <h2 id={`drop-${date}`} className="font-display text-2xl font-extrabold tracking-[-0.02em] sm:text-3xl">
+          <section key={date} className="max-w-3xl space-y-3" aria-labelledby={`drop-${date}`}>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h2 id={`drop-${date}`} className="font-display text-[2rem] leading-none sm:text-4xl">
                 {date === nextIso ? "This month's list" : `${dateLabel(date, { month: "long", day: "numeric" })} drop`}
-                <span className="ml-2 font-sans text-base font-medium text-muted-foreground">
-                  {products.size} bottle{products.size === 1 ? "" : "s"}
-                </span>
               </h2>
               <p className="text-sm text-muted-foreground">
-                Quantities are what each store started with, not live counts.
+                {products.size} bottle{products.size === 1 ? "" : "s"} · counts are what each store started with
               </p>
             </div>
-            <ul className="grid gap-3 md:grid-cols-2">
+            <ul className="divide-y border-y">
               {[...products.entries()].map(([name, rows]) => (
-                <DropCard key={name} name={name} rows={rows} homeIds={homeIds} />
+                <DropRowItem key={name} name={name} rows={rows} homeIds={homeIds} />
               ))}
             </ul>
           </section>
         ))
       )}
 
-      <p className="text-xs text-muted-foreground">
-        Source:{" "}
-        <a className="underline" href={DABS_ALLOCATED_URL} rel="noopener">
+      <p className="text-xs text-subtle-foreground">
+        Lottery bottles (&ldquo;rare high demand&rdquo;) go through{" "}
+        <a className="underline underline-offset-4" href="https://webapps2.abc.utah.gov/ProdApps/RareHighDemandProducts" rel="noopener">
+          DABS&apos;s drawing
+        </a>{" "}
+        instead. Source:{" "}
+        <a className="underline underline-offset-4" href={DABS_ALLOCATED_URL} rel="noopener">
           DABS Allocated &amp; Rare
         </a>
         . Not affiliated with DABS.
@@ -124,65 +110,63 @@ export default async function DropsPage() {
   );
 }
 
-function Step({ when, what }: { when: string; what: string }) {
+function Step({ n, when, what }: { n: number; when: string; what: string }) {
   return (
-    <li className="space-y-1 rounded-xl bg-brand-raised p-3">
-      <p className="text-xs font-bold text-gold">{when}</p>
-      <p className="text-[13px] leading-snug">{what}</p>
+    <li className="flex gap-3 py-3 sm:px-4 sm:first:pl-0">
+      <span className="font-display text-2xl leading-none text-primary">{n}</span>
+      <span>
+        <span className="block text-sm font-medium">{when}</span>
+        <span className="block text-sm text-muted-foreground">{what}</span>
+      </span>
     </li>
   );
 }
 
-function DropCard({ name, rows, homeIds }: { name: string; rows: DropRow[]; homeIds: Set<number> }) {
+function DropRowItem({ name, rows, homeIds }: { name: string; rows: DropRow[]; homeIds: Set<number> }) {
   const total = rows.reduce((sum, r) => sum + (r.bottle_qty ?? 0), 0);
   const csc = rows.find((r) => r.csc)?.csc;
-  const place = (r: DropRow) =>
-    r.store_name ? storeLabel(r.store_name, r.store_city).title : (r.store_text ?? "Unknown store");
+  const place = (r: DropRow) => {
+    if (!r.store_name) return r.store_text ?? "Unknown store";
+    const l = storeLabel(r.store_name, r.store_city);
+    return l.number ? `${l.title} #${l.number}` : l.title;
+  };
   const mine = rows.filter((r) => r.store_id != null && homeIds.has(r.store_id));
-  const title = displayName(name);
+  const size = sizeFromName(name);
+  const title = productTitle(name, size);
 
   return (
-    <li className="space-y-3 rounded-2xl border bg-card p-4">
-      <div className="flex items-start justify-between gap-3">
+    <li className="py-3">
+      <div className="flex items-baseline justify-between gap-3">
         {csc ? (
-          <Link href={`/product/${csc}`} className="font-display text-lg leading-tight font-bold hover:underline">
+          <Link href={`/product/${csc}`} className="font-medium underline-offset-4 hover:underline">
             {title}
           </Link>
         ) : (
-          <p className="font-display text-lg leading-tight font-bold">{title}</p>
+          <p className="font-medium">{title}</p>
         )}
-        <p className="shrink-0 font-display text-lg font-extrabold text-primary tabular-nums">{formatPrice(rows[0].price)}</p>
+        <p className="shrink-0 font-medium tabular-nums">{formatPrice(rows[0].price)}</p>
       </div>
-      <div className="grid grid-cols-2 gap-2">
-        <div className="rounded-xl bg-secondary px-3 py-2">
-          <p className="text-xl font-bold tabular-nums">{total}</p>
-          <p className="text-xs text-muted-foreground">bottles</p>
-        </div>
-        <div className="rounded-xl bg-secondary px-3 py-2">
-          <p className="text-xl font-bold tabular-nums">{rows.length}</p>
-          <p className="text-xs text-muted-foreground">store{rows.length === 1 ? "" : "s"}</p>
-        </div>
-      </div>
+      <p className="text-[13px] text-muted-foreground">
+        {[sizeLabel(size), `${total} bottles to ${rows.length} store${rows.length === 1 ? "" : "s"}`].filter(Boolean).join(" · ")}
+      </p>
       {mine.length > 0 ? (
-        <p className="rounded-xl bg-success-soft px-3 py-2 text-sm font-semibold text-success">
+        <p className="mt-1 text-[13px] font-medium text-success">
           {mine.map((r) => `${place(r)} got ${r.bottle_qty ?? "some"}`).join(" · ")}
         </p>
       ) : null}
-      <details className="group">
-        <summary className="flex h-11 cursor-pointer list-none items-center justify-between rounded-xl border px-3 text-sm font-bold text-primary">
+      <details className="group mt-1">
+        <summary className="inline-flex min-h-10 cursor-pointer list-none items-center gap-1 text-[13px] text-muted-foreground hover:text-foreground">
           Which stores
-          <ChevronDown className="size-4 transition-transform group-open:rotate-180" aria-hidden />
+          <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" aria-hidden />
         </summary>
-        <ul className="mt-2 divide-y text-sm">
+        <ul className="grid grid-cols-1 gap-x-8 text-sm sm:grid-cols-2">
           {rows.map((r, i) => (
-            <li key={i} className="flex justify-between gap-3 py-2">
-              <span className="min-w-0">
-                <span className="font-medium">{place(r)}</span>
-                {r.store_name && r.store_text ? (
-                  <span className="block truncate text-xs text-muted-foreground">{r.store_text}</span>
-                ) : null}
+            <li key={i} className="flex justify-between gap-3 border-t py-1.5">
+              <span className="min-w-0 truncate">
+                {place(r)}
+                {r.store_name && r.store_text ? <span className="text-subtle-foreground"> · {r.store_text}</span> : null}
               </span>
-              <span className="shrink-0 font-semibold tabular-nums">{r.bottle_qty ?? "?"}</span>
+              <span className="shrink-0 tabular-nums">{r.bottle_qty ?? "?"}</span>
             </li>
           ))}
         </ul>

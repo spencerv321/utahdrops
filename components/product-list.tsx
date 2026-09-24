@@ -1,17 +1,24 @@
 import Link from "next/link";
-import { StatusBadge } from "@/components/status-badge";
+import { Check } from "lucide-react";
 import { WatchStar } from "@/components/watch-star";
-import { displayName, formatPrice, formatQty, formatSize } from "@/lib/format";
+import { BottleGlyph } from "@/components/bottle-glyph";
+import {
+  categoryLabel,
+  formatPrice,
+  formatQty,
+  listingNote,
+  productKind,
+  productTitle,
+  sizeLabel,
+  unitWord,
+} from "@/lib/format";
 import type { ProductRow } from "@/lib/queries";
-import { cn } from "@/lib/utils";
 
-function stockLine(p: ProductRow): { text: string; tone: "good" | "none" } {
-  if (p.in_stock) return { text: `In stores now · ${formatQty(p.store_qty)} bottles statewide`, tone: "good" };
-  if ((p.on_order_qty ?? 0) > 0) return { text: `Out of stock · ${formatQty(p.on_order_qty)} on order`, tone: "none" };
-  return { text: "Out of stock · watch to get alerted", tone: "none" };
-}
-
-/** Search results as tappable cards: name, price, status, stock, watch. */
+/**
+ * Results as compact rows: which bottle (name, size, style), what it costs,
+ * whether it's on a shelf anywhere, and a watch action. Warehouse counts and
+ * codes live on the product page.
+ */
 export function ProductList({
   rows,
   watched,
@@ -22,36 +29,51 @@ export function ProductList({
   signedIn: boolean;
 }) {
   return (
-    <ul className="grid gap-2.5 lg:grid-cols-2">
+    <ul className="divide-y border-y">
       {rows.map((p) => {
-        const name = displayName(p.name);
-        const stock = stockLine(p);
+        const name = productTitle(p.name, p.size_ml);
+        const meta = [sizeLabel(p.size_ml), categoryLabel(p.category)].filter(Boolean).join(" · ");
+        const note = listingNote(p.status);
         return (
-          <li key={p.csc} className="flex gap-1 rounded-2xl border bg-card py-3 pr-1.5 pl-4">
-            <Link href={`/product/${p.csc}`} className="min-w-0 flex-1 space-y-1.5">
-              <div className="flex items-baseline justify-between gap-3">
-                <p className="font-display text-lg leading-tight font-bold tracking-[-0.01em]">{name}</p>
-                <p className="shrink-0 font-bold tabular-nums">
-                  {formatPrice(p.current_price)}
-                  {p.is_spa ? (
-                    <span className="ml-1 text-xs font-semibold text-price-drop" title="Special Price Allowance (on sale)">
-                      SALE
+          <li key={p.csc} className="flex items-center gap-3 py-3">
+            <Link href={`/product/${p.csc}`} className="group flex min-w-0 flex-1 items-start gap-3 lg:items-center">
+              <BottleGlyph kind={productKind(p.category, p.size_ml)} className="mt-0.5 h-14 w-10 lg:mt-0" />
+              {/* Phones: stacked. Desktop: bottle | availability | price, like a shelf list. */}
+              <span className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_17rem_6rem] lg:items-center lg:gap-6">
+                <span className="block min-w-0">
+                  <span className="flex items-baseline justify-between gap-3">
+                    <span className="line-clamp-2 text-[16px] font-medium group-hover:underline group-hover:underline-offset-4">
+                      {name}
+                    </span>
+                    <span className="shrink-0 text-[16px] font-medium tabular-nums lg:hidden">
+                      {formatPrice(p.current_price)}
+                    </span>
+                  </span>
+                  {meta ? <span className="block truncate text-[13px] text-subtle-foreground">{meta}</span> : null}
+                </span>
+                <span className="mt-1 flex flex-wrap items-center gap-x-2 text-[13px] lg:mt-0 lg:flex-col lg:items-start">
+                  {p.in_stock ? (
+                    <span className="inline-flex items-center gap-1 font-medium text-success">
+                      <Check className="size-3.5" aria-hidden />
+                      In stores · {formatQty(p.store_qty)} {unitWord(p.category, p.size_ml, p.store_qty ?? 0)} statewide
+                    </span>
+                  ) : (
+                    <span className="text-muted-foreground">
+                      Not in stores
+                      {(p.on_order_qty ?? 0) > 0 ? ` · ${formatQty(p.on_order_qty)} on order` : ""}
+                    </span>
+                  )}
+                  {p.is_spa || note ? (
+                    <span className="inline-flex gap-2">
+                      {p.is_spa ? <span className="font-medium text-price-drop">On sale</span> : null}
+                      {note ? <span className="text-subtle-foreground">{note}</span> : null}
                     </span>
                   ) : null}
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted-foreground">
-                <StatusBadge status={p.status} />
-                <span>{[p.category && displayName(p.category), formatSize(p.size_ml)].filter(Boolean).join(" · ")}</span>
-              </div>
-              <p
-                className={cn(
-                  "text-sm font-semibold tabular-nums",
-                  stock.tone === "good" ? "text-success" : "text-muted-foreground"
-                )}
-              >
-                {stock.text}
-              </p>
+                </span>
+                <span className="hidden text-right text-[16px] font-medium tabular-nums lg:block">
+                  {formatPrice(p.current_price)}
+                </span>
+              </span>
             </Link>
             <WatchStar csc={p.csc} name={name} initialWatched={watched.has(p.csc)} signedIn={signedIn} />
           </li>

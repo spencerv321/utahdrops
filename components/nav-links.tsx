@@ -16,7 +16,7 @@ const NAV = [
 export function NavLinks() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Main" className="hidden items-center gap-1 sm:flex">
+    <nav aria-label="Main" className="hidden h-full items-stretch gap-6 sm:flex">
       {NAV.map((item) => {
         const active = isActive(pathname, item.href);
         return (
@@ -25,8 +25,8 @@ export function NavLinks() {
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "rounded-full px-3 py-2 text-[15px] font-semibold transition-colors",
-              active ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground"
+              "flex items-center border-b-2 pt-0.5 text-sm transition-colors",
+              active ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
             )}
           >
             {item.label}

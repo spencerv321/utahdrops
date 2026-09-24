@@ -20,6 +20,7 @@ export interface SearchFilters {
   status?: string;
   inStock?: boolean;
   maxPrice?: number;
+  sale?: boolean;
   sort?: "name" | "price_asc" | "price_desc" | "qty";
   page?: number;
 }
@@ -59,6 +60,7 @@ export async function searchProducts(filters: SearchFilters) {
     ${filters.status ? sql`and p.status = ${filters.status}` : sql``}
     ${filters.inStock ? sql`and p.in_stock` : sql``}
     ${filters.maxPrice ? sql`and p.current_price <= ${filters.maxPrice}` : sql``}
+    ${filters.sale ? sql`and p.is_spa` : sql``}
   `;
 
   const orderBy =
@@ -288,4 +290,19 @@ export async function getUserStoreIds(userId: string | undefined): Promise<numbe
     store_id: number;
   }[];
   return rows.map((r) => r.store_id);
+}
+
+/** In-stock counts for the browse shortcuts, one round trip. */
+export async function getShortcutCounts(shortcuts: { category?: string; max?: number; sale?: boolean }[]): Promise<number[]> {
+  if (shortcuts.length === 0) return [];
+  const parts = shortcuts.map(
+    (s, i) => sql`count(*) filter (where true
+      ${s.category ? sql`and category = ${s.category}` : sql``}
+      ${s.max ? sql`and current_price <= ${s.max}` : sql``}
+      ${s.sale ? sql`and is_spa` : sql``})::int as ${sql("c" + i)}`
+  );
+  const [row] = (await sql`
+    select ${parts.reduce((acc, p, i) => (i === 0 ? p : sql`${acc}, ${p}`))}
+    from products where in_stock and delisted_at is null`) as unknown as Record<string, number>[];
+  return shortcuts.map((_, i) => row?.["c" + i] ?? 0);
 }

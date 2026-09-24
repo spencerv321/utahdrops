@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Find any bottle in Utah's state stores. Get alerted when it's back. Never miss a drop.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f4ede2",
-    theme_color: "#4a1219",
+    background_color: "#15100d",
+    theme_color: "#15100d",
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png" },

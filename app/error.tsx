@@ -17,7 +17,7 @@ export default function Error({
 
   return (
     <div className="mx-auto max-w-xl space-y-5 pt-6 sm:pt-12">
-      <h1 className="text-4xl leading-none">That didn&apos;t load</h1>
+      <h1 className="text-5xl leading-none">That didn&apos;t load</h1>
       <p className="text-muted-foreground">
         Something went wrong on our end. Try again, or search for what you were after.
       </p>
@@ -25,11 +25,11 @@ export default function Error({
         <button
           type="button"
           onClick={() => retry()}
-          className="h-12 rounded-xl bg-primary px-5 font-bold text-primary-foreground"
+          className="h-12 rounded-md bg-primary px-5 font-semibold text-primary-foreground"
         >
           Try again
         </button>
-        <Link href="/" className="inline-flex h-12 items-center rounded-xl border bg-card px-5 font-bold">
+        <Link href="/" className="inline-flex h-12 items-center rounded-md border border-input px-5">
           Go home
         </Link>
       </div>
