@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/server";
-import { isAdmin } from "@/lib/admin";
+import { adminEmails, isAdmin } from "@/lib/admin";
 import { JOB_MAX_AGE_HOURS } from "@/lib/config";
 import { getAccounts, getDashboard, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
 import { TrendChart } from "@/components/admin/trend-chart";
@@ -181,7 +181,23 @@ const SECTIONS = [
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/admin");
-  if (!isAdmin(user)) notFound();
+  if (!isAdmin(user)) {
+    // Say why, so a setup mistake is obvious (the route itself isn't secret).
+    const configured = adminEmails().length > 0;
+    return (
+      <div className="mx-auto max-w-md space-y-3 pt-12">
+        <h1 className="text-4xl leading-none">Not an admin</h1>
+        <p className="text-muted-foreground">
+          You&apos;re signed in as <span className="text-foreground">{user.email}</span>.
+        </p>
+        <p className="text-muted-foreground">
+          {configured
+            ? "That email isn't on the admin list. Check ADMIN_EMAILS in Vercel matches it exactly, then redeploy."
+            : "No admin list is set on this deployment. Add ADMIN_EMAILS in Vercel, then redeploy."}
+        </p>
+      </div>
+    );
+  }
 
   const range = parseRange((await searchParams).range);
   const [d, a] = await Promise.all([getDashboard(range), getAccounts(range)]);
