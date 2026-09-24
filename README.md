@@ -52,7 +52,7 @@ Run any job locally with `npx tsx scripts/scrape.ts <job>`.
 |---|---|---|
 | `catalog` | `.github/workflows/catalog.yml` (in the runner) | 06, 14, 22:00 |
 | `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | every 6h |
-| `allocated`, `digest`, `percentiles`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow |
+| `allocated`, `digest`, `percentiles`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
 
 `keepalive.yml` re-enables the scheduled workflows weekly (GitHub disables them
 in public repos after 60 days without a commit). **`/api/health`** returns 503

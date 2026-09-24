@@ -38,6 +38,15 @@ const UTM = "utm_source=email&amp;utm_medium=alert";
  * and one bad recipient doesn't block everyone else.
  */
 export async function runDigestJob() {
+  // Digest runs hourly and after each scrape; if another run is mid-send it
+  // would pick the same undelivered events, so let that one finish instead.
+  const busy = await sql`
+    select 1 from scrape_runs
+    where job = 'digest' and finished_at is null
+      and started_at > now() - interval '10 minutes'
+    limit 1`;
+  if (busy.length) return { ok: true, detail: { skipped: "digest already running" } };
+
   return withRun("digest", async () => {
     const matches = await sql<MatchRow[]>`
       select w.user_id, u.email, e.id as event_id, e.csc, p.name, e.event_type, e.detail
