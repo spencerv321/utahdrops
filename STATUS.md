@@ -1,8 +1,8 @@
 # Utah Drops — status
 
-_Last updated: 2026-09-24 (journey PR)_
+_Last updated: 2026-09-24 (PRs #25–#27)_
 
-**Production is healthy.** utahdrops.com refreshes several times a day; all
+**Production is healthy.** Statewide stock refreshes 3×/day, store-by-store every 4h; all
 scheduled workflows are enabled; `/api/health` is green.
 
 ## Shipped (PRs #1–#5, all merged and deployed)
@@ -85,23 +85,48 @@ scheduled workflows are enabled; `/api/health` is green.
   ~10 in-stock days after their first store check.
 - Next: get people onto rated bottle pages; read the feedback notes.
 
-## Bottle-hunting journey (PR "find → watch → alert", 2026-09-24)
-- Search: normalized `search_key` + aliases/abbreviations + name-first
-  ranking. "Blanton's" now finds the standard Single Barrel first (was: two
-  special orders); "EH Taylor", "eagle rare 10 year" now match (were 0).
-- Category filter: Type → Style instead of one long list; old `?category=`
-  links and homepage shortcuts unchanged.
-- Signed-out Watch keeps the bottle (and optional store) through sign-in and
-  adds it after the email link; confirmation on the product page.
-- Store job: reserved watched-bottle share, attempt vs success timestamps,
-  failure backoff; digest drops superseded events and dates each line.
-- Store schedule (2026-09-24 review of 244 runs): GitHub never dropped a
-  slot while enabled but starts runs ~2h late (median 110 min, max 5.8h);
-  20 runs in June–July were killed at the 30-min timeout. Now every 4h at
-  :37, 400 SKUs, 25-min scrape budget, 40-min job timeout. Earlier note
-  that "GitHub skips half the runs" was wrong (a delayed run was miscounted).
-- Still to prove in production: a real first-time sign-in through the watch
-  flow (owner test), and `report.yml` → `freshness` after a few store runs.
+## Bottle-hunting journey (PRs #25–#27, live 2026-09-24)
+- #25 Search: `products.search_key` (SQL `public.search_key()` mirrored by
+  `lib/search-key.ts`) + explicit aliases/abbreviations + name-first ranking.
+  "Blanton's" → standard Single Barrel first (was 2 special orders); "EH
+  Taylor" 0 → 5; "eagle rare 10 year" 0 → 2. 25-bottle regression set passes
+  on prod (`report.yml` → `searchcheck`).
+- #25 Category filter: Type → Style (`lib/categories.ts`, `?group=`); old
+  `?category=` links and homepage shortcuts unchanged.
+- #25 Signed-out Watch: `/login?watch=<code>` → pick "Anywhere in Utah" or
+  "Also at my store" → email link → `/watch/confirm` adds it once (table
+  `watch_intents`, email-bound, 24h) → "You're watching…" on the product page.
+  Home stores add store alerts on top of statewide; nothing suppresses them.
+- #25 Alerts: digest skips superseded events (restock since sold out, store
+  restock the latest check contradicts) and dates each line; store restocks
+  need a zero seen in the last 7 days. Removed "the minute" / "one email an
+  hour" claims.
+- #26 Store job reliability + sizing. Review of 244 scheduled runs: GitHub
+  never dropped a slot while enabled, but starts runs late (median 110 min,
+  p90 180, max 350); 20 runs in June–July were killed at the 30-min timeout.
+  (An earlier "GitHub skips half the runs" note was wrong: a delayed run was
+  miscounted.) Now: every 4h at :37, 400 SKUs, 25-min scrape budget (stops
+  cleanly, records `stopped_early`), 40-min job timeout, health alarm 12h.
+  Model (`lib/jobs/store-capacity.ts`): ~2,400 checks/day → watched bottles
+  every run (worst ~10h, target 12h), all ~5.4k in-stock in ~2.5 days
+  (target 3, cutoff 7). DABS load ~4,800 req/day at the same 1.1 s pacing.
+- #27 8 of 38 watched bottles (sold-out rare ones) always get HTTP 500 from
+  DABS's detail page; they back off (6h → 72h), and a catalog restock now
+  clears the backoff so they're re-checked on the next store run.
+- Baseline 2026-09-24 21:01 UTC (before the new schedule ran): watched 30/38
+  on target (8 = DABS 500s); in-stock checked <1d 1,157 · 1–3d 253 · never
+  2,168 · >7d 1,833.
+
+### Open items (next session: pick these up)
+- **Verify the new store schedule** with `report.yml` → `freshness`
+  (Claude check-ins scheduled Sep 25, 26, 27 and 29; if this session is gone,
+  run it by hand). Pass = no killed runs, `stopped_early` rare, watched on
+  target except DABS-500 SKUs, never/>7d buckets ~0 by Sep 27–28.
+- If it passes, change `WATCH_REFRESH_NOTE` (`lib/config.ts`) and the digest
+  footer from "about twice a day" to the measured frequency.
+- **Owner test** (not yet done): private window → utahdrops.com/product/016850
+  → Watch → "Also at my store" → new `+test` Gmail → tap the link → expect
+  "You're watching … and when it's back at <store>".
 
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of
