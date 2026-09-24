@@ -216,6 +216,16 @@ export async function runCatalogJob() {
       }
     }
 
+    // A product back in stores gets its store-by-store check right away: clear
+    // any failure backoff (DABS's detail page often errors while a SKU is out
+    // everywhere), so the next store run picks it up instead of up to 72h later.
+    const backInStock = products
+      .filter((p) => (p.store_qty ?? 0) > 0 && (byCsc.get(p.csc)?.store_qty ?? 0) === 0)
+      .map((p) => p.csc);
+    if (backInStock.length > 0) {
+      await sql`update products set store_retry_at = null where csc = any(${backInStock}) and store_retry_at is not null`;
+    }
+
     return {
       fetched: rows.length,
       changed: changed.length,
