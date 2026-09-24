@@ -106,56 +106,94 @@ async function scarce(area: Area | null): Promise<Row[]> {
       and ${tierExpr()} = any(${[...DISCOVER.tiers]})`) as unknown as Row[];
 }
 
+type Return = { csc: string; out_since: Date; back_at: Date };
+let returnsCache: { at: number; rows: Return[] } | null = null;
+const RETURNS_TTL_MS = 15 * 60_000;
+
+/** Tests change history between calls; production relies on the TTL. */
+export function clearDiscoverCache() {
+  returnsCache = null;
+}
+
 /**
- * Back after a while: the latest out-of-stock stretch (from the first
- * statewide zero after an in-stock observation, to the first in-stock
+ * Back after a while (statewide): the latest out-of-stock stretch (from the
+ * first statewide zero after an in-stock observation, to the first in-stock
  * observation after it) lasted at least absenceDays, ended within
  * returnedWithinDays, and our catalog passes covered all of it with no gap
  * longer than maxCoverageGapHours. No earlier in-stock observation (a first
  * appearance) or an outage inside the stretch = not a confirmed absence.
+ *
+ * This walks snapshot history (~1s), and data changes ~3×/day, so the result
+ * is kept per server instance for RETURNS_TTL_MS. While unbroken history is
+ * shorter than absenceDays nothing can qualify, so the query is skipped.
  */
-async function back(area: Area | null): Promise<Row[]> {
-  const n = nearJoin(area);
+async function recentReturns(): Promise<Return[]> {
+  if (returnsCache && Date.now() - returnsCache.at < RETURNS_TTL_MS) return returnsCache.rows;
   const b = DISCOVER.back;
+  const { since } = await backCoverage();
+  let rows: Return[] = [];
+  if (since && since.getTime() <= Date.now() - b.absenceDays * 86400_000) {
+    rows = (await sql`
+      with cand as (
+        -- a return inside the window leaves an in-stock snapshot inside it
+        select p.csc from products p
+        where ${eligible()}
+          and exists (select 1 from inventory_snapshots s
+                      where s.csc = p.csc and coalesce(s.store_qty, 0) > 0
+                        and s.scraped_at > now() - make_interval(days => ${b.returnedWithinDays}))
+      ),
+      last_zero as (
+        select s.csc, max(s.scraped_at) as z_last
+        from inventory_snapshots s join cand using (csc)
+        where coalesce(s.store_qty, 0) = 0 group by s.csc
+      ),
+      stretch as (
+        select z.csc,
+               (select min(s.scraped_at) from inventory_snapshots s
+                 where s.csc = z.csc and s.scraped_at > z.z_last and coalesce(s.store_qty, 0) > 0) as back_at,
+               (select max(s.scraped_at) from inventory_snapshots s
+                 where s.csc = z.csc and s.scraped_at < z.z_last and coalesce(s.store_qty, 0) > 0) as prev_in_stock
+        from last_zero z
+      ),
+      runs as (
+        select started_at, lead(started_at) over (order by started_at) as next_at
+        from scrape_runs where job = 'catalog' and ok
+      ),
+      gaps as (
+        select started_at as gap_from, next_at as gap_to from runs
+        where next_at - started_at > make_interval(hours => ${b.maxCoverageGapHours})
+      ),
+      ret as (
+        select st.csc, st.back_at,
+               (select min(s.scraped_at) from inventory_snapshots s
+                 where s.csc = st.csc and s.scraped_at > st.prev_in_stock and coalesce(s.store_qty, 0) = 0) as out_since
+        from stretch st
+        where st.back_at is not null and st.prev_in_stock is not null
+          and st.back_at > now() - make_interval(days => ${b.returnedWithinDays})
+      )
+      select bk.csc, bk.out_since, bk.back_at
+      from ret bk
+      join products p on p.csc = bk.csc
+      where bk.back_at - bk.out_since >= make_interval(days => ${b.absenceDays})
+        and not exists (select 1 from gaps g where g.gap_to > bk.out_since and g.gap_from < bk.back_at)
+        -- a catalog pass must also have run shortly before the stretch began
+        and exists (select 1 from runs r where r.started_at < bk.out_since
+                      and r.started_at > bk.out_since - make_interval(hours => ${b.maxCoverageGapHours}))
+        and ${notReusedCode()}`) as unknown as Return[];
+  }
+  returnsCache = { at: Date.now(), rows };
+  return rows;
+}
+
+/** Recent returns with current facts (re-checked: still eligible now) and nearby stock. */
+async function back(area: Area | null): Promise<Row[]> {
+  const returns = await recentReturns();
+  if (returns.length === 0) return [];
+  const n = nearJoin(area);
   return (await sql`
     with ${n.cte}
-    cand as (
-      -- a return inside the window leaves an in-stock snapshot inside it
-      select p.csc from products p
-      where ${eligible()}
-        and exists (select 1 from inventory_snapshots s
-                    where s.csc = p.csc and coalesce(s.store_qty, 0) > 0
-                      and s.scraped_at > now() - make_interval(days => ${b.returnedWithinDays}))
-    ),
-    last_zero as (
-      select s.csc, max(s.scraped_at) as z_last
-      from inventory_snapshots s join cand using (csc)
-      where coalesce(s.store_qty, 0) = 0 group by s.csc
-    ),
-    stretch as (
-      select z.csc,
-             (select min(s.scraped_at) from inventory_snapshots s
-               where s.csc = z.csc and s.scraped_at > z.z_last and coalesce(s.store_qty, 0) > 0) as back_at,
-             (select max(s.scraped_at) from inventory_snapshots s
-               where s.csc = z.csc and s.scraped_at < z.z_last and coalesce(s.store_qty, 0) > 0) as prev_in_stock,
-             z.z_last
-      from last_zero z
-    ),
-    runs as (
-      select started_at, lead(started_at) over (order by started_at) as next_at
-      from scrape_runs where job = 'catalog' and ok
-    ),
-    gaps as (
-      select started_at as gap_from, next_at as gap_to from runs
-      where next_at - started_at > make_interval(hours => ${b.maxCoverageGapHours})
-    ),
     ret as (
-      select st.csc, st.back_at,
-             (select min(s.scraped_at) from inventory_snapshots s
-               where s.csc = st.csc and s.scraped_at > st.prev_in_stock and coalesce(s.store_qty, 0) = 0) as out_since
-      from stretch st
-      where st.back_at is not null and st.prev_in_stock is not null
-        and st.back_at > now() - make_interval(days => ${b.returnedWithinDays})
+      select * from jsonb_to_recordset(${sql.json(returns as never)}) as x(csc text, out_since timestamptz, back_at timestamptz)
     )
     select ${baseCols()}, ${n.cols}, bk.out_since, bk.back_at
     from ret bk
@@ -163,12 +201,7 @@ async function back(area: Area | null): Promise<Row[]> {
     left join product_rarity pr on pr.csc = p.csc
     left join rarity_overrides o on o.csc = p.csc
     ${n.join}
-    where bk.back_at - bk.out_since >= make_interval(days => ${b.absenceDays})
-      and not exists (select 1 from gaps g where g.gap_to > bk.out_since and g.gap_from < bk.back_at)
-      -- a catalog pass must also have run shortly before the stretch began
-      and exists (select 1 from runs r where r.started_at < bk.out_since
-                    and r.started_at > bk.out_since - make_interval(hours => ${b.maxCoverageGapHours}))
-      and ${notReusedCode()}`) as unknown as Row[];
+    where ${eligible()}`) as unknown as Row[];
 }
 
 /**

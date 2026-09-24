@@ -6,7 +6,7 @@
 import { after, before, test } from "node:test";
 import assert from "node:assert/strict";
 import { sql } from "../../lib/db";
-import { getDiscoverCandidates } from "../../lib/discover";
+import { clearDiscoverCache, getDiscoverCandidates } from "../../lib/discover";
 import { nearState, rankView } from "../../lib/discover-rules";
 import { recordStoreFailure } from "../../lib/jobs/store-inventory";
 import { applyWatchIntent, createWatchIntent } from "../../lib/watch-intent";
@@ -38,7 +38,7 @@ async function priceChange(csc: string, daysAgo: number, from: number, to: numbe
     values (${csc}, 'price_change', ${sql.json({ old: from, new: to, test: "discover" })}, ${ago(daysAgo)})`;
 }
 const cscs = async (view: "scarce" | "back" | "price", area: typeof AREA | null = null) =>
-  (await getDiscoverCandidates(view, area)).map((i) => i.csc).filter((c) => c.startsWith("9900")).sort();
+  (clearDiscoverCache(), await getDiscoverCandidates(view, area)).map((i) => i.csc).filter((c) => c.startsWith("9900")).sort();
 
 async function cleanup() {
   await sql`delete from discover_events where csc like '9900%'`;
@@ -102,6 +102,8 @@ before(async () => {
   await snapshot("990012", 80, 5); await snapshot("990012", 20, 0); await snapshot("990012", 1, 7);
   await product("990013"); // long absence, but back 20 days ago (not recent)
   await snapshot("990013", 90, 5); await snapshot("990013", 60, 0); await snapshot("990013", 20, 7);
+  await product("990014"); // out 75 days, back 5 days ago; a checks outage falls inside (see below)
+  await snapshot("990014", 95, 5); await snapshot("990014", 80, 0); await snapshot("990014", 5, 7);
 
   // ── price drops ──
   await product("990020", { price: 40 }); await priceChange("990020", 3, 50, 40); // 20%, $10: shown
@@ -162,13 +164,17 @@ test("unknown nearby coverage is not 'none nearby'", async () => {
 });
 
 test("back after a while: observed absence ≥ 30 days, returned recently, previously in stock", async () => {
-  assert.deepEqual(await cscs("back"), ["990010"]);
+  assert.deepEqual(await cscs("back"), ["990010", "990014"]);
   const item = (await getDiscoverCandidates("back", null)).find((i) => i.csc === "990010")!;
   assert.ok(item.outSince && item.backAt && item.backAt.getTime() - item.outSince.getTime() >= 30 * 86400_000);
 });
 
 test("an outage inside the absence is not a confirmed absence", async () => {
-  // Remove three days of catalog passes in the middle of 990010's absence.
+  // Three days without catalog passes inside 990014's absence only.
+  await sql`delete from scrape_runs where job = 'catalog' and detail->>'test' = 'discover'
+            and started_at between now() - interval '62 days' and now() - interval '59 days'`;
+  assert.deepEqual(await cscs("back"), ["990010"]);
+  // …and one inside 990010's absence too.
   await sql`delete from scrape_runs where job = 'catalog' and detail->>'test' = 'discover'
             and started_at between now() - interval '25 days' and now() - interval '22 days'`;
   assert.deepEqual(await cscs("back"), []);
