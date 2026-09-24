@@ -4,52 +4,53 @@ import type { ReservedSql } from "postgres";
  * Utah availability ("rarity") — EXPERIMENTAL, internal only (report.ts
  * rarity). Nothing here is shown on the site.
  *
- * Method v1 (sales-led):
- * - Primary signal: DABS monthly sales over the trailing 12 report months
- *   (all 16+ months kept for context). Months before a product's first
- *   record don't count. "Months with recorded sales" is what the data shows;
- *   a month with no report line is kept distinct from an explicit zero line.
- * - Low volume, few selling months or concentrated sales alone never earn a
- *   high tier: they also describe unpopular, new or ending products. A high
- *   tier needs corroboration (a repeated release pattern, or our own stock
- *   observations showing it rarely on shelves); otherwise "insufficient
- *   evidence".
- * - Stock observations count asymmetrically: consistently on shelves is
- *   strong evidence against rarity (caps the tier); rarely seen is weaker
- *   evidence for it. Only days with a successful catalog pass are observed
- *   (the Aug–Sep 2026 scraper outage is excluded from every denominator).
- * - Seasonality is a separate attribute, never an exclusion.
- * - DABS status/labels decide eligibility and are shown separately; they
- *   never raise or lower the computed tier.
+ * Method v2: three kinds of evidence, kept separate and shown as facts —
+ * - recorded sales: DABS monthly Sales Analysis (trailing 12 report months;
+ *   all months for context). Context only; never sets a tier by itself.
+ * - shelf availability: our catalog passes (share of observed days in stock
+ *   somewhere in Utah) plus per-store history (how many stores typically
+ *   carry it). Days without a successful pass — e.g. the Aug–Sep 2026
+ *   scraper outage — are excluded from every denominator. Seasonal products
+ *   are judged only on observations from their season.
+ * - access method, verified from DABS's own pages: RHDP drawings (exact item
+ *   code) and monthly allocated drops (exact catalog name, one code only);
+ *   DABS status S = special order.
+ *
+ * Tiers (shopper label → collectible tier):
+ *   DABS drawing → Unicorn (≥ unicornEntriesPerBottle entries per
+ *     bottle in its latest drawing) or Rare
+ *   Allocated release → Rare (largest statewide drop ≤ rareDropBottles) or
+ *     Scarce — unless shelf observations show it widely and consistently in
+ *     stock, which wins
+ *   Hard to find (in stock < hardToFind of observed days, with evidence it
+ *     exists: a sellout seen, or sales recorded in observed months) → Scarce
+ *   Intermittently available (hardToFind … consistently) → Uncommon
+ *   In stock most days at a few stores (typical < wideStores) → Uncommon
+ *   Widely available (in stock ≥ consistently of days, typical ≥ wideStores
+ *     stores) → Everyday
+ * Anything else gets facts only (no tier). DABS labels (status, "allocated"
+ * class, special-order class) are shown separately and never change a tier.
  */
-export const RARITY_METHOD = "v1.2-sales-led";
+export const RARITY_METHOD = "v2-evidence";
 export const RARITY_TZ = "America/Denver";
 
 // ── thresholds (proposed; tuned from the review) ─────────────────────────
 export const T = {
   trailingMonths: 12,
-  /** Months since first record needed before a product can be classified. */
-  minRecordMonths: 6,
-  /** Share of eligible months with recorded sales. */
-  regularShare: 0.75,
-  sporadicShare: 0.35,
-  /** Trailing-12 bottles statewide. */
-  everydayVolume: 300,
-  scarceMaxVolume: 1200,
-  rareMaxVolume: 600,
-  unicornMaxVolume: 150,
-  /** Share of trailing-12 bottles sold in the best two months. */
-  unicornConcentration: 0.8,
-  /** Stock observations. */
+  /** Share of observed days in stock somewhere in Utah. */
+  consistently: 0.8,
+  hardToFind: 0.25,
+  /** Median stores carrying it on in-stock days. */
+  wideStores: 10,
+  /** Observation needed for a shelf tier. */
   minObservedDays: 30,
-  consistentlyStocked: 0.8, // in stock on ≥80% of observed days → caps at Uncommon
-  rarelyStocked: 0.5, // ≤50% → corroborates Scarce
-  veryRarelyStocked: 0.25, // ≤25% → corroborates Rare/Unicorn
-  /** Release pattern: separate selling runs split by ≥ this many empty months. */
+  minStoreDays: 10,
+  /** Drawings: entries per bottle offered in the latest drawing. */
+  unicornEntriesPerBottle: 100,
+  /** Allocated drops: bottles statewide in its largest drop. */
+  rareDropBottles: 100,
+  /** Release runs in sales (facts only): split by ≥ this many empty months. */
   releaseGapMonths: 2,
-  /** Fewer recorded bottles than this (all months) → too little to judge. */
-  minEvidenceBottles: 12,
-  /** A run counts toward a release pattern only if it's this big. */
   minRunBottles: 6,
   minRunShare: 0.1,
 } as const;
@@ -79,6 +80,8 @@ export interface StockMetrics {
   stores_seen: number;
   stores_now: number;
   has_store_data: boolean;
+  store_days: number; // in-stock observed days with per-store data
+  typical_stores: number | null; // median stores stocking it on those days
   peak_shelf: number | null;
   in_stock_now: boolean;
   last_on_shelf: Date | null;
@@ -90,6 +93,7 @@ export interface StockCoverage {
   first: string;
   last: string;
   gaps: { after: string; days: number }[];
+  holidayObserved: boolean; // any observed day in Nov–Dec
 }
 
 /**
@@ -100,7 +104,7 @@ export async function buildStockMetrics(
   db: ReservedSql,
   windowDays = 180
 ): Promise<{ stock: StockMetrics[]; coverage: StockCoverage }> {
-  await db`drop table if exists rarity_days, rarity_pd`;
+  await db`drop table if exists rarity_days, rarity_pd, rarity_store_days`;
   // Observed days: at least one successful catalog pass that day (Denver).
   await db`
     create temp table rarity_days as
@@ -137,6 +141,25 @@ export async function buildStockMetrics(
     group by 1, 2`;
   await db`create index on rarity_pd (csc, d)`;
   await db`analyze rarity_pd`;
+  // Stores stocking the product on each in-stock observed day, from the
+  // delta-encoded per-store history (each row holds until the next one for
+  // that store). Days before the product's first store check are unknown.
+  await db`drop table if exists rarity_store_days`;
+  await db`
+    create temp table rarity_store_days as
+    with si as (
+      select csc, store_id, qty > 0 as pos, scraped_at as t0,
+             coalesce(lead(scraped_at) over (partition by csc, store_id order by scraped_at), 'infinity') as t1
+      from store_inventory
+    ),
+    first_check as (select csc, min(scraped_at) as t from store_inventory group by csc)
+    select pd.csc, pd.d, count(distinct si.store_id) filter (where si.pos)::int as stores
+    from rarity_pd pd
+    join rarity_days dy on dy.d = pd.d
+    join first_check fc on fc.csc = pd.csc and fc.t <= dy.t_last
+    left join si on si.csc = pd.csc and si.t0 <= dy.t_last and si.t1 > dy.t_first
+    where pd.in_stock
+    group by pd.csc, pd.d`;
 
   const [cov] = await db<{ observed: number; first: string; last: string; span: number }[]>`
     select count(*)::int as observed, min(d)::text as first, max(d)::text as last,
@@ -188,6 +211,11 @@ export async function buildStockMetrics(
     ),
     stores_now as (
       select csc, count(*) filter (where qty > 0)::int as stores_now from store_inventory_current group by csc
+    ),
+    store_days as (
+      select csc, count(*)::int as store_days,
+             percentile_cont(0.5) within group (order by stores)::float as typical_stores
+      from rarity_store_days group by csc
     )
     select p.csc, p.name, p.category, p.status, p.first_seen,
            coalesce(a.observed_days, 0) as observed_days,
@@ -197,6 +225,8 @@ export async function buildStockMetrics(
            coalesce(st.stores_seen, 0) as stores_seen,
            coalesce(sn.stores_now, 0) as stores_now,
            sn.csc is not null as has_store_data,
+           coalesce(sd.store_days, 0) as store_days,
+           sd.typical_stores,
            greatest(sh.peak_shelf, sp.store_qty) as peak_shelf,
            coalesce(p.store_qty, 0) > 0 as in_stock_now,
            lo.last_on_shelf
@@ -207,11 +237,16 @@ export async function buildStockMetrics(
     left join last_on lo using (csc)
     left join stores st using (csc)
     left join stores_now sn using (csc)
+    left join store_days sd using (csc)
     where p.delisted_at is null`;
 
   return {
     stock,
-    coverage: { observedDays: cov.observed, spanDays: cov.span, first: cov.first, last: cov.last, gaps },
+    coverage: {
+      observedDays: cov.observed, spanDays: cov.span, first: cov.first, last: cov.last, gaps,
+      holidayObserved: (await db<{ n: number }[]>`
+        select count(*)::int as n from rarity_days where extract(month from d) in (11, 12)`)[0].n > 0,
+    },
   };
 }
 
@@ -273,9 +308,9 @@ export interface SalesMetrics {
   soldShare12: number | null; // soldMonths12 / recordMonths12
   top2Share12: number | null; // share of trailing bottles in the best two months
   runsAll: number; // separate selling runs across all months (split by ≥ releaseGapMonths empty)
-  caseLotsOnly: boolean; // every selling month is a multiple of 6 bottles
   pattern16: string; // compact month-by-month bottles, "." = no line, "0" = explicit zero
   seasonal: string | null;
+  monthly: Map<string, number>; // bottles by report month (lines present, > 0)
 }
 
 const HOLIDAY_WORDS = /\b(NOG|EGGNOG|HOLIDAY|CHRISTMAS|XMAS|WINTER|PEPPERMINT|SANTA|MISTLETOE|GLOGG|ADVENT|NOUVEAU|GIFT SET|VAP)\b/i;
@@ -330,8 +365,6 @@ export function computeSalesMetrics(
       lastSold = m;
     } else gap++;
   }
-  const sellingMonths = [...(h?.months.values() ?? [])].filter((x) => !x.explicitZero);
-  const caseLotsOnly = sellingMonths.length > 0 && sellingMonths.every((x) => x.bottles % 6 === 0);
   const runs = runTotals.filter((b) => b >= Math.max(T.minRunBottles, bottlesAll * T.minRunShare)).length;
 
   return {
@@ -346,9 +379,9 @@ export function computeSalesMetrics(
     soldShare12: eligible.length ? sold / eligible.length : null,
     top2Share12: bottles12 > 0 ? top2 / bottles12 : null,
     runsAll: runs,
-    caseLotsOnly,
     pattern16: pattern.join(" "),
     seasonal: seasonality(h, reportMonths, label),
+    monthly: new Map([...(h?.months ?? new Map<string, SalesMonth>())].filter(([, v]) => !v.explicitZero).map(([m, v]) => [m, v.bottles])),
   };
 }
 
@@ -386,21 +419,94 @@ function seasonality(h: SalesHistory | undefined, reportMonths: string[], label:
   return null;
 }
 
-// ── classification ───────────────────────────────────────────────────────
-export type RarityOutcome =
-  | {
-      kind: "tier";
-      tier: RarityTier;
-      candidate: RarityTier; // what sales alone suggested
-      confidence: "high" | "medium" | "low";
-      reason: string;
-      score: number; // ordering aid for the review only
+// ── access evidence (verified from DABS pages) ───────────────────────────
+export interface DrawingEvidence {
+  drawing: string;
+  bottles: number | null;
+  entries: number | null;
+  price: number | null;
+  lastSeen: Date;
+}
+export interface DropEvidence {
+  drops: number; // distinct drop dates
+  largestDropBottles: number; // bottles statewide in its largest drop
+  lastDrop: string;
+  stores: number; // distinct store rows across drops
+}
+
+export async function loadAccessEvidence(db: ReservedSql): Promise<{
+  drawings: Map<string, DrawingEvidence[]>;
+  drops: Map<string, DropEvidence>;
+  dropNamesUnmatched: string[];
+}> {
+  const drawings = new Map<string, DrawingEvidence[]>();
+  const drawRows = await db<{ item_code: string; drawing: string; bottles: number | null; entries: number | null; price: string | null; last_seen: Date }[]>`
+    select item_code, drawing, bottles, entries, price::text, last_seen from rhdp_drawings order by last_seen desc, drawing desc`
+    .catch(() => []);
+  for (const r of drawRows) {
+    const list = drawings.get(r.item_code) ?? [];
+    list.push({ drawing: r.drawing, bottles: r.bottles, entries: r.entries, price: r.price != null ? Number(r.price) : null, lastSeen: r.last_seen });
+    drawings.set(r.item_code, list);
+  }
+  // Allocated drops carry no item code; match the exact DABS name to exactly
+  // one code (catalog names first, then names in the sales files).
+  const dropRows = await db<{ name: string; code: string | null; codes: number; drops: number; largest: number; last_drop: string; stores: number }[]>`
+    with d as (
+      select upper(regexp_replace(product_name, '\s+', ' ', 'g')) as name, drop_date,
+             sum(coalesce(bottle_qty, 0))::int as bottles, count(*)::int as store_rows
+      from allocated_drops group by 1, 2
+    ),
+    names as (
+      select upper(regexp_replace(name, '\s+', ' ', 'g')) as name, csc as code from products
+      union
+      select upper(regexp_replace(item_name, '\s+', ' ', 'g')), item_code from monthly_sales
+    ),
+    m as (
+      select d.name, count(distinct n.code)::int as codes, min(n.code) as code
+      from (select distinct name from d) d left join names n using (name) group by d.name
+    )
+    select m.name, case when m.codes = 1 then m.code end as code, m.codes,
+           count(distinct d.drop_date)::int as drops, max(d.bottles)::int as largest,
+           max(d.drop_date)::text as last_drop, sum(d.store_rows)::int as stores
+    from m join d using (name) group by m.name, m.code, m.codes`;
+  const drops = new Map<string, DropEvidence>();
+  const dropNamesUnmatched: string[] = [];
+  for (const r of dropRows) {
+    if (!r.code) {
+      dropNamesUnmatched.push(`${r.name} (${r.codes} codes)`);
+      continue;
     }
-  | { kind: "insufficient"; candidate: RarityTier | null; reason: string; score: number }
-  | { kind: "orderable"; reason: string }
-  | { kind: "winding_down"; reason: string };
+    drops.set(r.code, { drops: r.drops, largestDropBottles: r.largest, lastDrop: r.last_drop, stores: r.stores });
+  }
+  return { drawings, drops, dropNamesUnmatched };
+}
+
+// ── classification ───────────────────────────────────────────────────────
+export type ShopperLabel =
+  | "DABS drawing"
+  | "Allocated release"
+  | "Hard to find"
+  | "Intermittently available"
+  | "In stock at a few stores"
+  | "Widely available"
+  | "Special order"
+  | "Being discontinued"
+  | "Not observed in season"
+  | "Facts only";
+
+export interface RarityResult {
+  label: ShopperLabel;
+  tier: RarityTier | null;
+  confidence: "high" | "medium" | "low" | null;
+  access: string; // how it's sold, with its evidence
+  reason: string;
+  facts: string[];
+  dabsLabels: string[]; // DABS's own labels, never tier inputs
+  notListed: boolean; // not in the current catalog (sales/drawing only)
+}
 
 const WINDING_DOWN = new Set(["D", "X", "N", "U"]);
+const LIMITED_PACK = /\bVAP\b|W\/ ?(GLASS|FLASK|FL\b)|GLASSES|GIFT (PK|PACK|SET)|DECANTER|LTD ED|LIMITED ED|SPECIAL RELEASE|LUNAR/i;
 
 export function isAllocatedLabel(status: string | null, className: string | null): boolean {
   return status === "A" || /ALLOCATED/i.test(className ?? "");
@@ -410,149 +516,107 @@ function pctStr(x: number): string {
   return `${Math.round(x * 100)}%`;
 }
 
-/** Ordering aid for the review (not a tier input): higher = rarer-looking. */
-export function reviewScore(s: SalesMetrics, k: StockMetrics | undefined): number {
-  const vol = 1 - Math.min(Math.log10(1 + s.bottles12) / Math.log10(1 + 10_000), 1);
-  const months = 1 - (s.soldShare12 ?? 0);
-  const conc = s.top2Share12 ?? 0;
-  const obs = k && k.observed_days >= T.minObservedDays ? 1 - k.in_stock_days / k.observed_days : 0.5;
-  return Math.round(100 * (0.4 * vol + 0.3 * months + 0.15 * conc + 0.15 * obs) * 10) / 10;
-}
-
-export interface ProductLabel {
+export function classifyRarity(input: {
   name: string;
+  status: string | null;
   className: string | null;
-}
+  sales: SalesMetrics;
+  stock: StockMetrics | undefined;
+  drawings: DrawingEvidence[] | undefined;
+  drop: DropEvidence | undefined;
+  holidayObserved: boolean;
+  /** Report months (YYYY-MM) that overlap our observation window. */
+  observedMonths: string[];
+}): RarityResult {
+  const { name, status, className, sales: s, stock: k, drawings, drop } = input;
 
-const GIFT_PACK = /\bVAP\b|W\/ ?(GLASS|FLASK|FL\b)|GLASSES|GIFT (PK|PACK|SET)/i;
-
-export function classifyRarity(
-  status: string | null,
-  s: SalesMetrics,
-  k: StockMetrics | undefined,
-  label: ProductLabel
-): RarityOutcome {
-  if (status === "S") return { kind: "orderable", reason: "DABS special order — separate 'orderable' channel, no shelf tier" };
-  if (status && WINDING_DOWN.has(status)) {
-    return { kind: "winding_down", reason: `DABS status ${status} (discontinued / unavailable soon) — no tier` };
+  // Facts, always.
+  const facts: string[] = [];
+  facts.push(s.bottles12 > 0 || s.recordMonths12 > 0
+    ? `recorded sales: ${s.bottles12} bottles in ${s.soldMonths12} of ${s.recordMonths12} report months (last ${s.lastSold ?? "none"})`
+    : "recorded sales: none in the DABS reports");
+  const observed = k?.observed_days ?? 0;
+  const share = k && observed ? k.in_stock_days / observed : null;
+  if (!k) facts.push("shelf availability: not tracked (not in the current catalog)");
+  else facts.push(`shelf availability: in stock somewhere on ${k.in_stock_days}/${observed} observed days (${share != null ? pctStr(share) : "–"})` +
+    (k.store_days ? `, typically at ${k.typical_stores} store(s) when in stock (${k.store_days} days with store data)` : ", store coverage unknown") +
+    (k.sellouts ? `, sold out ${k.sellouts}×` : ""));
+  const latestDraw = drawings?.[0];
+  if (drawings?.length) {
+    facts.push(`DABS drawings: ${drawings.map((d) => `${d.drawing}: ${d.bottles ?? "?"} bottles, ${d.entries ?? "?"} entries`).join("; ")}`);
   }
-  const score = reviewScore(s, k);
+  if (drop) facts.push(`DABS allocated drops: ${drop.drops} (largest ${drop.largestDropBottles} bottles statewide, last ${drop.lastDrop})`);
 
-  // Stock evidence (asymmetric). Only products actually seen on shelves can
-  // be "rarely on shelves"; never seen in the window is weak evidence (it may
-  // not be a shelf product at all) and corroborates nothing.
-  const observed = k ? k.observed_days : 0;
-  const stockKnown = observed >= T.minObservedDays;
-  const inShare = stockKnown ? k!.in_stock_days / observed : null;
-  // "Rarely on shelves" needs a bottle we saw come AND go: one only on
-  // shelves in its current stretch may simply have arrived during the outage.
-  const seen = !!k && k.in_stock_days > 0 && k.sellouts > 0;
-  const consistently = inShare != null && inShare >= T.consistentlyStocked;
-  const rarely = inShare != null && seen && inShare <= T.rarelyStocked;
-  const veryRarely = inShare != null && seen && inShare <= T.veryRarelyStocked;
-  const neverSeen = stockKnown && !!k && k.in_stock_days === 0;
-  const onlyCurrent = stockKnown && !!k && k.in_stock_days > 0 && k.sellouts === 0;
-  const stockText = !k
-    ? "no stock observations (not in catalog)"
-    : !stockKnown
-      ? `only ${observed} observed days`
-      : `on shelves ${k.in_stock_days}/${observed} observed days (${pctStr(inShare!)})${k.stores_seen ? ` across ${k.stores_seen} stores` : ""}${k.sellouts ? `, sold out ${k.sellouts}×` : k.in_stock_days ? ", never seen selling out (may be a recent arrival)" : ""}`;
-  const insufficient = (candidate: RarityTier | null, reason: string): RarityOutcome => ({ kind: "insufficient", candidate, reason, score });
+  const dabsLabels: string[] = [];
+  if (status) dabsLabels.push(`status ${status}`);
+  if (isAllocatedLabel(status, className)) dabsLabels.push("allocated label");
+  if (/^SPECIAL ORDERS/i.test(className ?? "")) dabsLabels.push("special-orders class");
+  if (LIMITED_PACK.test(name)) dabsLabels.push("limited-edition/gift pack (name)");
+  if (s.seasonal) dabsLabels.push(`season: ${s.seasonal}`);
 
-  // Sales evidence.
-  if (!s.firstRecord) return insufficient(null, `no recorded sales in any report and not newly listed; ${stockText}`);
-  if (s.recordMonths12 < T.minRecordMonths) {
-    return insufficient(s.bottles12 > 0 ? salesCandidate(s) : null,
-      `new or short record (first record ${s.firstRecord}, ${s.recordMonths12} eligible months < ${T.minRecordMonths}); ${stockText}`);
-  }
-  if (s.bottles12 === 0) {
-    return insufficient(null, `no recorded sales in the last ${s.recordMonths12} months${s.lastSold ? ` (last ${s.lastSold})` : ""} — ending, between releases, or unsold; ${stockText}`);
-  }
-  const salesText = `sales in ${s.soldMonths12}/${s.recordMonths12} months, ${s.bottles12} bottles/12mo${s.top2Share12 != null ? `, top-2 months ${pctStr(s.top2Share12)}` : ""}`;
-  const candidate = salesCandidate(s);
+  const base = { facts, dabsLabels, notListed: !k };
+  const result = (label: ShopperLabel, tier: RarityTier | null, confidence: RarityResult["confidence"], access: string, reason: string): RarityResult =>
+    ({ label, tier, confidence, access, reason, ...base });
 
-  // Strong negative evidence decides: consistently on shelves → at most Uncommon.
-  if (consistently) {
-    const tier: RarityTier = candidate === "everyday" ? "everyday" : "uncommon";
-    return tierOutcome(tier, candidate, s, observed, k,
-      [salesText, `${stockText} — consistently on shelves${tier !== candidate ? `, so at most Uncommon` : ""}`]);
+  // Access method, strongest evidence first.
+  if (drawings?.length && latestDraw) {
+    const epb = latestDraw.entries != null && latestDraw.bottles ? latestDraw.entries / latestDraw.bottles : null;
+    const tier: RarityTier = epb != null && epb >= T.unicornEntriesPerBottle ? "unicorn" : "rare";
+    // Locator stock for a drawing product is shown as a fact only: it may be
+    // bottles held for winners, so it never makes the product "on shelves".
+    return result("DABS drawing", tier, "high",
+      `DABS drawing (verified by item code, ${drawings.length} drawing(s))`,
+      `${latestDraw.bottles ?? "?"} bottles offered to ${latestDraw.entries ?? "?"} entries in ${latestDraw.drawing}` +
+      (epb != null ? ` (${Math.round(epb)} entries per bottle ${tier === "unicorn" ? "≥" : "<"} ${T.unicornEntriesPerBottle})` : ""));
   }
-  if (s.bottlesAll < T.minEvidenceBottles) {
-    return insufficient(candidate, `${salesText}; too few recorded sales to judge (${s.bottlesAll} bottles in ${s.pattern16.split(" ").length} months); ${stockText}`);
-  }
-  if ((!k || neverSeen) && (/^SPECIAL ORDERS/i.test(label.className ?? "") || s.caseLotsOnly)) {
-    return insufficient(candidate, `${salesText}; ${s.caseLotsOnly ? "sold only in case-size lots" : "special-order class"} and never seen on shelves — likely special orders, not shelf scarcity; ${stockText}`);
-  }
+  if (status === "S") return result("Special order", null, null, "special order (DABS status S)", "orderable through DABS; no shelf tier");
+  if (status && WINDING_DOWN.has(status)) return result("Being discontinued", null, null, `DABS status ${status}`, "discontinued or unavailable soon; no tier");
 
-  const giftPack = GIFT_PACK.test(label.name);
-  const seasonalConfirmed = !!s.seasonal && /^(holiday product|summer-concentrated)/.test(s.seasonal);
-  const releasePattern = s.runsAll >= 2;
-  const why: string[] = [salesText];
-  let tier: RarityTier = candidate;
+  // Shelf evidence (season-aware).
+  const holidayItem = !!s.seasonal && /(holiday product|Nov–Dec)/.test(s.seasonal);
+  const inSeason = !holidayItem || input.holidayObserved;
+  const enoughDays = !!k && observed >= T.minObservedDays && inSeason;
+  const storesKnown = !!k && k.store_days >= T.minStoreDays && k.typical_stores != null;
+  const consistently = enoughDays && share! >= T.consistently;
+  const wide = storesKnown && k!.typical_stores! >= T.wideStores;
+  const shelfConfidence: RarityResult["confidence"] =
+    enoughDays && observed >= 45 && storesKnown ? "high" : enoughDays && storesKnown ? "medium" : "low";
 
-  if (seasonalConfirmed && s.bottles12 >= T.everydayVolume && TIER_ORDER.indexOf(candidate) > TIER_ORDER.indexOf("uncommon")) {
-    tier = "uncommon";
-    why.push(`seasonal (${s.seasonal}): ${s.bottles12} bottles in season — concentration reflects the season, not scarcity`);
-  } else if (candidate === "unicorn") {
-    if (releasePattern && veryRarely) {
-      why.push(`${s.runsAll} separate selling runs (release pattern)`, stockText);
-    } else if (releasePattern || veryRarely) {
-      tier = "rare";
-      why.push(
-        releasePattern ? `${s.runsAll} selling runs, but stock doesn't confirm (${stockText}${neverSeen ? " — never seen, weak evidence" : ""})` : `rarely on shelves (${stockText}) but only one selling run`,
-        "Unicorn needs both → Rare"
-      );
-    } else {
-      return insufficient(candidate, `${salesText}; low/concentrated sales alone (release? unpopular? ending?) — no repeated release pattern, and ${stockText}${neverSeen ? " (never seen: weak evidence)" : onlyCurrent ? " (only seen in its current stretch: may be a recent arrival)" : ""}`);
+  if (drop) {
+    if (consistently && wide) {
+      return result("Widely available", "everyday", shelfConfidence, "allocated drops, but also on shelves",
+        `appeared in ${drop.drops} allocated drop(s), yet in stock ${pctStr(share!)} of observed days at ~${k!.typical_stores} stores — shelf evidence wins`);
     }
-  } else if (candidate === "rare") {
-    if (releasePattern || veryRarely) why.push(releasePattern ? `${s.runsAll} separate selling runs` : "", stockText);
-    else return insufficient(candidate, `${salesText}; sporadic low sales alone — no release pattern, and ${stockText}${neverSeen ? " (never seen: weak evidence)" : onlyCurrent ? " (only seen in its current stretch: may be a recent arrival)" : ""}`);
-  } else if (candidate === "scarce") {
-    if (releasePattern || rarely) why.push(releasePattern ? `${s.runsAll} separate selling runs` : "", stockText);
-    else {
-      tier = "uncommon";
-      why.push(`intermittent sales not corroborated (${stockText}) → Uncommon`);
-    }
-  } else {
-    why.push(stockText);
-    // Regular sellers seldom on shelves: availability, not volume.
-    if (veryRarely) {
-      tier = "scarce";
-      why.push(`sells ${s.soldMonths12}/${s.recordMonths12} months but on shelves ≤${T.veryRarelyStocked * 100}% of observed days → Scarce`);
-    } else if (rarely && tier === "everyday") {
-      tier = "uncommon";
-      why.push(`sells every month but on shelves ≤${T.rarelyStocked * 100}% of observed days → Uncommon`);
-    }
+    const tier: RarityTier = drop.largestDropBottles <= T.rareDropBottles ? "rare" : "scarce";
+    return result("Allocated release", tier, "high", "DABS allocated drop (verified by exact name)",
+      `largest drop ${drop.largestDropBottles} bottles statewide (${tier === "rare" ? "≤" : ">"} ${T.rareDropBottles})` +
+      (enoughDays ? `; in stock ${pctStr(share!)} of observed days` : ""));
   }
-  if (giftPack && TIER_ORDER.indexOf(tier) > TIER_ORDER.indexOf("uncommon")) {
-    tier = "uncommon";
-    why.push("gift/value-added pack: the packaging is limited, not necessarily the bottle → at most Uncommon");
-  }
-  return tierOutcome(tier, candidate, s, observed, k, why);
 
-  function tierOutcome(t: RarityTier, c: RarityTier, sm: SalesMetrics, obs: number, st: StockMetrics | undefined, reasons: string[]): RarityOutcome {
-    let confidence: "high" | "medium" | "low" =
-      sm.recordMonths12 >= 12 && obs >= 45 && st?.has_store_data ? "high"
-      : sm.recordMonths12 >= 9 && obs >= T.minObservedDays ? "medium"
-      : "low";
-    // On shelves now in quantity while rated Rare+: the outage hides Aug–Sep, so it may be a recent arrival.
-    if (TIER_ORDER.indexOf(t) >= 3 && st?.in_stock_now && (st.stores_now >= 5 || (st.peak_shelf ?? 0) >= 100)) {
-      confidence = "low";
-      reasons.push(`on shelves now (${st.stores_now} stores, peak ${st.peak_shelf}) — possibly a recent arrival`);
-    }
-    return { kind: "tier", tier: t, candidate: c, confidence, reason: reasons.filter(Boolean).join("; "), score };
+  const access = "regular shelves";
+  if (!k) return result("Facts only", null, null, "not in the current catalog", "no shelf data and no verified drawing/drop");
+  if (!inSeason) {
+    return result("Not observed in season", null, null, access,
+      `holiday product; no observed days in Nov–Dec yet (${s.seasonal})`);
   }
-}
+  if (!enoughDays) return result("Facts only", null, null, access, `only ${observed} observed days (< ${T.minObservedDays})`);
 
-/** What sales alone suggest (volume × how many months sold × concentration). */
-function salesCandidate(s: SalesMetrics): RarityTier {
-  const share = s.soldShare12 ?? 0;
-  if (share >= T.regularShare) return s.bottles12 >= T.everydayVolume ? "everyday" : "uncommon";
-  if (share < T.sporadicShare) {
-    if (s.bottles12 <= T.unicornMaxVolume && (s.top2Share12 ?? 0) >= T.unicornConcentration) return "unicorn";
-    if (s.bottles12 < T.rareMaxVolume) return "rare";
-    return "uncommon";
+  if (share! >= T.consistently) {
+    if (!storesKnown) return result("Facts only", null, null, access, `in stock ${pctStr(share!)} of observed days, but store coverage unknown — can't tell wide from one store`);
+    return wide
+      ? result("Widely available", "everyday", shelfConfidence, access, `in stock ${pctStr(share!)} of observed days, typically at ${k.typical_stores} stores`)
+      : result("In stock at a few stores", "uncommon", shelfConfidence, access, `in stock ${pctStr(share!)} of observed days but typically at only ${k.typical_stores} store(s)`);
   }
-  return s.bottles12 < T.scarceMaxVolume ? "scarce" : "uncommon";
+  if (share! >= T.hardToFind) {
+    return result("Intermittently available", "uncommon", shelfConfidence, access, `in stock somewhere on ${pctStr(share!)} of observed days`);
+  }
+  // Rarely/never seen: needs evidence the bottle exists and moves.
+  const soldWhileWatched = input.observedMonths.filter((m) => (s.monthly.get(m) ?? 0) > 0).length;
+  if (k.sellouts > 0 || soldWhileWatched > 0) {
+    return result("Hard to find", "scarce", shelfConfidence, access,
+      `in stock on only ${pctStr(share!)} of observed days` +
+      (k.sellouts ? `; seen selling out ${k.sellouts}×` : "") +
+      (soldWhileWatched ? `; sales recorded in ${soldWhileWatched} month(s) we were watching` + (k.in_stock_days === 0 ? " though never seen in stock (gone between checks?)" : "") : ""));
+  }
+  return result("Facts only", null, null, access, `in stock ${pctStr(share!)} of observed days, no sellout seen and no sales while watched — may not be stocked at all`);
 }

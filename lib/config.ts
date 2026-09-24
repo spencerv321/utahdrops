@@ -12,6 +12,8 @@ export const DABS_PRODUCT_LIST_PAGE =
   "https://abs.utah.gov/shop-products/interactive-product-list/";
 export const DABS_SALES_ANALYSIS_PAGE =
   "https://abs.utah.gov/vendors/sales-analysis/";
+export const DABS_RHDP_URL =
+  "https://webapps2.abc.utah.gov/ProdApps/RareHighDemandProducts";
 
 /** Compliance: every inventory display must carry "as of" + official link. */
 export const DABS_DISCLAIMER =
