@@ -24,7 +24,7 @@ export async function rarityReport(sql: Sql) {
     out(`  Rare only if drops total ≤${T.rareDropTotalBottles} bottles AND ≤${T.rareMaxSales12} bottles sold in 12 months AND rarely on shelves (<${T.hardToFind * 100}%); else Scarce`);
     out(`Hard to find (<${T.hardToFind * 100}% of observed days, seen in stock at least once, plus a sellout or sales while watched) → Scarce`);
     out(`Intermittently available (${T.hardToFind * 100}–${T.consistently * 100}%) → Uncommon; ≥${T.consistently * 100}%: typically ≥${T.wideStores} stores → Everyday, fewer → Usually at a few stores (Uncommon)`);
-    out(`published = tier set AND confidence not low AND the DABS code has one name/vintage in the sales files`);
+    out(`published = tier set AND confidence not low AND (for Scarce and up) the DABS code has one name/vintage in the sales files`);
 
     head("coverage");
     out(`stock observations: ${cov.observedDays} of ${cov.spanDays} days (${cov.first} → ${cov.last}); Nov–Dec observed: ${cov.holidayObserved}`);

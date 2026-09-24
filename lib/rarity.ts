@@ -621,7 +621,10 @@ export function classifyRarity(input: {
     label: ShopperLabel, tier: RarityTier | null, confidence: RarityResult["confidence"],
     headline: string, explanation: string, reason: string
   ): RarityResult => {
-    const blockedBy = !tier ? null : identityIssue ? identityIssue : confidence === "low" ? "low confidence" : null;
+    // A reused code only blocks rarity claims (Scarce and up): shelf-based
+    // Everyday/Uncommon come from our observations of the current listing.
+    const identityBlocks = !!identityIssue && !!tier && TIER_ORDER.indexOf(tier) >= TIER_ORDER.indexOf("scarce");
+    const blockedBy = !tier ? null : identityBlocks ? identityIssue : confidence === "low" ? "low confidence" : null;
     return { label, tier, confidence, publish: !!tier && !blockedBy, blockedBy, headline, explanation, reason, ...base };
   };
 
