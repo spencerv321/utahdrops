@@ -11,6 +11,10 @@ interface MatchRow {
   name: string;
   event_type: string;
   detail: Record<string, unknown>;
+  created_at: Date;
+  /** Latest store-by-store observation for a store_restock event's store. */
+  store_qty_now: number | null;
+  store_checked_at: Date | null;
 }
 
 interface DropRow {
@@ -48,13 +52,19 @@ export async function runDigestJob() {
   if (busy.length) return { ok: true, detail: { skipped: "digest already running" } };
 
   return withRun("digest", async () => {
+    // Superseded events are skipped rather than sent in the present tense: a
+    // restock that has since sold out, a sell-out that has since come back, a
+    // store restock the latest check of that store no longer shows.
     const matches = await sql<MatchRow[]>`
-      select w.user_id, u.email, e.id as event_id, e.csc, p.name, e.event_type, e.detail
+      select w.user_id, u.email, e.id as event_id, e.csc, p.name, e.event_type, e.detail, e.created_at,
+             sc.qty as store_qty_now, sc.scraped_at as store_checked_at
       from inventory_events e
       join products p using (csc)
       join watchlist w using (csc)
       join auth.users u on u.id = w.user_id
       left join alert_prefs ap on ap.user_id = w.user_id
+      left join store_inventory_current sc
+        on e.event_type = 'store_restock' and sc.csc = e.csc and sc.store_id = (e.detail->>'store_id')::int
       where e.created_at > now() - ${LOOKBACK}::interval
         and e.created_at >= w.created_at
         and e.event_type <> 'allocated_drop'
@@ -66,6 +76,13 @@ export async function runDigestJob() {
               and us.store_id = (e.detail->>'store_id')::int
           )
         )
+        and (e.event_type <> 'restock' or (p.in_stock and not exists (
+          select 1 from inventory_events l
+          where l.csc = e.csc and l.event_type = 'out_of_stock' and l.created_at > e.created_at)))
+        and (e.event_type <> 'out_of_stock' or (not p.in_stock and not exists (
+          select 1 from inventory_events l
+          where l.csc = e.csc and l.event_type = 'restock' and l.created_at > e.created_at)))
+        and (e.event_type <> 'store_restock' or sc.qty > 0)
         and coalesce(ap.watchlist_email, true)
         and u.email is not null
         and not exists (
@@ -188,13 +205,16 @@ function digestHtml(rows: MatchRow[]): string {
       let line = "";
       switch (r.event_type) {
         case "restock":
-          line = `<strong>Back in stock</strong> — ${escapeHtml(d.qty ?? "?")} bottles statewide`;
+          line = `<strong>Back in stores</strong> — ${escapeHtml(d.qty ?? "?")} bottles statewide in DABS's ${seen(r.created_at)} update`;
           break;
-        case "store_restock":
-          line = `<strong>Back at ${escapeHtml(d.store_name)}</strong>${d.city ? ` (${escapeHtml(d.city)})` : ""} — ${escapeHtml(d.qty ?? "?")} bottle${d.qty === 1 ? "" : "s"}`;
+        case "store_restock": {
+          // Current count and check time for that store, not the count at the event.
+          const qty = r.store_qty_now ?? d.qty;
+          line = `<strong>At ${escapeHtml(d.store_name)}</strong>${d.city ? ` (${escapeHtml(d.city)})` : ""} — ${escapeHtml(qty ?? "?")} bottle${qty === 1 ? "" : "s"} when we checked ${seen(r.store_checked_at ?? r.created_at)}${d.prev_checked_at ? `; none there on ${day(d.prev_checked_at as string)}` : ""}`;
           break;
+        }
         case "out_of_stock":
-          line = `<strong>Out of stock</strong> statewide`;
+          line = `<strong>Sold out</strong> statewide in DABS's ${seen(r.created_at)} update`;
           break;
         case "price_change":
           line = `<strong>Price change</strong> — $${escapeHtml(d.old)} → $${escapeHtml(d.new)}`;
@@ -217,10 +237,20 @@ function digestHtml(rows: MatchRow[]): string {
       <h2>Your watchlist has updates</h2>
       <ul>${items}</ul>
       ${more}
-      <p style="color:#777;font-size:12px">Inventory data scraped from public Utah DABS pages.
-      Not affiliated with Utah DABS. Always confirm availability with the store.
+      <p style="color:#777;font-size:12px">From public Utah DABS pages: statewide counts update about 3 times a day,
+      store-by-store counts for watched bottles about twice a day. Stock can sell out between checks; call the
+      store before you drive. Not affiliated with Utah DABS.
       <a href="${SITE_URL}/watchlist?${UTM}">Manage alerts</a></p>
     </div>`;
+}
+
+const MT = "America/Denver";
+/** "Sep 24, 2:10 PM" in Mountain Time: when the observation behind a line was made. */
+function seen(date: Date | string): string {
+  return new Date(date).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: MT });
+}
+function day(date: Date | string): string {
+  return new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: MT });
 }
 
 function dropHtml(products: string[]): string {

@@ -4,10 +4,10 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { sql } from "@/lib/db";
 import { createClient, getCurrentUser } from "@/lib/supabase/server";
-import { MAX_HOME_STORES } from "@/lib/config";
-
-/** Watchlisted SKUs get scrape priority, so keep one account from hogging it. */
-const MAX_WATCHLIST = 50;
+import { headers } from "next/headers";
+import { MAX_HOME_STORES, MAX_WATCHLIST } from "@/lib/config";
+import { createWatchIntent } from "@/lib/watch-intent";
+import { clientIp, withinLimit } from "@/lib/rate-limit";
 
 const currentUser = getCurrentUser;
 
@@ -61,6 +61,30 @@ export async function toggleWatch(csc: string, watched: boolean) {
   revalidatePath(`/product/${parsed.data}`);
   revalidatePath("/watchlist");
   return { ok: true };
+}
+
+const WatchRequest = z.object({
+  email: z.string().trim().toLowerCase().email().max(254),
+  csc: Csc,
+  storeId: z.number().int().positive().nullable(),
+});
+
+/**
+ * A signed-out visitor asked to watch a bottle: save the request so the
+ * watch can be added after they verify their email (lib/watch-intent.ts).
+ * Returns the request id for the sign-in link; the client sends the link.
+ */
+export async function requestWatchSignIn(input: { email: string; csc: string; storeId: number | null }) {
+  const parsed = WatchRequest.safeParse(input);
+  if (!parsed.success) return { ok: false as const, error: "Enter a valid email address." };
+  const { email, csc, storeId } = parsed.data;
+  const ip = clientIp(await headers());
+  if (!(await withinLimit(`watch-intent:${email}`, 10, 3600)) || !(await withinLimit(`watch-intent-ip:${ip}`, 30, 3600))) {
+    return { ok: false as const, error: "Too many requests. Try again in an hour." };
+  }
+  const id = await createWatchIntent(email, csc, storeId);
+  if (!id) return { ok: false as const, error: "That bottle or store isn't available. Go back and try again." };
+  return { ok: true as const, id };
 }
 
 const Prefs = z.object({

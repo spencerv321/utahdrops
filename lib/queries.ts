@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { sql } from "@/lib/db";
 import { STORE_DATA_MAX_AGE_HOURS } from "@/lib/config";
+import { queryTokens, tokenPattern, type QueryToken } from "@/lib/search-key";
 
 export interface ProductRow {
   csc: string;
@@ -19,6 +20,8 @@ export interface ProductRow {
 export interface SearchFilters {
   q?: string;
   category?: string;
+  /** A broad group: any of these DABS categories (ignored when `category` is set). */
+  categoryGroup?: string[];
   status?: string;
   inStock?: boolean;
   maxPrice?: number;
@@ -31,36 +34,34 @@ export interface SearchFilters {
 
 const PAGE_SIZE = 50;
 
-/**
- * Mirrors products.search_name: drop apostrophes ("maker's" → "makers"), turn
- * other punctuation into spaces, lowercase. Returns search tokens.
- */
+/** Normalized query words (see lib/search-key.ts), e.g. for "is this a phrase?" checks. */
 export function searchTokens(q: string | undefined, max = 8): string[] {
-  return (q ?? "")
-    .toLowerCase()
-    .replace(/['’`]/g, "")
-    .replace(/[^a-z0-9.]+/g, " ")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, max);
+  return queryTokens(q, max).map((t) => t.raw);
 }
 
+/**
+ * Name search against products.search_key. Every word must appear in the
+ * name (or the DABS category, since names often omit the style). With the
+ * default sort, results are ranked by how well the name matches first, so
+ * "buffalo trace" leads with Buffalo Trace rather than whatever high-stock
+ * bottle mentions it; availability and location order bottles within a tier.
+ */
 export async function searchProducts(filters: SearchFilters) {
   const requested = Number.isFinite(filters.page) ? Number(filters.page) : 1;
   const page = Math.min(Math.max(0, requested - 1), 10_000);
-  const tokens = searchTokens(filters.q);
+  const tokens = queryTokens(filters.q);
 
   const where = sql`
     where true
-    ${tokens.length > 0
-      ? tokens.reduce(
-          // Names often omit the style ("WELLER 12YR"), so a word may match the category.
-          (acc, t) => sql`${acc} and (p.search_name like ${"%" + t + "%"} or lower(p.category) like ${"%" + t + "%"})`,
-          sql``
-        )
-      : sql``}
+    ${tokens.reduce(
+      (acc, t) => sql`${acc} and (${t.alts.reduce(
+        (any, a, i) => (i === 0 ? sql`p.search_key like ${"%" + a + "%"}` : sql`${any} or p.search_key like ${"%" + a + "%"}`),
+        sql``
+      )} or lower(p.category) like ${"%" + t.raw + "%"})`,
+      sql``
+    )}
     ${filters.category ? sql`and p.category = ${filters.category}` : sql``}
+    ${!filters.category && filters.categoryGroup ? sql`and p.category = any(${filters.categoryGroup})` : sql``}
     ${filters.status ? sql`and p.status = ${filters.status}` : sql``}
     ${filters.inStock ? sql`and p.in_stock` : sql``}
     ${filters.maxPrice ? sql`and p.current_price <= ${filters.maxPrice}` : sql``}
@@ -68,23 +69,44 @@ export async function searchProducts(filters: SearchFilters) {
   `;
 
   const nearStoreIds = filters.near && !filters.sort ? await storesWithin(filters.near) : [];
+  const nearFirst =
+    nearStoreIds.length > 0
+      ? sql`exists (select 1 from store_inventory_current c
+                    where c.csc = p.csc and c.qty > 0 and c.store_id = any(${nearStoreIds})
+                      and c.scraped_at > now() - make_interval(hours => ${STORE_DATA_MAX_AGE_HOURS})) desc,`
+      : sql``;
+
+  // Name-match tier: 0 = every word is a whole word of the name (or category),
+  // 1 = every word starts a word, 2 = substring matches only.
+  const every = (re: (t: QueryToken) => string) =>
+    tokens.reduce(
+      (acc, t, i) => {
+        const cond = sql`(p.search_key ~ ${re(t)} or lower(p.category) ~ ${re({ ...t, alts: [t.raw] })})`;
+        return i === 0 ? cond : sql`${acc} and ${cond}`;
+      },
+      sql``
+    );
+  const relevance =
+    tokens.length > 0
+      ? sql`case when ${every((t) => `\\m${tokenPattern(t)}\\M`)} then 0
+                 when ${every((t) => `\\m${tokenPattern(t)}`)} then 1 else 2 end asc,
+            -- special orders, unlisted and sold-out products DABS is phasing
+            -- out go after regular listings
+            (p.delisted_at is not null or coalesce(p.status, '') in ('N', 'S')
+             or coalesce(p.category, '') like 'SPECIAL ORDERS%'
+             or (coalesce(p.status, '') in ('U', 'X') and not p.in_stock)) asc,`
+      : sql``;
+  const phrase = tokens.map((t) => t.alts[t.alts.length - 1]).join(" ");
+  const startsWith = tokens.length > 0 ? sql`p.search_key like ${phrase + "%"} desc,` : sql``;
 
   const orderBy =
     filters.sort === "price_asc" ? sql`p.current_price asc nulls last`
     : filters.sort === "price_desc" ? sql`p.current_price desc nulls last`
     : filters.sort === "qty" ? sql`p.store_qty desc nulls last`
     : filters.sort === "name" ? sql`p.search_name asc`
-    // Best match: in-stock and widely stocked first, so the default list is
-    // bottles people can actually buy rather than A→Z punctuation noise. With
-    // an area, bottles on a shelf nearby lead (primary-key lookups against the
-    // handful of stores in range).
-    : nearStoreIds.length > 0
-      ? sql`p.in_stock desc,
-            exists (select 1 from store_inventory_current c
-                    where c.csc = p.csc and c.qty > 0 and c.store_id = any(${nearStoreIds})
-                      and c.scraped_at > now() - make_interval(hours => ${STORE_DATA_MAX_AGE_HOURS})) desc,
-            p.store_qty desc nulls last, p.search_name asc`
-      : sql`p.in_stock desc, p.store_qty desc nulls last, p.search_name asc`;
+    // Best match: the closest names, then bottles people can actually buy
+    // (on a shelf nearby first when an area is picked), widely stocked first.
+    : sql`${relevance} p.in_stock desc, ${nearFirst} ${startsWith} p.store_qty desc nulls last, p.search_name asc`;
 
   const rows = (await sql`
     select p.csc, p.name, p.category, p.status, p.size_ml, p.current_price::text,

@@ -41,7 +41,7 @@ export default async function Image() {
               DABS’s rarest bottles, at select stores.
             </div>
             <div style={{ display: "flex", fontSize: 28, color: C.brandMuted, marginTop: 18 }}>
-              Get the list by email the moment it posts.
+              Get the list by email when it posts.
             </div>
           </div>
         </div>

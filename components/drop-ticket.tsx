@@ -68,7 +68,7 @@ export async function DropTicket({
           <p className={cn("leading-snug text-brand-foreground/95", large ? "text-base" : "text-[15px]")}>
             {explain
               ? "DABS\u2019s rarest bottles (think Blanton\u2019s) go to select stores. The list posts about a week before."
-              : "The list of bottles and stores posts about a week before. Turn on alerts and we\u2019ll email it the minute it does."}
+              : "The list of bottles and stores posts about a week before. Turn on alerts and we\u2019ll email you when it does (we check DABS twice a day)."}
           </p>
         )}
         {listPosted(listSize) ? (

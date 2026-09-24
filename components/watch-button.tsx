@@ -7,7 +7,10 @@ import { toast } from "sonner";
 import { toggleWatch } from "@/app/actions";
 import { cn } from "@/lib/utils";
 
-/** The product page's big watch toggle. Signed-out visitors sign in first. */
+/**
+ * The product page's big watch toggle. Signed-out visitors go to a sign-in
+ * that remembers this bottle and adds the watch once they verify.
+ */
 export function WatchButton({
   csc,
   initialWatched,
@@ -35,7 +38,7 @@ export function WatchButton({
       )}
       onClick={() => {
         if (!signedIn) {
-          router.push(`/login?next=/product/${csc}`);
+          router.push(`/login?watch=${csc}`);
           return;
         }
         const next = !watched;

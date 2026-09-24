@@ -8,6 +8,77 @@ config({ path: ".env.local", quiet: true });
  */
 const show0 = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0)}`);
 
+/**
+ * Are watched bottles as fresh as we say? Store-check capacity, watched-bottle
+ * freshness against the target, overdue and failing checks, and how far the
+ * ordinary rotation reaches. Counts and product codes only; no user data.
+ */
+async function freshness(sql: typeof import("../lib/db").sql) {
+  const { WATCH_SHARE, WATCH_TARGET_HOURS } = await import("../lib/jobs/store-inventory");
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  // Rates over the time actually covered (up to 7 days), not a fixed week.
+  const [cap] = await sql<{ runs: number; ok: number; scraped: number; failed: number; watched_targets: number; days: number }[]>`
+    select greatest(extract(epoch from now() - min(started_at)) / 86400, 0.25)::float8 as days,
+           count(*)::int as runs, count(*) filter (where ok)::int as ok,
+           coalesce(sum((detail->>'scraped')::int), 0)::int as scraped,
+           coalesce(sum((detail->>'failed')::int), 0)::int as failed,
+           coalesce(sum((detail->>'watched_targets')::int), 0)::int as watched_targets
+    from scrape_runs where job = 'store_inventory' and started_at > now() - interval '7 days'`;
+  const [counts] = await sql<{ watched: number; in_stock: number }[]>`
+    select (select count(distinct csc)::int from watchlist) as watched,
+           (select count(*)::int from products where in_stock and delisted_at is null) as in_stock`;
+  const days = Math.min(7, cap.days ?? 7);
+  const perDay = cap.scraped / days;
+  const watchedPerDay = Math.min(counts.watched * (24 / WATCH_TARGET_HOURS), perDay * WATCH_SHARE);
+  show("capacity (store runs, last 7 days or since the first run in that window)", [{
+    ...cap,
+    days_covered: +days.toFixed(1),
+    runs_per_day: +(cap.runs / days).toFixed(1),
+    checks_per_day: Math.round(perDay),
+    distinct_watched_products: counts.watched,
+    watched_checks_needed_per_day: Math.round(counts.watched * (24 / WATCH_TARGET_HOURS)),
+    watched_slots_per_run: `${Math.round(WATCH_SHARE * 100)}% of budget`,
+    in_stock_products: counts.in_stock,
+    est_full_rotation_days: perDay > watchedPerDay ? +(counts.in_stock / (perDay - watchedPerDay)).toFixed(1) : null,
+  }]);
+  show(`watched bottles by last successful store check (target ${WATCH_TARGET_HOURS}h)`, await sql`
+    select case when p.store_checked_at is null then 'never'
+                when p.store_checked_at > now() - make_interval(hours => ${WATCH_TARGET_HOURS}) then 'on target'
+                when p.store_checked_at > now() - interval '24 hours' then '12-24h'
+                when p.store_checked_at > now() - interval '72 hours' then '1-3 days'
+                else 'over 3 days' end as age,
+           count(*)::int as products
+    from products p where p.csc in (select csc from watchlist) group by 1 order by 1`);
+  show("overdue watched bottles (no successful check in 24h)", await sql`
+    select p.csc, p.name, p.in_stock, p.store_checked_at, p.last_store_scrape as last_attempt,
+           p.store_check_failures as failures, p.store_retry_at as next_retry
+    from products p where p.csc in (select csc from watchlist)
+      and coalesce(p.store_checked_at, 'epoch') < now() - interval '24 hours'
+    order by p.store_checked_at asc nulls first limit 25`);
+  show("failing checks (consecutive failures > 0)", await sql`
+    select count(*)::int as products,
+           count(*) filter (where csc in (select csc from watchlist))::int as watched,
+           count(*) filter (where store_retry_at > now())::int as backing_off
+    from products where store_check_failures > 0`);
+  show("baseline coverage: in-stock products by last successful store check", await sql`
+    select case when store_checked_at is null then 'never'
+                when store_checked_at > now() - interval '1 day' then '< 1 day'
+                when store_checked_at > now() - interval '3 days' then '1-3 days'
+                when store_checked_at > now() - interval '7 days' then '3-7 days'
+                else 'over 7 days (shown as unknown)' end as age,
+           count(*)::int as products
+    from products where in_stock and delisted_at is null group by 1 order by 1`);
+  show("statewide catalog passes (last 48h)", await sql`
+    select started_at, finished_at, ok, detail->'events' as events, detail->'reason' as suppressed_reason
+    from scrape_runs where job = 'catalog' and started_at > now() - interval '48 hours' order by started_at desc`);
+  show("alert events last 48h (sent = delivered to at least one watcher)", await sql`
+    select e.event_type, count(*)::int as events,
+           count(*) filter (where exists (select 1 from alert_deliveries d where d.event_id = e.id))::int as sent
+    from inventory_events e where e.created_at > now() - interval '48 hours'
+    group by 1 order by 2 desc`);
+  return sql.end();
+}
+
 async function main() {
   // These modes must work even when the session pooler (5432) is full, so go
   // through the transaction pooler (6543), which has its own client limit.
@@ -55,12 +126,12 @@ async function main() {
   if (process.argv[2]?.startsWith("storediag")) {
     // Per-store history for one product ("storediag:038176"): rows per day, current rows, rotation.
     const csc = process.argv[2].split(":")[1] ?? process.argv[3] ?? "018006";
-    show0("product", await sql`select csc, name, status, in_stock, store_qty, last_store_scrape, first_seen, last_seen, delisted_at from products where csc = ${csc}`);
+    show0("product", await sql`select csc, name, status, in_stock, store_qty, last_store_scrape, store_checked_at, store_check_failures, store_retry_at, first_seen, last_seen, delisted_at from products where csc = ${csc}`);
     show0("history rows total", await sql`select count(*)::int as rows, min(scraped_at) as first, max(scraped_at) as last from store_inventory where csc = ${csc}`);
     show0("rotation position (targets ahead of it)", await sql`
       select count(*)::int as ahead from products p
       where (p.in_stock or exists (select 1 from watchlist w where w.csc = p.csc))
-        and coalesce(p.last_store_scrape, 'epoch') < (select coalesce(last_store_scrape, 'epoch') from products where csc = ${csc})`);
+        and coalesce(p.store_checked_at, 'epoch') < (select coalesce(store_checked_at, 'epoch') from products where csc = ${csc})`);
     const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
     show("current", await sql`select count(*)::int as rows, count(*) filter (where qty > 0)::int as stocked, min(scraped_at) as oldest, max(scraped_at) as newest from store_inventory_current where csc = ${csc}`);
     show("history rows by day", await sql`
@@ -89,6 +160,13 @@ async function main() {
         and not exists (select 1 from store_inventory s where s.csc = p.csc and s.scraped_at < '2026-08-14')
       order by store_qty desc limit 15`);
     return sql.end();
+  }
+  if (process.argv[2] === "freshness") return freshness(sql);
+  if (process.argv[2] === "searchcheck") {
+    const { runSearchCheck } = await import("./search-check");
+    const ok = await runSearchCheck();
+    await sql.end();
+    process.exit(ok ? 0 : 1);
   }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
   if (process.argv[2] === "conns" || process.argv[2] === "auth") {

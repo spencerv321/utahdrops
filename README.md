@@ -48,6 +48,9 @@ GitHub Actions secrets: `DATABASE_URL`, `DABS_CONTACT_EMAIL`, `CRON_SECRET`.
 
 Run any job locally with `npx tsx scripts/scrape.ts <job>`.
 
+Tests: `pnpm test` (pure, runs in CI) and `pnpm test:db` (needs a local
+Postgres with the catalog loaded, see CLAUDE.md; never sends email).
+
 | Job | Where it runs in prod | Schedule (UTC) |
 |---|---|---|
 | `catalog` | `.github/workflows/catalog.yml` (in the runner) | 06, 14, 22:00 |
@@ -72,6 +75,34 @@ the `rarity` job writes `product_rarity`, and product pages show a badge
 `rarity_overrides` (tier, or null to hide the badge, plus a note and review
 date); they win over the computed tier. Dispatch `report.yml` with `rarity` to
 review what the job would publish.
+
+**Search** matches `products.search_key`, a normalized copy of the DABS name
+(`public.search_key()` in SQL, mirrored by `lib/search-key.ts`): apostrophes
+dropped, initials joined (E.H. → eh), numbers split off (12YR → 12 yr), and an
+explicit list of DABS abbreviations and brand aliases (SNGL → single,
+BLANTONS → blanton). Results rank by name match first, then availability and
+location. `scripts/search-check.ts` (or `report.yml` → `searchcheck`) runs the
+regression set of real bottles and checks the SQL/TS normalizers agree. The
+category filter is a two-level view (`lib/categories.ts`) over the unchanged
+DABS categories: `?group=vodka` for a type, `?category=` for one DABS category.
+
+**Watching while signed out**: the Watch button sends visitors to
+`/login?watch=<code>`, where they pick "anywhere in Utah" or "also at my store"
+and enter an email. The request is saved in `watch_intents`; the sign-in link
+carries only its id and lands on `/watch/confirm`, which adds the watch (and
+home store) once, for the account with that email, within 24h
+(`lib/watch-intent.ts`). Home stores add store alerts on top of statewide
+ones; nothing suppresses statewide alerts.
+
+**Freshness**: statewide counts come from the catalog pass (3×/day). Each
+store pass (scheduled every 6h, ~2/day actually run; 300 SKUs) reserves up to 40% of its budget for watched
+bottles not checked in 4h, then rotates everything else in stock oldest-first.
+Products keep `last_store_scrape` (last attempt), `store_checked_at` (last
+success) and a failure backoff (`store_retry_at`: 6h → 72h). The digest skips
+superseded events (a restock that has sold out again, a store restock the
+latest check contradicts) and dates every line. `report.yml` → `freshness`
+shows capacity, watched-bottle freshness, overdue and failing checks, and
+baseline coverage.
 
 Store-by-store counts older than 7 days (`STORE_DATA_MAX_AGE_HOURS`) are
 treated as unknown everywhere: near-me counts and ordering, AI search, and the

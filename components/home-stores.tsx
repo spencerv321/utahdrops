@@ -44,8 +44,8 @@ export function HomeStores({ stores, selected }: { stores: StoreOption[]; select
       <div className="space-y-1">
         <h2 className="font-display text-[2rem] leading-none sm:text-4xl">Your stores</h2>
         <p className="text-sm text-muted-foreground">
-          Pick up to {MAX_HOME_STORES} stores you shop at. Product pages show them first, and your
-          alerts say when a bottle is back at one of them.
+          Pick up to {MAX_HOME_STORES} stores you shop at. Product pages show them first, and you&apos;ll also
+          get an email when a bottle you watch is back at one of them. Statewide alerts keep coming either way.
         </p>
       </div>
 

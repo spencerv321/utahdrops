@@ -11,7 +11,7 @@ import { SearchControls } from "@/components/search-controls";
 import { ProductList } from "@/components/product-list";
 import { AskResults } from "@/components/nl-search";
 import { looksLikeQuestion, roughQuery } from "@/lib/nl/intent";
-import { categoryLabel } from "@/lib/format";
+import { categoryFilterLabel, groupBySlug, groupOf } from "@/lib/categories";
 import { STATUS_LABELS } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +19,7 @@ export const dynamic = "force-dynamic";
 interface SearchParams {
   q?: string;
   category?: string;
+  group?: string;
   status?: string;
   instock?: string;
   sale?: string;
@@ -46,9 +47,12 @@ export default async function SearchPage({
 }) {
   const params = await searchParams;
   const q = typeof params.q === "string" ? params.q.trim() : "";
-  const area = await getArea();
+  const [area, categories] = await Promise.all([getArea(), getCategories()]);
+  // ?group= is a broad type ("vodka"); ?category= (a DABS category) narrows it.
+  const group = groupBySlug(params.group);
   const filters = {
     category: params.category,
+    categoryGroup: group ? categories.filter((c) => groupOf(c)?.slug === group.slug) : undefined,
     status: params.status,
     inStock: params.instock === "1",
     sale: params.sale === "1",
@@ -57,9 +61,8 @@ export default async function SearchPage({
     page: parseInt(params.page ?? "1", 10) || 1,
     near: area ? { lat: area.lat, lng: area.lng, miles: NEARBY_MILES } : undefined,
   };
-  const [exact, categories, user, areas] = await Promise.all([
+  const [exact, user, areas] = await Promise.all([
     searchProducts({ q, ...filters }),
-    getCategories(),
     getCurrentUser(),
     getAreaOptions(),
   ]);
@@ -108,11 +111,24 @@ export default async function SearchPage({
     );
     return `/search?${next.toString()}`;
   };
+  // Removing a style keeps its broad type ("Imported vodka" → "Vodka").
+  function categoryUp(category: string) {
+    const next = new URLSearchParams(
+      Object.entries(params).filter(([k, v]) => typeof v === "string" && k !== "category" && k !== "page") as [string, string][]
+    );
+    const g = groupOf(category);
+    if (g && g.slug !== "other") next.set("group", g.slug);
+    return `/search?${next.toString()}`;
+  }
   const pills = [
-    params.category ? { key: "category", label: categoryLabel(params.category) } : null,
+    params.category
+      ? { key: "category", label: categoryFilterLabel(params.category), href: categoryUp(params.category) }
+      : group
+        ? { key: "group", label: group.label }
+        : null,
     filters.maxPrice ? { key: "max", label: `Under $${filters.maxPrice}` } : null,
     params.status ? { key: "status", label: `DABS listing: ${STATUS_LABELS[params.status] ?? params.status}` } : null,
-  ].filter((p): p is { key: string; label: string } => !!p);
+  ].filter((p): p is { key: string; label: string; href?: string } => !!p);
 
   return (
     <div className="space-y-5 pt-1">
@@ -122,7 +138,7 @@ export default async function SearchPage({
         autoFocus={!q && pills.length === 0}
         areas={areas}
         area={area}
-        hidden={{ category: params.category, instock: params.instock, sale: params.sale, max: params.max, sort: params.sort }}
+        hidden={{ category: params.category, group: params.group, instock: params.instock, sale: params.sale, max: params.max, sort: params.sort }}
       />
       <div className="space-y-3">
         <Suspense>
@@ -133,7 +149,7 @@ export default async function SearchPage({
             {pills.map((p) => (
               <Link prefetch={false}
                 key={p.key}
-                href={without(p.key)}
+                href={p.href ?? without(p.key)}
                 aria-label={`Remove filter: ${p.label}`}
                 className="inline-flex min-h-9 items-center gap-1 rounded-md bg-raised px-2.5 hover:bg-card"
               >
@@ -161,7 +177,7 @@ export default async function SearchPage({
               : q
                 ? `${results.total.toLocaleString()} match${results.total === 1 ? "" : "es"} for “${q}”`
                 : `${results.total.toLocaleString()} bottles`}
-            {params.sort ? "" : area ? ` · ${nearLabel(area)} first` : " · in stock first"}
+            {params.sort ? "" : q ? " · best match first" : area ? ` · ${nearLabel(area)} first` : " · in stock first"}
             {totalPages > 1 ? ` · page ${results.page} of ${totalPages.toLocaleString()}` : ""}
           </p>
           {results.rows.length === 0 ? (
