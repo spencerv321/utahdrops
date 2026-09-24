@@ -9,6 +9,7 @@ config({ path: ".env.local", quiet: true });
 async function main() {
   const { sql } = await import("../lib/db");
   if (process.argv[2] === "perf") return perf(sql);
+  if (process.argv[2] === "activity") return activity(sql);
   const hours = Number(process.argv[2] ?? 6);
   const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 1)}`);
 
@@ -128,3 +129,36 @@ async function perf(sql: typeof import("../lib/db").sql) {
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
+
+/** What the database is doing right now: running/waiting queries, blockers, timeouts. */
+async function activity(sql: typeof import("../lib/db").sql) {
+  console.log("## timeouts");
+  console.log(await sql`
+    select r.rolname, r.rolconfig from pg_roles r
+    where r.rolname in ('postgres', 'authenticator', 'anon', 'authenticated', 'service_role')`);
+  console.log(await sql`show statement_timeout`);
+  const site = process.env.SITE ?? "https://utahdrops.com";
+  for (let round = 0; round < 6; round++) {
+    // Load a few pages (not awaited) so there is live traffic to look at.
+    for (const p of ["/", "/search?q=weller", "/drops", "/whats-new"])
+      fetch(site + p, { signal: AbortSignal.timeout(20_000) }).catch(() => {});
+    await new Promise((r) => setTimeout(r, 4_000));
+    console.log(`\n## round ${round + 1}: pg_stat_activity (non-idle)`);
+    const rows = await sql`
+      select pid, usename, application_name, state, wait_event_type, wait_event,
+             round(extract(epoch from now() - query_start)::numeric, 1) as secs,
+             round(extract(epoch from now() - xact_start)::numeric, 1) as xact_secs,
+             pg_blocking_pids(pid) as blocked_by, left(regexp_replace(query, '\\s+', ' ', 'g'), 160) as query
+      from pg_stat_activity
+      where datname = current_database() and pid <> pg_backend_pid()
+        and state is distinct from 'idle'
+      order by query_start nulls last`;
+    for (const r of rows) console.log(JSON.stringify(r));
+    const [c] = await sql`
+      select count(*)::int as total, count(*) filter (where state = 'idle')::int as idle,
+             count(*) filter (where state = 'idle in transaction')::int as idle_in_tx
+      from pg_stat_activity where datname = current_database()`;
+    console.log("connections:", JSON.stringify(c));
+  }
+  await sql.end();
+}
