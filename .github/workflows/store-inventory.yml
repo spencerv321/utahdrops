@@ -44,3 +44,17 @@ jobs:
           STORE_SCRAPE_BUDGET: ${{ github.event.inputs.budget || '300' }}
           NODE_ENV: production
         run: pnpm exec tsx scripts/scrape.ts store-inventory
+
+      # Send alerts for this pass's events now, instead of waiting on the
+      # hourly digest schedule (which GitHub often skips or delays).
+      - name: Send digest
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          code=$(curl -sS -m 300 -o /tmp/out.json -w "%{http_code}" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            https://utahdrops.com/api/cron/digest)
+          echo "HTTP $code"
+          cat /tmp/out.json || true
+          echo
+          [ "$code" = "200" ] || { echo "::error::digest failed with HTTP $code"; exit 1; }

@@ -33,10 +33,15 @@ export const STATUS_LABELS: Record<string, string> = {
 /** Home stores per user for "back at my store" alerts. */
 export const MAX_HOME_STORES = 3;
 
-/** Oldest acceptable last success per job, in hours (/api/health, /admin). */
+/**
+ * Oldest acceptable last success per job, in hours (/api/health, /admin).
+ * GitHub's scheduler often skips or delays "hourly" runs by several hours, so
+ * digest also runs right after each catalog / store-inventory pass; 8h leaves
+ * room for that without paging on GitHub's gaps.
+ */
 export const JOB_MAX_AGE_HOURS: Record<string, number> = {
   catalog: 12,
   store_inventory: 18,
   allocated: 24,
-  digest: 4,
+  digest: 8,
 };

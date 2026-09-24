@@ -10,7 +10,7 @@ on:
     - cron: "15 13,23 * * *"   # allocated       — 2×/day
     - cron: "0 18 2 * *"       # xlsx            — monthly, 2nd at 18:00
     - cron: "0 7 * * *"        # percentiles     — nightly
-    - cron: "5 * * * *"        # digest          — hourly at :05
+    - cron: "23 * * * *"       # digest          — hourly at :23 (off-peak minute; GitHub drops many top-of-hour runs)
   # NOTE: catalog and store-inventory are NOT here — they run natively in
   # catalog.yml / store-inventory.yml (too slow for a serverless function).
   workflow_dispatch:
@@ -43,7 +43,7 @@ jobs:
             "15 13,23 * * *")  JOB=allocated ;;
             "0 18 2 * *")      JOB=xlsx ;;
             "0 7 * * *")       JOB=percentiles ;;
-            "5 * * * *")       JOB=digest ;;
+            "23 * * * *")      JOB=digest ;;
             *)                 JOB="${{ github.event.inputs.job }}" ;;
           esac
           if [ -z "$JOB" ]; then echo "::error::could not resolve job"; exit 1; fi
