@@ -46,6 +46,18 @@ export function isFreshStoreCheck(checkedAt: Date | string | null | undefined, n
   return now - new Date(checkedAt).getTime() <= STORE_DATA_MAX_AGE_HOURS * 3600_000;
 }
 
+/**
+ * What we promise about refresh speed, in one place. Statewide counts come
+ * from the catalog pass (3×/day, catalog.yml); store-by-store counts for
+ * watched bottles from every store pass (every 6h, store-inventory.yml, with
+ * a reserved share of each run). Check against report.yml → freshness.
+ */
+export const WATCH_REFRESH_NOTE =
+  "We check statewide stock about 3 times a day, and store-by-store stock for watched bottles about every 6 to 12 hours.";
+
+/** Watchlisted SKUs get scrape priority, so keep one account from hogging it. */
+export const MAX_WATCHLIST = 50;
+
 /** Home stores per user for "back at my store" alerts. */
 export const MAX_HOME_STORES = 3;
 

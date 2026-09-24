@@ -54,7 +54,7 @@ function filtersFrom(parsed: ParsedQuery) {
           .map((t) => searchTokens(t, 6).join(" "))
           .filter(Boolean)
           .reduce(
-            (acc, t) => sql`${acc} and p.search_name like ${"%" + t + "%"}`,
+            (acc, t) => sql`${acc} and p.search_key like ${"%" + t + "%"}`,
             sql``
           )
       : sql``}

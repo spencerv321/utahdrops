@@ -1,6 +1,6 @@
 # Utah Drops — status
 
-_Last updated: 2026-09-24_
+_Last updated: 2026-09-24 (journey PR)_
 
 **Production is healthy.** utahdrops.com refreshes several times a day; all
 scheduled workflows are enabled; `/api/health` is green.
@@ -84,6 +84,19 @@ scheduled workflows are enabled; `/api/health` is green.
   `report.yml` → `storecoverage` after Sep 28. Popular bottles get ratings
   ~10 in-stock days after their first store check.
 - Next: get people onto rated bottle pages; read the feedback notes.
+
+## Bottle-hunting journey (PR "find → watch → alert", 2026-09-24)
+- Search: normalized `search_key` + aliases/abbreviations + name-first
+  ranking. "Blanton's" now finds the standard Single Barrel first (was: two
+  special orders); "EH Taylor", "eagle rare 10 year" now match (were 0).
+- Category filter: Type → Style instead of one long list; old `?category=`
+  links and homepage shortcuts unchanged.
+- Signed-out Watch keeps the bottle (and optional store) through sign-in and
+  adds it after the email link; confirmation on the product page.
+- Store job: reserved watched-bottle share, attempt vs success timestamps,
+  failure backoff; digest drops superseded events and dates each line.
+- Still to prove in production: a real first-time sign-in through the watch
+  flow (owner test), and `report.yml` → `freshness` after a few store runs.
 
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of

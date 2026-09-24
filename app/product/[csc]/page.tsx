@@ -30,17 +30,19 @@ import {
   productKind,
   productTitle,
   sizeLabel,
+  storeLabel,
   unitWord,
   whenLabel,
 } from "@/lib/format";
 import { BottleGlyph } from "@/components/bottle-glyph";
 import { Check } from "lucide-react";
-import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, isFreshStoreCheck } from "@/lib/config";
+import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ csc: string }>;
+  searchParams: Promise<{ watch?: string; store?: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -54,8 +56,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params, searchParams }: Props) {
   const { csc } = await params;
+  const { watch: watchResult, store: storeResult } = await searchParams;
   const [product, history, stores, events, user, rarity] = await Promise.all([
     getProduct(csc),
     getProductHistory(csc),
@@ -66,7 +69,15 @@ export default async function ProductPage({ params }: Props) {
   ]);
   if (!product) notFound();
 
-  const [watchedSet, homeIds] = await Promise.all([getWatchedSet(user?.id, [csc]), getUserStoreIds(user?.id)]);
+  const [watchedSet, homeIds, watchEmailOn] = await Promise.all([
+    getWatchedSet(user?.id, [csc]),
+    getUserStoreIds(user?.id),
+    user
+      ? (sql`select watchlist_email from alert_prefs where user_id = ${user.id}` as unknown as Promise<
+          { watchlist_email: boolean }[]
+        >).then((r) => r[0]?.watchlist_email ?? true)
+      : Promise.resolve(true),
+  ]);
   const homeStores =
     homeIds.length > 0
       ? ((await sql`select id, name, city from stores where id = any(${homeIds})`) as unknown as HomeStore[])
@@ -112,6 +123,17 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="space-y-10 pt-2 sm:pt-6">
+      {user && watchResult ? (
+        <WatchConfirmation
+          result={watchResult}
+          storeResult={storeResult}
+          name={name}
+          watching={watchedSet.has(csc)}
+          email={user.email ?? null}
+          homeStores={homeStores}
+          emailsOn={watchEmailOn}
+        />
+      ) : null}
       <script
         type="application/ld+json"
         // Escape "<" so product text can never close the script tag.
@@ -177,8 +199,14 @@ export default async function ProductPage({ params }: Props) {
           <div className="space-y-2 border-t pt-4">
             <WatchButton csc={csc} initialWatched={watchedSet.has(csc)} signedIn={!!user} />
             <p className="text-[13px] leading-relaxed text-muted-foreground">
-              We check DABS several times a day and email you when it&apos;s back in stores, sells out, or changes
-              price. At most one email an hour.
+              {watchedSet.has(csc)
+                ? `We'll email you when DABS shows it back in stores anywhere in Utah${
+                    homeStores.length > 0
+                      ? `, or back at ${homeStores.map((h) => storeLabel(h.name, h.city).title).join(", ")}`
+                      : ""
+                  }, and if it sells out or changes price. `
+                : "Get an email when it's back in stores, sells out, or changes price. "}
+              {WATCH_REFRESH_NOTE}
             </p>
           </div>
           <p className="text-xs text-subtle-foreground">
@@ -356,6 +384,80 @@ export default async function ProductPage({ params }: Props) {
         </a>
         , before you drive.
       </p>
+    </div>
+  );
+}
+
+/**
+ * After a "watch this bottle" sign-in (app/watch/confirm): what was set up, in
+ * plain words. Success is shown only when the watch really exists.
+ */
+function WatchConfirmation({
+  result,
+  storeResult,
+  name,
+  watching,
+  email,
+  homeStores,
+  emailsOn,
+}: {
+  result: string;
+  storeResult?: string;
+  name: string;
+  watching: boolean;
+  email: string | null;
+  homeStores: HomeStore[];
+  emailsOn: boolean;
+}) {
+  const stores = homeStores.map((s) => storeLabel(s.name, s.city).title);
+  const storeText =
+    stores.length === 0 ? "" : stores.length === 1 ? stores[0] : `${stores.slice(0, -1).join(", ")} or ${stores[stores.length - 1]}`;
+  const box = "space-y-1.5 rounded-lg border px-4 py-3.5 text-[15px] leading-relaxed";
+
+  if ((result === "added" || result === "already") && watching) {
+    return (
+      <div role="status" className={`${box} border-success/40`}>
+        <p className="font-medium text-success">You&apos;re watching {name}.</p>
+        <p>
+          We&apos;ll email {email ?? "you"} when DABS shows it back in stores anywhere in Utah
+          {storeText ? `, and when it's back at ${storeText}` : ""}.
+        </p>
+        {storeResult === "full" ? (
+          <p className="text-muted-foreground">
+            You already have 3 stores, so we didn&apos;t add another.{" "}
+            <Link prefetch={false} href="/watchlist" className="text-foreground underline underline-offset-4">
+              Change your stores
+            </Link>
+          </p>
+        ) : null}
+        {!emailsOn ? (
+          <p className="text-warning">
+            Watchlist emails are turned off for your account.{" "}
+            <Link prefetch={false} href="/watchlist" className="underline underline-offset-4">
+              Turn them on
+            </Link>
+          </p>
+        ) : null}
+        <p className="text-sm text-muted-foreground">
+          <Link prefetch={false} href="/watchlist" className="underline underline-offset-4">
+            Manage your watchlist
+          </Link>
+        </p>
+      </div>
+    );
+  }
+
+  const why =
+    result === "full"
+      ? "your watchlist is full (50 bottles). Remove one on your watchlist, then tap Watch this bottle."
+      : result === "expired"
+        ? "that watch request is more than a day old. Tap Watch this bottle below to add it now."
+        : result === "mismatch"
+          ? `this watch was requested for a different email than ${email ?? "this account"}. Tap Watch this bottle below to add it here.`
+          : "we couldn't add the watch. Tap Watch this bottle below to try again.";
+  return (
+    <div role="alert" className={`${box} border-warning/50`}>
+      <p className="font-medium">You&apos;re signed in, but {why}</p>
     </div>
   );
 }

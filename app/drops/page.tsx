@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Allocated & rare drops",
   description:
-    "Utah DABS third-Saturday allocated drop tracker — current list, store assignments, and email alerts the moment the list posts.",
+    "Utah DABS third-Saturday allocated drop tracker — current list, store assignments, and email alerts when the list posts.",
 };
 
 const dateLabel = (iso: string, opts: Intl.DateTimeFormatOptions) =>

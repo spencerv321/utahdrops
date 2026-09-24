@@ -6,6 +6,7 @@ import { sql } from "@/lib/db";
 import { ProductList } from "@/components/product-list";
 import { AlertPrefs } from "@/components/alert-prefs";
 import { HomeStores, type StoreOption } from "@/components/home-stores";
+import { WATCH_REFRESH_NOTE } from "@/lib/config";
 import type { ProductRow } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
@@ -15,9 +16,9 @@ export const metadata: Metadata = { title: "Watchlist" };
 export default async function WatchlistPage({
   searchParams,
 }: {
-  searchParams: Promise<{ welcome?: string }>;
+  searchParams: Promise<{ welcome?: string; watch?: string }>;
 }) {
-  const { welcome } = await searchParams;
+  const { welcome, watch } = await searchParams;
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/watchlist");
 
@@ -48,9 +49,16 @@ export default async function WatchlistPage({
       <section className="space-y-2 pt-2 sm:pt-6">
         <h1 className="text-5xl leading-none sm:text-6xl">Your watchlist</h1>
         <p className="text-muted-foreground">
-          We check stock several times a day and email {user.email} when something changes.
+          We email {user.email} when something changes. {WATCH_REFRESH_NOTE}
         </p>
       </section>
+
+      {watch === "failed" ? (
+        <div role="alert" className="border-y border-warning/50 py-4 text-[15px]">
+          You&apos;re signed in, but we couldn&apos;t find the bottle you asked to watch. Search for it and tap its
+          star to add it.
+        </div>
+      ) : null}
 
       {welcome ? (
         <div role="status" className="border-y border-success/40 py-4 text-[15px]">

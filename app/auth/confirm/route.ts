@@ -17,6 +17,8 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
 
   const supabase = await createClient();
+  // Checked first: a failed verification can clear the current session.
+  const { data: current } = await supabase.auth.getUser();
   if (tokenHash && type) {
     const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
     if (!error) return NextResponse.redirect(new URL(next, request.url));
@@ -27,5 +29,8 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) return NextResponse.redirect(new URL(next, request.url));
   }
+  // A used or expired link opened in a browser that's already signed in (the
+  // email tapped twice): carry on instead of asking for a new link.
+  if (current.user) return NextResponse.redirect(new URL(next, request.url));
   return NextResponse.redirect(new URL(`/login?error=link&next=${encodeURIComponent(next)}`, request.url));
 }

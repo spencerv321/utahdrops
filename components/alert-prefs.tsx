@@ -21,7 +21,7 @@ export function AlertPrefs({
       <Row
         id="watch-email"
         title="Watchlist emails"
-        hint="When a bottle you watch is back in stock (or back at your store), sells out, or changes price or status. At most one email an hour."
+        hint="When a bottle you watch is back in stores anywhere in Utah (and back at your stores, if you pick them below), sells out, or changes price or status. Changes found in the same check come in one email."
         checked={watch}
         onChange={(value) => {
           setWatch(value);
@@ -33,7 +33,7 @@ export function AlertPrefs({
       <Row
         id="drop-email"
         title="Allocated drop alerts"
-        hint="One email a month, the moment DABS posts the list."
+        hint="One email a month, when DABS posts the list (we check for it twice a day)."
         checked={drops}
         onChange={(value) => {
           setDrops(value);

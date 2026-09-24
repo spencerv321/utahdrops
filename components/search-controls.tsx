@@ -3,11 +3,11 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { Check, ChevronDown } from "lucide-react";
-import { categoryLabel } from "@/lib/format";
+import { groupBySlug, groupCategories, groupOf } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 
 const SORTS: [string, string][] = [
-  ["", "In stock first"],
+  ["", "Best match"],
   ["price_asc", "Price: low to high"],
   ["price_desc", "Price: high to low"],
   ["qty", "Most in stores"],
@@ -34,20 +34,22 @@ export function SearchControls({ categories }: { categories: string[] }) {
   const params = useSearchParams();
   const [pending, startTransition] = useTransition();
 
-  function update(key: string, value: string | null) {
+  function update(changes: Record<string, string | null>) {
     const next = new URLSearchParams(params.toString());
-    if (value) next.set(key, value);
-    else next.delete(key);
+    for (const [key, value] of Object.entries(changes)) {
+      if (value) next.set(key, value);
+      else next.delete(key);
+    }
     next.delete("page");
     startTransition(() => router.push(`/search?${next.toString()}`));
   }
 
-  // Category groups ("Whiskey", "Red wine", …) for a scannable native picker.
-  const groups = new Map<string, string[]>();
-  for (const c of categories) {
-    const head = categoryLabel(c).split(" · ")[0];
-    groups.set(head, [...(groups.get(head) ?? []), c]);
-  }
+  // Two steps: a broad type ("Vodka", "Red wine"), then a DABS category inside
+  // it. Old links carry only ?category=, so the type is derived from it.
+  const tree = groupCategories(categories);
+  const category = params.get("category") ?? "";
+  const group = groupBySlug(params.get("group")) ?? groupOf(category || null);
+  const styles = group ? tree.find((t) => t.group.slug === group.slug)?.items ?? [] : [];
 
   const toggles: [string, string][] = [
     ["instock", "In stock"],
@@ -66,7 +68,7 @@ export function SearchControls({ categories }: { categories: string[] }) {
             key={key}
             type="button"
             aria-pressed={active}
-            onClick={() => update(key, active ? null : "1")}
+            onClick={() => update({ [key]: active ? null : "1" })}
             className={cn(chip, active ? on : off)}
           >
             {active ? <Check className="size-4 text-primary" aria-hidden /> : null}
@@ -74,28 +76,47 @@ export function SearchControls({ categories }: { categories: string[] }) {
           </button>
         );
       })}
-      <ChipSelect label="Category" value={params.get("category") ?? ""} onChange={(v) => update("category", v)}>
-        <option value="">All categories</option>
-        {[...groups.entries()]
-          .sort(([a], [b]) => a.localeCompare(b))
-          .map(([head, list]) => (
-            <optgroup key={head} label={head}>
-              {list.map((c) => (
-                <option key={c} value={c}>
-                  {categoryLabel(c).split(" · ").slice(1).join(" · ") || head}
-                </option>
-              ))}
-            </optgroup>
-          ))}
+      <ChipSelect
+        label="Type"
+        value={group?.slug ?? ""}
+        display={group?.label}
+        onChange={(v) => update({ group: v || null, category: null })}
+      >
+        <option value="">All types</option>
+        {tree.map(({ group: g }) => (
+          <option key={g.slug} value={g.slug}>
+            {g.label}
+          </option>
+        ))}
       </ChipSelect>
-      <ChipSelect label="Price" value={params.get("max") ?? ""} onChange={(v) => update("max", v)}>
+      {group && styles.length > 1 ? (
+        <ChipSelect
+          label="Style"
+          value={category}
+          display={styles.find((s) => s.value === category)?.label}
+          onChange={(v) => update({ group: group.slug, category: v || null })}
+        >
+          <option value="">All {group.label.toLowerCase()}</option>
+          {styles.map((s) => (
+            <option key={s.value} value={s.value}>
+              {s.label}
+            </option>
+          ))}
+        </ChipSelect>
+      ) : null}
+      <ChipSelect
+        label="Price"
+        value={params.get("max") ?? ""}
+        display={PRICES.find(([v]) => v && v === params.get("max"))?.[1]}
+        onChange={(v) => update({ max: v })}
+      >
         {PRICES.map(([v, t]) => (
           <option key={v} value={v}>
             {t}
           </option>
         ))}
       </ChipSelect>
-      <ChipSelect label="Sort" value={params.get("sort") ?? ""} onChange={(v) => update("sort", v)} neutral>
+      <ChipSelect label="Sort" value={params.get("sort") ?? ""} onChange={(v) => update({ sort: v })} neutral>
         {SORTS.map(([v, t]) => (
           <option key={v} value={v}>
             {t}
@@ -112,10 +133,13 @@ function ChipSelect({
   value,
   onChange,
   neutral,
+  display,
   children,
 }: {
   label: string;
   value: string;
+  /** The chosen option, shown in the chip so the active filter reads on its own. */
+  display?: string;
   onChange: (value: string) => void;
   /** Sort isn't a filter, so it never shows the active style. */
   neutral?: boolean;
@@ -124,7 +148,8 @@ function ChipSelect({
   const active = !neutral && value !== "";
   return (
     <label className={cn(chip, "cursor-pointer pr-2.5", active ? on : off)}>
-      <span className="text-muted-foreground">{label}</span>
+      <span className={cn(display ? "sr-only" : "text-muted-foreground")}>{label}</span>
+      {display ? <span className="max-w-48 truncate">{display}</span> : null}
       <ChevronDown className="size-4 text-muted-foreground" aria-hidden />
       <select
         value={value}

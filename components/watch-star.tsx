@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { toggleWatch } from "@/app/actions";
 import { cn } from "@/lib/utils";
 
-/** Compact watch toggle for list rows. Signed-out visitors go sign in first. */
+/** Compact watch toggle for list rows. Signed-out visitors sign in with the bottle remembered. */
 export function WatchStar({
   csc,
   name,
@@ -22,7 +22,6 @@ export function WatchStar({
   className?: string;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [watched, setWatched] = useState(initialWatched);
   const [pending, startTransition] = useTransition();
 
@@ -40,8 +39,8 @@ export function WatchStar({
       )}
       onClick={() => {
         if (!signedIn) {
-          // Come back to the same results (query and filters included).
-          router.push(`/login?next=${encodeURIComponent(pathname + window.location.search)}`);
+          // Sign in with this bottle remembered; the watch is added after they verify.
+          router.push(`/login?watch=${csc}`);
           return;
         }
         const next = !watched;
