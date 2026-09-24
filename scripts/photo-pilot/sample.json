@@ -1,0 +1,198 @@
+[
+ {
+  "csc": "929525",
+  "name": "LEO STEEN MERLOT 750ml",
+  "sizeMl": 750,
+  "category": "YS",
+  "price": 28.06
+ },
+ {
+  "csc": "921498",
+  "name": "PRAIRIE ALES BA OKIE WEEKEND 355m",
+  "sizeMl": 355,
+  "category": "YS",
+  "price": 8.99
+ },
+ {
+  "csc": "930859",
+  "name": "COMPASS BOX CRIMSON CASK 750ml",
+  "sizeMl": 750,
+  "category": "YS",
+  "price": 69.99
+ },
+ {
+  "csc": "086299",
+  "name": "BANHEZ ARROQUENO 750ml",
+  "sizeMl": 750,
+  "category": "YS",
+  "price": 115.03
+ },
+ {
+  "csc": "516962",
+  "name": "UPPERCUT CABERNET SAUVIGNON NAPA 2023 7",
+  "sizeMl": 750,
+  "category": "YS",
+  "price": 17.1
+ },
+ {
+  "csc": "932598",
+  "name": "2 TOWNS POG COSMIC CRISP KEG 20000ml",
+  "sizeMl": 20000,
+  "category": "YS",
+  "price": 175
+ },
+ {
+  "csc": "902000",
+  "name": "GIFFARD VANILLE DE MADAGASCAR 750ml",
+  "sizeMl": 750,
+  "category": "YS",
+  "price": 38.99
+ },
+ {
+  "csc": "930528",
+  "name": "TAITTINGER BRUT LA FRANCAISE 6000ml",
+  "sizeMl": 6000,
+  "category": "YS",
+  "price": 789.85
+ },
+ {
+  "csc": "952605",
+  "name": "LINGUA FRANCA PINOT NOIR AVNI'20 750ml",
+  "sizeMl": 750,
+  "category": "PL",
+  "price": 39.99
+ },
+ {
+  "csc": "349050",
+  "name": "TENUTA BISERNO 750ml",
+  "sizeMl": 750,
+  "category": "PR",
+  "price": 203.39
+ },
+ {
+  "csc": "217215",
+  "name": "HATOZAKI SMALL BATCH WHISKY 750ml",
+  "sizeMl": 750,
+  "category": "AW",
+  "price": 64.99
+ },
+ {
+  "csc": "019009",
+  "name": "JEFFERSON'S BOURBON 750ml",
+  "sizeMl": 750,
+  "category": "AW",
+  "price": 34.99
+ },
+ {
+  "csc": "562417",
+  "name": "EDUCATED GUESS NAPA VALLEY CHARD 750ml",
+  "sizeMl": 750,
+  "category": "KK",
+  "price": 24.99
+ },
+ {
+  "csc": "542229",
+  "name": "ANGELINE SAUV BLANC 750ml",
+  "sizeMl": 750,
+  "category": "KK",
+  "price": 13.09
+ },
+ {
+  "csc": "317424",
+  "name": "FLOWER GARDEN RIESLING QBA 750ml",
+  "sizeMl": 750,
+  "category": "KR",
+  "price": 17.62
+ },
+ {
+  "csc": "075181",
+  "name": "KETEL ONE BOTANICAL GRPFRT/ROSE 750ml",
+  "sizeMl": 750,
+  "category": "AD",
+  "price": 21.99
+ },
+ {
+  "csc": "066737",
+  "name": "SMIRNOFF RASPBERRY VODKA 1750ml",
+  "sizeMl": 1750,
+  "category": "AD",
+  "price": 21.99
+ },
+ {
+  "csc": "901977",
+  "name": "SALTFIRE CHARLOTTE SOMETIMES CAN 473ml",
+  "sizeMl": 473,
+  "category": "TN",
+  "price": 2.95
+ },
+ {
+  "csc": "918765",
+  "name": "ELYSIAN SPACE DUST IPA 355 ml",
+  "sizeMl": 355,
+  "category": "TN",
+  "price": 2.65
+ },
+ {
+  "csc": "016268",
+  "name": "YAMAZAKI DISTILLERS RESERVE 750ml",
+  "sizeMl": 750,
+  "category": "LT",
+  "price": 94.99
+ },
+ {
+  "csc": "065235",
+  "name": "ITALICUS ROSOLIO DI BERGAMOTTO 750ml",
+  "sizeMl": 750,
+  "category": "LT",
+  "price": 43.1
+ },
+ {
+  "csc": "088533",
+  "name": "MI CAMPO TEQUILA REPOSADO 750ml",
+  "sizeMl": 750,
+  "category": "AP",
+  "price": 27.99
+ },
+ {
+  "csc": "064717",
+  "name": "CHARTREUSE GREEN VEP 1000ml",
+  "sizeMl": 1000,
+  "category": "CH",
+  "price": 259.99
+ },
+ {
+  "csc": "058868",
+  "name": "CUERVO AUTHENTIC STRWBRY LIME MAR 1750ml",
+  "sizeMl": 1750,
+  "category": "CW",
+  "price": 18.99
+ },
+ {
+  "csc": "952003",
+  "name": "NEISSON AGRICOLE BLANC RHUM 1000 ml",
+  "sizeMl": 1000,
+  "category": "AL",
+  "price": 42.99
+ },
+ {
+  "csc": "720823",
+  "name": "ARCHER ROOSE BUBBLY 250ml",
+  "sizeMl": 250,
+  "category": "IH",
+  "price": 4.99
+ },
+ {
+  "csc": "919012",
+  "name": "CASAL GARCIA VINHO VERDE ROS\u00c9 75 750ml",
+  "sizeMl": 750,
+  "category": "MP",
+  "price": 12.49
+ },
+ {
+  "csc": "927901",
+  "name": "AIRE BRUT NATURE 750ml",
+  "sizeMl": 750,
+  "category": "IP",
+  "price": 21.99
+ }
+]
