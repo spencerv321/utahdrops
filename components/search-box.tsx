@@ -55,7 +55,7 @@ export function SearchBox({
           <span className="mr-1">Try</span>
           {EXAMPLES.map((ex, i) => (
             <span key={ex} className="inline-flex items-baseline">
-              <Link
+              <Link prefetch={false}
                 href={`/search?q=${encodeURIComponent(ex)}`}
                 className="inline-flex min-h-9 items-center text-foreground underline decoration-border underline-offset-4 hover:decoration-primary"
               >

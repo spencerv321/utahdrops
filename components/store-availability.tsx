@@ -188,7 +188,7 @@ export function StoreAvailability({
       {status === "denied" ? (
         <p className="w-full text-sm text-muted-foreground">
           Couldn&apos;t get your location. Choose an area instead, or{" "}
-          <Link href="/watchlist" className="text-foreground underline underline-offset-4">
+          <Link prefetch={false} href="/watchlist" className="text-foreground underline underline-offset-4">
             pick your store
           </Link>
           .

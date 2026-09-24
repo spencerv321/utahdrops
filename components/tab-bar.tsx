@@ -30,7 +30,7 @@ export function TabBar() {
           const active = isActive(pathname, href);
           return (
             <li key={href}>
-              <Link
+              <Link prefetch={false}
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(

@@ -20,7 +20,7 @@ export function NavLinks() {
       {NAV.map((item) => {
         const active = isActive(pathname, item.href);
         return (
-          <Link
+          <Link prefetch={false}
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}

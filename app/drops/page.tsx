@@ -137,7 +137,7 @@ function DropRowItem({ name, rows, homeIds }: { name: string; rows: DropRow[]; h
     <li className="py-3">
       <div className="flex items-baseline justify-between gap-3">
         {csc ? (
-          <Link href={`/product/${csc}`} className="font-medium underline-offset-4 hover:underline">
+          <Link prefetch={false} href={`/product/${csc}`} className="font-medium underline-offset-4 hover:underline">
             {title}
           </Link>
         ) : (

@@ -120,7 +120,7 @@ export default async function SearchPage({
         {pills.length > 0 ? (
           <div className="flex flex-wrap items-center gap-2 text-sm">
             {pills.map((p) => (
-              <Link
+              <Link prefetch={false}
                 key={p.key}
                 href={without(p.key)}
                 aria-label={`Remove filter: ${p.label}`}
@@ -130,7 +130,7 @@ export default async function SearchPage({
                 <X className="size-3.5 text-muted-foreground" aria-hidden />
               </Link>
             ))}
-            <Link
+            <Link prefetch={false}
               href={q ? `/search?q=${encodeURIComponent(q)}` : "/search"}
               className="min-h-9 px-1 leading-9 text-muted-foreground underline underline-offset-4 hover:text-foreground"
             >
@@ -169,7 +169,7 @@ export default async function SearchPage({
       {totalPages > 1 ? (
         <nav aria-label="Pages" className="flex justify-center gap-2 pt-2">
           {results.page > 1 ? (
-            <Link
+            <Link prefetch={false}
               href={pageLink(results.page - 1)}
               className="inline-flex h-11 items-center gap-1 rounded-md border px-4 hover:border-input"
             >
@@ -178,7 +178,7 @@ export default async function SearchPage({
             </Link>
           ) : null}
           {results.page < totalPages ? (
-            <Link
+            <Link prefetch={false}
               href={pageLink(results.page + 1)}
               className="inline-flex h-11 items-center gap-1 rounded-md border px-4 hover:border-input"
             >

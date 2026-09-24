@@ -18,7 +18,7 @@ export function DropAlertSignup({ signedIn, optedIn }: { signedIn: boolean; opte
 
   if (!signedIn) {
     return (
-      <Link href="/login?next=/drops" className={button}>
+      <Link prefetch={false} href="/login?next=/drops" className={button}>
         <Bell className="size-4" aria-hidden />
         Email me the list
       </Link>

@@ -73,7 +73,7 @@ export default async function WatchlistPage({
         {rows.length === 0 ? (
           <div className="border-y py-8 text-center text-muted-foreground">
             Nothing yet.{" "}
-            <Link href="/search" className="text-foreground underline underline-offset-4">
+            <Link prefetch={false} href="/search" className="text-foreground underline underline-offset-4">
               Find a bottle
             </Link>{" "}
             and tap its star.

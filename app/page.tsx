@@ -74,7 +74,7 @@ export default async function HomePage({
               </h2>
               <p className="mt-1.5 text-sm text-muted-foreground">Restocks, new listings and price drops from recent DABS updates.</p>
             </div>
-            <Link href="/whats-new" className="flex min-h-11 shrink-0 items-center gap-1 text-sm text-foreground hover:text-primary">
+            <Link prefetch={false} href="/whats-new" className="flex min-h-11 shrink-0 items-center gap-1 text-sm text-foreground hover:text-primary">
               All changes
               <ArrowRight className="size-4" aria-hidden />
             </Link>
@@ -95,7 +95,7 @@ export default async function HomePage({
             <ul className="divide-y border-y">
               {SHORTCUTS.map((s, i) => (
                 <li key={s.label}>
-                  <Link href={shortcutHref(s)} className="group flex min-h-12 items-center gap-3 py-2.5">
+                  <Link prefetch={false} href={shortcutHref(s)} className="group flex min-h-12 items-center gap-3 py-2.5">
                     <span className="flex-1 font-medium group-hover:underline group-hover:underline-offset-4">{s.label}</span>
                     <span className="text-sm text-muted-foreground tabular-nums">{counts[i].toLocaleString()} in stock</span>
                     <ArrowRight className="size-4 text-subtle-foreground group-hover:text-primary" aria-hidden />
@@ -111,7 +111,7 @@ export default async function HomePage({
                 Save it and we&apos;ll email you when it&apos;s back in stores, statewide or at your store. We check
                 DABS several times a day.
               </p>
-              <Link href="/login?next=/watchlist" className="inline-flex min-h-11 items-center gap-1 text-[15px] font-medium text-foreground underline decoration-primary underline-offset-4">
+              <Link prefetch={false} href="/login?next=/watchlist" className="inline-flex min-h-11 items-center gap-1 text-[15px] font-medium text-foreground underline decoration-primary underline-offset-4">
                 Start a watchlist, no password
               </Link>
             </section>

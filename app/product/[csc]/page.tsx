@@ -116,7 +116,7 @@ export default async function ProductPage({ params }: Props) {
           <BottleGlyph kind={productKind(product.category, product.size_ml)} className="h-24 w-[4.5rem] sm:h-32 sm:w-24" />
           <div className="min-w-0 flex-1 space-y-2">
             {product.category ? (
-              <Link
+              <Link prefetch={false}
                 href={`/search?category=${encodeURIComponent(product.category)}&instock=1`}
                 className="kicker inline-block text-muted-foreground hover:text-foreground"
               >
@@ -215,14 +215,14 @@ export default async function ProductPage({ params }: Props) {
           )}
           {!user ? (
             <p className="text-sm text-muted-foreground">
-              <Link href={`/login?next=/product/${csc}`} className="text-foreground underline underline-offset-4">
+              <Link prefetch={false} href={`/login?next=/product/${csc}`} className="text-foreground underline underline-offset-4">
                 Sign in
               </Link>{" "}
               and pick your store to see it listed first.
             </p>
           ) : homeStores.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              <Link href="/watchlist" className="text-foreground underline underline-offset-4">
+              <Link prefetch={false} href="/watchlist" className="text-foreground underline underline-offset-4">
                 Pick your store
               </Link>{" "}
               to see it listed first and get &ldquo;back at my store&rdquo; emails.
