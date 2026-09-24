@@ -72,6 +72,24 @@ async function main() {
     show("store runs per day", await sql`select (started_at at time zone 'America/Denver')::date::text as d, count(*)::int as runs, count(*) filter (where ok)::int as ok from scrape_runs where job = 'store_inventory' group by 1 order by 1`);
     return sql.end();
   }
+  if (process.argv[2] === "storecoverage") {
+    // Which in-stock products have per-store history, by statewide stock size.
+    show0("in-stock products with any store history before the outage (Aug 14), by statewide bottles", await sql`
+      select case when store_qty >= 1000 then '1000+' when store_qty >= 200 then '200-999' when store_qty >= 50 then '50-199' else '1-49' end as bucket,
+             count(*)::int as products,
+             count(*) filter (where exists (select 1 from store_inventory s where s.csc = p.csc and s.scraped_at < '2026-08-14'))::int as with_history,
+             count(*) filter (where last_store_scrape is null)::int as never_attempted
+      from products p where in_stock and delisted_at is null group by 1 order by 1`);
+    show0("recent store-run errors", await sql`
+      select started_at, detail->'failed' as failed, detail->'errors' as errors from scrape_runs
+      where job = 'store_inventory' and detail ? 'errors' order by started_at desc limit 6`);
+    show0("largest in-stock products with no pre-outage history", await sql`
+      select csc, name, store_qty, last_store_scrape from products p
+      where in_stock and delisted_at is null
+        and not exists (select 1 from store_inventory s where s.csc = p.csc and s.scraped_at < '2026-08-14')
+      order by store_qty desc limit 15`);
+    return sql.end();
+  }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
   if (process.argv[2] === "conns" || process.argv[2] === "auth") {
     // Who holds database connections right now (session-pooler exhaustion).
