@@ -43,6 +43,24 @@ async function main() {
   if (process.argv[2] === "perf") return perf(sql);
   if (process.argv[2] === "activity") return activity(sql);
   if (process.argv[2] === "pooler") return pooler();
+  if (process.argv[2] === "auth") {
+    // Where sign-ups stall. Counts and timings only; no emails.
+    const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 1)}`);
+    show("accounts by state", await sql`
+      select (last_sign_in_at is not null) as signed_in, (email_confirmed_at is not null) as confirmed,
+             count(*)::int as n, min(created_at) as first, max(created_at) as last
+      from auth.users group by 1, 2 order by 1, 2`);
+    show("per account (anonymised)", await sql`
+      select row_number() over (order by created_at)::int as n, split_part(email, '@', 2) as domain,
+             created_at, confirmation_sent_at, email_confirmed_at, recovery_sent_at, last_sign_in_at,
+             raw_app_meta_data->>'provider' as provider
+      from auth.users order by created_at`);
+    show("identities", await sql`select provider, count(*)::int from auth.identities group by 1`);
+    show("footer signups not yet accounts", await sql`
+      select count(*)::int from email_signups s
+      where not exists (select 1 from auth.users u where lower(u.email) = s.email)`);
+    return sql.end();
+  }
   if (process.argv[2] === "slow") {
     const rows = await sql`
       select calls, round(max_exec_time)::int as max_ms, round(mean_exec_time::numeric, 1) as mean_ms,
