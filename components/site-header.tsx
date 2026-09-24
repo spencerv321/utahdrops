@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/supabase/server";
 import { signOut } from "@/app/actions";
 import { Wordmark } from "@/components/wordmark";
 import { NavLinks } from "@/components/nav-links";
+import { isAdmin } from "@/lib/admin";
 
 export async function SiteHeader() {
   const user = await getCurrentUser();
@@ -14,7 +15,12 @@ export async function SiteHeader() {
           <Wordmark />
         </Link>
         <NavLinks />
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-4">
+          {isAdmin(user) && (
+            <Link prefetch={false} href="/admin" className="flex h-11 items-center px-1 text-sm text-muted-foreground hover:text-foreground">
+              Admin
+            </Link>
+          )}
           {/* Deliberately quiet: signing in happens naturally when you save a bottle. */}
           {user ? (
             <form action={signOut}>

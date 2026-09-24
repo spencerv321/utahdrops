@@ -32,3 +32,11 @@ export const STATUS_LABELS: Record<string, string> = {
 
 /** Home stores per user for "back at my store" alerts. */
 export const MAX_HOME_STORES = 3;
+
+/** Oldest acceptable last success per job, in hours (/api/health, /admin). */
+export const JOB_MAX_AGE_HOURS: Record<string, number> = {
+  catalog: 12,
+  store_inventory: 18,
+  allocated: 24,
+  digest: 4,
+};

@@ -48,6 +48,11 @@ scheduled workflows are enabled; `/api/health` is green.
   name/size/vintage, then tone/crop and store in Supabase Storage. Needs
   `SERPAPI_KEY` (or Brave) and `ANTHROPIC_API_KEY` as Actions secrets.
 
+## Admin dashboard (this branch)
+- `/admin`: live visitors, traffic, sources, top pages/bottles/searches,
+  audience, accounts & alerts, job freshness. Own first-party tracking
+  (`page_events`), no third-party analytics. Needs `ADMIN_EMAILS` in Vercel.
+
 ## Pending decisions
 - Invite email for the 2 legacy footer signups: built, **not sent** — owner said
   wait. Send by running `cron.yml` with job `invite-signups` and `send` checked.

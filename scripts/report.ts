@@ -78,6 +78,10 @@ async function main() {
     select e.event_type, count(distinct w.user_id)::int as users, count(*)::int as pairs
     from inventory_events e join watchlist w using (csc)
     where e.created_at > now() - make_interval(hours => ${hours}) group by 1`);
+  show("page views (window)", await sql`
+    select count(*)::int as views, count(distinct visitor_id)::int as visitors,
+           count(*) filter (where is_landing)::int as visits, max(created_at) as latest
+    from page_events where created_at > now() - make_interval(hours => ${hours})`.catch((e: Error) => e.message));
   // Catalog shape (for UI copy and units): categories, sizes, statuses, names.
   show("categories", await sql`
     select category, count(*)::int as total, count(*) filter (where in_stock)::int as in_stock,

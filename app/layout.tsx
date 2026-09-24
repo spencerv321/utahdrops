@@ -8,6 +8,7 @@ import { TabBar } from "@/components/tab-bar";
 import { StaleDataBanner } from "@/components/stale-data-banner";
 import { AgeGate } from "@/components/age-gate";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@/components/analytics";
 import { releaseIdleConnections } from "@/lib/db-release";
 
 // A deliberate pair from one family: Instrument Sans (variable) for everything
@@ -77,6 +78,7 @@ export default function RootLayout({
         <TabBar />
         <AgeGate />
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );

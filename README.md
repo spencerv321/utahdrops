@@ -40,6 +40,7 @@ Supabase client is only used for auth.
 | `RESEND_API_KEY`, `ALERT_FROM_EMAIL` | digest | Without a key, emails are logged (dry run). |
 | `DABS_CONTACT_EMAIL` | scrapers | Put in the User-Agent. Set it everywhere jobs run. |
 | `STORE_SCRAPE_BUDGET` | store-inventory | SKUs per run. |
+| `ADMIN_EMAILS` | `/admin` | Comma-separated emails allowed into the admin dashboard (sign in with the normal magic link). Unset = nobody. |
 
 GitHub Actions secrets: `DATABASE_URL`, `DABS_CONTACT_EMAIL`, `CRON_SECRET`.
 
@@ -58,6 +59,19 @@ in public repos after 60 days without a commit). **`/api/health`** returns 503
 when any job's last success is too old; `health.yml` checks it every 3 hours and
 fails (GitHub emails you) when it's red. `migrate.yml` applies new
 `supabase/migrations/*.sql` to production on every push to `main`.
+
+## Admin dashboard
+
+`/admin` (admins only, see `ADMIN_EMAILS`): who's on the site now, visitors,
+visits, bounce rate and sign-ups vs. the previous period, traffic sources and
+campaigns, top pages/bottles/searches, cities and devices, accounts and alert
+activity, and job freshness. Days are Mountain time; it refreshes every minute.
+
+Page views come from our own beacon (`components/page-tracker.tsx` →
+`/api/events` → `page_events`). No cookies or IPs are stored: a random visitor
+id lives in localStorage, bots are dropped, admins aren't counted. Alert emails
+tag their links `utm_source=email`, and any `?utm_source=` / `?ref=` on a shared
+link shows up under Campaigns.
 
 ## Runbook: data stopped updating
 

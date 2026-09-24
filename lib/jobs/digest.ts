@@ -26,6 +26,8 @@ interface DropRow {
  */
 const LOOKBACK = "48 hours";
 const MAX_ITEMS_PER_EMAIL = 50;
+/** Tags email clicks so the admin dashboard counts them as Email traffic. */
+const UTM = "utm_source=email&amp;utm_medium=alert";
 
 /**
  * Digest: one email per user per run with their undelivered watchlist events,
@@ -194,12 +196,12 @@ function digestHtml(rows: MatchRow[]): string {
         default:
           line = `<strong>${escapeHtml(r.event_type)}</strong>`;
       }
-      return `<li style="margin-bottom:8px"><a href="${SITE_URL}/product/${encodeURIComponent(r.csc)}">${escapeHtml(r.name)}</a><br/>${line}</li>`;
+      return `<li style="margin-bottom:8px"><a href="${SITE_URL}/product/${encodeURIComponent(r.csc)}?${UTM}">${escapeHtml(r.name)}</a><br/>${line}</li>`;
     })
     .join("");
   const more =
     rows.length > shown.length
-      ? `<p>…and ${rows.length - shown.length} more. <a href="${SITE_URL}/watchlist">See your watchlist</a></p>`
+      ? `<p>…and ${rows.length - shown.length} more. <a href="${SITE_URL}/watchlist?${UTM}">See your watchlist</a></p>`
       : "";
   return `
     <div style="font-family:sans-serif;max-width:560px">
@@ -208,7 +210,7 @@ function digestHtml(rows: MatchRow[]): string {
       ${more}
       <p style="color:#777;font-size:12px">Inventory data scraped from public Utah DABS pages.
       Not affiliated with Utah DABS. Always confirm availability with the store.
-      <a href="${SITE_URL}/watchlist">Manage alerts</a></p>
+      <a href="${SITE_URL}/watchlist?${UTM}">Manage alerts</a></p>
     </div>`;
 }
 
@@ -218,8 +220,8 @@ function dropHtml(products: string[]): string {
     <div style="font-family:sans-serif;max-width:560px">
       <h2>The allocated &amp; rare list just posted</h2>
       <ul>${items}</ul>
-      <p><a href="${SITE_URL}/drops">See stores and quantities →</a></p>
+      <p><a href="${SITE_URL}/drops?${UTM}">See stores and quantities →</a></p>
       <p style="color:#777;font-size:12px">Posted quantities are beginning quantities, not live counts.
-      Not affiliated with Utah DABS. <a href="${SITE_URL}/watchlist">Manage alerts</a></p>
+      Not affiliated with Utah DABS. <a href="${SITE_URL}/watchlist?${UTM}">Manage alerts</a></p>
     </div>`;
 }
