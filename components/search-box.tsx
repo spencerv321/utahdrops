@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Area } from "@/lib/area";
+import { AreaPicker } from "@/components/area-picker";
 
 // Queries the product handles today: exact names via keyword search, and
 // questions via AI search (with a keyword fallback for price caps and styles).
@@ -15,6 +17,8 @@ export function SearchBox({
   examples = false,
   autoFocus = false,
   hidden,
+  areas,
+  area = null,
   className,
 }: {
   defaultValue?: string;
@@ -22,30 +26,61 @@ export function SearchBox({
   autoFocus?: boolean;
   /** Filters to carry along when searching again from the results page. */
   hidden?: Record<string, string | undefined>;
+  /** With areas: one bar with search, area picker and a search button. */
+  areas?: Area[];
+  area?: Area | null;
   className?: string;
 }) {
   return (
     <div className={cn("space-y-2.5", className)}>
-      <form action="/search" role="search" className="relative">
-        <label htmlFor="site-search" className="sr-only">
-          Search bottles by name, or describe what you want
-        </label>
-        <Search
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
-        />
-        <input
-          id="site-search"
-          name="q"
-          type="search"
-          enterKeyHint="search"
-          autoComplete="off"
-          autoCapitalize="off"
-          defaultValue={defaultValue}
-          autoFocus={autoFocus}
-          placeholder="Search by name, or describe it"
-          className="h-13 w-full rounded-md border border-input bg-raised pr-4 pl-12 text-[17px] text-foreground outline-none placeholder:text-subtle-foreground focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-14"
-        />
+      <form
+        action="/search"
+        role="search"
+        className={cn(
+          areas &&
+            "flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-0 sm:rounded-lg sm:border sm:border-input sm:bg-raised sm:p-1.5 sm:focus-within:border-primary"
+        )}
+      >
+        <div className="relative sm:flex-1">
+          <label htmlFor="site-search" className="sr-only">
+            Search bottles by name, or describe what you want
+          </label>
+          <Search
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
+          />
+          <input
+            id="site-search"
+            name="q"
+            type="search"
+            enterKeyHint="search"
+            autoComplete="off"
+            autoCapitalize="off"
+            defaultValue={defaultValue}
+            autoFocus={autoFocus}
+            placeholder={areas ? "Search a bottle, or describe it" : "Search by name, or describe it"}
+            className={cn(
+              "h-13 w-full rounded-md border border-input bg-raised pr-4 pl-12 text-[17px] text-foreground outline-none placeholder:text-subtle-foreground focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-14",
+              areas && "sm:h-12 sm:border-0 sm:focus-visible:outline-0"
+            )}
+          />
+        </div>
+        {areas ? (
+          <div className="flex gap-2 sm:gap-1.5">
+            <AreaPicker
+              areas={areas}
+              current={area}
+              className="min-w-0 flex-1 rounded-md border border-input bg-raised sm:w-52 sm:flex-none sm:rounded-none sm:border-0 sm:border-l sm:bg-transparent"
+            />
+            <button
+              type="submit"
+              className="inline-flex h-12 shrink-0 items-center gap-2 rounded-md bg-primary px-5 text-[16px] font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <Search className="size-[18px]" aria-hidden />
+              Find bottles
+            </button>
+          </div>
+        ) : null}
         {hidden
           ? Object.entries(hidden).map(([k, v]) => (v ? <input key={k} type="hidden" name={k} value={v} /> : null))
           : null}

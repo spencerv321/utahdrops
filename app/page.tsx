@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { getHomeFeed, getShortcutCounts, getWatchedSet } from "@/lib/queries";
+import { getHomeFeed, getNearby, getShortcutCounts, getWatchedSet } from "@/lib/queries";
+import { getArea, getAreaOptions } from "@/lib/area-server";
+import { NEARBY_MILES } from "@/lib/area";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { SearchBox } from "@/components/search-box";
@@ -30,42 +32,67 @@ export default async function HomePage({
     redirect(`/search?${next.toString()}`);
   }
 
-  const [user, feed, counts] = await Promise.all([
+  const [user, feed, counts, area, areas] = await Promise.all([
     getCurrentUser(),
     getHomeFeed(10),
     getShortcutCounts(SHORTCUTS),
+    getArea(),
+    getAreaOptions(),
   ]);
-  const [watched, optedIn] = await Promise.all([
-    getWatchedSet(user?.id, feed.map((e) => e.csc).filter((c): c is string => !!c)),
+  const feedCscs = feed.map((e) => e.csc).filter((c): c is string => !!c);
+  const [watched, optedIn, nearby] = await Promise.all([
+    getWatchedSet(user?.id, feedCscs),
     user
       ? (sql`select allocated_email from alert_prefs where user_id = ${user.id}` as unknown as Promise<
           { allocated_email: boolean }[]
         >).then((r) => r[0]?.allocated_email ?? false)
       : Promise.resolve(false),
+    area ? getNearby(feedCscs, area, NEARBY_MILES) : Promise.resolve(undefined),
   ]);
 
   return (
     <div className="space-y-12 sm:space-y-16">
-      <div className="grid grid-cols-1 gap-7 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-end lg:gap-14 lg:pt-12">
-        <section className="space-y-5" aria-labelledby="hero-title">
-          <div className="space-y-3">
-            <h1 id="hero-title" className="text-[2.7rem] leading-[0.98] sm:text-6xl lg:text-7xl">
-              Find the bottle.
-              <br />
-              <em className="text-primary">Then find the store.</em>
-            </h1>
-            <p className="max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-              Stock and prices at every Utah state liquor store: spirits, wine and beer. Save a bottle and
-              we&apos;ll email you when it&apos;s back.
-            </p>
-          </div>
-          <SearchBox examples />
+      {/* Phones: headline, search, browse, then the drop. Desktop: headline beside the drop, search full width under both. */}
+      <section
+        className="grid grid-cols-1 gap-6 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-x-14 lg:gap-y-6 lg:pt-12"
+        aria-labelledby="hero-title"
+      >
+        <div className="space-y-3 lg:self-end">
+          <h1 id="hero-title" className="text-[2.7rem] leading-[0.98] sm:text-6xl lg:text-7xl">
+            Find the bottle.
+            <br />
+            <em className="text-primary">Then find the store.</em>
+          </h1>
+          <p className="max-w-xl text-[17px] leading-relaxed text-muted-foreground">
+            Stock and prices at every Utah state liquor store: spirits, wine and beer. Save a bottle and
+            we&apos;ll email you when it&apos;s back.
+          </p>
+        </div>
+        <DropTicket signedIn={!!user} optedIn={optedIn} className="order-last lg:order-none lg:self-end" />
+        <div className="space-y-3 lg:col-span-2">
+          <SearchBox examples areas={areas} area={area} />
           <Freshness />
-        </section>
-        <DropTicket signedIn={!!user} optedIn={optedIn} />
-      </div>
+        </div>
+        <nav aria-label="Browse quickly" className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:col-span-2">
+          <ul className="flex w-max gap-2 sm:w-auto sm:flex-wrap">
+            {SHORTCUTS.map((s, i) => (
+              <li key={s.label}>
+                <Link
+                  prefetch={false}
+                  href={shortcutHref(s)}
+                  className="group inline-flex min-h-11 items-center gap-2 rounded-md border border-input px-3.5 text-[15px] whitespace-nowrap hover:border-primary"
+                >
+                  <span className="font-medium">{s.label}</span>
+                  <span className="text-sm text-subtle-foreground tabular-nums">{counts[i].toLocaleString()}</span>
+                  <ArrowRight className="size-4 text-subtle-foreground group-hover:text-primary" aria-hidden />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </section>
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14">
+      <div className={user ? "max-w-3xl" : "grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14"}>
         <section className="space-y-4" aria-labelledby="feed-title">
           <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
             <div>
@@ -79,33 +106,12 @@ export default async function HomePage({
               <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
-          <HomeFeed events={feed} watched={watched} signedIn={!!user} />
+          <HomeFeed events={feed} watched={watched} signedIn={!!user} area={area} nearby={nearby} />
         </section>
 
-        <aside className="order-first space-y-8 lg:order-none" aria-labelledby="browse-title">
-          <section className="space-y-3">
-            <div>
-              <h2 id="browse-title" className="font-display text-[2rem] leading-none sm:text-4xl">
-                Start somewhere
-              </h2>
-              <p className="mt-1.5 text-sm text-muted-foreground">
-                No bottle in mind? A few plain starting points, all in stores now.
-              </p>
-            </div>
-            <ul className="divide-y border-y">
-              {SHORTCUTS.map((s, i) => (
-                <li key={s.label}>
-                  <Link prefetch={false} href={shortcutHref(s)} className="group flex min-h-12 items-center gap-3 py-2.5">
-                    <span className="flex-1 font-medium group-hover:underline group-hover:underline-offset-4">{s.label}</span>
-                    <span className="text-sm text-muted-foreground tabular-nums">{counts[i].toLocaleString()} in stock</span>
-                    <ArrowRight className="size-4 text-subtle-foreground group-hover:text-primary" aria-hidden />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-          {!user ? (
-            <section className="space-y-2 border-t pt-5" aria-label="Watchlist">
+        {!user ? (
+          <aside aria-label="Watchlist">
+            <section className="space-y-2 border-t pt-5">
               <p className="font-display text-2xl leading-tight">Hunting one bottle?</p>
               <p className="text-[15px] leading-relaxed text-muted-foreground">
                 Save it and we&apos;ll email you when it&apos;s back in stores, statewide or at your store. We check
@@ -115,8 +121,8 @@ export default async function HomePage({
                 Start a watchlist, no password
               </Link>
             </section>
-          ) : null}
-        </aside>
+          </aside>
+        ) : null}
       </div>
     </div>
   );
