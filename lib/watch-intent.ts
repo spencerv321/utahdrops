@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import { MAX_HOME_STORES, MAX_WATCHLIST } from "@/lib/config";
+import { parseAttribution, recordDiscoverEvent } from "@/lib/discover-events";
 
 /**
  * "Watch this bottle" for signed-out visitors. The request (bottle, optional
@@ -25,16 +26,22 @@ export interface IntentResult {
   store: StoreStatus;
 }
 
-/** Save a watch request. Caller validates the email and rate limits. */
+/**
+ * Save a watch request. Caller validates the email and rate limits. `source`
+ * ("discover:price") attributes the watch once it's added; `visitorId` is the
+ * random analytics id, kept with it.
+ */
 export async function createWatchIntent(
   email: string,
   csc: string,
   storeId: number | null,
-  source: string | null = null
+  attribution: { source?: string | null; visitorId?: string | null } = {}
 ): Promise<string | null> {
+  const source = parseAttribution(attribution.source) ? attribution.source! : null;
+  const visitor = source && attribution.visitorId && /^[\w-]{8,64}$/.test(attribution.visitorId) ? attribution.visitorId : null;
   const rows = await sql<{ id: string }[]>`
-    insert into watch_intents (email, csc, store_id, source)
-    select ${email.toLowerCase()}, p.csc, s.id, ${source}
+    insert into watch_intents (email, csc, store_id, source, visitor_id)
+    select ${email.toLowerCase()}, p.csc, s.id, ${source}, ${visitor}
     from products p
     left join stores s on s.id = ${storeId}
     where p.csc = ${csc} and (${storeId}::int is null or s.id is not null)
@@ -47,12 +54,14 @@ export async function createWatchIntent(
 }
 
 /** The bottle and store a request was for (to re-offer it after a failed link). */
-export async function peekWatchIntent(id: string): Promise<{ csc: string; storeId: number | null } | null> {
+export async function peekWatchIntent(
+  id: string
+): Promise<{ csc: string; storeId: number | null; source: string | null } | null> {
   if (!isIntentId(id)) return null;
-  const rows = await sql<{ csc: string; store_id: number | null }[]>`
-    select csc, store_id from watch_intents
+  const rows = await sql<{ csc: string; store_id: number | null; source: string | null }[]>`
+    select csc, store_id, source from watch_intents
     where id = ${id} and created_at > now() - make_interval(hours => ${INTENT_TTL_HOURS})`;
-  return rows[0] ? { csc: rows[0].csc, storeId: rows[0].store_id } : null;
+  return rows[0] ? { csc: rows[0].csc, storeId: rows[0].store_id, source: rows[0].source } : null;
 }
 
 /** Which email a request was made for (to explain a signed-in-as-someone-else mismatch). */
@@ -67,11 +76,15 @@ export async function applyWatchIntent(id: string, user: { id: string; email?: s
   const none: IntentResult = { status: "not_found", csc: null, storeId: null, store: null };
   if (!isIntentId(id)) return none;
 
-  return sql.begin(async (tx) => {
+  let attribution: { source: string | null; visitorId: string | null } = { source: null, visitorId: null };
+  const result: IntentResult = await sql.begin(async (tx): Promise<IntentResult> => {
     const [intent] = await tx<
-      { csc: string; store_id: number | null; email: string; applied_user: string | null; expired: boolean; source: string | null }[]
+      {
+        csc: string; store_id: number | null; email: string; applied_user: string | null; expired: boolean;
+        source: string | null; visitor_id: string | null;
+      }[]
     >`
-      select csc, store_id, email, applied_user, source,
+      select csc, store_id, email, applied_user, source, visitor_id,
              created_at < now() - make_interval(hours => ${INTENT_TTL_HOURS}) as expired
       from watch_intents where id = ${id}
       for update`;
@@ -94,7 +107,7 @@ export async function applyWatchIntent(id: string, user: { id: string; email?: s
     if (has) status = "already";
     else if (n >= MAX_WATCHLIST) status = "full";
     else {
-      await tx`insert into watchlist (user_id, csc, source) values (${user.id}, ${intent.csc}, ${intent.source}) on conflict do nothing`;
+      await tx`insert into watchlist (user_id, csc) values (${user.id}, ${intent.csc}) on conflict do nothing`;
       status = "added";
     }
 
@@ -112,6 +125,13 @@ export async function applyWatchIntent(id: string, user: { id: string; email?: s
     if (status !== "full") {
       await tx`update watch_intents set applied_at = now(), applied_user = ${user.id} where id = ${id}`;
     }
+    if (status === "added") attribution = { source: intent.source, visitorId: intent.visitor_id };
     return { ...base, status, store };
   });
+  // A completed watch from a discovery result (outside the transaction, so
+  // analytics can never undo the watch). Only a newly added watch counts.
+  if (result.status === "added" && attribution.source) {
+    await recordDiscoverEvent("watch_added", attribution.source, { csc: result.csc, visitorId: attribution.visitorId, user });
+  }
+  return result;
 }

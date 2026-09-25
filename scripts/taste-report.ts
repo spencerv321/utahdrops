@@ -47,21 +47,22 @@ export async function tasteReport(sql: Sql, days = 14) {
                             and created_at > now() - make_interval(days => ${days}))
                           - coalesce((select sum(n)::int from taste where mode = 'typed'), 0) as views, null::int as visitors
     union all select mode, n, visitors from taste`);
-  show("taste picks: shown, clicked, watched, feedback", await sql`
+  show("taste picks: shown, clicked, feedback", await sql`
     select mode,
            count(*) filter (where kind = 'shown')::int as shown,
            count(*) filter (where kind = 'shown' and results = 0)::int as shown_empty,
            count(*) filter (where kind = 'click')::int as clicks,
-           count(*) filter (where kind = 'watch_click')::int as watch_clicks,
            count(*) filter (where kind = 'feedback' and useful)::int as useful,
            count(*) filter (where kind = 'feedback' and not useful)::int as not_useful
     from taste_events where kind <> 'interpret' and created_at > now() - make_interval(days => ${days})
     group by rollup (1) order by 1`);
-  show("confirmed watches from taste picks (added to a watchlist; clicks alone don't count)", await sql`
-    select count(*)::int as watches, count(distinct user_id)::int as accounts,
-           (select count(*)::int from watch_intents where source = 'taste' and applied_at is null
-              and created_at > now() - interval '24 hours') as pending_sign_in
-    from watchlist where source = 'taste' and created_at > now() - make_interval(days => ${days})`);
+  show("watches from taste picks (watch_added = on a watchlist; a click is not a watch)", await sql`
+    select view as mode,
+           count(*) filter (where kind = 'watch_click')::int as watch_clicks,
+           count(*) filter (where kind = 'watch_request')::int as sign_in_requests,
+           count(*) filter (where kind = 'watch_added')::int as watches_added
+    from discover_events where surface = 'taste' and created_at > now() - make_interval(days => ${days})
+    group by rollup (1) order by 1`);
   const [m] = (await sql`
     select count(*)::int as calls, count(*) filter (where model_ok)::int as ok,
            percentile_cont(0.5) within group (order by model_ms)::int as p50_ms,

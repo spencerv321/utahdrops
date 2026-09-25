@@ -7,6 +7,7 @@ import { requestWatchSignIn } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { visitorId } from "@/lib/beacon";
 
 export interface WatchStoreOption {
   id: number;
@@ -23,14 +24,14 @@ export function WatchSignIn({
   productName,
   stores,
   initialStoreId,
-  source = null,
+  source,
 }: {
   csc: string;
   productName: string;
   stores: WatchStoreOption[];
   initialStoreId?: number | null;
-  /** Where the request came from ("taste"), kept on the watch once added. */
-  source?: "taste" | null;
+  /** Where the Watch tap came from ("discover:price"), kept with the request. */
+  source?: string;
 }) {
   const [scope, setScope] = useState<"statewide" | "store">(initialStoreId ? "store" : "statewide");
   const [storeId, setStoreId] = useState<string>(initialStoreId ? String(initialStoreId) : "");
@@ -69,7 +70,8 @@ export function WatchSignIn({
             email,
             csc,
             storeId: scope === "store" ? Number(storeId) : null,
-            source,
+            source: source ?? null,
+            visitorId: source ? visitorId() : null,
           });
           if (!saved.ok) {
             setError(saved.error);

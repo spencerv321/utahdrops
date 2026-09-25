@@ -2,17 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { visitorId } from "@/lib/beacon";
 
 type Mode = "typed" | "guided" | "followup";
 
-/** The page tracker's random visitor id (components/page-tracker.tsx), if any. */
-function visitorId(): string | null {
-  try {
-    return localStorage.getItem("ud_vid");
-  } catch {
-    return null;
-  }
-}
 
 export function sendTasteEvent(event: Record<string, unknown>) {
   const body = JSON.stringify({ ...event, visitor: visitorId() });

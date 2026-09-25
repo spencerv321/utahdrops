@@ -54,7 +54,7 @@ alter table wine_profile_reviews enable row level security;
 create table if not exists taste_events (
   id            bigint generated always as identity primary key,
   created_at    timestamptz not null default now(),
-  kind          text not null,   -- shown | click | watch_click | feedback | interpret
+  kind          text not null,   -- shown | click | feedback | interpret
   mode          text,            -- typed | guided | followup
   visitor_id    text,
   request       jsonb,
@@ -70,7 +70,6 @@ create table if not exists taste_events (
 create index if not exists taste_events_created on taste_events (created_at desc);
 alter table taste_events enable row level security;
 
--- Where a watch came from ("taste" = a taste recommendation). Signed-out
--- requests carry it through watch_intents; the watch row keeps it once added.
-alter table watch_intents add column if not exists source text;
-alter table watchlist add column if not exists source text;
+-- (Applied once from the PR branch with two watch-source columns; watch
+-- attribution now uses watch_intents.source + discover_events from
+-- 20260927000001_discover_events.sql, and 20260927000002 drops the extra one.)

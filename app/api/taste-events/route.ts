@@ -5,11 +5,13 @@ import { releaseIdleConnections } from "@/lib/db-release";
 import { isBot } from "@/lib/analytics";
 
 /**
- * Taste-search beacon (components/taste-track.tsx): what was shown, clicked,
- * watched or rated. Always 204; analytics never surfaces an error.
+ * Taste-search beacon (components/taste-track.tsx): what was shown, clicked
+ * or rated. Always 204; analytics never surfaces an error.
  */
 const Body = z.object({
-  kind: z.enum(["shown", "click", "watch_click", "feedback"]),
+  // Watch clicks and completed watches go to discover_events (source
+  // "taste:<mode>"), which also follows signed-out watches through sign-in.
+  kind: z.enum(["shown", "click", "feedback"]),
   mode: z.enum(["typed", "guided", "followup"]).nullish(),
   visitor: z.string().regex(/^[\w-]{8,64}$/).nullish(),
   request: z.record(z.string(), z.unknown()).nullish(),

@@ -2,6 +2,7 @@ import { sql } from "@/lib/db";
 import { NEARBY_MILES } from "@/lib/area";
 import type { Area } from "@/lib/area";
 import { PILOT_GROUP_SQL } from "@/lib/taste/pilot";
+import { DISCOVER } from "@/lib/discover-rules";
 import { findGrapes, type Attr, type WineProfile } from "@/lib/taste/profile";
 import { applyOverrides, BODY_WORDS, scoreProfile, SWEET_WORDS, type Contribution } from "@/lib/taste/score";
 import { hasPreferences, type TasteRequest, type WineType } from "@/lib/taste/request";
@@ -17,14 +18,13 @@ import type { RarityTier } from "@/lib/queries";
  */
 
 /**
- * Per-store stock older than this doesn't count as "near you" for a
- * recommendation. Stricter than the site-wide 7 days: the store job's
- * rotation target is 3 days. Failed checks never renew it (store rows are
- * written only by successful checks).
+ * Same availability rules as "Worth a look" (lib/discover-rules.ts): a
+ * "near you" claim needs a successful store check this recent (failed checks
+ * never write store rows, so they can't renew it), and statewide stock must
+ * come from a recent catalog pass.
  */
-export const RECO_STORE_MAX_AGE_HOURS = 72;
-/** A drawing in this window means store stock may be winners' pickups, not shelf stock. */
-export const DRAWING_EXCLUDE_DAYS = 180;
+export const RECO_STORE_MAX_AGE_HOURS = DISCOVER.nearbyMaxAgeHours;
+export const RECO_STATEWIDE_MAX_AGE_HOURS = DISCOVER.statewideMaxAgeHours;
 export const MAX_RESULTS = 6;
 /** A grape under this share of in-stock bottles of its kind counts as less common here. */
 export const LESS_COMMON_SHARE = 0.04;
@@ -156,12 +156,13 @@ export async function recommend(req: TasteRequest, area: Area | null, catalogAsO
         and c.scraped_at > now() - make_interval(hours => ${RECO_STORE_MAX_AGE_HOURS})
     ) near on ${nearIds != null}
     where w.identity_status = 'ok'
-      and p.in_stock and p.delisted_at is null
+      and p.in_stock and coalesce(p.store_qty, 0) > 0 and p.delisted_at is null
+      and p.current_price is not null
+      and p.last_seen > now() - make_interval(hours => ${RECO_STATEWIDE_MAX_AGE_HOURS})
       and coalesce(p.status, '') not in ('A', 'N', 'S', 'X')
       and coalesce(p.category, '') !~ 'ALLOCATED|OFFER|SPECIAL ORDERS'
-      and not exists (
-        select 1 from rhdp_drawings d
-        where d.item_code = p.csc and d.last_seen > now() - make_interval(days => ${DRAWING_EXCLUDE_DAYS}))
+      -- anything DABS released by drawing: store bottles may be winners' pickups
+      and not exists (select 1 from rhdp_drawings d where d.item_code = p.csc)
       and not exists (
         select 1 from wine_profile_overrides x
         where x.csc = p.csc and x.attribute = 'exclude' and x.value = 'true'::jsonb)

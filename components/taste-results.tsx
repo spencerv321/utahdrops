@@ -149,7 +149,7 @@ export async function TasteResults({
             {outcome.results.length === 1 ? "1 wine fits" : `${outcome.results.length} wines fit`}
             {outcome.results.length < 6 ? " (only the ones with real support for what you asked)" : ""}.{" "}
             {areaLabel
-              ? `Each is on a shelf ${areaLabel === "Near you" ? "near you" : `near ${areaLabel}`}, checked in the last ${RECO_STORE_MAX_AGE_HOURS / 24} days.`
+              ? `Each is on a shelf ${areaLabel === "Near you" ? "near you" : `near ${areaLabel}`}, checked in the last ${RECO_STORE_MAX_AGE_HOURS} hours.`
               : "In stock statewide; pick an area to see what's near you."}
           </p>
           <ol className="divide-y border-y">
@@ -169,7 +169,7 @@ export async function TasteResults({
             <p className="text-sm text-muted-foreground">
               {outcome.unknownNear} more {outcome.unknownNear === 1 ? "wine fits" : "wines fit"} your budget but
               {outcome.unknownNear === 1 ? " hasn't" : " haven't"} been checked store by store near {areaLabel} in the
-              last {RECO_STORE_MAX_AGE_HOURS / 24} days, so {outcome.unknownNear === 1 ? "it isn't" : "they aren't"} listed.
+              last {RECO_STORE_MAX_AGE_HOURS} hours, so {outcome.unknownNear === 1 ? "it isn't" : "they aren't"} listed.
             </p>
           ) : null}
         </>
@@ -318,10 +318,7 @@ function Card({
         <TasteLink href={`/product/${r.csc}#where-title`} csc={r.csc} rank={rank} mode={mode} className="inline-flex min-h-10 items-center text-sm underline decoration-border underline-offset-4 hover:decoration-primary">
           See stores
         </TasteLink>
-        <span className="inline-flex items-center text-sm">
-          <WatchStar csc={r.csc} name={title} initialWatched={watched} signedIn={signedIn} source="taste" className="-ml-2" />
-          <span aria-hidden className="-ml-1 text-muted-foreground">{watched ? "Watching" : "Watch"}</span>
-        </span>
+        <WatchStar csc={r.csc} name={title} initialWatched={watched} signedIn={signedIn} source={`taste:${mode}`} label className="h-10" />
         <details className="group w-full">
           <summary className="inline-flex min-h-9 cursor-pointer list-none items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
             <ChevronRight className="size-4 transition-transform group-open:rotate-90" aria-hidden />
@@ -361,7 +358,7 @@ function Empty({
   if (outcome.eligible === 0 && areaLabel) {
     lines.push(
       outcome.unknownNear + outcome.notNear > 0
-        ? `None of the matching pilot wines is on a shelf near ${areaLabel} in our checks from the last ${RECO_STORE_MAX_AGE_HOURS / 24} days` +
+        ? `None of the matching pilot wines is on a shelf near ${areaLabel} in our checks from the last ${RECO_STORE_MAX_AGE_HOURS} hours` +
             (outcome.unknownNear ? ` (${outcome.unknownNear} ${outcome.unknownNear === 1 ? "hasn't" : "haven't"} been checked there recently).` : ".")
         : `No pilot wine matches your kind of wine and budget.`
     );

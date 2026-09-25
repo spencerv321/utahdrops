@@ -6,6 +6,7 @@ import { getProduct } from "@/lib/queries";
 import { sql } from "@/lib/db";
 import { peekWatchIntent } from "@/lib/watch-intent";
 import { productTitle, sizeLabel, storeLabel } from "@/lib/format";
+import { parseAttribution } from "@/lib/discover-events";
 
 export const metadata: Metadata = { title: "Sign in" };
 
@@ -17,18 +18,20 @@ const LINK_HELP =
  * a failed watch link (next=/watch/confirm?intent=…), so a fresh link keeps
  * the same request. Only shown here; nothing is saved until they submit.
  */
-async function watchRequest(watch?: string, store?: string, next?: string) {
+async function watchRequest(watch?: string, store?: string, next?: string, src?: string) {
   let csc = watch && /^\d{6}$/.test(watch) ? watch : null;
   let storeId = store && /^\d{1,5}$/.test(store) ? Number(store) : null;
+  // Discovery attribution ("discover:price") rides along to the new request.
+  let source = parseAttribution(src) ? src! : null;
   const intentId = next?.match(/^\/watch\/confirm\?intent=([0-9a-f-]{36})$/i)?.[1];
   if (!csc && intentId) {
     const intent = await peekWatchIntent(intentId);
-    if (intent) ({ csc, storeId } = intent);
+    if (intent) ({ csc, storeId, source } = intent);
   }
   if (!csc) return null;
   const product = await getProduct(csc);
   if (!product) return null;
-  return { product, storeId };
+  return { product, storeId, source };
 }
 
 export default async function LoginPage({
@@ -37,10 +40,10 @@ export default async function LoginPage({
   searchParams: Promise<{ next?: string; error?: string; watch?: string; store?: string; src?: string }>;
 }) {
   const { next, error, watch, store, src } = await searchParams;
-  const request = await watchRequest(watch, store, next);
+  const request = await watchRequest(watch, store, next, src);
 
   if (request) {
-    const { product, storeId } = request;
+    const { product, storeId, source } = request;
     const name = productTitle(product.name, product.size_ml);
     const stores = (await sql`select id, name, city from stores order by city nulls last, name`) as unknown as {
       id: number;
@@ -73,7 +76,7 @@ export default async function LoginPage({
           productName={name}
           stores={options}
           initialStoreId={options.some((o) => o.id === storeId) ? storeId : null}
-          source={src === "taste" ? "taste" : null}
+          source={source ?? undefined}
         />
         <p className="text-xs text-muted-foreground">
           We only email you about bottles and drops you ask about. Not affiliated with DABS.

@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { VISITOR_KEY } from "@/lib/beacon";
 
-const VISITOR_KEY = "ud_vid";
 const SESSION_KEY = "ud_sid";
 const SESSION_IDLE_MS = 30 * 60 * 1000;
 

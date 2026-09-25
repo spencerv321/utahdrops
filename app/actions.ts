@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { MAX_HOME_STORES, MAX_WATCHLIST } from "@/lib/config";
 import { createWatchIntent } from "@/lib/watch-intent";
 import { clientIp, withinLimit } from "@/lib/rate-limit";
+import { recordDiscoverEvent } from "@/lib/discover-events";
 
 const currentUser = getCurrentUser;
 
@@ -36,28 +37,35 @@ export async function signUpForEmails(formData: FormData) {
 
 const Csc = z.string().regex(/^\d{6}$/);
 
-/** Known watch sources: "taste" = added from a taste recommendation. */
-const Source = z.enum(["taste"]).nullish();
-
-export async function toggleWatch(csc: string, watched: boolean, source?: string | null) {
+/**
+ * Watch or unwatch for the signed-in user. `attribution` (from a "Worth a
+ * look" result) is recorded only when a new watch is actually added.
+ */
+export async function toggleWatch(
+  csc: string,
+  watched: boolean,
+  attribution?: { source?: string; visitorId?: string | null }
+) {
   const user = await currentUser();
   if (!user) return { ok: false, error: "not_signed_in" };
   const parsed = Csc.safeParse(csc);
   if (!parsed.success || typeof watched !== "boolean") return { ok: false, error: "bad_request" };
-  const src = Source.safeParse(source).data ?? null;
 
   if (watched) {
     const [{ n }] = await sql<{ n: number }[]>`
       select count(*)::int as n from watchlist where user_id = ${user.id}`;
     if (n >= MAX_WATCHLIST) return { ok: false, error: "watchlist_full" };
     const inserted = await sql`
-      insert into watchlist (user_id, csc, source)
-      select ${user.id}, csc, ${src} from products where csc = ${parsed.data}
+      insert into watchlist (user_id, csc)
+      select ${user.id}, csc from products where csc = ${parsed.data}
       on conflict do nothing
       returning 1`;
     if (inserted.length === 0) {
       const exists = await sql`select 1 from products where csc = ${parsed.data}`;
       if (exists.length === 0) return { ok: false, error: "not_found" };
+    } else if (attribution?.source) {
+      const visitorId = typeof attribution.visitorId === "string" ? attribution.visitorId.slice(0, 64) : null;
+      await recordDiscoverEvent("watch_added", attribution.source, { csc: parsed.data, visitorId, user });
     }
   } else {
     await sql`delete from watchlist where user_id = ${user.id} and csc = ${parsed.data}`;
@@ -71,7 +79,8 @@ const WatchRequest = z.object({
   email: z.string().trim().toLowerCase().email().max(254),
   csc: Csc,
   storeId: z.number().int().positive().nullable(),
-  source: Source,
+  source: z.string().max(40).nullish(),
+  visitorId: z.string().max(64).nullish(),
 });
 
 /**
@@ -79,16 +88,23 @@ const WatchRequest = z.object({
  * watch can be added after they verify their email (lib/watch-intent.ts).
  * Returns the request id for the sign-in link; the client sends the link.
  */
-export async function requestWatchSignIn(input: { email: string; csc: string; storeId: number | null; source?: string | null }) {
+export async function requestWatchSignIn(input: {
+  email: string;
+  csc: string;
+  storeId: number | null;
+  source?: string | null;
+  visitorId?: string | null;
+}) {
   const parsed = WatchRequest.safeParse(input);
   if (!parsed.success) return { ok: false as const, error: "Enter a valid email address." };
-  const { email, csc, storeId, source } = parsed.data;
+  const { email, csc, storeId, source, visitorId } = parsed.data;
   const ip = clientIp(await headers());
   if (!(await withinLimit(`watch-intent:${email}`, 10, 3600)) || !(await withinLimit(`watch-intent-ip:${ip}`, 30, 3600))) {
     return { ok: false as const, error: "Too many requests. Try again in an hour." };
   }
-  const id = await createWatchIntent(email, csc, storeId, source ?? null);
+  const id = await createWatchIntent(email, csc, storeId, { source, visitorId });
   if (!id) return { ok: false as const, error: "That bottle or store isn't available. Go back and try again." };
+  if (source) await recordDiscoverEvent("watch_request", source, { csc, visitorId });
   return { ok: true as const, id };
 }
 
