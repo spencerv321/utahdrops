@@ -72,14 +72,17 @@ export async function runTasteProfilesJob(opts: { reselect?: boolean } = {}) {
       extracted++;
     }
 
-    // The committed sample review (kept as reviewed; never rewritten here).
+    // The committed sample review (lib/taste/review-log.ts is the record; a
+    // re-check there updates the row, nothing here changes a verdict).
     const reviews = REVIEW_LOG.map((r) => ({ csc: r.csc, verdict: r.verdict, note: r.note ?? null, values: r.values }));
     await sql`
       insert into wine_profile_reviews (csc, verdict, note, reviewer, reviewed_on, reviewed_values)
       select x.csc, x.verdict, x.note, ${REVIEWER}, ${REVIEWED_ON}::date, x.values
       from jsonb_to_recordset(${sql.json(reviews as never)}) as x(csc text, verdict text, note text, values jsonb)
       where exists (select 1 from products p where p.csc = x.csc)
-      on conflict (csc) do nothing`;
+      on conflict (csc) do update set
+        verdict = excluded.verdict, note = excluded.note, reviewer = excluded.reviewer,
+        reviewed_on = excluded.reviewed_on, reviewed_values = excluded.reviewed_values`;
 
     return { pilot: products.length, selected, extracted, unchanged: products.length - extracted, ambiguous };
   });

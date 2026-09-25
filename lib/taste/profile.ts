@@ -17,7 +17,7 @@ import { createHash } from "node:crypto";
  * Extraction is plain rules, not a model: each rule is testable, and any
  * value from listing text carries the exact words it came from.
  */
-export const EXTRACTOR_VERSION = "taste-rules-6";
+export const EXTRACTOR_VERSION = "taste-rules-7";
 
 export type Evidence = "product" | "style" | "manual" | "none";
 export type Confidence = "high" | "medium" | "low";
@@ -313,7 +313,9 @@ const TEXT_FIZZ: TextRule<Fizz>[] = [
 // ---------------------------------------------------------------------------
 // General style knowledge, applied only when the product says nothing. Each
 // rule carries the sentence shoppers see. Grapes that vary widely (Riesling,
-// Chenin Blanc, Prosecco) deliberately have no sweetness rule.
+// Chenin Blanc, Prosecco) deliberately have no sweetness rule, and there is
+// no "reds are usually dry" catch-all: a semi-sweet red without listing text
+// (Stella Rosa Rosso) would be called dry.
 
 interface StyleRule {
   key: string;
@@ -345,7 +347,6 @@ const STYLE_RULES: StyleRule[] = [
   { key: "gamay", when: only("Gamay"), sweetness: "dry", body: "light", tags: ["fruity"], confidence: "medium", note: "Gamay (Beaujolais) is typically dry, light and fruity" },
   { key: "big-reds", when: (p) => p.color === "red" && p.grapes.length === 1 && ["Cabernet Sauvignon", "Syrah", "Petite Sirah", "Malbec", "Zinfandel", "Primitivo"].includes(p.grapes[0]), sweetness: "dry", body: "full", confidence: "medium", note: "this grape typically makes dry, full-bodied reds" },
   { key: "merlot", when: (p) => p.color === "red" && only("Merlot")(p), sweetness: "dry", body: "medium", confidence: "medium", note: "Merlot is typically dry and medium-bodied" },
-  { key: "dry-red", when: (p) => p.color === "red" && p.fizz === "still", sweetness: "dry", confidence: "low", note: "most still red wines are made dry" },
 ];
 
 // ---------------------------------------------------------------------------

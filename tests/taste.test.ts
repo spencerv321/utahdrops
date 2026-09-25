@@ -92,6 +92,11 @@ test("no information stays unknown; Riesling gets no sweetness guess", () => {
   assert.equal(p.sweetness.evidence, "none");
 });
 
+test("a red with no listing text isn't assumed dry (semi-sweet reds exist)", () => {
+  const p = extractProfile({ name: "STELLA ROSA ROSSO 750ml", category: "ITALIAN RED - VARIETAL", sizeMl: 750, description: null });
+  assert.equal(p.sweetness.value, null);
+});
+
 test("style knowledge is marked as style, with its general note", () => {
   const p = extractProfile({ name: "FETZER PINOT GRIGIO 750ml", category: "WHITE VARIETAL - PINOT GRIS", sizeMl: 750, description: null });
   assert.equal(p.sweetness.value, "dry");
