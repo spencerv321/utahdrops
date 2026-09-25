@@ -41,22 +41,22 @@ export const WATCH_TARGET_HOURS = 12;
 export const ROTATION_TARGET_HOURS = 72;
 const TIME_BUDGET_MS = Number(process.env.STORE_TIME_BUDGET_MINUTES ?? 25) * 60_000;
 
-export async function selectStoreTargets(budget: number): Promise<{ watched: string[]; rotation: string[] }> {
+export async function selectStoreTargets(
+  budget: number
+): Promise<{ watched: string[]; rotation: string[]; knownFailing: string[] }> {
   const watchSlots = Math.floor(budget * WATCH_SHARE);
-  const watched = (
-    await sql<{ csc: string }[]>`
-      select p.csc
+  const watchedRows = await sql<{ csc: string; failing: boolean }[]>`
+      select p.csc, p.store_check_failures > 0 as failing
       from products p
       where p.csc in (select distinct csc from watchlist)
         and coalesce(p.store_retry_at, '-infinity') <= now()
         and coalesce(p.store_checked_at, '-infinity') < now() - make_interval(hours => ${WATCH_RECHECK_HOURS})
       order by p.store_checked_at asc nulls first
-      limit ${watchSlots}`
-  ).map((r) => r.csc);
+      limit ${watchSlots}`;
+  const watched = watchedRows.map((r) => r.csc);
 
-  const rotation = (
-    await sql<{ csc: string }[]>`
-      select p.csc
+  const rotationRows = await sql<{ csc: string; failing: boolean }[]>`
+      select p.csc, p.store_check_failures > 0 as failing
       from products p
       left join (select distinct csc from watchlist) w using (csc)
       where (p.in_stock or w.csc is not null)
@@ -69,10 +69,11 @@ export async function selectStoreTargets(budget: number): Promise<{ watched: str
               when p.status in ('A', 'L', 'D') then interval '1 day'
               else interval '0'
             end asc
-      limit ${Math.max(0, budget - watched.length)}`
-  ).map((r) => r.csc);
+      limit ${Math.max(0, budget - watched.length)}`;
+  const rotation = rotationRows.map((r) => r.csc);
+  const knownFailing = [...watchedRows, ...rotationRows].filter((r) => r.failing).map((r) => r.csc);
 
-  return { watched, rotation };
+  return { watched, rotation, knownFailing };
 }
 
 /** A failed detail fetch: note the attempt and back off; the last good check stays as it was. */
@@ -87,8 +88,14 @@ export async function recordStoreFailure(csc: string) {
 
 export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCRAPE_BUDGET ?? 200)) {
   return withRun("store_inventory", async () => {
-    const { watched, rotation } = await selectStoreTargets(budget);
-    const targets = [...watched, ...rotation];
+    const { watched, rotation, knownFailing } = await selectStoreTargets(budget);
+    // Products that already failed last time (often SKUs DABS's detail page
+    // always errors on) go last and don't count toward the outage breaker:
+    // several of them in a row are expected, not a sign DABS is down.
+    // (2026-09-25: eight such watched bottles at the front of the queue
+    // tripped the breaker and aborted a whole run.)
+    const failing = new Set(knownFailing);
+    const targets = [...watched, ...rotation].sort((a, b) => Number(failing.has(a)) - Number(failing.has(b)));
     if (targets.length === 0) return { scraped: 0, note: "no targets" };
 
     let scraped = 0;
@@ -107,12 +114,13 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
       } catch (err) {
         errors.push(`${csc}: ${err instanceof Error ? err.message : String(err)}`);
         await recordStoreFailure(csc);
+        if (failing.has(csc)) continue;
         if (++consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
           throw new Error(`store pass aborting after ${consecutiveFailures} consecutive failures: ${errors.slice(-MAX_CONSECUTIVE_FAILURES).join("; ")}`);
         }
         continue;
       }
-      consecutiveFailures = 0;
+      if (!failing.has(csc)) consecutiveFailures = 0;
       await persistDetail(detail);
       scraped++;
       storeRows += detail.stores.length;
@@ -128,6 +136,7 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
       rotation_targets: rotation.length,
       store_rows: storeRows,
       failed: errors.length,
+      known_failing_targets: knownFailing.length,
       errors: errors.slice(0, 20),
     };
   });

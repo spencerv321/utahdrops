@@ -168,3 +168,15 @@ test("digest skips superseded and stale events and never repeats a delivery", as
   const [{ n }] = await sql<{ n: number }[]>`select count(*)::int as n from alert_deliveries where user_id = ${user.id}`;
   assert.equal(n, before, "second run delivers nothing new");
 });
+
+test("bottles that already failed are reported so the run can put them last", async () => {
+  const [a, b] = watchedCscs.slice(7, 9);
+  await sql`update products set store_check_failures = 3, store_retry_at = now() - interval '1 minute',
+            store_checked_at = null where csc = ${a}`;
+  await sql`update products set store_check_failures = 0, store_retry_at = null,
+            store_checked_at = now() - interval '2 days' where csc = ${b}`;
+  const { watched, knownFailing } = await selectStoreTargets(40);
+  assert.ok(watched.includes(a) && watched.includes(b));
+  assert.ok(knownFailing.includes(a), "previously failing bottle flagged");
+  assert.ok(!knownFailing.includes(b), "healthy bottle not flagged");
+});
