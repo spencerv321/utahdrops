@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import type { Area } from "@/lib/area";
 import { AreaPicker } from "@/components/area-picker";
 
-// Queries the product handles today: exact names via keyword search, and
-// questions via AI search (with a keyword fallback for price caps and styles).
-const EXAMPLES = ["Blanton's", "Dry white wine under $20", "Peaty scotch under $60", "Prosecco"];
+// Queries the product handles today: exact names via keyword search, wine
+// descriptions via taste picks (beta), and other questions via AI search.
+const EXAMPLES = ["Blanton's", "White wine, not too dry, under $30", "Peaty scotch under $60", "Prosecco"];
 
 /**
  * The one search box. A plain GET form to /search, so it works before any
@@ -19,6 +19,7 @@ export function SearchBox({
   hidden,
   areas,
   area = null,
+  guide,
   className,
 }: {
   defaultValue?: string;
@@ -29,6 +30,8 @@ export function SearchBox({
   /** With areas: one bar with search, area picker and a search button. */
   areas?: Area[];
   area?: Area | null;
+  /** Optional control shown with the examples ("Help me choose"). */
+  guide?: React.ReactNode;
   className?: string;
 }) {
   return (
@@ -43,7 +46,7 @@ export function SearchBox({
       >
         <div className="relative sm:flex-1">
           <label htmlFor="site-search" className="sr-only">
-            Search bottles by name, or describe what you want
+            Search a bottle, or describe what you&apos;d like
           </label>
           <Search
             aria-hidden
@@ -58,7 +61,7 @@ export function SearchBox({
             autoCapitalize="off"
             defaultValue={defaultValue}
             autoFocus={autoFocus}
-            placeholder={areas ? "Search a bottle, or describe it" : "Search by name, or describe it"}
+            placeholder={areas ? "Search a bottle, or describe what you’d like" : "Search by name, or describe it"}
             className={cn(
               "h-13 w-full rounded-md border border-input bg-raised pr-4 pl-12 text-[17px] text-foreground outline-none placeholder:text-subtle-foreground focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-14",
               areas && "sm:h-12 sm:border-0 sm:focus-visible:outline-0"
@@ -101,6 +104,7 @@ export function SearchBox({
           ))}
         </p>
       ) : null}
+      {guide}
     </div>
   );
 }

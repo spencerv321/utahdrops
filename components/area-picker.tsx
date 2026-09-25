@@ -36,6 +36,16 @@ export function AreaPicker({
 
   function apply(area: Area | null) {
     rememberArea(area);
+    // On /search, a search can carry its own area (?area=, or "near Draper"
+    // in the words); the picker's choice replaces it, written into the URL
+    // so it wins ("any" = all of Utah).
+    if (!urlParam && pathname === "/search" && (search.has("area") || search.has("q"))) {
+      const next = new URLSearchParams(search.toString());
+      next.set("area", area ? area.label : "any");
+      next.delete("page");
+      startTransition(() => router.replace(`${pathname}?${next.toString()}`));
+      return;
+    }
     if (urlParam) {
       const next = new URLSearchParams(search.toString());
       if (area && area.label !== "Near you") next.set(urlParam, area.label);

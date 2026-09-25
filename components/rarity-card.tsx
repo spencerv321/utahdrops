@@ -4,7 +4,7 @@ import { RatingFeedback } from "@/components/rating-feedback";
 
 const MT = "America/Denver";
 
-const TIERS: Record<RarityTier, { name: string; className: string }> = {
+export const TIERS: Record<RarityTier, { name: string; className: string }> = {
   everyday: { name: "Everyday", className: "bg-raised text-muted-foreground ring-1 ring-border" },
   uncommon: { name: "Uncommon", className: "bg-success-soft text-success" },
   scarce: { name: "Scarce", className: "bg-clearance-soft text-clearance" },

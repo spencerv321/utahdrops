@@ -280,6 +280,13 @@ async function main() {
     process.exit(ok ? 0 : 1);
   }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
+  if (process.argv[2] === "taste") return (await import("./taste-report")).tasteReport(sql);
+  if (process.argv[2] === "searchlog") return (await import("./taste-report")).searchLog(sql);
+  if (process.argv[2] === "tasteeval") {
+    const failures = await (await import("./taste-eval")).runTasteEval(true);
+    await sql.end();
+    process.exit(failures ? 1 : 0);
+  }
   if (process.argv[2] === "conns" || process.argv[2] === "auth") {
     // Who holds database connections right now (session-pooler exhaustion).
     console.log("\n## connections by client\n" + JSON.stringify(await sql`

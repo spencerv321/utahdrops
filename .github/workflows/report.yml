@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       hours:
-        description: "Look-back window in hours, or a mode (freshness, searchcheck, rarity, auth, conns, perf, activity, slow, storecoverage, storediag:<csc>, discover)"
+        description: "Look-back window in hours, or a mode (freshness, searchcheck, rarity, auth, conns, perf, activity, slow, storecoverage, storediag:<csc>, discover, taste, tasteeval, searchlog)"
         required: false
         default: "6"
 

@@ -6,7 +6,7 @@ import { getProduct } from "@/lib/queries";
 import { sql } from "@/lib/db";
 import { peekWatchIntent } from "@/lib/watch-intent";
 import { productTitle, sizeLabel, storeLabel } from "@/lib/format";
-import { parseSource } from "@/lib/discover-rules";
+import { parseAttribution } from "@/lib/discover-events";
 
 export const metadata: Metadata = { title: "Sign in" };
 
@@ -22,7 +22,7 @@ async function watchRequest(watch?: string, store?: string, next?: string, src?:
   let csc = watch && /^\d{6}$/.test(watch) ? watch : null;
   let storeId = store && /^\d{1,5}$/.test(store) ? Number(store) : null;
   // Discovery attribution ("discover:price") rides along to the new request.
-  let source = parseSource(src) ? src! : null;
+  let source = parseAttribution(src) ? src! : null;
   const intentId = next?.match(/^\/watch\/confirm\?intent=([0-9a-f-]{36})$/i)?.[1];
   if (!csc && intentId) {
     const intent = await peekWatchIntent(intentId);

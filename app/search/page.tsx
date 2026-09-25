@@ -11,12 +11,17 @@ import { SearchControls } from "@/components/search-controls";
 import { ProductList } from "@/components/product-list";
 import { AskResults } from "@/components/nl-search";
 import { looksLikeQuestion, roughQuery } from "@/lib/nl/intent";
+import { parseTasteText } from "@/lib/taste/parse";
+import { isTasteSearch, TYPE_LABELS } from "@/lib/taste/request";
+import { TasteResults } from "@/components/taste-results";
+import { getFreshness } from "@/lib/queries";
 import { categoryFilterLabel, groupBySlug, groupOf } from "@/lib/categories";
 import { STATUS_LABELS } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
 
 interface SearchParams {
+  [key: string]: string | string[] | undefined;
   q?: string;
   category?: string;
   group?: string;
@@ -47,7 +52,7 @@ export default async function SearchPage({
 }) {
   const params = await searchParams;
   const q = typeof params.q === "string" ? params.q.trim() : "";
-  const [area, categories] = await Promise.all([getArea(), getCategories()]);
+  const [area, categories, areas] = await Promise.all([getArea(), getCategories(), getAreaOptions()]);
   // ?group= is a broad type ("vodka"); ?category= (a DABS category) narrows it.
   const group = groupBySlug(params.group);
   const filters = {
@@ -61,11 +66,18 @@ export default async function SearchPage({
     page: parseInt(params.page ?? "1", 10) || 1,
     near: area ? { lat: area.lat, lng: area.lng, miles: NEARBY_MILES } : undefined,
   };
-  const [exact, user, areas] = await Promise.all([
+  const [exact, user, catalogAsOf] = await Promise.all([
     searchProducts({ q, ...filters }),
     getCurrentUser(),
-    getAreaOptions(),
+    getFreshness(),
   ]);
+
+  // Taste picks: descriptive wine requests ("white, not too dry, under $30"),
+  // the "Help me choose" panel, or follow-ups. Exact names that match stay
+  // plain name search. The model step only runs when the rules left words
+  // unread and nothing matched by name.
+  const typed = q ? parseTasteText(q, areas.map((a) => a.label)) : null;
+  const taste = isTasteSearch(typed, params, exact.total, !!process.env.ANTHROPIC_API_KEY);
   // A question rarely matches product names word for word ("peaty scotch
   // under $60"), so fall back to its nouns plus any price cap or status.
   const rough = exact.total === 0 && searchTokens(q).length >= 2 ? roughQuery(q) : null;
@@ -87,7 +99,16 @@ export default async function SearchPage({
   ]);
 
   // Questions go to AI search; so do multi-word searches keyword search can't match.
-  const ask = q.length >= 2 && (looksLikeQuestion(q) || exact.total === 0) && searchTokens(q).length >= 2;
+  // The search bar's area control shows the taste request's area when it has
+  // one ("near Draper" typed, or ?area=), so the two never disagree.
+  const tasteAreaLabel = taste ? tasteArea(params, typed?.request.area ?? null) : undefined;
+  const barArea =
+    tasteAreaLabel === undefined
+      ? area
+      : tasteAreaLabel === null
+        ? null
+        : (areas.find((a) => a.label.toLowerCase() === tasteAreaLabel.toLowerCase()) ?? area);
+  const ask = !taste && q.length >= 2 && (looksLikeQuestion(q) || exact.total === 0) && searchTokens(q).length >= 2;
   const roughLabel =
     results !== exact
       ? [rough?.q, rough?.status === "A" ? "allocated" : rough?.status === "L" ? "limited" : "", rough?.maxPrice ? `under $${rough.maxPrice}` : "", rough?.status ? "" : "in stock"]
@@ -137,7 +158,7 @@ export default async function SearchPage({
         defaultValue={q}
         autoFocus={!q && pills.length === 0}
         areas={areas}
-        area={area}
+        area={barArea}
         hidden={{ category: params.category, group: params.group, instock: params.instock, sale: params.sale, max: params.max, sort: params.sort }}
       />
       <div className="space-y-3">
@@ -169,8 +190,30 @@ export default async function SearchPage({
 
       {ask ? <AskResults key={q} query={q} keywordHits={results.total} /> : null}
 
-      {results.total > 0 || !ask ? (
+      {taste ? (
+        <Suspense fallback={<TasteLoading />}>
+          <TasteResults
+            q={q}
+            typed={typed}
+            params={params}
+            pickerArea={area}
+            areas={areas}
+            userId={user?.id}
+            catalogAsOf={catalogAsOf}
+          />
+        </Suspense>
+      ) : null}
+
+      {taste && !q ? (
+        <p className="text-sm text-muted-foreground">
+          Want every bottle, not just the picks?{" "}
+          <Link prefetch={false} href={browseHref(params)} className="text-foreground underline decoration-primary underline-offset-4">
+            Browse all in-stock {tasteTypeLabel(params)}
+          </Link>
+        </p>
+      ) : (taste ? results.total > 0 : results.total > 0 || !ask) ? (
         <section className="space-y-2" aria-label="Results">
+          {taste ? <h2 className="pt-2 text-[15px] font-medium">All matches for your words (not taste-ranked)</h2> : null}
           <p className="text-sm text-muted-foreground" aria-live="polite">
             {roughLabel
               ? `${results.total.toLocaleString()} bottle${results.total === 1 ? "" : "s"}: ${roughLabel}`
@@ -217,4 +260,42 @@ export default async function SearchPage({
       ) : null}
     </div>
   );
+}
+
+function TasteLoading() {
+  return (
+    <div className="space-y-2 rounded-lg bg-card p-4 sm:p-5" aria-hidden>
+      <div className="h-5 w-64 rounded bg-raised motion-safe:animate-pulse" />
+      {[0, 1, 2].map((i) => (
+        <div key={i} className="h-16 rounded-md bg-raised motion-safe:animate-pulse" />
+      ))}
+    </div>
+  );
+}
+
+const GROUP_FOR_TYPE: Record<string, string> = { white: "white-wine", red: "red-wine", rose: "rose", sparkling: "sparkling" };
+
+/** Ordinary browse for the guided panel's kind of wine and budget. */
+function browseHref(params: SearchParams): string {
+  const next = new URLSearchParams({ instock: "1" });
+  const wine = typeof params.wine === "string" ? params.wine : "";
+  if (GROUP_FOR_TYPE[wine]) next.set("group", GROUP_FOR_TYPE[wine]);
+  if (typeof params.max === "string" && Number(params.max) > 0) next.set("max", params.max);
+  return `/search?${next.toString()}`;
+}
+
+function tasteTypeLabel(params: SearchParams): string {
+  const wine = typeof params.wine === "string" ? params.wine : "";
+  const label = TYPE_LABELS[wine as keyof typeof TYPE_LABELS];
+  const max = typeof params.max === "string" && Number(params.max) > 0 ? ` under $${params.max}` : "";
+  return `${label ? (wine === "rose" ? "rosés" : label.toLowerCase() + "s") : "wines"}${max}`;
+}
+
+/** The taste request's own area: ?area= wins over typed words; undefined = none set (use the cookie). */
+function tasteArea(params: SearchParams, typedArea: string | null): string | null | undefined {
+  const fromUrl = typeof params.area === "string" ? params.area : undefined;
+  if (fromUrl === "any") return null;
+  if (fromUrl) return fromUrl;
+  if (typedArea && typedArea !== "me") return typedArea;
+  return undefined;
 }

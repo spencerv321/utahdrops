@@ -10,6 +10,8 @@ const JOBS: Record<string, () => Promise<unknown>> = {
   percentiles: () => import("../lib/jobs/percentiles").then((m) => m.runPercentilesJob()),
   digest: () => import("../lib/jobs/digest").then((m) => m.runDigestJob()),
   rarity: () => import("../lib/jobs/rarity").then((m) => m.runRarityJob()),
+  "taste-profiles": () =>
+    import("../lib/jobs/taste-profiles").then((m) => m.runTasteProfilesJob({ reselect: process.env.TASTE_RESELECT === "1" })),
   rhdp: () => import("../lib/jobs/rhdp").then((m) => m.runRhdpJob()),
   sales: () =>
     import("../lib/jobs/sales").then((m) => m.runSalesJob({ refresh: process.env.SALES_REFRESH === "1" })),

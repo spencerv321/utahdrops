@@ -1,7 +1,6 @@
 import { sql } from "@/lib/db";
 import { MAX_HOME_STORES, MAX_WATCHLIST } from "@/lib/config";
-import { parseSource } from "@/lib/discover-rules";
-import { recordDiscoverEvent } from "@/lib/discover-events";
+import { parseAttribution, recordDiscoverEvent } from "@/lib/discover-events";
 
 /**
  * "Watch this bottle" for signed-out visitors. The request (bottle, optional
@@ -38,7 +37,7 @@ export async function createWatchIntent(
   storeId: number | null,
   attribution: { source?: string | null; visitorId?: string | null } = {}
 ): Promise<string | null> {
-  const source = parseSource(attribution.source) ? attribution.source! : null;
+  const source = parseAttribution(attribution.source) ? attribution.source! : null;
   const visitor = source && attribution.visitorId && /^[\w-]{8,64}$/.test(attribution.visitorId) ? attribution.visitorId : null;
   const rows = await sql<{ id: string }[]>`
     insert into watch_intents (email, csc, store_id, source, visitor_id)
