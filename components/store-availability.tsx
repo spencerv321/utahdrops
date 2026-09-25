@@ -3,7 +3,8 @@
 import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { ChevronDown, LocateFixed, Navigation, Phone } from "lucide-react";
-import { storeLabel } from "@/lib/format";
+import { checkedAgo, storeLabel } from "@/lib/format";
+import { canClaimNone, exceedsStatewide, type Statewide } from "@/lib/store-freshness";
 import { cn } from "@/lib/utils";
 import { AREA_EVENT, LOCATION_STORAGE_KEY, locate as locateArea, rememberArea } from "@/lib/area-client";
 
@@ -59,22 +60,38 @@ const mapHref = (s: StoreRow) =>
     ? `https://maps.google.com/?q=${s.lat},${s.lng}`
     : `https://maps.google.com/?q=${encodeURIComponent([s.address, s.city, "UT"].filter(Boolean).join(", "))}`;
 
-type Row = StoreRow & { miles: number | null; mine: boolean };
+type Row = StoreRow & {
+  miles: number | null;
+  mine: boolean;
+  /** A later statewide count is lower than this store's count: it has sold since. */
+  outdated: boolean;
+};
 
 /**
  * "Where can I get it?" Signed in with chosen stores: lead with those.
  * Otherwise: the nearest store with stock (one tap to share location), and
  * until then, the store with the most bottles.
+ *
+ * Every answer says when the stores were checked. "Not at your store" / "none
+ * of the stores" only from a check under a day old (lib/store-freshness.ts);
+ * a store count higher than the latest statewide count is marked out of date
+ * and never offered as the answer.
  */
 export function StoreAvailability({
   stores,
   homeStores,
   unit,
+  checkedAt,
+  statewide,
 }: {
   stores: StoreRow[];
   homeStores: HomeStore[];
   /** "bottle"/"bottles" or "unit"/"units", from the product's category. */
   unit: { one: string; many: string };
+  /** When these store counts were checked (one DABS page gives every store). */
+  checkedAt: string;
+  /** Latest catalog pass: statewide shelf count and when it was seen. */
+  statewide: Statewide;
 }) {
   const saved = useSyncExternalStore(subscribe, readSaved, () => null);
   const [status, setStatus] = useState<"idle" | "locating" | "denied">("idle");
@@ -96,18 +113,23 @@ export function StoreAvailability({
     const withDistance = stores.map((s) => ({
       ...s,
       mine: homeIds.has(s.store_id),
+      outdated: exceedsStatewide(s.qty, statewide, checkedAt),
       miles: here && s.lat != null && s.lng != null ? milesBetween(here, { lat: s.lat, lng: s.lng }) : null,
     }));
     // Your stores first, then in stock, then nearest (or most bottles).
+    const stocked = (r: Row) => Number(r.qty > 0 && !r.outdated);
     return withDistance.sort(
       (a, b) =>
         Number(b.mine) - Number(a.mine) ||
-        Number(b.qty > 0) - Number(a.qty > 0) ||
+        stocked(b) - stocked(a) ||
         (here ? (a.miles ?? Infinity) - (b.miles ?? Infinity) : b.qty - a.qty)
     );
-  }, [stores, here, homeIds]);
+  }, [stores, here, homeIds, statewide, checkedAt]);
 
-  const inStock = rows.filter((r) => r.qty > 0);
+  const inStock = rows.filter((r) => r.qty > 0 && !r.outdated);
+  const outdated = rows.filter((r) => r.outdated);
+  const ago = checkedAgo(checkedAt);
+  const recent = canClaimNone(checkedAt);
   const nearest = here
     ? [...inStock].filter((r) => r.miles != null).sort((a, b) => a.miles! - b.miles!)[0]
     : undefined;
@@ -185,33 +207,67 @@ export function StoreAvailability({
 
   // The one-glance answer.
   let answer: React.ReactNode;
+  // Nothing on a shelf we can vouch for: say why, without a stale "none".
+  const noneNote =
+    outdated.length > 0
+      ? `Our store counts from ${ago} are out of date: DABS now shows fewer ${unit.many} statewide than we counted at ${outdated.length === 1 ? "one store" : "some stores"}.`
+      : recent
+        ? `None of the stores we check had it when we checked ${ago}.`
+        : `None of the stores we check had it when we last checked, ${ago}. That's too long ago to rule a store out.`;
+
   if (homeStores.length > 0) {
     if (mineInStock) {
-      answer = <AnswerCard label="At your store" row={mineInStock} unit={unit} />;
+      answer = <AnswerCard label="At your store" row={mineInStock} unit={unit} checked={ago} />;
     } else {
       const names = homeStores.map((s) => storeLabel(s.name, s.city).title).join(", ");
+      const plural = homeStores.length > 1 ? "s" : "";
       const fallback = nearest ?? mostBottles;
+      const mineOutdated = outdated.some((r) => r.mine);
       answer = (
         <div className="space-y-3">
           <p className="text-[15px]">
-            <strong className="font-medium">Not at your store{homeStores.length > 1 ? "s" : ""}</strong>{" "}
-            <span className="text-muted-foreground">({names}) right now.</span>
-            {inStock.length === 0 ? <span className="text-muted-foreground"> None of the stores we check have it.</span> : null}
+            {mineOutdated ? (
+              <>
+                <strong className="font-medium">
+                  {homeStores.length > 1 ? "Your stores\u2019 counts are" : "Your store\u2019s count is"} out of date
+                </strong>{" "}
+                <span className="text-muted-foreground">
+                  ({names}): it&apos;s more than DABS now shows statewide. Call before you go.
+                </span>
+              </>
+            ) : recent ? (
+              <>
+                <strong className="font-medium">Not at your store{plural}</strong>{" "}
+                <span className="text-muted-foreground">
+                  ({names}) when we checked {ago}.
+                </span>
+              </>
+            ) : (
+              <>
+                <strong className="font-medium">None at your store{plural} when we last checked</strong>{" "}
+                <span className="text-muted-foreground">
+                  ({names}, {ago}). That&apos;s too long ago to rule it out; call the store.
+                </span>
+              </>
+            )}
+            {inStock.length === 0 && !mineOutdated ? <span className="text-muted-foreground"> {noneNote}</span> : null}
           </p>
-          {fallback ? <AnswerCard label={nearest ? "Nearest with stock" : "Most on hand"} row={fallback} unit={unit} /> : null}
+          {fallback ? (
+            <AnswerCard label={nearest ? "Nearest with stock" : "Most on hand"} row={fallback} unit={unit} checked={ago} />
+          ) : null}
         </div>
       );
     }
   } else if (inStock.length === 0) {
     answer = (
       <p className="border-y py-4 text-[15px] text-muted-foreground">
-        None of the stores we check have it right now. Watch it and we&apos;ll email you when it&apos;s back.
+        {noneNote} Watch it and we&apos;ll email you when it&apos;s back.
       </p>
     );
   } else if (nearest) {
-    answer = <AnswerCard label="Nearest with stock" row={nearest} unit={unit} />;
+    answer = <AnswerCard label="Nearest with stock" row={nearest} unit={unit} checked={ago} />;
   } else {
-    answer = mostBottles ? <AnswerCard label="Most on hand" row={mostBottles} unit={unit} /> : null;
+    answer = mostBottles ? <AnswerCard label="Most on hand" row={mostBottles} unit={unit} checked={ago} /> : null;
   }
 
   const visible = showAll ? rows : rows.slice(0, 6);
@@ -227,7 +283,7 @@ export function StoreAvailability({
           return (
             <li key={s.store_id} className="flex items-center gap-1 py-2">
               <div className="min-w-0 flex-1">
-                <p className={cn("font-medium", s.qty === 0 && "text-muted-foreground")}>
+                <p className={cn("font-medium", (s.qty === 0 || s.outdated) && "text-muted-foreground")}>
                   {label.title}
                   {label.number ? <span className="font-normal text-subtle-foreground"> #{label.number}</span> : null}
                   {s.mine ? <span className="ml-2 text-xs font-medium text-primary">Your store</span> : null}
@@ -237,10 +293,18 @@ export function StoreAvailability({
                 </p>
               </div>
               <span className="w-16 pr-1 text-right tabular-nums">
-                <span className={cn("block text-lg font-medium leading-tight", s.qty === 0 && "text-muted-foreground")}>
+                <span
+                  className={cn(
+                    "block text-lg font-medium leading-tight",
+                    (s.qty === 0 || s.outdated) && "text-muted-foreground",
+                    s.outdated && "line-through"
+                  )}
+                >
                   {s.qty}
                 </span>
-                <span className="block text-[11px] text-subtle-foreground">{s.qty === 1 ? unit.one : unit.many}</span>
+                <span className="block text-[11px] text-subtle-foreground">
+                  {s.outdated ? "out of date" : s.qty === 1 ? unit.one : unit.many}
+                </span>
               </span>
               <a
                 href={mapHref(s)}
@@ -279,7 +343,18 @@ export function StoreAvailability({
   );
 }
 
-function AnswerCard({ label, row, unit }: { label: string; row: Row; unit: { one: string; many: string } }) {
+function AnswerCard({
+  label,
+  row,
+  unit,
+  checked,
+}: {
+  label: string;
+  row: Row;
+  unit: { one: string; many: string };
+  /** "5h ago" / "Sep 22": when this count was checked. */
+  checked: string;
+}) {
   const store = storeLabel(row.name, row.city);
   return (
     <div className="space-y-3 rounded-lg bg-card p-4">
@@ -294,6 +369,7 @@ function AnswerCard({ label, row, unit }: { label: string; row: Row; unit: { one
           <p className="text-sm text-muted-foreground">
             {[row.miles != null ? `${row.miles.toFixed(1)} mi away` : null, row.address].filter(Boolean).join(" · ")}
           </p>
+          <p className="text-sm text-subtle-foreground">Checked {checked}</p>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">

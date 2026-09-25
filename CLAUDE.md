@@ -43,8 +43,11 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   (`opengraph-image` routes) use `lib/og.tsx` with TTF fonts and pre-toned
   JPEGs in `assets/` (Satori can't read WOFF2 or WebP).
 - Visitor area lives in the `ud_area` cookie (`lib/area*.ts`); "near" = 10 mi.
-  Per-store stock refreshes in rotation (~1–4 days old), so "near" counts
-  show their check date when older than 36h.
+  Per-store stock refreshes in rotation, so every store count shows its check
+  time. Claim rules live in `lib/store-freshness.ts`: negatives ("none near",
+  "not at your store") only from checks < 24h; a newer statewide count can
+  disprove a store count (none statewide, or fewer than the store had) but
+  never confirm one. Don't write "right now" about store counts.
 
 ## Search, watching, freshness (PRs #25–#27)
 - Search matches `products.search_key`. Its SQL function and

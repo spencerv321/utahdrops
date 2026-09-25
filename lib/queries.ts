@@ -373,6 +373,8 @@ export interface Nearby {
   units: number;
   /** Oldest per-store check among nearby stores (store data refreshes in rotation). */
   checkedAt: Date;
+  /** The latest catalog pass's statewide shelf count, which can disprove older store counts. */
+  statewide: { qty: number | null; at: Date };
 }
 
 /**
@@ -390,9 +392,11 @@ export async function getNearby(
     select c.csc,
            count(*) filter (where n.near and c.qty > 0)::int as stores,
            coalesce(sum(c.qty) filter (where n.near and c.qty > 0), 0)::int as units,
-           min(c.scraped_at) as checked_at
+           min(c.scraped_at) as checked_at,
+           p.store_qty as statewide_qty, p.last_seen as statewide_at
     from store_inventory_current c
     join stores s on s.id = c.store_id
+    join products p on p.csc = c.csc
     cross join lateral (
       select s.lat is not null and 3959 * 2 * asin(least(1, sqrt(
         sin(radians(s.lat - ${at.lat}) / 2) ^ 2 +
@@ -401,8 +405,15 @@ export async function getNearby(
     ) n
     where c.csc = any(${cscs})
       and c.scraped_at > now() - make_interval(hours => ${STORE_DATA_MAX_AGE_HOURS})
-    group by c.csc`) as unknown as { csc: string; stores: number; units: number; checked_at: Date }[];
-  return new Map(rows.map((r) => [r.csc, { stores: r.stores, units: r.units, checkedAt: r.checked_at }]));
+    group by c.csc, p.store_qty, p.last_seen`) as unknown as {
+    csc: string; stores: number; units: number; checked_at: Date; statewide_qty: number | null; statewide_at: Date;
+  }[];
+  return new Map(
+    rows.map((r) => [
+      r.csc,
+      { stores: r.stores, units: r.units, checkedAt: r.checked_at, statewide: { qty: r.statewide_qty, at: r.statewide_at } },
+    ])
+  );
 }
 
 export type RarityTier = "everyday" | "uncommon" | "scarce" | "rare" | "unicorn";

@@ -58,14 +58,15 @@ export function ProductList({
                   {meta ? <span className="block truncate text-[13px] text-subtle-foreground">{meta}</span> : null}
                 </span>
                 <span className="mt-1 flex flex-wrap items-center gap-x-2 text-[13px] lg:mt-0 lg:flex-col lg:items-start">
-                  {p.in_stock ? (
+                  {p.in_stock && (p.store_qty ?? 0) > 0 ? (
                     <span className="inline-flex items-center gap-1 font-medium text-success">
                       <Check className="size-3.5" aria-hidden />
                       In stores · {formatQty(p.store_qty)} {unitWord(p.category, p.size_ml, p.store_qty ?? 0)} statewide
                     </span>
                   ) : (
                     <span className="text-muted-foreground">
-                      Not in stores
+                      {/* DABS flags some bottles in stock with none on store shelves (warehouse only). */}
+                      {p.in_stock ? "Not on store shelves" : "Not in stores"}
                       {(p.on_order_qty ?? 0) > 0 ? ` · ${formatQty(p.on_order_qty)} on order` : ""}
                     </span>
                   )}

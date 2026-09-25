@@ -6,7 +6,7 @@ import { withRun } from "./run";
 
 /**
  * Per-store pass. Each SKU costs two DABS requests (session prime + detail
- * page) at ≤1 req/s, so a run covers `budget` SKUs (300 ≈ 11 min), not the
+ * page) at ≤1 req/s, so a run covers `budget` SKUs (400 ≈ 15 min), not the
  * catalog. Each run is split explicitly:
  *
  *   1. Watched bottles: up to WATCH_SHARE of the budget goes to watchlisted
@@ -23,7 +23,7 @@ import { withRun } from "./run";
  * the queue.
  *
  * Each run also has a wall-clock budget (STORE_TIME_BUDGET_MINUTES) below the
- * workflow's 30-minute timeout: when DABS is slow the run stops early and
+ * workflow's 40-minute timeout: when DABS is slow the run stops early and
  * records what it did, instead of being killed (a killed run skips the
  * digest and leaves an unfinished scrape_runs row). Watched bottles go first,
  * so a short run only trims the rotation.
