@@ -2,7 +2,7 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { ChevronRight, MapPin, Sparkles, X } from "lucide-react";
 import type { Area } from "@/lib/area";
-import { checkedAgo, formatPrice, formatQty, productTitle, sizeLabel, whenLabel } from "@/lib/format";
+import { checkedAgo, formatPrice, formatQty, productTitle, sizeLabel, unitWord, whenLabel } from "@/lib/format";
 import { clientIp, withinLimit } from "@/lib/rate-limit";
 import { getWatchedSet } from "@/lib/queries";
 import { interpretWithModel, mergeModel, shouldInterpret } from "@/lib/taste/interpret";
@@ -300,12 +300,12 @@ function Card({
           <span className="inline-flex items-center gap-1 font-medium">
             <MapPin className="size-3.5" aria-hidden />
             {r.near.stores} {r.near.stores === 1 ? "store" : "stores"} {areaLabel === "Near you" ? "near you" : `near ${areaLabel}`} ·{" "}
-            {formatQty(r.near.units)} bottles
+            {formatQty(r.near.units)} {unitWord(r.category, r.sizeMl, r.near.units)}
             <span className="font-normal text-subtle-foreground">· checked {checkedAgo(r.near.checkedAt)}</span>
           </span>
         ) : (
           <span className="text-success">
-            In stores · {formatQty(r.statewide.units)} bottles statewide
+            In stores · {formatQty(r.statewide.units)} {unitWord(r.category, r.sizeMl, r.statewide.units ?? 0)} statewide
             <span className="text-subtle-foreground"> · DABS {whenLabel(r.statewide.asOf)}</span>
           </span>
         )}
