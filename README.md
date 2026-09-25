@@ -152,6 +152,23 @@ the current statewide count → that store is marked out of date and never
 offered as the answer. Products DABS flags in stock with nothing on store
 shelves read "Not on store shelves", not "In stores · 0".
 
+**Check DABS now** (product page, `app/api/check/[csc]`): one live
+store-by-store check for a visitor deciding whether to drive. POST from a tap
+only (same-origin, bots refused, never on page render), reuses a check under
+15 minutes old, one check per bottle at a time, per-IP and daily caps and a
+circuit breaker (`CHECK_NOW` in `lib/config.ts`). Results are dated "what DABS
+showed at 7:42 PM": DABS's own delay between a sale and its locator isn't known.
+
+**One DABS pace for everything**: every DABS request (catalog and store jobs
+in Actions, checks on Vercel) reserves a slot from one Postgres row
+(`dabs_pacer`, `lib/dabs/client.ts`), so the 1 request / 1.1 s pace holds
+across processes; without the database a process paces itself. Every store
+check (rotation, watched, on_demand) is logged in `store_checks` with its
+time, outcome and how many stores' counts changed since the previous check:
+`report.yml` → `checks` shows speed, failures, decay by age of the previous
+check, and Check DABS now use; `freshness` shows in-stock coverage at
+6/12/24/48/72h by segment.
+
 Store-by-store counts older than 7 days (`STORE_DATA_MAX_AGE_HOURS`) are
 treated as unknown everywhere: near-me counts and ordering, AI search, and the
 product page (which then shows a dated "last known" list behind a toggle).

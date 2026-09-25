@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import { DABS_LOCATOR_URL } from "@/lib/config";
-import { politeFetch, ScrapeShapeError, cleanName } from "./client";
+import { politeFetch, ScrapeShapeError, cleanName, DabsBusyError } from "./client";
 
 export interface DetailStoreRow {
   storeId: number;
@@ -31,22 +31,30 @@ export interface ProductDetail {
  *
  * Because the cookie is single-use, retrying step 2 alone can never succeed —
  * on failure we redo the whole flow once instead.
+ *
+ * `quick` is for a visitor waiting on the page (Check DABS now): one attempt,
+ * a short timeout, and a bounded wait for a pacer slot.
  */
-export async function fetchProductDetail(sku: string): Promise<ProductDetail> {
+export interface DetailOptions {
+  quick?: { timeoutMs: number; maxWaitMs: number };
+}
+
+export async function fetchProductDetail(sku: string, opts: DetailOptions = {}): Promise<ProductDetail> {
+  if (opts.quick) return fetchProductDetailOnce(sku, opts);
   try {
-    return await fetchProductDetailOnce(sku);
+    return await fetchProductDetailOnce(sku, opts);
   } catch (err) {
-    if (err instanceof ScrapeShapeError) throw err;
-    return fetchProductDetailOnce(sku);
+    if (err instanceof ScrapeShapeError || err instanceof DabsBusyError) throw err;
+    return fetchProductDetailOnce(sku, opts);
   }
 }
 
-async function fetchProductDetailOnce(sku: string): Promise<ProductDetail> {
+async function fetchProductDetailOnce(sku: string, { quick }: DetailOptions): Promise<ProductDetail> {
   const prime = await politeFetch(
     `${DABS_LOCATOR_URL}/Products/GetDetailUrl?sku=${encodeURIComponent(sku)}`,
     { headers: { "X-Requested-With": "XMLHttpRequest", Referer: DABS_LOCATOR_URL } },
     undefined,
-    { retries: 1 }
+    quick ? { retries: 0, ...quick } : { retries: 1 }
   );
   if (!prime.ok) throw new Error(`GetDetailUrl(${sku}) returned ${prime.status}`);
   const tempData = (prime.headers.getSetCookie?.() ?? [])
@@ -57,7 +65,7 @@ async function fetchProductDetailOnce(sku: string): Promise<ProductDetail> {
     `${DABS_LOCATOR_URL}/ProductDetail/Index`,
     { headers: { Referer: DABS_LOCATOR_URL } },
     tempData,
-    { retries: 0 }
+    quick ? { retries: 0, ...quick } : { retries: 0 }
   );
   if (!res.ok) throw new Error(`ProductDetail(${sku}) returned ${res.status}`);
   const html = await res.text();

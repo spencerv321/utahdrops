@@ -76,6 +76,43 @@ export async function selectStoreTargets(
   return { watched, rotation, knownFailing };
 }
 
+export type CheckSource = "rotation" | "watched" | "on_demand";
+
+export interface CheckOutcome {
+  stores: number;
+  stocked: number;
+  /** Stores seen before whose count differs now (first sightings don't count). */
+  changedStores: number;
+  prevCheckedAt: Date | null;
+  statewideQty: number | null;
+}
+
+let checkLogWarned = false;
+
+/**
+ * One row per check attempt in store_checks (report.yml -> checks). Logging
+ * never fails a check: if the table is missing, warn once and carry on.
+ */
+export async function logStoreCheck(
+  csc: string,
+  source: CheckSource,
+  ms: number,
+  result: { ok: true; outcome: CheckOutcome } | { ok: false; error: string }
+) {
+  try {
+    const o = result.ok ? result.outcome : null;
+    await sql`
+      insert into store_checks (csc, source, ok, ms, error, prev_checked_at, stores, stocked, changed_stores, statewide_qty)
+      values (${csc}, ${source}, ${result.ok}, ${Math.round(ms)}, ${result.ok ? null : result.error.slice(0, 300)},
+              ${o ? o.prevCheckedAt : sql`(select store_checked_at from products where csc = ${csc})`},
+              ${o?.stores ?? null}, ${o?.stocked ?? null}, ${o?.changedStores ?? null},
+              ${o ? o.statewideQty : sql`(select store_qty from products where csc = ${csc})`})`;
+  } catch (err) {
+    if (!checkLogWarned) console.warn(`store_checks log unavailable: ${err instanceof Error ? err.message : err}`);
+    checkLogWarned = true;
+  }
+}
+
 /** A failed detail fetch: note the attempt and back off; the last good check stays as it was. */
 export async function recordStoreFailure(csc: string) {
   await sql`
@@ -105,14 +142,19 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
     const errors: string[] = [];
     const started = Date.now();
 
+    const watchedSet = new Set(watched);
     for (const csc of targets) {
       if (Date.now() - started > TIME_BUDGET_MS) break;
       attempted++;
+      const source: CheckSource = watchedSet.has(csc) ? "watched" : "rotation";
+      const t0 = Date.now();
       let detail: ProductDetail;
       try {
         detail = await fetchProductDetail(csc);
       } catch (err) {
-        errors.push(`${csc}: ${err instanceof Error ? err.message : String(err)}`);
+        const message = err instanceof Error ? err.message : String(err);
+        errors.push(`${csc}: ${message}`);
+        await logStoreCheck(csc, source, Date.now() - t0, { ok: false, error: message });
         await recordStoreFailure(csc);
         if (failing.has(csc)) continue;
         if (++consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
@@ -121,7 +163,9 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
         continue;
       }
       if (!failing.has(csc)) consecutiveFailures = 0;
-      await persistDetail(detail);
+      const ms = Date.now() - t0;
+      const outcome = await persistDetail(detail);
+      await logStoreCheck(csc, source, ms, { ok: true, outcome });
       scraped++;
       storeRows += detail.stores.length;
     }
@@ -142,7 +186,24 @@ export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCR
   });
 }
 
-export async function persistDetail(detail: ProductDetail) {
+export async function persistDetail(detail: ProductDetail): Promise<CheckOutcome> {
+  // Before anything is written: the previous check, and how many known stores changed.
+  const [before] = await sql<{ store_checked_at: Date | null; store_qty: number | null }[]>`
+    select store_checked_at, store_qty from products where csc = ${detail.sku}`;
+  const counts = detail.stores.map((s) => ({ store_id: s.storeId, qty: s.qty }));
+  const [{ changed }] = await sql<{ changed: number }[]>`
+    with incoming as (
+      select * from jsonb_to_recordset(${sql.json(counts as never)}) as x(store_id int, qty int)
+    )
+    select (
+      (select count(*) from incoming i
+         join store_inventory_current c on c.csc = ${detail.sku} and c.store_id = i.store_id
+        where c.qty is distinct from i.qty)
+      + (select count(*) from store_inventory_current c
+          where c.csc = ${detail.sku} and c.qty > 0
+            and not (c.store_id = any(${counts.map((c) => c.store_id)}::int[])))
+    )::int as changed`;
+
   // Stores ride along on every detail page — keeps the store table fresh for free.
   const storeUpserts = detail.stores
     .filter((s) => s.storeId > 0)
@@ -247,4 +308,12 @@ export async function persistDetail(detail: ProductDetail) {
       store_check_failures = 0,
       store_retry_at = null
     where csc = ${detail.sku}`;
+
+  return {
+    stores: detail.stores.length,
+    stocked: detail.stores.filter((s) => s.qty > 0).length,
+    changedStores: changed,
+    prevCheckedAt: before?.store_checked_at ?? null,
+    statewideQty: before?.store_qty ?? null,
+  };
 }

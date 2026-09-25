@@ -48,6 +48,10 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   "not at your store") only from checks < 24h; a newer statewide count can
   disprove a store count (none statewide, or fewer than the store had) but
   never confirm one. Don't write "right now" about store counts.
+- All DABS requests share one pace via `dabs_pacer` (Postgres), across jobs
+  and Vercel. Don't add a DABS caller that bypasses `politeFetch`. "Check
+  DABS now" is tap-only with caps in `CHECK_NOW`; never trigger DABS requests
+  from a page render (crawlers). `report.yml` → `checks` for decay and use.
 
 ## Search, watching, freshness (PRs #25–#27)
 - Search matches `products.search_key`. Its SQL function and

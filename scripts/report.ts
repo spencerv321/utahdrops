@@ -104,6 +104,36 @@ async function freshness(sql: typeof import("../lib/db").sql) {
                 else 'over 7 days (shown as unknown)' end as age,
            count(*)::int as products
     from products where in_stock and delisted_at is null group by 1 order by 1`);
+  show("in-stock products by last successful store check, % within each age (by segment)", await sql`
+    with p as (
+      select p.csc, p.store_checked_at as t,
+             case when p.store_qty >= 1000 then '1000+' when p.store_qty >= 200 then '200-999'
+                  when p.store_qty >= 50 then '50-199' else '1-49' end as size,
+             p.status in ('A', 'L') as allocated_limited,
+             coalesce(o.tier, case when r.published then r.tier end) in ('scarce', 'rare', 'unicorn') as scarce_plus,
+             exists (select 1 from watchlist w where w.csc = p.csc) as watched,
+             exists (select 1 from wine_profiles wp where wp.csc = p.csc) as taste_pilot
+      from products p
+      left join product_rarity r using (csc)
+      left join rarity_overrides o using (csc)
+      where p.in_stock and p.delisted_at is null and coalesce(p.store_qty, 0) > 0
+    ),
+    seg as (
+      select 'all' as segment, * from p
+      union all select 'bottles ' || size, * from p
+      union all select 'allocated/limited', * from p where allocated_limited
+      union all select 'rated scarce+', * from p where scarce_plus
+      union all select 'watched', * from p where watched
+      union all select 'taste pilot', * from p where taste_pilot
+    )
+    select segment, count(*)::int as products,
+           round(100.0 * count(*) filter (where t > now() - interval '6 hours') / count(*), 1)::float8 as pct_6h,
+           round(100.0 * count(*) filter (where t > now() - interval '12 hours') / count(*), 1)::float8 as pct_12h,
+           round(100.0 * count(*) filter (where t > now() - interval '24 hours') / count(*), 1)::float8 as pct_24h,
+           round(100.0 * count(*) filter (where t > now() - interval '48 hours') / count(*), 1)::float8 as pct_48h,
+           round(100.0 * count(*) filter (where t > now() - interval '72 hours') / count(*), 1)::float8 as pct_72h,
+           round(100.0 * count(*) filter (where t is null) / count(*), 1)::float8 as pct_never
+    from seg group by segment order by segment`);
   show("statewide catalog passes (last 48h)", await sql`
     select started_at, finished_at, ok, detail->'events' as events, detail->'reason' as suppressed_reason
     from scrape_runs where job = 'catalog' and started_at > now() - interval '48 hours' order by started_at desc`);
@@ -272,6 +302,7 @@ async function main() {
     return sql.end();
   }
   if (process.argv[2] === "freshness") return freshness(sql);
+  if (process.argv[2] === "checks") return checks(sql);
   if (process.argv[2] === "discover") return discover(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");
@@ -507,4 +538,45 @@ async function pooler() {
   }
   await db.end({ timeout: 2 });
   process.exit(0);
+}
+
+/**
+ * store_checks (every store check since it was added): speed and failures by
+ * source, how often a re-check finds store counts changed by the age of the
+ * previous check (decay: how fast "checked N hours ago" goes stale), and
+ * "Check DABS now" use. Product codes and counts only.
+ */
+async function checks(sql: typeof import("../lib/db").sql) {
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  show("checks by source, last 7 days", await sql`
+    select source, count(*)::int as checks, count(*) filter (where not ok)::int as failed,
+           round(100.0 * count(*) filter (where not ok) / count(*), 1)::float8 as failed_pct,
+           percentile_cont(0.5) within group (order by ms)::int as ms_p50,
+           percentile_cont(0.9) within group (order by ms)::int as ms_p90,
+           max(ms) as ms_max
+    from store_checks where created_at > now() - interval '7 days' group by 1 order by 1`);
+  show("checks per day (Mountain time)", await sql`
+    select (created_at at time zone 'America/Denver')::date::text as day, source, count(*)::int as checks,
+           count(*) filter (where not ok)::int as failed
+    from store_checks where created_at > now() - interval '14 days' group by 1, 2 order by 1, 2`);
+  show("decay: re-checks that found a store count changed, by age of the previous check", await sql`
+    select case when age < interval '6 hours' then 'a <6h' when age < interval '12 hours' then 'b 6-12h'
+                when age < interval '24 hours' then 'c 12-24h' when age < interval '48 hours' then 'd 24-48h'
+                when age < interval '72 hours' then 'e 48-72h' else 'f 72h+' end as prev_check_age,
+           case when statewide_qty >= 200 then 'bottles 200+' when statewide_qty >= 50 then 'bottles 50-199' else 'bottles 1-49' end as size,
+           count(*)::int as rechecks,
+           round(100.0 * count(*) filter (where changed_stores > 0) / count(*), 1)::float8 as pct_changed,
+           round(avg(changed_stores), 2)::float8 as avg_stores_changed,
+           round(avg(stocked), 1)::float8 as avg_stocked_stores
+    from (select *, created_at - prev_checked_at as age from store_checks
+          where ok and prev_checked_at is not null and created_at > now() - interval '14 days') c
+    where statewide_qty > 0
+    group by 1, 2 order by 2, 1`);
+  show("Check DABS now: outcomes, last 7 days", await sql`
+    select count(*)::int as checks, count(distinct csc)::int as bottles,
+           count(*) filter (where ok and changed_stores > 0)::int as found_changes,
+           count(*) filter (where not ok)::int as failed,
+           (array_agg(error order by created_at desc) filter (where not ok))[1:5] as recent_errors
+    from store_checks where source = 'on_demand' and created_at > now() - interval '7 days'`);
+  return sql.end();
 }
