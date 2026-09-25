@@ -122,7 +122,7 @@ function Answer({ result }: { result: NlResult }) {
                   : ""}
               </p>
               {group.products.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No matches at this store.</p>
+                <p className="text-sm text-muted-foreground">No matches among the bottles we&apos;ve checked here this week.</p>
               ) : (
                 <ul className="space-y-1.5">
                   {group.products.map((p) => (

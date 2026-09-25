@@ -95,7 +95,7 @@ words, "any" clears). Rules read the words (`lib/taste/parse.ts`); Haiku is
 only asked about words the rules couldn't read, may only fill empty taste
 preferences, and has a 2.5s limit (`lib/taste/interpret.ts`). Kind, grape,
 price and area are hard filters; area means fresh stock (checked in the last
-72h) at a store within 10 mi. Sweetness, body, style words and novelty only
+24h) at a store within 10 mi. Sweetness, body, style words and novelty only
 rank (`lib/taste/score.ts`). Recommendations cover a fixed pilot of 260
 wines (`lib/taste/pilot-list.ts`) whose profiles keep evidence per attribute
 (DABS listing text, name label or category; general style knowledge, marked
@@ -141,6 +141,16 @@ check < 24h old; otherwise "none near" (full check < 24h) or "not checked".
 Clicks, Watch taps and completed watches go to `discover_events` (watch
 attribution rides `watch_intents.source` through sign-in); `/admin` →
 Discovery. Review real candidates with `report.yml` → `discover`.
+
+**What store counts may claim** (`lib/store-freshness.ts`, everywhere a
+count is shown): every store count carries its check time; "none near you",
+"not at your store" and "none of the stores" only from a check < 24h old
+(older: "no recent check" / "too long ago to rule it out"). A later catalog
+pass can disprove store counts, never confirm them: none on shelves statewide
+since the check → the store list is "last known" only; a store count above
+the current statewide count → that store is marked out of date and never
+offered as the answer. Products DABS flags in stock with nothing on store
+shelves read "Not on store shelves", not "In stores · 0".
 
 Store-by-store counts older than 7 days (`STORE_DATA_MAX_AGE_HOURS`) are
 treated as unknown everywhere: near-me counts and ordering, AI search, and the

@@ -38,6 +38,7 @@ import {
 import { BottleGlyph } from "@/components/bottle-glyph";
 import { Check } from "lucide-react";
 import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
+import { exceedsStatewide, noneStatewideSince } from "@/lib/store-freshness";
 
 export const dynamic = "force-dynamic";
 
@@ -93,7 +94,26 @@ export default async function ProductPage({ params, searchParams }: Props) {
   );
   // Store-by-store checks older than a week aren't shown as current anywhere.
   const storesFresh = isFreshStoreCheck(storeAsOf);
-  const storesWithStock = storesFresh ? stores.filter((s) => s.qty > 0).length : 0;
+  // The catalog pass is usually newer than the store check: it can disprove
+  // store counts (none statewide now, or fewer than a store had), never confirm them.
+  const statewide = { qty: product.store_qty, at: product.last_seen };
+  const soldOutSince = storesFresh && noneStatewideSince(statewide, storeAsOf);
+  const storesWithStock =
+    storesFresh && !soldOutSince
+      ? stores.filter((s) => s.qty > 0 && !exceedsStatewide(s.qty, statewide, storeAsOf)).length
+      : 0;
+  const storeRows = stores.map((s) => ({
+    store_id: s.store_id,
+    name: s.name,
+    address: s.address,
+    city: s.city,
+    phone: s.phone,
+    lat: s.lat,
+    lng: s.lng,
+    qty: s.qty,
+  }));
+  // DABS flags some products in stock with nothing on store shelves (warehouse only).
+  const onShelves = product.in_stock && (product.store_qty ?? 0) > 0;
   const note = listingNote(product.status);
   // Bottles DABS releases by drawing aren't "gone for good" when unlisted.
   const drawingRelease = !!rarity?.evidence.some((e) => e.startsWith("DABS drawing"));
@@ -178,7 +198,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
           </div>
           <p className="-mt-2 text-sm text-muted-foreground">{priceNote(history)}</p>
           <p className="text-[15px]">
-            {product.in_stock ? (
+            {onShelves ? (
               <span className="inline-flex items-start gap-1.5 font-medium text-success">
                 <Check className="mt-0.5 size-4 shrink-0" aria-hidden />
                 <span>
@@ -189,7 +209,11 @@ export default async function ProductPage({ params, searchParams }: Props) {
                 </span>
               </span>
             ) : (
-              <span className="text-muted-foreground">Not in stores right now.</span>
+              <span className="text-muted-foreground">
+                {product.in_stock && (product.warehouse_qty ?? 0) > 0
+                  ? `Not on store shelves (${formatQty(product.warehouse_qty)} at the DABS warehouse).`
+                  : "Not in stores."}
+              </span>
             )}
           </p>
           {product.delisted_at ? (
@@ -236,9 +260,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
             <div className="space-y-2 border-y py-5 text-[15px]">
               <p>We don&apos;t have store-by-store counts for this bottle yet.</p>
               <p className="text-muted-foreground">
-                {product.in_stock
-                  ? `DABS shows ${formatQty(product.store_qty)} ${unit.many} in stores statewide. `
-                  : "DABS shows none in stores right now. "}
+                {onShelves
+                  ? `DABS showed ${formatQty(product.store_qty)} ${unit.many} in stores statewide ${whenLabel(product.last_seen)}. `
+                  : `DABS showed none in stores statewide ${whenLabel(product.last_seen)}. `}
                 The{" "}
                 <a className="text-foreground underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
                   official locator
@@ -246,16 +270,17 @@ export default async function ProductPage({ params, searchParams }: Props) {
                 lists stores by name.
               </p>
             </div>
-          ) : !storesFresh ? (
+          ) : !storesFresh || soldOutSince ? (
             <div className="space-y-3 border-y py-5 text-[15px]">
               <p>
-                Store-by-store counts were last checked {whenLabel(storeAsOf)}, too long ago to rely on. We&apos;ll
-                refresh them soon.
+                {soldOutSince
+                  ? `Our store-by-store counts from ${whenLabel(storeAsOf)} are out of date: DABS has shown none on store shelves statewide since then.`
+                  : `Store-by-store counts were last checked ${whenLabel(storeAsOf)}, too long ago to rely on.`}
               </p>
               <p className="text-muted-foreground">
-                {product.in_stock
-                  ? `Right now DABS shows ${formatQty(product.store_qty)} ${unit.many} in stores statewide. `
-                  : "Right now DABS shows none in stores. "}
+                {onShelves
+                  ? `DABS showed ${formatQty(product.store_qty)} ${unit.many} in stores statewide ${whenLabel(product.last_seen)}. `
+                  : `DABS showed none in stores statewide ${whenLabel(product.last_seen)}. `}
                 The{" "}
                 <a className="text-foreground underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
                   official locator
@@ -270,16 +295,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
                   <StoreAvailability
                     unit={unit}
                     homeStores={homeStores}
-                    stores={stores.map((s) => ({
-                      store_id: s.store_id,
-                      name: s.name,
-                      address: s.address,
-                      city: s.city,
-                      phone: s.phone,
-                      lat: s.lat,
-                      lng: s.lng,
-                      qty: s.qty,
-                    }))}
+                    stores={storeRows}
+                    checkedAt={new Date(storeAsOf!).toISOString()}
+                    statewide={{ qty: product.store_qty, at: new Date(product.last_seen).toISOString() }}
                   />
                 </div>
               </details>
@@ -288,16 +306,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
             <StoreAvailability
               unit={unit}
               homeStores={homeStores}
-              stores={stores.map((s) => ({
-                store_id: s.store_id,
-                name: s.name,
-                address: s.address,
-                city: s.city,
-                phone: s.phone,
-                lat: s.lat,
-                lng: s.lng,
-                qty: s.qty,
-              }))}
+              stores={storeRows}
+              checkedAt={new Date(storeAsOf!).toISOString()}
+              statewide={{ qty: product.store_qty, at: new Date(product.last_seen).toISOString() }}
             />
           )}
           {!user ? (
