@@ -54,7 +54,7 @@ Postgres with the catalog loaded, see CLAUDE.md; never sends email).
 | Job | Where it runs in prod | Schedule (UTC) |
 |---|---|---|
 | `catalog` | `.github/workflows/catalog.yml` (in the runner) | 06, 14, 22:00 |
-| `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | every 4h at :37 (GitHub starts runs ~2h late) |
+| `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | triggers every 2h at :37; runs when the last success is ≥ 3.5h old (~every 4h) |
 | `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
 | `sales` | `.github/workflows/sales.yml` (in the runner) | Mondays 16:40 |
 | `rarity`, then `taste-profiles` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
