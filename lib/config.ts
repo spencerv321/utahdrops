@@ -74,3 +74,24 @@ export const JOB_MAX_AGE_HOURS: Record<string, number> = {
   allocated: 24,
   digest: 8,
 };
+
+/**
+ * "Check DABS now" on a product page (app/api/check/[csc]): one live store
+ * check for a visitor deciding whether to drive. It shares the DABS pacer
+ * with the jobs, so it never raises the overall request rate; these caps
+ * bound how much of that pace visitors can take.
+ */
+export const CHECK_NOW = {
+  /** A check this recent is reused instead of asking DABS again. */
+  reuseMinutes: 15,
+  /** Per visitor IP, per hour. */
+  perIpPerHour: 12,
+  /** Across everyone, per UTC day (each check is 2 DABS requests). */
+  dailyCap: 300,
+  /** Per DABS request, while a visitor waits. */
+  timeoutMs: 8_000,
+  /** Longest wait for a slot from the shared pacer before saying "busy". */
+  maxWaitMs: 6_000,
+  /** Stop asking DABS for a while after this many failed checks in 10 minutes. */
+  breakerFailures: 5,
+} as const;

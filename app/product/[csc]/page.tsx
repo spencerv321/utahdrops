@@ -20,6 +20,7 @@ import { WatchButton } from "@/components/watch-button";
 import { ShareButton } from "@/components/share-button";
 import { StoreAvailability, type HomeStore } from "@/components/store-availability";
 import { RarityCard } from "@/components/rarity-card";
+import { CheckDabsButton } from "@/components/check-dabs-button";
 import {
   categoryLabel,
   checkedAgo,
@@ -256,6 +257,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
               <span className="text-[13px] text-muted-foreground">Store counts from {whenLabel(storeAsOf)}</span>
             ) : null}
           </div>
+          {product.delisted_at ? null : <CheckDabsButton csc={csc} />}
           {stores.length === 0 ? (
             <div className="space-y-2 border-y py-5 text-[15px]">
               <p>We don&apos;t have store-by-store counts for this bottle yet.</p>
