@@ -180,3 +180,12 @@ test("bottles that already failed are reported so the run can put them last", as
   assert.ok(knownFailing.includes(a), "previously failing bottle flagged");
   assert.ok(!knownFailing.includes(b), "healthy bottle not flagged");
 });
+
+test("scheduled runs skip right after a successful run; manual runs never skip", async () => {
+  const { shouldSkipStoreRun } = await import("../../lib/jobs/store-inventory");
+  const [row] = await sql<{ id: number }[]>`insert into scrape_runs (job, started_at, finished_at, ok)
+    values ('store_inventory', now() - interval '1 hour', now() - interval '45 minutes', true) returning id`;
+  assert.ok(await shouldSkipStoreRun(3.5), "a success 1h ago skips a scheduled run");
+  assert.equal(await shouldSkipStoreRun(0), null, "manual dispatch always runs");
+  await sql`delete from scrape_runs where id = ${row.id}`;
+});

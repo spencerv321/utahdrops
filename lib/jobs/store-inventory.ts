@@ -123,7 +123,30 @@ export async function recordStoreFailure(csc: string) {
     where csc = ${csc}`;
 }
 
-export async function runStoreInventoryJob(budget = Number(process.env.STORE_SCRAPE_BUDGET ?? 200)) {
+/**
+ * GitHub drops some scheduled triggers (2 of the first 4 slots of the 4-hourly
+ * cron, 2026-09-25), so the workflow fires every 2h and the job itself keeps
+ * the ~4h cadence: a scheduled run skips (no DABS requests, no run row) when
+ * a successful run started less than STORE_MIN_GAP_HOURS ago. A dropped
+ * trigger is then made up 2h later. Manual dispatch passes 0 and always runs.
+ */
+export async function shouldSkipStoreRun(minGapHours: number): Promise<Date | null> {
+  if (!(minGapHours > 0)) return null;
+  const [row] = await sql<{ started_at: Date }[]>`
+    select started_at from scrape_runs
+    where job = 'store_inventory' and ok and started_at > now() - make_interval(mins => ${Math.round(minGapHours * 60)})
+    order by started_at desc limit 1`;
+  return row?.started_at ?? null;
+}
+
+export async function runStoreInventoryJob(
+  budget = Number(process.env.STORE_SCRAPE_BUDGET ?? 200),
+  minGapHours = Number(process.env.STORE_MIN_GAP_HOURS ?? 0)
+) {
+  const recent = await shouldSkipStoreRun(minGapHours);
+  if (recent) {
+    return { ok: true, detail: { skipped: `last successful run started ${recent.toISOString()} (< ${minGapHours}h ago)` } };
+  }
   return withRun("store_inventory", async () => {
     const { watched, rotation, knownFailing } = await selectStoreTargets(budget);
     // Products that already failed last time (often SKUs DABS's detail page
