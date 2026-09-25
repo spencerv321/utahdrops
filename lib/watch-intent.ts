@@ -26,10 +26,15 @@ export interface IntentResult {
 }
 
 /** Save a watch request. Caller validates the email and rate limits. */
-export async function createWatchIntent(email: string, csc: string, storeId: number | null): Promise<string | null> {
+export async function createWatchIntent(
+  email: string,
+  csc: string,
+  storeId: number | null,
+  source: string | null = null
+): Promise<string | null> {
   const rows = await sql<{ id: string }[]>`
-    insert into watch_intents (email, csc, store_id)
-    select ${email.toLowerCase()}, p.csc, s.id
+    insert into watch_intents (email, csc, store_id, source)
+    select ${email.toLowerCase()}, p.csc, s.id, ${source}
     from products p
     left join stores s on s.id = ${storeId}
     where p.csc = ${csc} and (${storeId}::int is null or s.id is not null)
@@ -64,9 +69,9 @@ export async function applyWatchIntent(id: string, user: { id: string; email?: s
 
   return sql.begin(async (tx) => {
     const [intent] = await tx<
-      { csc: string; store_id: number | null; email: string; applied_user: string | null; expired: boolean }[]
+      { csc: string; store_id: number | null; email: string; applied_user: string | null; expired: boolean; source: string | null }[]
     >`
-      select csc, store_id, email, applied_user,
+      select csc, store_id, email, applied_user, source,
              created_at < now() - make_interval(hours => ${INTENT_TTL_HOURS}) as expired
       from watch_intents where id = ${id}
       for update`;
@@ -89,7 +94,7 @@ export async function applyWatchIntent(id: string, user: { id: string; email?: s
     if (has) status = "already";
     else if (n >= MAX_WATCHLIST) status = "full";
     else {
-      await tx`insert into watchlist (user_id, csc) values (${user.id}, ${intent.csc}) on conflict do nothing`;
+      await tx`insert into watchlist (user_id, csc, source) values (${user.id}, ${intent.csc}, ${intent.source}) on conflict do nothing`;
       status = "added";
     }
 

@@ -30,6 +30,15 @@ export function AreaPicker({
 
   function apply(area: Area | null) {
     rememberArea(area);
+    // A search can carry its own area (?area=, or "near Draper" in the words);
+    // the picker's choice replaces it, written into the URL so it wins.
+    const url = new URL(window.location.href);
+    if (url.pathname === "/search" && (url.searchParams.has("area") || url.searchParams.has("q"))) {
+      url.searchParams.set("area", area ? area.label : "any");
+      url.searchParams.delete("page");
+      startTransition(() => router.replace(`${url.pathname}?${url.searchParams.toString()}`));
+      return;
+    }
     startTransition(() => router.refresh());
   }
 

@@ -34,9 +34,9 @@ async function watchRequest(watch?: string, store?: string, next?: string) {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; error?: string; watch?: string; store?: string }>;
+  searchParams: Promise<{ next?: string; error?: string; watch?: string; store?: string; src?: string }>;
 }) {
-  const { next, error, watch, store } = await searchParams;
+  const { next, error, watch, store, src } = await searchParams;
   const request = await watchRequest(watch, store, next);
 
   if (request) {
@@ -73,6 +73,7 @@ export default async function LoginPage({
           productName={name}
           stores={options}
           initialStoreId={options.some((o) => o.id === storeId) ? storeId : null}
+          source={src === "taste" ? "taste" : null}
         />
         <p className="text-xs text-muted-foreground">
           We only email you about bottles and drops you ask about. Not affiliated with DABS.

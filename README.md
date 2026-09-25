@@ -57,7 +57,7 @@ Postgres with the catalog loaded, see CLAUDE.md; never sends email).
 | `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | every 4h at :37 (GitHub starts runs ~2h late) |
 | `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
 | `sales` | `.github/workflows/sales.yml` (in the runner) | Mondays 16:40 |
-| `rarity` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
+| `rarity`, then `taste-profiles` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
 
 `sales` imports DABS's monthly Sales Analysis reports
 (abs.utah.gov/vendors/sales-analysis, May 2025 onward) into `sales_reports` /
@@ -85,6 +85,26 @@ location. `scripts/search-check.ts` (or `report.yml` → `searchcheck`) runs the
 regression set of real bottles and checks the SQL/TS normalizers agree. The
 category filter is a two-level view (`lib/categories.ts`) over the unchanged
 DABS categories: `?group=vodka` for a type, `?category=` for one DABS category.
+
+**Taste picks (beta, wine only)** extend search: a descriptive request ("a
+white wine that's not super common and not too dry, under $30 near Draper"),
+the "Help me choose" panel, and follow-ups all become one structured request
+in the `/search` URL (`lib/taste/request.ts`: `wine`, `max`, `min`, `area`,
+`sweet`, `body`, `like`, `novel`, `grape`; URL values override the typed
+words, "any" clears). Rules read the words (`lib/taste/parse.ts`); Haiku is
+only asked about words the rules couldn't read, may only fill empty taste
+preferences, and has a 2.5s limit (`lib/taste/interpret.ts`). Kind, grape,
+price and area are hard filters; area means fresh stock (checked in the last
+72h) at a store within 10 mi. Sweetness, body, style words and novelty only
+rank (`lib/taste/score.ts`). Recommendations cover a fixed pilot of 260
+wines (`lib/taste/pilot-list.ts`) whose profiles keep evidence per attribute
+(DABS listing text, name label or category; general style knowledge, marked
+as such; or a documented override in `wine_profile_overrides`). The
+`taste-profiles` job (after `rarity` in `rarity.yml`) re-extracts a profile
+only when its inputs or `EXTRACTOR_VERSION` change. Evaluation:
+`npx tsx scripts/taste-eval.ts` (or `report.yml` → `tasteeval`); coverage,
+usage, feedback and model cost: `report.yml` → `taste`; wine-related search
+words (counts only): `report.yml` → `searchlog`.
 
 **Watching while signed out**: the Watch button sends visitors to
 `/login?watch=<code>`, where they pick "anywhere in Utah" or "also at my store"

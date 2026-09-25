@@ -6,6 +6,7 @@ import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { toggleWatch } from "@/app/actions";
 import { cn } from "@/lib/utils";
+import { sendTasteEvent } from "@/components/taste-track";
 
 /** Compact watch toggle for list rows. Signed-out visitors sign in with the bottle remembered. */
 export function WatchStar({
@@ -13,12 +14,15 @@ export function WatchStar({
   name,
   initialWatched,
   signedIn,
+  source,
   className,
 }: {
   csc: string;
   name: string;
   initialWatched: boolean;
   signedIn: boolean;
+  /** Where the watch came from ("taste" = a taste recommendation), kept on the watch. */
+  source?: "taste";
   className?: string;
 }) {
   const router = useRouter();
@@ -38,15 +42,16 @@ export function WatchStar({
         className
       )}
       onClick={() => {
+        if (source === "taste" && !watched) sendTasteEvent({ kind: "watch_click", csc });
         if (!signedIn) {
           // Sign in with this bottle remembered; the watch is added after they verify.
-          router.push(`/login?watch=${csc}`);
+          router.push(`/login?watch=${csc}${source ? `&src=${source}` : ""}`);
           return;
         }
         const next = !watched;
         setWatched(next);
         startTransition(async () => {
-          const result = await toggleWatch(csc, next);
+          const result = await toggleWatch(csc, next, source);
           if (!result.ok) {
             setWatched(!next);
             toast.error(

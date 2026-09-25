@@ -23,11 +23,14 @@ export function WatchSignIn({
   productName,
   stores,
   initialStoreId,
+  source = null,
 }: {
   csc: string;
   productName: string;
   stores: WatchStoreOption[];
   initialStoreId?: number | null;
+  /** Where the request came from ("taste"), kept on the watch once added. */
+  source?: "taste" | null;
 }) {
   const [scope, setScope] = useState<"statewide" | "store">(initialStoreId ? "store" : "statewide");
   const [storeId, setStoreId] = useState<string>(initialStoreId ? String(initialStoreId) : "");
@@ -66,6 +69,7 @@ export function WatchSignIn({
             email,
             csc,
             storeId: scope === "store" ? Number(storeId) : null,
+            source,
           });
           if (!saved.ok) {
             setError(saved.error);

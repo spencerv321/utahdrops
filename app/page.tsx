@@ -8,6 +8,8 @@ import { NEARBY_MILES } from "@/lib/area";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { sql } from "@/lib/db";
 import { SearchBox } from "@/components/search-box";
+import { TasteGuide } from "@/components/taste-guide";
+import type { Area } from "@/lib/area";
 import { DropTicket } from "@/components/drop-ticket";
 import { HomeFeed } from "@/components/home-feed";
 import { Freshness } from "@/components/freshness";
@@ -84,7 +86,12 @@ export default async function HomePage({
         </div>
         <DropTicket signedIn={!!user} optedIn={optedIn} className="order-last lg:order-none lg:self-end" />
         <div className="space-y-3 lg:col-span-2">
-          <SearchBox examples areas={areas} area={area} />
+          <SearchBox
+            examples
+            areas={areas}
+            area={area}
+            guide={<TasteGuide areas={guideAreas(areas, area)} initial={{ area: area?.label ?? null }} />}
+          />
           <Freshness />
         </div>
         <nav aria-label="Browse quickly" className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:col-span-2">
@@ -140,4 +147,10 @@ export default async function HomePage({
       </div>
     </div>
   );
+}
+
+/** Area labels for the guided panel, with the visitor's own ("Near you") first. */
+function guideAreas(areas: Area[], area: Area | null): string[] {
+  const labels = areas.map((a) => a.label);
+  return area && !labels.includes(area.label) ? [area.label, ...labels] : labels;
 }

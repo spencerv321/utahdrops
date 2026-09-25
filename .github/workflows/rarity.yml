@@ -3,6 +3,8 @@ name: Rarity assessment
 # Recomputes the Utah Drops availability assessment (product_rarity) from
 # sales, stock history, DABS drawings and allocated drops. Runs natively in the
 # Actions runner (heavy SQL over the snapshot history), like catalog.yml.
+# Then refreshes the taste-search pilot profiles (lib/jobs/taste-profiles.ts),
+# which use the rating's reused-code finding.
 
 on:
   schedule:
@@ -36,3 +38,9 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NODE_ENV: production
         run: pnpm exec tsx scripts/scrape.ts rarity
+
+      - name: Taste profiles (pilot)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NODE_ENV: production
+        run: pnpm exec tsx scripts/scrape.ts taste-profiles
