@@ -154,7 +154,7 @@ scheduled workflows are enabled; `/api/health` is green.
   sign-in forms send `emailRedirectTo=/auth/confirm?next=…`), and replace the
   generic "Confirm your email address" copy, which reads as phishing.
 
-## Taste picks (beta, wine only; PR #32)
+## Taste picks (beta, wine only; PR #32, live 2026-09-25)
 - One search box. A wine request with a taste in it ("white, not too dry,
   under $30 near Draper") gets up to 6 picks above ordinary results; "Help me
   choose" under the examples opens a small panel that writes the same URL
@@ -180,8 +180,18 @@ scheduled workflows are enabled; `/api/health` is green.
   changes. Reviewed by Claude against DABS text; an owner spot-check of
   usefulness is still owed.
 - Model: Haiku reads only words the rules couldn't; it may only fill empty
-  preferences (2.5s limit, shared AI-search limits). Latency and cost go into
-  `taste_events` (`report.yml` → `taste`).
+  preferences (2.5s limit, shared AI-search limits). Measured in production
+  2026-09-25: 884 ms median / 996 ms max per call, ~880 input + 78 output
+  tokens, ≈ $0.0013 per call; whole page ≈ 1.2–1.6 s on a first uncached
+  model query, 0.3–0.6 s for typed/guided picks without the model (same as
+  name search).
+- Production after launch (2026-09-25): listing text for 128 of 260 pilot
+  wines so far (the store job saves it as it rotates), so 17 of the 50
+  reviewed profiles show "changed since review" (text not read yet in prod).
+  Only ~32 pilot wines had a store check in 72h, so "near <area>" picks are
+  thin until the rotation catches up (Sep 27–28). `tasteeval` on production:
+  51/53; the two misses are this data gap (headline query near Draper: 1 pick;
+  "sweet red": none, since Stella Rosa Rosso has no listing text yet).
 - Measure: `report.yml` → `taste` (coverage, review drift, shown/clicks/
   feedback by typed/guided/followup, watches from `discover_events` surface
   `taste`, model p50/p90 and cost), `tasteeval` (53 cases), `searchlog`.
