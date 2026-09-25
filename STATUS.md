@@ -154,6 +154,42 @@ scheduled workflows are enabled; `/api/health` is green.
   sign-in forms send `emailRedirectTo=/auth/confirm?next=…`), and replace the
   generic "Confirm your email address" copy, which reads as phishing.
 
+## Taste picks (beta, wine only; PR #32)
+- One search box. A wine request with a taste in it ("white, not too dry,
+  under $30 near Draper") gets up to 6 picks above ordinary results; "Help me
+  choose" under the examples opens a small panel that writes the same URL
+  request. Exact names stay plain name search. Chips split "Only showing"
+  (kind, grape, price, area) from "Ranked by" (sweetness, body, style words,
+  "less common"); at most one clarifying question; follow-ups keep the rest.
+- Availability uses the /discover rules: nearby = successful store check in
+  24h within 10 mi, statewide = catalog pass in 24h, drawings excluded.
+- Source audit (2026-09-25, 260 in-stock wines read from DABS): DABS gives
+  category (color; region for imported; grape for varietals), the name (grape
+  often abbreviated, label words like Brut / Extra Dry / Late Harvest, some
+  vintages, size as its own field) and listing text for ~80% (short,
+  formulaic blurbs; often identical wording across producers). Stated in the
+  text: style words (crisp 62, smooth 54, floral 52…), body for 39, sweetness
+  for only 16 (+17 from label words). Not available anywhere we read:
+  residual sugar, acidity, producer tech notes, vintage-specific notes.
+  Sweetness for most dry styles is general style knowledge (marked "Style
+  note"); Riesling, Chenin, Prosecco and most rosé stay unknown on purpose.
+- Pilot: 260 wines (95 white, 85 red, 35 rosé, 45 sparkling) spread across
+  price and stock, fixed in `lib/taste/pilot-list.ts`. Six ambiguous codes
+  (several vintages, "USE <code>") are never recommended. 50-profile sample
+  review (`lib/taste/review-log.ts`): 45 right as extracted, 5 fixed by rule
+  changes. Reviewed by Claude against DABS text; an owner spot-check of
+  usefulness is still owed.
+- Model: Haiku reads only words the rules couldn't; it may only fill empty
+  preferences (2.5s limit, shared AI-search limits). Latency and cost go into
+  `taste_events` (`report.yml` → `taste`).
+- Measure: `report.yml` → `taste` (coverage, review drift, shown/clicks/
+  feedback by typed/guided/followup, watches from `discover_events` surface
+  `taste`, model p50/p90 and cost), `tasteeval` (53 cases), `searchlog`.
+- Next: more coverage only if usage shows people use it and picks get clicks,
+  watches and "useful"; the smallest data gap is sweetness (a source such as
+  producer sheets for the most-searched wines). Embeddings aren't needed at
+  this size.
+
 ## Watch
 - 2026-09-24 ~04:40–05:00 UTC the session pooler (pool_size 15) was full of
   idle Vercel connections; jobs/report couldn't connect, the site was fine.
