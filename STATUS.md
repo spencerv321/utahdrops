@@ -1,6 +1,6 @@
 # Utah Drops — status
 
-_Last updated: 2026-09-24 (PRs #25–#27, Worth a look)_
+_Last updated: 2026-09-24 (PRs #25–#27, Worth a look). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
 
 **Production is healthy.** Statewide stock refreshes 3×/day, store-by-store every 4h; all
 scheduled workflows are enabled; `/api/health` is green.

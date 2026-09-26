@@ -193,6 +193,12 @@ id lives in localStorage, bots are dropped, admins aren't counted. Alert emails
 tag their links `utm_source=email`, and any `?utm_source=` / `?ref=` on a shared
 link shows up under Campaigns.
 
+`report.yml` → `funnel`: search → product → watch in aggregate (sessions with a
+search, then a product view; watchlist adds; signed-out watch requests and how
+many were applied; discovery events). Counts only. Product-page Watch taps and
+search-result clicks aren't recorded, so the search → product step is a
+same-session proxy. Baseline: `docs/production-baseline-2026-09-26.md`.
+
 ## Runbook: data stopped updating
 
 1. Check `https://utahdrops.com/api/health` to see which job is stale.
