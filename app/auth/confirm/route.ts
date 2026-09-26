@@ -1,18 +1,23 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { SITE_URL } from "@/lib/config";
+import { resolveNext } from "@/lib/auth-next";
 
-/** Only same-site paths: "/x" yes; "//evil.com", "/\\evil.com", "https://…" no. */
-function safeNext(next: string | null): string {
-  if (!next || !next.startsWith("/") || next.startsWith("//") || next.startsWith("/\\")) return "/";
-  return next;
-}
-
+/**
+ * Every email link lands here (docs/auth-email-templates.md).
+ *   ?token_hash=…&type=email   token-hash template: verified server-side, so
+ *                              it works in any browser or device
+ *   ?code=…                    Supabase's default link (PKCE): completes only
+ *                              in the browser that asked for it
+ * `next` is the destination (a path, or the template's {{ .RedirectTo }});
+ * only same-site destinations are followed (lib/auth-next.ts).
+ */
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = safeNext(searchParams.get("next"));
+  const next = resolveNext(searchParams.get("next"), [origin, new URL(SITE_URL).origin]);
 
   const code = searchParams.get("code");
 
@@ -30,7 +35,10 @@ export async function GET(request: NextRequest) {
     if (!error) return NextResponse.redirect(new URL(next, request.url));
   }
   // A used or expired link opened in a browser that's already signed in (the
-  // email tapped twice): carry on instead of asking for a new link.
+  // email tapped twice): carry on instead of asking for a new link. The
+  // destination re-checks who is signed in (/watch/confirm is email-bound).
   if (current.user) return NextResponse.redirect(new URL(next, request.url));
-  return NextResponse.redirect(new URL(`/login?error=link&next=${encodeURIComponent(next)}`, request.url));
+  // A ?code= link that failed was most likely opened in another browser or device.
+  const reason = code && !tokenHash ? "link-browser" : "link";
+  return NextResponse.redirect(new URL(`/login?error=${reason}&next=${encodeURIComponent(next)}`, request.url));
 }

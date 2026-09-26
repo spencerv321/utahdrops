@@ -222,10 +222,11 @@ async function discover(sql: typeof import("../lib/db").sql) {
 /**
  * Search -> product -> confirmed watch, from first-party analytics since
  * page_events began (2026-09-24). Aggregate counts only: no emails, queries,
- * visitor ids or user ids are printed. Signed-in admins are never tracked in
- * page_events, so "tracked users" excludes them; their watches still count in
- * the raw watchlist total. Product-page watches record no tap event, so a watch
- * is attributed to a product view only through a signed-in user id (see notes).
+ * visitor ids or user ids are printed. Admins and +test accounts are left out
+ * of page_events and discover_events (and browsers they used, from 2026-09-29);
+ * their watches still count in the raw watchlist total. Search and
+ * product-page events (shown, click with rank, watch taps/requests/confirmed)
+ * start with migration 20260929000001; before that only page views exist.
  */
 async function funnel(sql: typeof import("../lib/db").sql) {
   const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
@@ -272,8 +273,9 @@ async function funnel(sql: typeof import("../lib/db").sql) {
            count(*) filter (where exists (select 1 from watch_intents i where i.applied_user = w.user_id and i.csc = w.csc))::int as via_signed_out_request,
            count(distinct user_id)::int as users
     from watchlist w where w.created_at >= ${since}`);
-  show("signed-out watch requests (watch_intents; rows older than 14 days are pruned)", await sql`
-    select coalesce(split_part(source, ':', 1), 'product page / other') as surface,
+  show("signed-out watch requests (watch_intents; rows older than 14 days are pruned; +test addresses counted apart)", await sql`
+    select coalesce(split_part(source, ':', 1), 'unattributed') as surface,
+           email ~* '\\+test[^@]*@' as test_address,
            count(*)::int as requests,
            count(*) filter (where applied_at is not null)::int as applied,
            count(*) filter (where applied_at is not null and applied_at < created_at + interval '1 hour')::int as applied_within_1h,
@@ -281,10 +283,47 @@ async function funnel(sql: typeof import("../lib/db").sql) {
            count(*) filter (where applied_at is null and created_at >= now() - interval '24 hours')::int as pending,
            count(*) filter (where store_id is not null)::int as with_store,
            count(distinct email)::int as distinct_requesters
-    from watch_intents where created_at >= ${since} group by 1 order by 1`);
-  show("discover_events by surface and kind (Worth a look, homepage preview, taste picks)", await sql`
-    select surface, kind, count(*)::int as events, count(distinct coalesce(visitor_id, user_id::text))::int as actors
-    from discover_events where created_at >= ${since} group by 1, 2 order by 1, 2`);
+    from watch_intents where created_at >= ${since} group by 1, 2 order by 1, 2`);
+  show("discover_events by surface, view and kind (admins and +test accounts excluded at write time)", await sql`
+    select surface, view, kind, count(*)::int as events, count(distinct coalesce(visitor_id, user_id::text))::int as actors
+    from discover_events where created_at >= ${since} group by 1, 2, 3 order by 1, 2, 3`);
+  show("watch steps by surface: taps -> email requests (signed out) -> confirmed watches (taps and requests are not watches)", await sql`
+    select surface,
+           count(*) filter (where kind = 'watch_click')::int as taps,
+           count(*) filter (where kind = 'watch_request')::int as email_requests,
+           count(*) filter (where kind = 'watch_added')::int as confirmed,
+           count(*) filter (where kind = 'watch_added' and user_id is not null and visitor_id is not null)::int as confirmed_with_visitor
+    from discover_events where created_at >= ${since} and kind in ('watch_click', 'watch_request', 'watch_added')
+    group by 1 order by 1`);
+  show("search lists shown (kind shown; one per list and page): zero-result share, click-through", await sql`
+    with shown as (
+      select view, visitor_id, lower(coalesce(query, '')) as q, results from discover_events
+      where created_at >= ${since} and surface = 'search' and kind = 'shown'
+    ), clicks as (
+      select distinct visitor_id, lower(coalesce(query, '')) as q from discover_events
+      where created_at >= ${since} and surface = 'search' and kind = 'click'
+    ), searches as (
+      select view, visitor_id, q, max(results) as results from shown group by 1, 2, 3
+    )
+    select view, count(*)::int as searches,
+           count(*) filter (where results = 0)::int as zero_results,
+           count(*) filter (where exists (select 1 from clicks c where c.visitor_id = s.visitor_id and c.q = s.q))::int as with_click,
+           percentile_cont(0.5) within group (order by results)::int as median_results
+    from searches s group by 1 order by 1`);
+  show("search result clicks by rank", await sql`
+    select case when rank <= 3 then rank::text when rank <= 10 then '4-10' when rank <= 24 then '11-24' else '25+' end as rank,
+           count(*)::int as clicks
+    from discover_events where created_at >= ${since} and surface = 'search' and kind = 'click' and rank is not null
+    group by 1 order by min(rank)`);
+  show("search -> watch: search clicks followed by a watch tap or confirmed watch on the same bottle (same visitor)", await sql`
+    select count(distinct (c.visitor_id, c.csc))::int as clicked_bottles,
+           count(distinct (c.visitor_id, c.csc)) filter (where exists (
+             select 1 from discover_events w where w.visitor_id = c.visitor_id and w.csc = c.csc
+               and w.kind = 'watch_click' and w.created_at >= c.created_at))::int as then_watch_tap,
+           count(distinct (c.visitor_id, c.csc)) filter (where exists (
+             select 1 from discover_events w where w.visitor_id = c.visitor_id and w.csc = c.csc
+               and w.kind = 'watch_added' and w.created_at >= c.created_at))::int as then_confirmed
+    from discover_events c where c.created_at >= ${since} and c.surface = 'search' and c.kind = 'click'`);
   show("views of sign-in / watch pages (path only; page_events keeps no query string outside /search)", await sql`
     select path, count(*)::int as views, count(distinct session_id)::int as sessions
     from page_events where created_at >= ${since}

@@ -6,10 +6,15 @@ import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { toggleWatch } from "@/app/actions";
 import { cn } from "@/lib/utils";
+import { sendDiscoverEvent, trackedSource, visitorId } from "@/lib/beacon";
+
+/** Attribution for the product page's button (discover_events surface "product"). */
+const SOURCE = "product:page";
 
 /**
  * The product page's big watch toggle. Signed-out visitors go to a sign-in
- * that remembers this bottle and adds the watch once they verify.
+ * that remembers this bottle and adds the watch once they verify. Taps,
+ * email requests and confirmed watches are recorded as "product:page".
  */
 export function WatchButton({
   csc,
@@ -37,14 +42,16 @@ export function WatchButton({
         className
       )}
       onClick={() => {
+        const src = trackedSource(SOURCE);
+        if (src && !watched) sendDiscoverEvent("watch_click", src, csc);
         if (!signedIn) {
-          router.push(`/login?watch=${csc}`);
+          router.push(`/login?watch=${csc}${src ? `&src=${encodeURIComponent(src)}` : ""}`);
           return;
         }
         const next = !watched;
         setWatched(next);
         startTransition(async () => {
-          const result = await toggleWatch(csc, next);
+          const result = await toggleWatch(csc, next, src && next ? { source: src, visitorId: visitorId() } : undefined);
           if (!result.ok) {
             setWatched(!next);
             toast.error(

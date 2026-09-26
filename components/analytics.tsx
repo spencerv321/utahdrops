@@ -1,12 +1,14 @@
 import { Suspense } from "react";
 import { getCurrentUser } from "@/lib/supabase/server";
-import { isAdmin } from "@/lib/admin";
+import { isUntracked } from "@/lib/admin";
 import { PageTracker } from "@/components/page-tracker";
+import { NoTrack } from "@/components/no-track";
 
 async function Tracker() {
   const user = await getCurrentUser();
-  // The owner's own browsing would skew the numbers.
-  if (isAdmin(user)) return null;
+  // The owner's own browsing (admin or +test accounts) would skew the numbers,
+  // and the browser stays untracked after signing out.
+  if (isUntracked(user)) return <NoTrack />;
   return <PageTracker userId={user?.id ?? null} />;
 }
 

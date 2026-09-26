@@ -193,11 +193,19 @@ id lives in localStorage, bots are dropped, admins aren't counted. Alert emails
 tag their links `utm_source=email`, and any `?utm_source=` / `?ref=` on a shared
 link shows up under Campaigns.
 
-`report.yml` → `funnel`: search → product → watch in aggregate (sessions with a
-search, then a product view; watchlist adds; signed-out watch requests and how
-many were applied; discovery events). Counts only. Product-page Watch taps and
-search-result clicks aren't recorded, so the search → product step is a
-same-session proxy. Baseline: `docs/production-baseline-2026-09-26.md`.
+Actions go to `discover_events` through the same beacon, keyed by
+`surface:view`: "Worth a look" (`discover:*`, `home:*`), taste picks
+(`taste:*`), search lists (`search:exact|rough|browse`) and the product page's
+Watch button (`product:page`). Kinds: `shown` (a search list, `results` =
+total matches, 0 = zero-result search), `click` (with `rank` for search),
+`watch_click` (tap), `watch_request` (signed-out email request) and
+`watch_added` (a watch actually added, including after email confirmation,
+attributed via `watch_intents.source`). Admins and `+test` accounts aren't
+counted, and neither are browsers they've used (`ud_notrack` in localStorage).
+
+`report.yml` → `funnel`: search → product → watch in aggregate. Counts only.
+Baseline: `docs/production-baseline-2026-09-26.md`. Sign-in emails:
+`docs/auth-email-templates.md`.
 
 ## Runbook: data stopped updating
 

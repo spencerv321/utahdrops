@@ -9,6 +9,7 @@ import { MAX_HOME_STORES, MAX_WATCHLIST } from "@/lib/config";
 import { createWatchIntent } from "@/lib/watch-intent";
 import { clientIp, withinLimit } from "@/lib/rate-limit";
 import { recordDiscoverEvent } from "@/lib/discover-events";
+import { isTestEmail } from "@/lib/admin";
 
 const currentUser = getCurrentUser;
 
@@ -104,7 +105,8 @@ export async function requestWatchSignIn(input: {
   }
   const id = await createWatchIntent(email, csc, storeId, { source, visitorId });
   if (!id) return { ok: false as const, error: "That bottle or store isn't available. Go back and try again." };
-  if (source) await recordDiscoverEvent("watch_request", source, { csc, visitorId });
+  // Test addresses still get the watch, but aren't counted (see lib/admin.ts).
+  if (source && !isTestEmail(email)) await recordDiscoverEvent("watch_request", source, { csc, visitorId });
   return { ok: true as const, id };
 }
 

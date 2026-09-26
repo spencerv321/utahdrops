@@ -287,3 +287,12 @@ keys.
 - `funnel` weekly (this branch adds it), and after any instrumentation change.
 - `auth` after the owner's retest: expect a new account that is confirmed and
   signed in with no second link.
+
+---
+
+_Follow-up (same day): items 1–3 and 5 under "What we cannot measure today"
+are now instrumented (search list shown + result count, ranked result
+clicks, product/search Watch taps, email requests and confirmed watches with
+attribution kept through sign-in, +test/admin exclusion). They start with
+migration `20260929000001`; `report.yml` → `funnel` reads them. The email
+template change is prepared in `docs/auth-email-templates.md`._
