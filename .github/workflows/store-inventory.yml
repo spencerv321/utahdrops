@@ -5,29 +5,32 @@ name: Store inventory scrape
 # two DABS requests at <=1 req/sec, so this is a long-running, budget-limited
 # rotating pass — exactly what a serverless function can't do.
 
-# Schedule and size (2026-09-24 review of 244 scheduled runs): GitHub never
-# dropped a slot while the workflow was enabled, but starts runs ~2h late
-# (median 110 min, p90 180, max 350), and in June–July 20 runs were killed at
-# the 30-minute timeout. So: an off-peak minute (GitHub is busiest at :00),
-# every 4h, 400 SKUs (~15 min at the 1.1 s DABS pacing), and a scrape time
-# budget (STORE_TIME_BUDGET_MINUTES, 25) under a 40-minute job timeout that
-# leaves room for the slowest single SKU (~5 min of retries) plus the digest.
-# Capacity math: scripts/report.ts mode "freshness".
-#
-# 2026-09-25: on its first day the 4-hourly cron triggered only 2 of 4 slots
-# (GitHub drops scheduled events under load; it never did on the old 6-hourly
-# cron, but nothing guarantees it). So the trigger fires every 2h and the job
-# keeps the ~4h cadence itself: scheduled runs skip when a successful run
-# started < 3.5h ago (STORE_MIN_GAP_HOURS). Manual runs always go ahead.
+# Reliability and size (history: STATUS.md, 2026-09-24..26):
+# - GitHub starts scheduled runs ~2h late and fires only some triggers on this
+#   repo, so nothing here depends on any single trigger. The cron (every 2h)
+#   and other workflows finishing are chances to start; a start skips when a
+#   successful run began < 3.5h ago (STORE_MIN_GAP_HOURS, not for manual runs).
+# - Each run's size follows the time since the last success: ~100 SKUs/hour,
+#   100–1,500 SKUs (lib/jobs/store-capacity.ts runBudget), i.e. ~2,400 checks
+#   a day at the 1.1 s DABS pacing however many starts GitHub delivers.
+# - The scrape stops cleanly at STORE_TIME_BUDGET_MINUTES (70; 1,500 SKUs ≈ 58
+#   min) under a 90-minute job timeout (slowest SKU ~5 min + digest).
 on:
   schedule:
     - cron: "37 */2 * * *"
+  # GitHub fires only some scheduled triggers here (Sep 24–26: hourly cron ~⅓,
+  # 3-hourly ~½, 2-hourly store 3 of ~7; the 3×/day catalog 6 of 6). Other
+  # workflows finishing are extra chances to start; the skip guard keeps
+  # those cheap, and each run's size follows the time since the last success.
+  workflow_run:
+    workflows: ["Catalog scrape", "Health check", "Utah Drops cron"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       budget:
-        description: "SKUs to scrape this run (overrides STORE_SCRAPE_BUDGET)"
+        description: "SKUs to scrape this run (blank = sized from time since the last run)"
         required: false
-        default: "400"
+        default: ""
 
 concurrency:
   group: store-inventory
@@ -36,7 +39,7 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -55,9 +58,9 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DABS_CONTACT_EMAIL: ${{ secrets.DABS_CONTACT_EMAIL }}
-          STORE_SCRAPE_BUDGET: ${{ github.event.inputs.budget || '400' }}
-          STORE_TIME_BUDGET_MINUTES: "25"
-          STORE_MIN_GAP_HOURS: ${{ github.event_name == 'schedule' && '3.5' || '0' }}
+          STORE_SCRAPE_BUDGET: ${{ github.event.inputs.budget || '' }}
+          STORE_TIME_BUDGET_MINUTES: "70"
+          STORE_MIN_GAP_HOURS: ${{ github.event_name == 'workflow_dispatch' && '0' || '3.5' }}
           NODE_ENV: production
         run: pnpm exec tsx scripts/scrape.ts store-inventory
 

@@ -55,3 +55,20 @@ export function storeCapacity(c: CapacityInput): CapacityResult {
     ),
   };
 }
+
+/**
+ * SKUs for one run, from the time since the last successful run started.
+ * GitHub fires only some scheduled triggers (hourly/2-hourly crons: ~⅓–½
+ * fired, Sep 24–26), so throughput is tied to elapsed time rather than to
+ * how many runs happen: ~STORE_SKUS_PER_HOUR × hours, capped so one run
+ * stays well inside the job timeout at the 1.1 s DABS pacing (~2.3 s/SKU).
+ */
+export const STORE_SKUS_PER_HOUR = 100;
+export const STORE_RUN_MIN = 100;
+export const STORE_RUN_MAX = 1500;
+
+export function runBudget(hoursSinceLastSuccess: number | null): number {
+  if (hoursSinceLastSuccess == null || !Number.isFinite(hoursSinceLastSuccess)) return STORE_RUN_MAX;
+  const wanted = Math.round(STORE_SKUS_PER_HOUR * Math.max(0, hoursSinceLastSuccess));
+  return Math.min(STORE_RUN_MAX, Math.max(STORE_RUN_MIN, wanted));
+}

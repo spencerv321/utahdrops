@@ -5,7 +5,9 @@ export const maxDuration = 300;
 const JOBS: Record<string, (params: URLSearchParams) => Promise<unknown>> = {
   catalog: () => import("@/lib/jobs/catalog").then((m) => m.runCatalogJob()),
   "store-inventory": () =>
-    import("@/lib/jobs/store-inventory").then((m) => m.runStoreInventoryJob()),
+    // Fixed and small: a function has maxDuration (300 s ≈ 130 SKUs); the
+    // time-sized budget is for the Actions runner.
+    import("@/lib/jobs/store-inventory").then((m) => m.runStoreInventoryJob(100)),
   allocated: () => import("@/lib/jobs/allocated").then((m) => m.runAllocatedJob()),
   xlsx: () => import("@/lib/jobs/xlsx").then((m) => m.runXlsxJob()),
   percentiles: () => import("@/lib/jobs/percentiles").then((m) => m.runPercentilesJob()),

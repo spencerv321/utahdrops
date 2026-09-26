@@ -60,12 +60,12 @@ async function freshness(sql: typeof import("../lib/db").sql) {
     inStock: counts.in_stock,
     watched: counts.watched,
     runsPerDay: observed.runs_per_day || 6,
-    budget: done.length ? Math.max(...done.map((r) => r.attempted ?? 0)) : 400,
+    budget: done.length ? Math.round(sum((r) => r.attempted) / done.length) : 400,
     secondsPerSku: observed.seconds_per_sku ?? 2.3,
     failureRate: observed.failure_rate ?? 0.01,
     watchRecheckHours: WATCH_RECHECK_HOURS,
     watchShare: WATCH_SHARE,
-    timeBudgetMinutes: 25,
+    timeBudgetMinutes: 70,
     delayJitterHours: Math.max(0, (observed.gap_hours_max ?? 4) - 24 / (observed.runs_per_day || 6)),
   });
   show("capacity vs targets", [{

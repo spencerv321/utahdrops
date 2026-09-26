@@ -3,6 +3,7 @@ import { parseStatusCode } from "@/lib/dabs/client";
 import { fetchProductDetail, type ProductDetail } from "@/lib/dabs/detail";
 import { STORE_DATA_MAX_AGE_HOURS } from "@/lib/config";
 import { withRun } from "./run";
+import { runBudget } from "./store-capacity";
 
 /**
  * Per-store pass. Each SKU costs two DABS requests (session prime + detail
@@ -28,10 +29,10 @@ import { withRun } from "./run";
  * digest and leaves an unfinished scrape_runs row). Watched bottles go first,
  * so a short run only trims the rotation.
  *
- * Sizing (lib/jobs/store-capacity.ts, report.ts mode "freshness"): runs
- * every 4h, 400 SKUs each, ~2.3 s per SKU at the 1.1 s request pacing
- * (≈15 min), which cycles ~5.4k in-stock bottles in ~2.5 days
- * (ROTATION_TARGET_HOURS) with watched bottles re-checked every run.
+ * Sizing (lib/jobs/store-capacity.ts, report.ts mode "freshness"): each run
+ * checks ~100 SKUs per hour since the last success (runBudget; ~2,400/day at
+ * ~2.3 s per SKU), which cycles ~5.4k in-stock bottles in ~2.5 days
+ * (ROTATION_TARGET_HOURS), with watched bottles re-checked every run.
  */
 const MAX_CONSECUTIVE_FAILURES = 5;
 export const WATCH_SHARE = 0.4;
@@ -39,7 +40,7 @@ export const WATCH_RECHECK_HOURS = 3;
 export const WATCH_TARGET_HOURS = 12;
 /** Ordinary in-stock bottles: re-checked well inside the 7-day "unknown" cutoff. */
 export const ROTATION_TARGET_HOURS = 72;
-const TIME_BUDGET_MS = Number(process.env.STORE_TIME_BUDGET_MINUTES ?? 25) * 60_000;
+const TIME_BUDGET_MS = Number(process.env.STORE_TIME_BUDGET_MINUTES ?? 70) * 60_000;
 
 export async function selectStoreTargets(
   budget: number
@@ -139,14 +140,29 @@ export async function shouldSkipStoreRun(minGapHours: number): Promise<Date | nu
   return row?.started_at ?? null;
 }
 
+/** Hours since the last successful store run started (null = none on record). */
+async function hoursSinceLastSuccess(): Promise<number | null> {
+  const [row] = await sql<{ hours: number | null }[]>`
+    select extract(epoch from now() - max(started_at)) / 3600 as hours
+    from scrape_runs where job = 'store_inventory' and ok`;
+  return row?.hours == null ? null : Number(row.hours);
+}
+
+/**
+ * Budget: STORE_SCRAPE_BUDGET when set (manual dispatch), otherwise sized from
+ * the time since the last successful run (runBudget), so a run after a long
+ * gap does proportionally more.
+ */
 export async function runStoreInventoryJob(
-  budget = Number(process.env.STORE_SCRAPE_BUDGET ?? 200),
+  fixedBudget = Number(process.env.STORE_SCRAPE_BUDGET || 0),
   minGapHours = Number(process.env.STORE_MIN_GAP_HOURS ?? 0)
 ) {
   const recent = await shouldSkipStoreRun(minGapHours);
   if (recent) {
     return { ok: true, detail: { skipped: `last successful run started ${recent.toISOString()} (< ${minGapHours}h ago)` } };
   }
+  const sinceLast = await hoursSinceLastSuccess();
+  const budget = fixedBudget > 0 ? fixedBudget : runBudget(sinceLast);
   return withRun("store_inventory", async () => {
     const { watched, rotation, knownFailing } = await selectStoreTargets(budget);
     // Products that already failed last time (often SKUs DABS's detail page
@@ -194,6 +210,8 @@ export async function runStoreInventoryJob(
     }
 
     return {
+      budget,
+      hours_since_last_success: sinceLast == null ? null : +sinceLast.toFixed(1),
       scraped,
       attempted,
       // Stopped at the time budget before reaching every target (DABS slow).
