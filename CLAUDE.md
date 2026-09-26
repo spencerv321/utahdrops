@@ -91,7 +91,8 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
 - Some SKUs always 500 on the DABS detail page (often sold-out allocated
   bottles); the store job backs them off (6h → 72h) and a catalog restock
   clears the backoff.
-- GitHub starts scheduled runs ~2h late (max ~6h) and sometimes drops
-  triggers (2 of 4 on the first day of a 4-hourly cron, 2026-09-25). The
-  store workflow therefore fires every 2h and the job skips when a successful
-  run started < 3.5h ago; don't rely on any single scheduled trigger.
+- GitHub starts scheduled runs ~2h late (max ~6h) and fires only some
+  frequent triggers on this repo (Sep 24–26: hourly ~⅓, 2–3-hourly ~½;
+  3×/day reliable). Don't rely on any single trigger: the store job also
+  starts when catalog/health/cron finish, skips if a success began < 3.5h ago,
+  and sizes each run by time since the last success (~100 SKUs/hour).
