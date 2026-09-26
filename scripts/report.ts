@@ -219,6 +219,96 @@ async function discover(sql: typeof import("../lib/db").sql) {
   return sql.end();
 }
 
+/**
+ * Search -> product -> confirmed watch, from first-party analytics since
+ * page_events began (2026-09-24). Aggregate counts only: no emails, queries,
+ * visitor ids or user ids are printed. Admins and +test accounts are left out
+ * of page_events and discover_events (and browsers they used, from 2026-09-29);
+ * their watches still count in the raw watchlist total. Search and
+ * product-page events (shown, click with rank, watch taps/requests/confirmed)
+ * start with migration 20260929000001; before that only page views exist.
+ */
+async function funnel(sql: typeof import("../lib/db").sql) {
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  const since = "2026-09-24";
+  show("traffic by day (Mountain time)", await sql`
+    select (created_at at time zone 'America/Denver')::date::text as day,
+           count(*)::int as views, count(distinct session_id)::int as sessions, count(distinct visitor_id)::int as visitors,
+           count(distinct session_id) filter (where user_id is not null)::int as signed_in_sessions,
+           count(*) filter (where path = '/search' and search_query is not null)::int as searches,
+           count(*) filter (where csc is not null)::int as product_views
+    from page_events where created_at >= ${since} group by 1 order by 1`);
+  show("sessions: search -> product (product view in the same session after the first search)", await sql`
+    with s as (
+      select session_id,
+             bool_or(user_id is not null) as signed_in,
+             min(created_at) filter (where path = '/search' and search_query is not null) as first_search,
+             count(*) filter (where path = '/search' and search_query is not null) as searches,
+             count(*) filter (where csc is not null) as product_views,
+             bool_or(is_landing and csc is not null) as landed_on_product
+      from page_events where created_at >= ${since} group by 1
+    )
+    select count(*)::int as sessions,
+           count(*) filter (where searches > 0)::int as with_search,
+           count(*) filter (where product_views > 0)::int as with_product_view,
+           count(*) filter (where landed_on_product)::int as landed_on_product,
+           count(*) filter (where searches > 0 and exists (
+             select 1 from page_events e where e.session_id = s.session_id and e.csc is not null and e.created_at > s.first_search
+           ))::int as search_then_product,
+           count(*) filter (where signed_in)::int as signed_in_sessions
+    from s`);
+  show("watchlist adds since page_events began (tracked = user appears in page_events, so not a signed-in admin)", await sql`
+    select count(*)::int as adds,
+           count(*) filter (where exists (select 1 from page_events e where e.user_id = w.user_id))::int as by_tracked_users,
+           count(*) filter (where exists (
+             select 1 from page_events e where e.user_id = w.user_id and e.csc = w.csc
+               and e.created_at between w.created_at - interval '2 hours' and w.created_at + interval '5 minutes'
+           ))::int as after_product_view_2h,
+           count(*) filter (where exists (
+             select 1 from page_events e join page_events q on q.session_id = e.session_id
+             where e.user_id = w.user_id and e.csc = w.csc
+               and e.created_at between w.created_at - interval '2 hours' and w.created_at + interval '5 minutes'
+               and q.path = '/search' and q.search_query is not null and q.created_at < e.created_at
+           ))::int as after_search_then_product,
+           count(*) filter (where exists (select 1 from watch_intents i where i.applied_user = w.user_id and i.csc = w.csc))::int as via_signed_out_request,
+           count(distinct user_id)::int as users
+    from watchlist w where w.created_at >= ${since}`);
+  show("signed-out watch requests (watch_intents; rows older than 14 days are pruned; +test addresses counted apart)", await sql`
+    select coalesce(split_part(source, ':', 1), 'unattributed') as surface,
+           email ~* '\\+test[^@]*@' as test_address,
+           count(*)::int as requests,
+           count(*) filter (where applied_at is not null)::int as applied,
+           count(*) filter (where applied_at is not null and applied_at < created_at + interval '1 hour')::int as applied_within_1h,
+           count(*) filter (where applied_at is null and created_at < now() - interval '24 hours')::int as expired_unapplied,
+           count(*) filter (where applied_at is null and created_at >= now() - interval '24 hours')::int as pending,
+           count(*) filter (where store_id is not null)::int as with_store,
+           count(distinct email)::int as distinct_requesters
+    from watch_intents where created_at >= ${since} group by 1, 2 order by 1, 2`);
+  show("discover_events by surface, view and kind (admins and +test accounts excluded at write time)", await sql`
+    select surface, view, kind, count(*)::int as events, count(distinct coalesce(visitor_id, user_id::text))::int as actors
+    from discover_events where created_at >= ${since} group by 1, 2, 3 order by 1, 2, 3`);
+  show("watch steps by surface: taps -> email requests (signed out) -> confirmed watches (taps and requests are not watches)", await sql`
+    select surface,
+           count(*) filter (where kind = 'watch_click')::int as taps,
+           count(*) filter (where kind = 'watch_request')::int as email_requests,
+           count(*) filter (where kind = 'watch_added')::int as confirmed,
+           count(*) filter (where kind = 'watch_added' and user_id is not null and visitor_id is not null)::int as confirmed_with_visitor
+    from discover_events where created_at >= ${since} and kind in ('watch_click', 'watch_request', 'watch_added')
+    group by 1 order by 1`);
+  const { searchImpressions, searchClicksByRank } = await import("../lib/search-report");
+  show("search impressions (one per displayed result list: a repeated query, filter, sort, area or page change counts again)", await searchImpressions(sql, since));
+  show("search result clicks by rank (raw counts; no click-through rate, clicks aren't tied to one impression)", await searchClicksByRank(sql, since));
+  show("views of sign-in / watch pages (path only; page_events keeps no query string outside /search)", await sql`
+    select path, count(*)::int as views, count(distinct session_id)::int as sessions
+    from page_events where created_at >= ${since}
+      and (path like '/login%' or path like '/auth%' or path like '/watch%' or path = '/watchlist' or path = '/discover')
+    group by 1 order by 2 desc`);
+  show("landing sources (sessions)", await sql`
+    select coalesce(source, 'unknown') as source, count(*)::int as sessions
+    from page_events where created_at >= ${since} and is_landing group by 1 order by 2 desc`);
+  return sql.end();
+}
+
 async function main() {
   // These modes must work even when the session pooler (5432) is full, so go
   // through the transaction pooler (6543), which has its own client limit.
@@ -304,6 +394,7 @@ async function main() {
   if (process.argv[2] === "freshness") return freshness(sql);
   if (process.argv[2] === "checks") return checks(sql);
   if (process.argv[2] === "discover") return discover(sql);
+  if (process.argv[2] === "funnel") return funnel(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");
     const ok = await runSearchCheck();

@@ -6,13 +6,13 @@ import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { toggleWatch } from "@/app/actions";
 import { cn } from "@/lib/utils";
-import { sendDiscoverEvent, visitorId } from "@/lib/beacon";
+import { sendDiscoverEvent, trackedSource, visitorId } from "@/lib/beacon";
 
 /**
  * Compact watch toggle for list rows. Signed-out visitors sign in with the
- * bottle remembered. `source` ("discover:price") attributes the watch to a
- * "Worth a look" result, through sign-in if needed. `label` shows a word
- * beside the star.
+ * bottle remembered. `source` ("discover:price", "search:exact") attributes
+ * the tap, the email request and the confirmed watch to that list, through
+ * sign-in if needed. `label` shows a word beside the star.
  */
 export function WatchStar({
   csc,
@@ -50,16 +50,17 @@ export function WatchStar({
         className
       )}
       onClick={() => {
-        if (source && !watched) sendDiscoverEvent("watch_click", source, csc);
+        const src = trackedSource(source);
+        if (src && !watched) sendDiscoverEvent("watch_click", src, csc);
         if (!signedIn) {
           // Sign in with this bottle remembered; the watch is added after they verify.
-          router.push(`/login?watch=${csc}${source ? `&src=${encodeURIComponent(source)}` : ""}`);
+          router.push(`/login?watch=${csc}${src ? `&src=${encodeURIComponent(src)}` : ""}`);
           return;
         }
         const next = !watched;
         setWatched(next);
         startTransition(async () => {
-          const result = await toggleWatch(csc, next, source && next ? { source, visitorId: visitorId() } : undefined);
+          const result = await toggleWatch(csc, next, src && next ? { source: src, visitorId: visitorId() } : undefined);
           if (!result.ok) {
             setWatched(!next);
             toast.error(

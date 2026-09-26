@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { VISITOR_KEY } from "@/lib/beacon";
+import { VISITOR_KEY, trackingOff } from "@/lib/beacon";
 
 const SESSION_KEY = "ud_sid";
 const SESSION_IDLE_MS = 30 * 60 * 1000;
@@ -50,7 +50,7 @@ export function PageTracker({ userId }: { userId: string | null }) {
   const last = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!pathname || pathname.startsWith("/admin")) return;
+    if (!pathname || pathname.startsWith("/admin") || trackingOff()) return;
     const key = `${pathname}?${q ?? ""}`;
     if (key === last.current) return;
     last.current = key;

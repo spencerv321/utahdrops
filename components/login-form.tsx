@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { MailCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { confirmRedirect } from "@/lib/auth-next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -34,7 +35,7 @@ export function LoginForm({ next }: { next: string }) {
           const { error } = await supabase.auth.signInWithOtp({
             email,
             options: {
-              emailRedirectTo: `${window.location.origin}/auth/confirm?next=${encodeURIComponent(next)}`,
+              emailRedirectTo: confirmRedirect(window.location.origin, next),
             },
           });
           if (error) setError(error.message);

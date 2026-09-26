@@ -28,6 +28,7 @@ before(async () => {
 });
 
 after(async () => {
+  await sql`delete from discover_events where visitor_id like 'visitor-test-%'`;
   await sql`delete from watch_intents where email like 'watch-intent-test%'`;
   await sql`delete from auth.users where email like 'watch-intent-test%'`;
   await sql`delete from stores where id = 99990`;
@@ -99,4 +100,46 @@ test("a full watchlist is reported, not overflowed", async () => {
 test("garbage ids are ignored", async () => {
   assert.equal((await applyWatchIntent("not-a-uuid", user)).status, "not_found");
   assert.equal((await applyWatchIntent("00000000-0000-0000-0000-000000000000", user)).status, "not_found");
+});
+
+test("replaying a used link after unwatching neither re-adds nor removes anything", async () => {
+  await sql`delete from watchlist where user_id = ${user.id}`;
+  const id = (await createWatchIntent(EMAIL, csc, null))!;
+  assert.equal((await applyWatchIntent(id, user)).status, "added");
+  await sql`delete from watchlist where user_id = ${user.id} and csc = ${csc}`; // unwatched on the site
+  assert.equal((await applyWatchIntent(id, user)).status, "not_found");
+  const w = await sql`select 1 from watchlist where user_id = ${user.id} and csc = ${csc}`;
+  assert.equal(w.length, 0, "the old link doesn't bring the watch back");
+});
+
+test("attribution rides through confirmation: one watch_added, only for a new watch", async () => {
+  await sql`delete from watchlist where user_id = ${user.id}`;
+  await sql`delete from discover_events where user_id = ${user.id}`;
+  const id = (await createWatchIntent(EMAIL, csc, null, { source: "product:page", visitorId: "visitor-test-123" }))!;
+  assert.equal((await peekWatchIntent(id))?.source, "product:page");
+  assert.equal((await applyWatchIntent(id, user)).status, "added");
+  assert.equal((await applyWatchIntent(id, user)).status, "already");
+  const ev = await sql<{ kind: string; surface: string; view: string; visitor_id: string }[]>`
+    select kind, surface, view, visitor_id from discover_events where user_id = ${user.id}`;
+  assert.deepEqual(ev.map((e) => ({ ...e })), [
+    { kind: "watch_added", surface: "product", view: "page", visitor_id: "visitor-test-123" },
+  ]);
+});
+
+test("search attribution is kept; unknown sources are dropped", async () => {
+  const a = (await createWatchIntent(EMAIL, csc2, null, { source: "search:exact", visitorId: "visitor-test-123" }))!;
+  assert.equal((await peekWatchIntent(a))?.source, "search:exact");
+  const b = (await createWatchIntent(EMAIL, csc2, null, { source: "evil:thing", visitorId: "visitor-test-123" }))!;
+  assert.equal((await peekWatchIntent(b))?.source, null);
+});
+
+test("+test accounts get the watch but no analytics event", async () => {
+  const [t] = await sql<{ id: string; email: string }[]>`
+    insert into auth.users (email) values ('watch-intent-test+test1@example.com') returning id, email`;
+  const id = (await createWatchIntent(t.email, csc, null, { source: "product:page", visitorId: "visitor-test-456" }))!;
+  assert.equal((await applyWatchIntent(id, t)).status, "added");
+  const w = await sql`select 1 from watchlist where user_id = ${t.id} and csc = ${csc}`;
+  assert.equal(w.length, 1);
+  const ev = await sql`select 1 from discover_events where user_id = ${t.id}`;
+  assert.equal(ev.length, 0);
 });

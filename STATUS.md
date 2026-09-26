@@ -1,6 +1,6 @@
 # Utah Drops — status
 
-_Last updated: 2026-09-24 (PRs #25–#27, Worth a look)_
+_Last updated: 2026-09-24 (PRs #25–#27, Worth a look). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
 
 **Production is healthy.** Statewide stock refreshes 3×/day, store-by-store every 4h; all
 scheduled workflows are enabled; `/api/health` is green.
@@ -147,12 +147,23 @@ scheduled workflows are enabled; `/api/health` is green.
   completes in the browser that asked, so the watch was correctly not added;
   PR #29 now explains that on the page. Retest by opening the link in the
   same browser (or after the template change below).
-- **Supabase email templates (owner, dashboard → Authentication → Email
-  Templates):** switch "Confirm signup" and "Magic Link" to token-hash links,
-  `{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email`, so links work in
-  any browser/device (`/auth/confirm` already handles `token_hash`; all three
-  sign-in forms send `emailRedirectTo=/auth/confirm?next=…`), and replace the
-  generic "Confirm your email address" copy, which reads as phishing.
+- **Supabase email templates (owner, after PR #39 deploys):** Magic Link
+  already uses a token-hash link (`{{ .RedirectTo }}&token_hash=…&type=email`,
+  owner-verified 2026-09-26). Only Confirm signup still uses the default
+  browser-bound link; switch it to the same form. Steps, verified vs assumed
+  settings and the `+test` checklist are in `docs/auth-email-templates.md`.
+  PR #39 also fixes an open redirect after sign-in that `main` still has
+  (prefix check on `next`).
+- **Measurement (2026-09-26):** search and product-page events now go to
+  `discover_events`: list shown with result count (0 = zero-result search),
+  result click with rank, Watch tap, email request, confirmed watch
+  (`search:*`, `product:page`). Attribution rides `watch_intents` through
+  confirmation. Admin and `+test` accounts, and browsers they've used, aren't
+  counted. `report.yml` → `funnel`. Baseline:
+  `docs/production-baseline-2026-09-26.md`.
+- **Store scheduling unchanged on purpose.** Re-run `freshness` + `discover`
+  on/after Sep 28 (backlog of > 7-day products should have cleared) before
+  touching it.
 
 ## Taste picks (beta, wine only; PR #32, live 2026-09-25)
 - One search box. A wine request with a taste in it ("white, not too dry,
