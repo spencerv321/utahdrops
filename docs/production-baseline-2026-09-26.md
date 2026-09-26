@@ -296,3 +296,8 @@ clicks, product/search Watch taps, email requests and confirmed watches with
 attribution kept through sign-in, +test/admin exclusion). They start with
 migration `20260929000001`; `report.yml` → `funnel` reads them. The email
 template change is prepared in `docs/auth-email-templates.md`._
+
+_Correction (owner inspected hosted Supabase, same day): the **Magic Link**
+template already uses a token-hash link, so returning users' links already
+work across browsers. Only **Confirm signup** (first-time) still uses the
+default browser-bound link. See `docs/auth-email-templates.md`._

@@ -147,12 +147,13 @@ scheduled workflows are enabled; `/api/health` is green.
   completes in the browser that asked, so the watch was correctly not added;
   PR #29 now explains that on the page. Retest by opening the link in the
   same browser (or after the template change below).
-- **Supabase email templates (owner, dashboard → Authentication → Emails →
-  Templates):** exact "Confirm signup" and "Magic Link" changes, what's
-  verified vs assumed, and the owner's `+test` checklist:
-  `docs/auth-email-templates.md`. Code is ready: `/auth/confirm` accepts the
-  token-hash template, keeps the destination (`lib/auth-next.ts`), and tells
-  "expired/used" apart from "opened in another browser".
+- **Supabase email templates (owner, after PR #39 deploys):** Magic Link
+  already uses a token-hash link (`{{ .RedirectTo }}&token_hash=…&type=email`,
+  owner-verified 2026-09-26). Only Confirm signup still uses the default
+  browser-bound link; switch it to the same form. Steps, verified vs assumed
+  settings and the `+test` checklist are in `docs/auth-email-templates.md`.
+  PR #39 also fixes an open redirect after sign-in that `main` still has
+  (prefix check on `next`).
 - **Measurement (2026-09-26):** search and product-page events now go to
   `discover_events`: list shown with result count (0 = zero-result search),
   result click with rank, Watch tap, email request, confirmed watch

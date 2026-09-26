@@ -196,14 +196,16 @@ link shows up under Campaigns.
 Actions go to `discover_events` through the same beacon, keyed by
 `surface:view`: "Worth a look" (`discover:*`, `home:*`), taste picks
 (`taste:*`), search lists (`search:exact|rough|browse`) and the product page's
-Watch button (`product:page`). Kinds: `shown` (a search list, `results` =
-total matches, 0 = zero-result search), `click` (with `rank` for search),
+Watch button (`product:page`). Kinds: `shown` (one per displayed search
+list: new words, filters, sort, area or page each count; `results` = total
+matches, 0 = zero-result list), `click` (with `rank` for search),
 `watch_click` (tap), `watch_request` (signed-out email request) and
 `watch_added` (a watch actually added, including after email confirmation,
 attributed via `watch_intents.source`). Admins and `+test` accounts aren't
 counted, and neither are browsers they've used (`ud_notrack` in localStorage).
 
-`report.yml` → `funnel`: search → product → watch in aggregate. Counts only.
+`report.yml` → `funnel`: search → product → watch in aggregate. Counts only;
+no search click-through rate (clicks aren't tied to one impression).
 Baseline: `docs/production-baseline-2026-09-26.md`. Sign-in emails:
 `docs/auth-email-templates.md`.
 

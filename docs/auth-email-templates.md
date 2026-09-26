@@ -1,118 +1,114 @@
 # Sign-in emails that work in any browser
 
-_Prepared 2026-09-26. Owner action in the hosted Supabase dashboard; nothing
-here has been applied to production._
+_Prepared 2026-09-26, revised after the owner inspected hosted Supabase the
+same day. Change nothing in Supabase until PR #39 is deployed._
 
-## Why
+## Where things stand (owner-inspected, 2026-09-26)
 
-Today every sign-in email uses Supabase's default link (`{{ .ConfirmationURL }}`).
-With the PKCE flow `@supabase/ssr` uses, that link returns to
-`/auth/confirm?code=…`, and the code can only be exchanged in **the browser
-that asked for it**. Open the email on your phone after asking on your laptop,
-or in a different browser, and nobody gets signed in. For a watch request,
-that means the watch is never added. The owner's Sep 24 test hit exactly this.
+| Template | Link today | Works in another browser/device? |
+|---|---|---|
+| **Magic Link** (every sign-in after the first) | `{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email` | **Yes.** It's a token-hash link, checked on our server (`verifyOtp`) |
+| **Confirm signup** (first email to a new address) | `{{ .ConfirmationURL }}` (Supabase default) | **No.** It returns `/auth/confirm?code=…`, which only completes in the browser that asked for it |
 
-A token-hash link (`/auth/confirm?token_hash=…&type=email`) is checked on our
-server with `verifyOtp`, so it works in any browser or device.
-`/auth/confirm` has handled `token_hash` since PR #16. This change makes it
-accept the template below too.
+So only **first-time** sign-ups are browser-bound. That's why the owner's
+Sep 24 test (a new `+test` address, opened in another browser) failed, while
+returning sign-ins have worked.
 
-## The change (dashboard → Authentication → Emails → Templates)
+## The change: one template (after PR #39 is live)
 
-Change two templates: **Confirm signup** (first email to a new address) and
-**Magic Link** (every later sign-in). Leave the others alone. The site doesn't
-use Invite, Change email, Reset password or Reauthentication; the invite
-job sends its own email.
-
-### Confirm signup
-
-Subject:
-
-```
-Your Utah Drops sign-in link
-```
-
-Body (source view):
+**Confirm signup:** use the same link form as the hosted Magic Link template
+(already proven in production):
 
 ```html
 <h2>Finish signing in to Utah Drops</h2>
 <p>Tap below to confirm {{ .Email }} and sign in. If you asked to watch a bottle, you'll be watching it as soon as the page opens.</p>
-<p><a href="https://utahdrops.com/auth/confirm?token_hash={{ .TokenHash }}&type=email&next={{ .RedirectTo }}">Confirm and sign in</a></p>
+<p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirm and sign in</a></p>
 <p>The link works once, for an hour, on any phone or computer.</p>
 <p>Didn't ask for this? Ignore this email; nothing happens.</p>
 ```
 
-### Magic Link
+Subject: `Your Utah Drops sign-in link` (replaces "Confirm your email
+address", which reads like phishing).
 
-Subject:
-
-```
-Your Utah Drops sign-in link
-```
-
-Body:
+**Magic Link:** keep the link exactly as it is. Changing the copy to match is
+optional:
 
 ```html
 <h2>Sign in to Utah Drops</h2>
 <p>Tap below to sign in as {{ .Email }}. If you asked to watch a bottle, you'll be watching it as soon as the page opens.</p>
-<p><a href="https://utahdrops.com/auth/confirm?token_hash={{ .TokenHash }}&type=email&next={{ .RedirectTo }}">Sign in</a></p>
+<p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Sign in</a></p>
 <p>The link works once, for an hour, on any phone or computer.</p>
 <p>Didn't ask for this? Ignore this email; nothing happens.</p>
 ```
 
-Notes on the link:
-- **`https://utahdrops.com` is written out** instead of `{{ .SiteURL }}`, so a
-  wrong Site URL setting can't send people to localhost or a preview.
-- **`next={{ .RedirectTo }}` is last.** `RedirectTo` is the full
-  `emailRedirectTo` the site sent, e.g.
-  `https://utahdrops.com/auth/confirm?next=%2Fwatch%2Fconfirm%3Fintent%3D…`.
-  `/auth/confirm` unwraps it back to `/watch/confirm?intent=…`
-  (`lib/auth-next.ts`, tested encoded and unencoded). Anything off-site
-  becomes `/`.
-- `type=email` covers both new and returning addresses (`verifyOtp` type
-  `email`), as in Supabase's server-side auth guide.
-- The copy drops the generic "Confirm your email address" wording, which
-  reads like phishing.
+### Why deploy first
+
+PR #39 changes what `{{ .RedirectTo }}` contains: the destination now travels
+as `…/auth/confirm?to=<base64url path>` instead of a nested
+`?next=%2F…` (`lib/auth-next.ts`). The base64url alphabet (`A–Z a–z 0–9 - _`)
+means the same thing whether the template inserts it raw or escaped. The old
+nested form broke on a second decode: `/search?q=gin&sort=price_asc` became
+`/search?q=gin` (Codex review, finding 1).
+
+`/auth/confirm` keeps accepting every form, so nothing breaks during the
+switch:
+- `?to=…&code=…`: the default link after deploy
+- `?to=…&token_hash=…`: the Magic Link form above after deploy
+- `?next=/path&…`: links emailed before the deploy, including today's Magic Link
+- `?token_hash=…&next={{ .RedirectTo }}`: the alternative template form from the
+  first draft of this doc (not needed now)
+
+`tests/auth-next.test.ts` runs 10 destinations through each of these forms:
+several parameters, `%26`, `%25`, `+`, non-ASCII text, fragments, and the
+watch and welcome paths.
 
 ## What stays the same (verified in code and tests)
 
 | Property | Where | Evidence |
 |---|---|---|
-| Destination kept (watch → `/watch/confirm?intent=…`, footer → `/watchlist?welcome=1`, login → `next`) | `lib/auth-next.ts`, `app/auth/confirm/route.ts` | `tests/auth-next.test.ts` (both template forms, Site-URL fallback, off-site rejected) |
-| Watch is **email-bound**: only the account whose email made the request gets it | `lib/watch-intent.ts` `applyWatchIntent` | `tests/db/watch-intent.test.ts` "only the account with the requested email…" |
-| **Idempotent**: replaying the link never duplicates or removes a watch | same | "adds the watch and store once; repeated callbacks change nothing" and "replaying a used link after unwatching neither re-adds nor removes anything" |
-| Request expires after 24h and adds nothing | same | "expired requests add nothing" |
-| Attribution survives confirmation, and `watch_added` is written once, only for a new watch | `watch_intents.source` → `recordDiscoverEvent` | "attribution rides through confirmation…" |
-| Old `?code=` links still work in the asking browser, and fail with a clear "open it in the browser you asked from" message elsewhere | `/auth/confirm` → `/login?error=link-browser` | Code review; unchanged path |
+| Destination kept exactly, whichever link form | `lib/auth-next.ts`, `app/auth/confirm/route.ts` | `tests/auth-next.test.ts` |
+| Only same-site destinations, returned as canonical paths | `safePath` | Adversarial cases: tab/newline/CR, backslashes, `//`, `https:host`, `javascript:`, percent-encoded controls |
+| Watch is **email-bound**: only the account whose email made the request gets it | `lib/watch-intent.ts` `applyWatchIntent` (unchanged) | `tests/db/watch-intent.test.ts` |
+| **Idempotent**: replaying a link never duplicates or removes a watch, and an old link doesn't re-add one you removed | same | same (11 tests) |
+| Request expires after 24h and adds nothing | same | same |
+| Attribution survives confirmation; `watch_added` written once, only for a new watch | `watch_intents.source` → `recordDiscoverEvent` | same |
+
+### Security note: a weakness `main` already has (not introduced by this PR)
+
+`main`'s `/auth/confirm` checked `next` with a string prefix test
+(`startsWith("/")`, not `//`, not `/\`). A value such as `/<TAB>/example.com`
+or `/<LF>/example.com` passes that test, and browsers strip tabs and
+newlines, so `new URL(next, "https://utahdrops.com")` resolves to
+`https://example.com/`. That's an open redirect after sign-in. Codex found it
+and it was reproduced locally only (no live probing). PR #39 fixes it by
+parsing against our origin first, checking the parsed origin and returning
+the canonical path. It stays open on `main` until #39 deploys.
 
 ## Configuration: verified vs. assumed
 
 **Verified:**
-- Production honors `emailRedirectTo` pointing at
-  `https://utahdrops.com/auth/confirm?next=…`. The Sep 24 owner test landed on
-  `/watch/confirm?intent=…` (STATUS.md), so that URL is on the Redirect URLs
-  allow list.
-- Account 16 (Sep 25) was confirmed and signed in within the same second on
-  its first link, so first-time `?code=` sign-in works in the same browser
-  (`report.yml` → `auth`).
+- Magic Link template = `{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email`
+  (owner, dashboard, 2026-09-26).
+- Confirm signup template = `{{ .ConfirmationURL }}` (owner, same day).
+- `emailRedirectTo` values under `https://utahdrops.com/auth/confirm` are
+  honored. The Sep 24 test landed on `/watch/confirm?intent=…`, and returning
+  users' Magic Links, which start with `{{ .RedirectTo }}`, work.
+- First-time same-browser sign-in worked on Sep 25 (`report.yml` → `auth`).
 
-**Assumed; check in the dashboard when making the change:**
-1. The two templates still use the defaults (`{{ .ConfirmationURL }}`).
-   Nothing in the data shows they were changed.
-2. **Redirect URLs** includes `https://utahdrops.com/**` (or
-   `https://utahdrops.com/auth/confirm**`). If it doesn't, Supabase swaps in
-   the Site URL: people still sign in, but land on the home page without the
-   watch.
-3. **Email OTP expiration** is 3600 s, matching "works for an hour".
-4. The project uses Supabase's built-in email sender or a custom SMTP.
-   Either way, templates apply the same.
-5. The **flow type** stays PKCE (the `@supabase/ssr` default). Token-hash links
-   don't depend on it.
+**Assumed; check when editing:**
+1. **Redirect URLs** allow `https://utahdrops.com/auth/confirm` with any query
+   (e.g. `https://utahdrops.com/**`). If a value isn't allowed, Supabase puts
+   the Site URL in `{{ .RedirectTo }}`, and this link form becomes
+   `https://utahdrops.com&token_hash=…`, which doesn't work. The Magic Link
+   template already has this dependency and works today.
+2. `type=email` confirms a new sign-up through `verifyOtp` (Supabase's
+   server-side auth guide uses it for Confirm signup). The checklist below
+   proves it.
+3. Email OTP expiry is 3600 s ("works for an hour").
 
-**Known risk (not new):** some corporate mail scanners open links before the
-person does, which uses up a one-time link. Today's default link has the same
-problem. If `report.yml` → `auth` starts showing confirmed-but-never-signed-in
-accounts after the change, add a "Tap to continue" step on `/auth/confirm`.
+**Known risk (not new):** mail scanners that open links first use up the
+one-time link. If `auth` shows confirmed-but-never-signed-in accounts after
+the change, add a "Tap to continue" step.
 
 ## End-to-end check (owner, `+test` addresses only; no real users)
 
@@ -120,34 +116,34 @@ Use a fresh `yourname+testN@gmail.com` for each first-time case. `+test`
 accounts get real watches but are left out of analytics, and so is every
 browser they've used.
 
-**Before the template change (baseline):**
-1. [ ] First-time, same browser: signed out, tap Watch on a product, then
-   "Anywhere in Utah". Open the email in the same browser → product page says
-   "You're watching…"; `/watchlist` lists it once.
+**After #39 is deployed, before the template edit:**
+1. [ ] Returning user, other browser: an existing `+test` address, Watch on a
+   product, open the Magic Link email in a *different* browser → watching.
+   This proves the hosted Magic Link form with the new `to=` destination.
+2. [ ] First-time, same browser: a new address → Confirm signup email (still
+   the default link) → watching.
 
-**After the template change:**
+**After the Confirm signup edit:**
 
-2. [ ] First-time, other device: request on the laptop, open the email on the
-   phone → the phone is signed in and shows "You're watching…".
-3. [ ] Returning user, other browser: same address, a different bottle. The
-   Magic Link email opened in another browser → watching, and the earlier
-   watch is still there.
+3. [ ] First-time, other device: request on the laptop, open on the phone →
+   the phone is signed in and watching.
 4. [ ] "Also at my store": the store is added as a home store (max 3), and
    the watch too.
 5. [ ] Replay: tap the same email link again, in both browsers. Still exactly
-   one watch; the page says watching; nothing is removed.
-6. [ ] Replay after unwatching: remove the watch on `/watchlist`, tap the old
-   link → the watch is **not** re-added and nothing else changes.
+   one watch; nothing removed.
+6. [ ] Replay after unwatching: remove it on `/watchlist`, tap the old link →
+   **not** re-added.
 7. [ ] Wrong account: open a *used* link in a browser signed in as your main
    account → the product page names both addresses and adds nothing.
 8. [ ] Expired: a link older than 1h → "Links work once and expire after an
-   hour", and the bottle choice is kept for a fresh link.
-9. [ ] Plain sign-in from `/login` and the footer signup still land on their
-   pages (`/`, `/watchlist?welcome=1`).
+   hour", with the bottle choice kept.
+9. [ ] Plain sign-in from
+   `/login?next=%2Fsearch%3Fq%3Dgin%2526tonic%26sort%3Dprice_asc` lands on
+   exactly `/search?q=gin%26tonic&sort=price_asc`. The footer signup lands on
+   `/watchlist?welcome=1`.
 
 **Then confirm in the data (read-only):**
 - `report.yml` → `auth`: each new `+test` account is confirmed and signed in,
   with no second link.
-- `report.yml` → `funnel`: `watch_intents` rows for the `+test` addresses
-  appear under `test_address = true` as applied. `discover_events` has
-  **no** rows from those browsers (they're untracked).
+- `report.yml` → `funnel`: `watch_intents` rows with `test_address = true`
+  are applied; no `discover_events` from those browsers.

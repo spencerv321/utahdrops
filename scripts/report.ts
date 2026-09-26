@@ -295,35 +295,9 @@ async function funnel(sql: typeof import("../lib/db").sql) {
            count(*) filter (where kind = 'watch_added' and user_id is not null and visitor_id is not null)::int as confirmed_with_visitor
     from discover_events where created_at >= ${since} and kind in ('watch_click', 'watch_request', 'watch_added')
     group by 1 order by 1`);
-  show("search lists shown (kind shown; one per list and page): zero-result share, click-through", await sql`
-    with shown as (
-      select view, visitor_id, lower(coalesce(query, '')) as q, results from discover_events
-      where created_at >= ${since} and surface = 'search' and kind = 'shown'
-    ), clicks as (
-      select distinct visitor_id, lower(coalesce(query, '')) as q from discover_events
-      where created_at >= ${since} and surface = 'search' and kind = 'click'
-    ), searches as (
-      select view, visitor_id, q, max(results) as results from shown group by 1, 2, 3
-    )
-    select view, count(*)::int as searches,
-           count(*) filter (where results = 0)::int as zero_results,
-           count(*) filter (where exists (select 1 from clicks c where c.visitor_id = s.visitor_id and c.q = s.q))::int as with_click,
-           percentile_cont(0.5) within group (order by results)::int as median_results
-    from searches s group by 1 order by 1`);
-  show("search result clicks by rank", await sql`
-    select case when rank <= 3 then rank::text when rank <= 10 then '4-10' when rank <= 24 then '11-24' else '25+' end as rank,
-           count(*)::int as clicks
-    from discover_events where created_at >= ${since} and surface = 'search' and kind = 'click' and rank is not null
-    group by 1 order by min(rank)`);
-  show("search -> watch: search clicks followed by a watch tap or confirmed watch on the same bottle (same visitor)", await sql`
-    select count(distinct (c.visitor_id, c.csc))::int as clicked_bottles,
-           count(distinct (c.visitor_id, c.csc)) filter (where exists (
-             select 1 from discover_events w where w.visitor_id = c.visitor_id and w.csc = c.csc
-               and w.kind = 'watch_click' and w.created_at >= c.created_at))::int as then_watch_tap,
-           count(distinct (c.visitor_id, c.csc)) filter (where exists (
-             select 1 from discover_events w where w.visitor_id = c.visitor_id and w.csc = c.csc
-               and w.kind = 'watch_added' and w.created_at >= c.created_at))::int as then_confirmed
-    from discover_events c where c.created_at >= ${since} and c.surface = 'search' and c.kind = 'click'`);
+  const { searchImpressions, searchClicksByRank } = await import("../lib/search-report");
+  show("search impressions (one per displayed result list: a repeated query, filter, sort, area or page change counts again)", await searchImpressions(sql, since));
+  show("search result clicks by rank (raw counts; no click-through rate, clicks aren't tied to one impression)", await searchClicksByRank(sql, since));
   show("views of sign-in / watch pages (path only; page_events keeps no query string outside /search)", await sql`
     select path, count(*)::int as views, count(distinct session_id)::int as sessions
     from page_events where created_at >= ${since}

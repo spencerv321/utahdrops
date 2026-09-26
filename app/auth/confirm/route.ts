@@ -2,7 +2,7 @@ import { type EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { SITE_URL } from "@/lib/config";
-import { resolveNext } from "@/lib/auth-next";
+import { resolveDestination } from "@/lib/auth-next";
 
 /**
  * Every email link lands here (docs/auth-email-templates.md).
@@ -10,14 +10,15 @@ import { resolveNext } from "@/lib/auth-next";
  *                              it works in any browser or device
  *   ?code=…                    Supabase's default link (PKCE): completes only
  *                              in the browser that asked for it
- * `next` is the destination (a path, or the template's {{ .RedirectTo }});
- * only same-site destinations are followed (lib/auth-next.ts).
+ * The destination is `to=` (base64url path) or the template's
+ * `next={{ .RedirectTo }}`; only same-site destinations are followed, as
+ * canonical paths (lib/auth-next.ts).
  */
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = resolveNext(searchParams.get("next"), [origin, new URL(SITE_URL).origin]);
+  const next = resolveDestination(searchParams, [origin, new URL(SITE_URL).origin]);
 
   const code = searchParams.get("code");
 

@@ -13,15 +13,19 @@ export interface SearchTrack {
   results: number;
   /** Rank of the first row on this page, minus one. */
   offset: number;
+  /** lib/search-list.ts searchListKey: words, filters, sort, page, area and count. */
+  listKey: string;
 }
 
 /**
- * Records that a search result list was shown, once per distinct list and
- * page; results 0 is a zero-result search. Client-side so crawlers rendering
- * the page don't count (bots are dropped at /api/events).
+ * Records one impression each time a different result list is displayed
+ * (track.listKey: any change to words, filters, sort, page or area counts,
+ * even with the same number of matches); results 0 is a zero-result list.
+ * Client-side so crawlers rendering the page don't count (bots are dropped
+ * at /api/events).
  */
-export function SearchShown({ track, page }: { track: SearchTrack; page: number }) {
-  const key = `${track.source}|${track.query}|${track.results}|${page}`;
+export function SearchShown({ track }: { track: SearchTrack }) {
+  const key = track.listKey;
   const sent = useRef<string | null>(null);
   useEffect(() => {
     if (sent.current === key) return;
