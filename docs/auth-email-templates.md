@@ -95,16 +95,15 @@ the canonical path. It stays open on `main` until #39 deploys.
   users' Magic Links, which start with `{{ .RedirectTo }}`, work.
 - First-time same-browser sign-in worked on Sep 25 (`report.yml` → `auth`).
 
-**Assumed; check when editing:**
-1. **Redirect URLs** allow `https://utahdrops.com/auth/confirm` with any query
-   (e.g. `https://utahdrops.com/**`). If a value isn't allowed, Supabase puts
-   the Site URL in `{{ .RedirectTo }}`, and this link form becomes
-   `https://utahdrops.com&token_hash=…`, which doesn't work. The Magic Link
-   template already has this dependency and works today.
-2. `type=email` confirms a new sign-up through `verifyOtp` (Supabase's
-   server-side auth guide uses it for Confirm signup). The checklist below
-   proves it.
-3. Email OTP expiry is 3600 s ("works for an hour").
+- Site URL `https://utahdrops.com`; Redirect URLs `https://utahdrops.com/**`
+  and `https://www.utahdrops.com/**`; Email OTP expiry 3600 s (owner,
+  dashboard, 2026-09-26). Every `emailRedirectTo` the site sends
+  (`<origin>/auth/confirm?to=…`) is covered, so `{{ .RedirectTo }}` won't
+  fall back to the Site URL.
+
+**Still assumed until the checklist runs:**
+1. `type=email` confirms a *new* sign-up through `verifyOtp` (Supabase's
+   server-side auth guide uses it for Confirm signup). Item 3 below proves it.
 
 **Known risk (not new):** mail scanners that open links first use up the
 one-time link. If `auth` shows confirmed-but-never-signed-in accounts after
@@ -116,12 +115,19 @@ Use a fresh `yourname+testN@gmail.com` for each first-time case. `+test`
 accounts get real watches but are left out of analytics, and so is every
 browser they've used.
 
+**Baseline on `main`, done 2026-09-26 21:04 UTC (owner):** a new `+test`
+sign-up succeeded on its first link in the same browser; tapping the link
+again kept exactly one watch; after unwatching, replaying the link did not
+restore it. The test watch was removed afterwards. (These visits predate
+the `+test` analytics exclusion, so they appear in `page_events`. The watch
+logic they exercised is unchanged in #39.)
+
 **After #39 is deployed, before the template edit:**
 1. [ ] Returning user, other browser: an existing `+test` address, Watch on a
    product, open the Magic Link email in a *different* browser → watching.
    This proves the hosted Magic Link form with the new `to=` destination.
-2. [ ] First-time, same browser: a new address → Confirm signup email (still
-   the default link) → watching.
+2. [x] ~~First-time, same browser~~ (baseline above; repeat once after deploy
+   to cover the `to=` destination on the default link).
 
 **After the Confirm signup edit:**
 

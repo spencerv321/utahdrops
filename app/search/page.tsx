@@ -10,7 +10,7 @@ import { SearchBox } from "@/components/search-box";
 import { SearchControls } from "@/components/search-controls";
 import { ProductList } from "@/components/product-list";
 import { SearchShown, type SearchTrack } from "@/components/search-track";
-import { searchListKey } from "@/lib/search-list";
+import { keywordResultsShown, searchListKey } from "@/lib/search-list";
 import { AskResults } from "@/components/nl-search";
 import { looksLikeQuestion, roughQuery } from "@/lib/nl/intent";
 import { parseTasteText } from "@/lib/taste/parse";
@@ -201,8 +201,6 @@ export default async function SearchPage({
         ) : null}
       </div>
 
-      {searched && !(taste && !q) ? <SearchShown track={track} /> : null}
-
       {ask ? <AskResults key={q} query={q} keywordHits={results.total} /> : null}
 
       {taste ? (
@@ -226,8 +224,10 @@ export default async function SearchPage({
             Browse all in-stock {tasteTypeLabel(params)}
           </Link>
         </p>
-      ) : (taste ? results.total > 0 : results.total > 0 || !ask) ? (
+      ) : keywordResultsShown({ taste: !!taste, q, total: results.total, ask }) ? (
         <section className="space-y-2" aria-label="Results">
+          {/* Counted only when this list is actually on screen (lib/search-list.ts). */}
+          {searched ? <SearchShown track={track} /> : null}
           {taste ? <h2 className="pt-2 text-[15px] font-medium">All matches for your words (not taste-ranked)</h2> : null}
           <p className="text-sm text-muted-foreground" aria-live="polite">
             {roughLabel
