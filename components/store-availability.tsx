@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
-import Link from "next/link";
-import { ChevronDown, LocateFixed, Navigation, Phone } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Navigation, Phone } from "lucide-react";
 import { checkedAgo, storeLabel } from "@/lib/format";
 import { canClaimNone, exceedsStatewide, type Statewide } from "@/lib/store-freshness";
+import { milesBetween } from "@/lib/local-availability";
 import { cn } from "@/lib/utils";
-import { AREA_EVENT, LOCATION_STORAGE_KEY, locate as locateArea, rememberArea } from "@/lib/area-client";
 
 export interface StoreRow {
   store_id: number;
@@ -27,33 +26,6 @@ export interface HomeStore {
 
 type Coords = { lat: number; lng: number };
 
-// The visitor's last location (see lib/area-client), so return visits sort by
-// distance without asking again. localStorage can throw (private mode) — then
-// we just don't remember.
-function readSaved(): string | null {
-  try {
-    return window.localStorage.getItem(LOCATION_STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
-function subscribe(listener: () => void) {
-  window.addEventListener(AREA_EVENT, listener);
-  window.addEventListener("storage", listener);
-  return () => {
-    window.removeEventListener(AREA_EVENT, listener);
-    window.removeEventListener("storage", listener);
-  };
-}
-
-function milesBetween(a: Coords, b: Coords): number {
-  const rad = (d: number) => (d * Math.PI) / 180;
-  const h =
-    Math.sin(rad(b.lat - a.lat) / 2) ** 2 +
-    Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(rad(b.lng - a.lng) / 2) ** 2;
-  return 3959 * 2 * Math.asin(Math.min(1, Math.sqrt(h)));
-}
-
 const telHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, "")}`;
 const mapHref = (s: StoreRow) =>
   s.lat != null
@@ -68,9 +40,11 @@ type Row = StoreRow & {
 };
 
 /**
- * "Where can I get it?" Signed in with chosen stores: lead with those.
- * Otherwise: the nearest store with stock (one tap to share location), and
- * until then, the store with the most bottles.
+ * "Where can I get it?", store by store. Signed in with chosen stores: lead
+ * with those. Distances are from the visitor's chosen area (`here`, from the
+ * ud_area cookie; chosen in the local answer card above). With an area the
+ * card above already names the nearest stock, so only home stores get an
+ * answer here; without one, the store with the most bottles does.
  *
  * Every answer says when the stores were checked. "Not at your store" / "none
  * of the stores" only from a check under a day old (lib/store-freshness.ts);
@@ -83,6 +57,7 @@ export function StoreAvailability({
   unit,
   checkedAt,
   statewide,
+  here,
 }: {
   stores: StoreRow[];
   homeStores: HomeStore[];
@@ -92,20 +67,10 @@ export function StoreAvailability({
   checkedAt: string;
   /** Latest catalog pass: statewide shelf count and when it was seen. */
   statewide: Statewide;
+  /** The chosen area's coordinates, or null with no area. */
+  here: Coords | null;
 }) {
-  const saved = useSyncExternalStore(subscribe, readSaved, () => null);
-  const [status, setStatus] = useState<"idle" | "locating" | "denied">("idle");
   const [showAll, setShowAll] = useState(false);
-
-  const here: Coords | null = useMemo(() => {
-    if (!saved) return null;
-    try {
-      const c = JSON.parse(saved) as Coords;
-      return Number.isFinite(c.lat) && Number.isFinite(c.lng) ? c : null;
-    } catch {
-      return null;
-    }
-  }, [saved]);
 
   const homeIds = useMemo(() => new Set(homeStores.map((s) => s.id)), [homeStores]);
 
@@ -135,75 +100,6 @@ export function StoreAvailability({
     : undefined;
   const mostBottles = [...inStock].sort((a, b) => b.qty - a.qty)[0];
   const mineInStock = inStock.filter((r) => r.mine).sort((a, b) => b.qty - a.qty)[0];
-
-  function locate() {
-    setStatus("locating");
-    locateArea().then(
-      (area) => {
-        rememberArea(area);
-        setStatus("idle");
-      },
-      () => setStatus("denied")
-    );
-  }
-
-  // No location permission needed: pick an area and we measure from its store.
-  const areas = useMemo(() => {
-    const byCity = new Map<string, Coords>();
-    for (const s of stores) {
-      if (!s.city || s.lat == null || s.lng == null) continue;
-      const city = storeLabel(s.city).title;
-      if (!byCity.has(city)) byCity.set(city, { lat: s.lat, lng: s.lng });
-    }
-    return [...byCity.entries()].sort(([a], [b]) => a.localeCompare(b));
-  }, [stores]);
-
-  const whereFrom = (
-    <div className="flex flex-wrap items-center gap-2">
-      <button
-        type="button"
-        onClick={locate}
-        disabled={status === "locating"}
-        className="inline-flex h-11 items-center gap-2 rounded-md border border-input px-4 text-[15px] hover:bg-card disabled:opacity-60"
-      >
-        <LocateFixed className="size-[18px]" aria-hidden />
-        {status === "locating" ? "Finding you…" : here ? "Update my location" : "Use my location"}
-      </button>
-      {areas.length > 1 ? (
-        <label className="relative inline-flex h-11 items-center gap-2 rounded-md border border-input px-4 text-[15px] hover:bg-card">
-          <span>or choose an area</span>
-          <ChevronDown className="size-4 text-muted-foreground" aria-hidden />
-          <select
-            aria-label="Choose an area to sort stores by distance"
-            className="absolute inset-0 cursor-pointer opacity-0"
-            defaultValue=""
-            onChange={(e) => {
-              const area = areas.find(([name]) => name === e.target.value);
-              if (area) rememberArea({ label: area[0], ...area[1] });
-            }}
-          >
-            <option value="" disabled>
-              Choose an area
-            </option>
-            {areas.map(([name]) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-      ) : null}
-      {status === "denied" ? (
-        <p className="w-full text-sm text-muted-foreground">
-          Couldn&apos;t get your location. Choose an area instead, or{" "}
-          <Link prefetch={false} href="/watchlist" className="text-foreground underline underline-offset-4">
-            pick your store
-          </Link>
-          .
-        </p>
-      ) : null}
-    </div>
-  );
 
   // The one-glance answer.
   let answer: React.ReactNode;
@@ -258,14 +154,15 @@ export function StoreAvailability({
         </div>
       );
     }
+  } else if (here) {
+    // The local answer card above covers "near you"; the list is the detail.
+    answer = null;
   } else if (inStock.length === 0) {
     answer = (
       <p className="border-y py-4 text-[15px] text-muted-foreground">
         {noneNote} Watch it and we&apos;ll email you when it&apos;s back.
       </p>
     );
-  } else if (nearest) {
-    answer = <AnswerCard label="Nearest with stock" row={nearest} unit={unit} checked={ago} />;
   } else {
     answer = mostBottles ? <AnswerCard label="Most on hand" row={mostBottles} unit={unit} checked={ago} /> : null;
   }
@@ -275,7 +172,6 @@ export function StoreAvailability({
   return (
     <div className="space-y-4">
       {answer}
-      {inStock.length > 0 ? whereFrom : null}
 
       <ul className="divide-y border-y">
         {visible.map((s) => {

@@ -165,6 +165,20 @@ scheduled workflows are enabled; `/api/health` is green.
   on/after Sep 28 (backlog of > 7-day products should have cleared) before
   touching it.
 
+## Product page: local answer first (2026-09-27, PR open)
+- Identity and price first, then "Stock near <area>": the chosen area (the
+  same `ud_area` cookie search uses, now changeable on the page; every store
+  city, whatever this bottle's stock), one honest answer
+  (`lib/local-availability.ts`: fresh positive, stale last-known, unknown,
+  fresh zero near the area, statewide zero, out of date, delisted, no area),
+  store-by-store and statewide freshness on separate lines, and the action
+  that fits (directions/call, Check DABS now only when the answer needs a
+  fresher check, Watch). Store list next; description (disclosure), rarity,
+  history and details below.
+- The product page's separate `ud_location` localStorage copy is gone
+  (cleared on the next area choice), so search and product can't disagree.
+- Screenshots: `review/product-page-2026-09-27/`.
+
 ## Taste picks (beta, wine only; PR #32, live 2026-09-25)
 - One search box. A wine request with a taste in it ("white, not too dry,
   under $30 near Draper") gets up to 6 picks above ordinary results; "Help me

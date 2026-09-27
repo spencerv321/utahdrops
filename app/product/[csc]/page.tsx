@@ -21,9 +21,11 @@ import { ShareButton } from "@/components/share-button";
 import { StoreAvailability, type HomeStore } from "@/components/store-availability";
 import { RarityCard } from "@/components/rarity-card";
 import { CheckDabsButton } from "@/components/check-dabs-button";
+import { LocalAnswerCard } from "@/components/local-answer";
+import { localAnswer, wantsLiveCheck } from "@/lib/local-availability";
+import { getArea, getAreaOptions } from "@/lib/area-server";
 import {
   categoryLabel,
-  checkedAgo,
   displayName,
   formatAsOf,
   formatPrice,
@@ -37,9 +39,8 @@ import {
   whenLabel,
 } from "@/lib/format";
 import { BottleGlyph } from "@/components/bottle-glyph";
-import { Check } from "lucide-react";
 import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
-import { exceedsStatewide, noneStatewideSince } from "@/lib/store-freshness";
+import { noneStatewideSince } from "@/lib/store-freshness";
 
 export const dynamic = "force-dynamic";
 
@@ -62,13 +63,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params, searchParams }: Props) {
   const { csc } = await params;
   const { watch: watchResult, store: storeResult, intent } = await searchParams;
-  const [product, history, stores, events, user, rarity] = await Promise.all([
+  const [product, history, stores, events, user, rarity, area, areas] = await Promise.all([
     getProduct(csc),
     getProductHistory(csc),
     getStoreAvailability(csc),
     getProductEvents(csc),
     getCurrentUser(),
     getProductRarity(csc),
+    getArea(),
+    getAreaOptions(),
   ]);
   if (!product) notFound();
 
@@ -99,10 +102,6 @@ export default async function ProductPage({ params, searchParams }: Props) {
   // store counts (none statewide now, or fewer than a store had), never confirm them.
   const statewide = { qty: product.store_qty, at: product.last_seen };
   const soldOutSince = storesFresh && noneStatewideSince(statewide, storeAsOf);
-  const storesWithStock =
-    storesFresh && !soldOutSince
-      ? stores.filter((s) => s.qty > 0 && !exceedsStatewide(s.qty, statewide, storeAsOf)).length
-      : 0;
   const storeRows = stores.map((s) => ({
     store_id: s.store_id,
     name: s.name,
@@ -118,6 +117,16 @@ export default async function ProductPage({ params, searchParams }: Props) {
   const note = listingNote(product.status);
   // Bottles DABS releases by drawing aren't "gone for good" when unlisted.
   const drawingRelease = !!rarity?.evidence.some((e) => e.startsWith("DABS drawing"));
+  // The one-glance answer for the chosen area (lib/local-availability.ts).
+  const local = localAnswer({
+    area,
+    stores: storeRows,
+    checkedAt: storeAsOf,
+    statewide: { qty: onShelves ? product.store_qty : 0, at: product.last_seen },
+    delisted: !!product.delisted_at,
+    drawing: drawingRelease,
+  });
+  const watched = watchedSet.has(csc);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -145,13 +154,13 @@ export default async function ProductPage({ params, searchParams }: Props) {
   };
 
   return (
-    <div className="space-y-10 pt-2 sm:pt-6">
+    <div className="space-y-8 pt-2 sm:space-y-10 sm:pt-6">
       {user && watchResult ? (
         <WatchConfirmation
           result={watchResult}
           storeResult={storeResult}
           name={name}
-          watching={watchedSet.has(csc)}
+          watching={watched}
           email={user.email ?? null}
           homeStores={homeStores}
           emailsOn={watchEmailOn}
@@ -164,11 +173,11 @@ export default async function ProductPage({ params, searchParams }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
-        {/* Is this the right bottle? */}
-        <header className="flex gap-4">
-          <BottleGlyph kind={productKind(product.category, product.size_ml)} className="h-24 w-[4.5rem] sm:h-32 sm:w-24" />
-          <div className="min-w-0 flex-1 space-y-2">
+      {/* Is this the right bottle, and what does it cost? Then: is it near me? */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
+        <header className="flex gap-4 lg:self-start">
+          <BottleGlyph kind={productKind(product.category, product.size_ml)} className="h-20 w-16 sm:h-28 sm:w-20" />
+          <div className="min-w-0 flex-1 space-y-1.5">
             {product.category ? (
               <Link prefetch={false}
                 href={`/search?category=${encodeURIComponent(product.category)}&instock=1`}
@@ -177,13 +186,17 @@ export default async function ProductPage({ params, searchParams }: Props) {
                 {categoryLabel(product.category)}
               </Link>
             ) : null}
-            <h1 className="font-sans text-[1.75rem] leading-tight font-medium tracking-[-0.015em] sm:text-4xl">{name}</h1>
+            <h1 className="font-sans text-[1.625rem] leading-tight font-medium tracking-[-0.015em] break-words sm:text-4xl">
+              {name}
+            </h1>
             <p className="text-[15px] text-muted-foreground">
               {[sizeLabel(product.size_ml), note].filter(Boolean).join(" · ")}
             </p>
-            {product.description ? (
-              <p className="max-w-prose pt-1 text-[15px] leading-relaxed text-muted-foreground">{product.description}</p>
-            ) : null}
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 pt-1">
+              <p className="text-3xl font-medium tabular-nums">{formatPrice(product.current_price)}</p>
+              {product.is_spa ? <span className="text-sm font-medium text-price-drop">On sale</span> : null}
+              <p className="text-sm text-muted-foreground">{priceNote(history)}</p>
+            </div>
           </div>
           <ShareButton
             title={name}
@@ -191,80 +204,52 @@ export default async function ProductPage({ params, searchParams }: Props) {
           />
         </header>
 
-        {/* What does it cost, is it anywhere, and how do I hear when it changes? */}
-        <section aria-label="Price and availability" className="space-y-4 rounded-lg bg-card p-4 sm:p-5 lg:self-start">
-          <div className="flex items-baseline justify-between gap-3">
-            <p className="text-3xl font-medium tabular-nums">{formatPrice(product.current_price)}</p>
-            {product.is_spa ? <span className="text-sm font-medium text-price-drop">On sale</span> : null}
-          </div>
-          <p className="-mt-2 text-sm text-muted-foreground">{priceNote(history)}</p>
-          <p className="text-[15px]">
-            {onShelves ? (
-              <span className="inline-flex items-start gap-1.5 font-medium text-success">
-                <Check className="mt-0.5 size-4 shrink-0" aria-hidden />
-                <span>
-                  In stores: {formatQty(product.store_qty)} {unit.many} statewide
-                  {storesWithStock > 0 && storeAsOf
-                    ? ` (at least ${storesWithStock} stores, checked ${checkedAgo(storeAsOf)})`
-                    : ""}
-                </span>
-              </span>
-            ) : (
-              <span className="text-muted-foreground">
-                {product.in_stock && (product.warehouse_qty ?? 0) > 0
-                  ? `Not on store shelves (${formatQty(product.warehouse_qty)} at the DABS warehouse).`
-                  : "Not in stores."}
-              </span>
-            )}
-          </p>
-          {product.delisted_at ? (
-            drawingRelease ? (
-              <p className="text-sm text-warning">Not currently listed. DABS has released it through drawings.</p>
-            ) : (
-              <p className="text-sm text-warning">DABS no longer lists this product, so it may not come back.</p>
-            )
-          ) : null}
-          <div className="space-y-2 border-t pt-4">
-            <WatchButton csc={csc} initialWatched={watchedSet.has(csc)} signedIn={!!user} />
-            <p className="text-[13px] leading-relaxed text-muted-foreground">
-              {watchedSet.has(csc)
-                ? `We'll email you when DABS shows it back in stores anywhere in Utah${
-                    homeStores.length > 0
-                      ? `, or back at ${homeStores.map((h) => storeLabel(h.name, h.city).title).join(", ")}`
-                      : ""
-                  }, and if it sells out or changes price. `
-                : "Get an email when it's back in stores, sells out, or changes price. "}
-              {WATCH_REFRESH_NOTE}
-            </p>
-          </div>
-          <p className="text-xs text-subtle-foreground">
-            {product.delisted_at && drawingRelease
-              ? "Price from its most recent DABS drawing."
-              : `Price and statewide count from DABS ${whenLabel(product.last_seen)}.`}
-          </p>
-        </section>
+        <LocalAnswerCard
+          answer={local}
+          area={area}
+          areas={areas}
+          unit={unit}
+          csc={csc}
+          statewide={{
+            qty: onShelves ? product.store_qty : 0,
+            at: product.last_seen,
+            warehouseQty: product.in_stock ? product.warehouse_qty : null,
+            drawingPrice: !!product.delisted_at && drawingRelease,
+          }}
+          watch={
+            <div className="space-y-2">
+              <WatchButton csc={csc} initialWatched={watched} signedIn={!!user} />
+              <p className="text-[13px] leading-relaxed text-muted-foreground">
+                {watched
+                  ? `We'll email you when DABS shows it back in stores anywhere in Utah${
+                      homeStores.length > 0
+                        ? `, or back at ${homeStores.map((h) => storeLabel(h.name, h.city).title).join(", ")}`
+                        : ""
+                    }, and if it sells out or changes price. `
+                  : "Get an email when it's back in stores, sells out, or changes price. "}
+                {WATCH_REFRESH_NOTE}
+              </p>
+            </div>
+          }
+        />
       </div>
 
-      {rarity ? <RarityCard csc={csc} rarity={rarity} /> : null}
-
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
-        <section className="space-y-4" aria-labelledby="where-title">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
+        <section className="space-y-4 lg:order-2" aria-labelledby="where-title">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h2 id="where-title" className="font-display text-[2rem] leading-none sm:text-4xl">
-              Where to find it
+              Every store
             </h2>
             {storeAsOf && storesFresh ? (
               <span className="text-[13px] text-muted-foreground">Store counts from {whenLabel(storeAsOf)}</span>
             ) : null}
           </div>
-          {product.delisted_at ? null : <CheckDabsButton csc={csc} />}
+          {/* Offered once: in the card above when its answer needs a fresher check, otherwise here. */}
+          {product.delisted_at || wantsLiveCheck(local) ? null : <CheckDabsButton csc={csc} />}
           {stores.length === 0 ? (
             <div className="space-y-2 border-y py-5 text-[15px]">
               <p>We don&apos;t have store-by-store counts for this bottle yet.</p>
               <p className="text-muted-foreground">
-                {onShelves
-                  ? `DABS showed ${formatQty(product.store_qty)} ${unit.many} in stores statewide ${whenLabel(product.last_seen)}. `
-                  : `DABS showed none in stores statewide ${whenLabel(product.last_seen)}. `}
                 The{" "}
                 <a className="text-foreground underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
                   official locator
@@ -280,9 +265,6 @@ export default async function ProductPage({ params, searchParams }: Props) {
                   : `Store-by-store counts were last checked ${whenLabel(storeAsOf)}, too long ago to rely on.`}
               </p>
               <p className="text-muted-foreground">
-                {onShelves
-                  ? `DABS showed ${formatQty(product.store_qty)} ${unit.many} in stores statewide ${whenLabel(product.last_seen)}. `
-                  : `DABS showed none in stores statewide ${whenLabel(product.last_seen)}. `}
                 The{" "}
                 <a className="text-foreground underline underline-offset-4" href={DABS_LOCATOR_URL} rel="noopener">
                   official locator
@@ -300,6 +282,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
                     stores={storeRows}
                     checkedAt={new Date(storeAsOf!).toISOString()}
                     statewide={{ qty: product.store_qty, at: new Date(product.last_seen).toISOString() }}
+                    here={area ? { lat: area.lat, lng: area.lng } : null}
                   />
                 </div>
               </details>
@@ -311,6 +294,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
               stores={storeRows}
               checkedAt={new Date(storeAsOf!).toISOString()}
               statewide={{ qty: product.store_qty, at: new Date(product.last_seen).toISOString() }}
+              here={area ? { lat: area.lat, lng: area.lng } : null}
             />
           )}
           {!user ? (
@@ -330,7 +314,20 @@ export default async function ProductPage({ params, searchParams }: Props) {
           ) : null}
         </section>
 
-        <div className="space-y-10">
+        {/* The long reading: what it is, how rare, and its history. */}
+        <div className="space-y-10 lg:order-1">
+          {product.description ? (
+            <details className="group border-y">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-[15px]">
+                About this bottle
+                <span aria-hidden className="text-muted-foreground transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p className="max-w-prose pb-4 text-[15px] leading-relaxed text-muted-foreground">{product.description}</p>
+            </details>
+          ) : null}
+
+          {rarity ? <RarityCard csc={csc} rarity={rarity} /> : null}
+
           <section className="space-y-3" aria-labelledby="history-title">
             <h2 id="history-title" className="font-display text-[2rem] leading-none sm:text-4xl">
               Last 90 days
