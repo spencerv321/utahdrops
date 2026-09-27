@@ -17,3 +17,16 @@ export function isAdmin(user: Pick<User, "email"> | null | undefined): boolean {
   const email = user?.email?.trim().toLowerCase();
   return Boolean(email) && adminEmails().includes(email!);
 }
+
+/**
+ * Owner test addresses ("name+test@…", "name+test2@…") behave like real
+ * accounts everywhere except analytics, where they would read as visitors.
+ */
+export function isTestEmail(email: string | null | undefined): boolean {
+  return /\+test[^@]*@/i.test(email ?? "");
+}
+
+/** Admins and test accounts: left out of page views and discover_events. */
+export function isUntracked(user: Pick<User, "email"> | null | undefined): boolean {
+  return isAdmin(user) || isTestEmail(user?.email);
+}

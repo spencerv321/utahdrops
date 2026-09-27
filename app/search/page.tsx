@@ -9,6 +9,8 @@ import { getCurrentUser } from "@/lib/supabase/server";
 import { SearchBox } from "@/components/search-box";
 import { SearchControls } from "@/components/search-controls";
 import { ProductList } from "@/components/product-list";
+import { SearchShown, type SearchTrack } from "@/components/search-track";
+import { keywordResultsShown, searchListKey } from "@/lib/search-list";
 import { AskResults } from "@/components/nl-search";
 import { looksLikeQuestion, roughQuery } from "@/lib/nl/intent";
 import { parseTasteText } from "@/lib/taste/parse";
@@ -117,6 +119,17 @@ export default async function SearchPage({
       : null;
 
   const totalPages = Math.max(1, Math.ceil(results.total / results.pageSize));
+  // Search analytics (discover_events surface "search"): which list, how many
+  // matches (0 = zero-result search), and each row's rank across pages.
+  const source = results !== exact ? "search:rough" : q ? "search:exact" : "search:browse";
+  const track: SearchTrack = {
+    source,
+    query: q,
+    results: results.total,
+    offset: (results.page - 1) * results.pageSize,
+    listKey: searchListKey(source, params, area, results.total),
+  };
+  const searched = q !== "" || Object.keys(params).some((k) => k !== "page" && k !== "q");
   const pageLink = (page: number) => {
     const next = new URLSearchParams(
       Object.entries(params).filter(([, v]) => typeof v === "string") as [string, string][]
@@ -211,8 +224,10 @@ export default async function SearchPage({
             Browse all in-stock {tasteTypeLabel(params)}
           </Link>
         </p>
-      ) : (taste ? results.total > 0 : results.total > 0 || !ask) ? (
+      ) : keywordResultsShown({ taste: !!taste, q, total: results.total, ask }) ? (
         <section className="space-y-2" aria-label="Results">
+          {/* Counted only when this list is actually on screen (lib/search-list.ts). */}
+          {searched ? <SearchShown track={track} /> : null}
           {taste ? <h2 className="pt-2 text-[15px] font-medium">All matches for your words (not taste-ranked)</h2> : null}
           <p className="text-sm text-muted-foreground" aria-live="polite">
             {roughLabel
@@ -231,7 +246,14 @@ export default async function SearchPage({
               </p>
             </div>
           ) : (
-            <ProductList rows={results.rows} watched={watched} signedIn={!!user} area={area} nearby={nearby} />
+            <ProductList
+              rows={results.rows}
+              watched={watched}
+              signedIn={!!user}
+              area={area}
+              nearby={nearby}
+              track={track}
+            />
           )}
         </section>
       ) : null}

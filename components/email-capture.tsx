@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { MailCheck } from "lucide-react";
 import { signUpForEmails } from "@/app/actions";
 import { createClient } from "@/lib/supabase/client";
+import { confirmRedirect } from "@/lib/auth-next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -37,10 +38,10 @@ export function EmailCapture() {
             setError(result.error ?? "Something went wrong.");
             return;
           }
-          const next = encodeURIComponent("/watchlist?welcome=1");
+          const next = "/watchlist?welcome=1";
           const { error: authError } = await createClient().auth.signInWithOtp({
             email: result.email,
-            options: { emailRedirectTo: `${window.location.origin}/auth/confirm?next=${next}` },
+            options: { emailRedirectTo: confirmRedirect(window.location.origin, next) },
           });
           if (authError) setError("Couldn't send the link — try again in a minute.");
           else setSentTo(result.email);

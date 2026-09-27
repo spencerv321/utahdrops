@@ -473,8 +473,8 @@ function WatchConfirmation({
           didn&apos;t add the watch here.
         </p>
         <p className="text-muted-foreground">
-          To finish, open the link in the browser where you asked for it. Or tap Watch this bottle below to watch it
-          on {email ?? "this account"} instead.
+          To add it for {requestedFor}, sign out, tap Watch this bottle and enter that email. Or tap Watch this bottle
+          below to watch it on {email ?? "this account"} instead.
         </p>
       </div>
     );

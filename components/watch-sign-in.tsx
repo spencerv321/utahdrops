@@ -3,11 +3,12 @@
 import { useState, useTransition } from "react";
 import { MailCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { confirmRedirect } from "@/lib/auth-next";
 import { requestWatchSignIn } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { visitorId } from "@/lib/beacon";
+import { trackedSource, visitorId } from "@/lib/beacon";
 
 export interface WatchStoreOption {
   id: number;
@@ -30,7 +31,7 @@ export function WatchSignIn({
   productName: string;
   stores: WatchStoreOption[];
   initialStoreId?: number | null;
-  /** Where the Watch tap came from ("discover:price"), kept with the request. */
+  /** Where the Watch tap came from ("discover:price", "product:page"), kept with the request. */
   source?: string;
 }) {
   const [scope, setScope] = useState<"statewide" | "store">(initialStoreId ? "store" : "statewide");
@@ -66,12 +67,13 @@ export function WatchSignIn({
         }
         setError(null);
         startTransition(async () => {
+          const src = trackedSource(source);
           const saved = await requestWatchSignIn({
             email,
             csc,
             storeId: scope === "store" ? Number(storeId) : null,
-            source: source ?? null,
-            visitorId: source ? visitorId() : null,
+            source: src ?? null,
+            visitorId: src ? visitorId() : null,
           });
           if (!saved.ok) {
             setError(saved.error);
@@ -80,7 +82,7 @@ export function WatchSignIn({
           const next = `/watch/confirm?intent=${saved.id}`;
           const { error } = await createClient().auth.signInWithOtp({
             email,
-            options: { emailRedirectTo: `${window.location.origin}/auth/confirm?next=${encodeURIComponent(next)}` },
+            options: { emailRedirectTo: confirmRedirect(window.location.origin, next) },
           });
           if (error) setError(error.message);
           else setSentTo(email.trim());

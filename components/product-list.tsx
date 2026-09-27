@@ -15,11 +15,13 @@ import {
 import type { Nearby, ProductRow } from "@/lib/queries";
 import type { Area } from "@/lib/area";
 import { NearbyStock } from "@/components/nearby-stock";
+import { SearchResultLink, type SearchTrack } from "@/components/search-track";
 
 /**
  * Results as compact rows: which bottle (name, size, style), what it costs,
  * whether it's on a shelf anywhere, and a watch action. Warehouse counts and
- * codes live on the product page.
+ * codes live on the product page. `track` (search results only) records
+ * result clicks with their rank and attributes watches to the search list.
  */
 export function ProductList({
   rows,
@@ -27,22 +29,24 @@ export function ProductList({
   signedIn,
   area,
   nearby,
+  track,
 }: {
   rows: ProductRow[];
   watched: Set<string>;
   signedIn: boolean;
   area?: Area | null;
   nearby?: Map<string, Nearby>;
+  track?: SearchTrack;
 }) {
   return (
     <ul className="divide-y border-y">
-      {rows.map((p) => {
+      {rows.map((p, i) => {
         const name = productTitle(p.name, p.size_ml);
         const meta = [sizeLabel(p.size_ml), categoryLabel(p.category)].filter(Boolean).join(" · ");
         const note = listingNote(p.status);
         return (
           <li key={p.csc} className="flex items-center gap-3 py-3">
-            <Link prefetch={false} href={`/product/${p.csc}`} className="group flex min-w-0 flex-1 items-start gap-3 lg:items-center">
+            <RowLink href={`/product/${p.csc}`} csc={p.csc} rank={track ? track.offset + i + 1 : 0} track={track}>
               <BottleGlyph kind={productKind(p.category, p.size_ml)} className="mt-0.5 h-14 w-10 lg:mt-0" />
               {/* Phones: stacked. Desktop: bottle | availability | price, like a shelf list. */}
               <span className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem_6rem] lg:items-center lg:gap-6">
@@ -84,11 +88,44 @@ export function ProductList({
                   {formatPrice(p.current_price)}
                 </span>
               </span>
-            </Link>
-            <WatchStar csc={p.csc} name={name} initialWatched={watched.has(p.csc)} signedIn={signedIn} />
+            </RowLink>
+            <WatchStar
+              csc={p.csc}
+              name={name}
+              initialWatched={watched.has(p.csc)}
+              signedIn={signedIn}
+              source={track?.source}
+            />
           </li>
         );
       })}
     </ul>
+  );
+}
+
+const ROW_LINK = "group flex min-w-0 flex-1 items-start gap-3 lg:items-center";
+
+/** The row's link: a tracked search result, or a plain link elsewhere (watchlist). */
+function RowLink({
+  href,
+  csc,
+  rank,
+  track,
+  children,
+}: {
+  href: string;
+  csc: string;
+  rank: number;
+  track?: SearchTrack;
+  children: React.ReactNode;
+}) {
+  return track ? (
+    <SearchResultLink href={href} csc={csc} rank={rank} track={track} className={ROW_LINK}>
+      {children}
+    </SearchResultLink>
+  ) : (
+    <Link prefetch={false} href={href} className={ROW_LINK}>
+      {children}
+    </Link>
   );
 }

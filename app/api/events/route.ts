@@ -32,12 +32,15 @@ const Body = z.object({
   utm_campaign: text(150),
 });
 
-/** An action on a "Worth a look" result (lib/beacon.ts sendDiscoverEvent). */
+/** An action on a result list or product page (lib/beacon.ts sendDiscoverEvent). */
 const Action = z.object({
   action: z.object({
-    kind: z.enum(["click", "watch_click", "useful_yes", "useful_no"]),
+    kind: z.enum(["shown", "click", "watch_click", "useful_yes", "useful_no"]),
     source: z.string().max(40),
     csc: z.string().regex(/^\d{6}$/).nullish(),
+    rank: z.number().int().min(1).max(100_000).nullish(),
+    results: z.number().int().min(0).max(100_000).nullish(),
+    query: z.string().max(200).nullish(),
   }),
   visitor: z.string().regex(/^[\w-]{8,64}$/),
 });
@@ -67,7 +70,14 @@ export async function POST(req: NextRequest) {
   if (action.success) {
     const a = action.data;
     const user = await getCurrentUser().catch(() => null);
-    await recordDiscoverEvent(a.action.kind, a.action.source, { csc: a.action.csc, visitorId: a.visitor, user });
+    await recordDiscoverEvent(a.action.kind, a.action.source, {
+      csc: a.action.csc,
+      visitorId: a.visitor,
+      user,
+      rank: a.action.rank,
+      results: a.action.results,
+      query: a.action.query,
+    });
     return NO_CONTENT();
   }
   const parsed = Body.safeParse(json);

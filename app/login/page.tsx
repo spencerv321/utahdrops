@@ -10,8 +10,13 @@ import { parseAttribution } from "@/lib/discover-events";
 
 export const metadata: Metadata = { title: "Sign in" };
 
-const LINK_HELP =
-  "That sign-in link didn't work. Links work once, for an hour, and in the browser you asked from. Enter your email for a fresh one.";
+/** Why an email link failed (/auth/confirm): used or expired, or opened in another browser. */
+function linkHelp(error?: string): string | null {
+  if (error === "link-browser")
+    return "That link has to be opened in the browser you asked for it from. Enter your email here for a fresh one, then open it in this browser.";
+  if (error === "link") return "That sign-in link didn't work. Links work once and expire after an hour. Enter your email for a fresh one.";
+  return null;
+}
 
 /**
  * The bottle a signed-out visitor asked to watch: from ?watch=<code>, or from
@@ -41,6 +46,7 @@ export default async function LoginPage({
 }) {
   const { next, error, watch, store, src } = await searchParams;
   const request = await watchRequest(watch, store, next, src);
+  const help = linkHelp(error);
 
   if (request) {
     const { product, storeId, source } = request;
@@ -66,9 +72,9 @@ export default async function LoginPage({
             Free, no password: we email you a link, and once you tap it you&apos;re watching.
           </p>
         </div>
-        {error === "link" && (
+        {help && (
           <p role="alert" className="rounded-md border border-destructive/40 px-4 py-3 text-sm">
-            {LINK_HELP} Your bottle choice is kept.
+            {help} Your bottle choice is kept.
           </p>
         )}
         <WatchSignIn
@@ -107,9 +113,9 @@ export default async function LoginPage({
           Hear when the allocated list posts.
         </li>
       </ul>
-      {error === "link" && (
+      {help && (
         <p role="alert" className="rounded-md border border-destructive/40 px-4 py-3 text-sm">
-          {LINK_HELP}
+          {help}
         </p>
       )}
       <LoginForm next={next ?? "/"} />
