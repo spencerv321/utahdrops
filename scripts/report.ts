@@ -309,6 +309,43 @@ async function funnel(sql: typeof import("../lib/db").sql) {
   return sql.end();
 }
 
+/**
+ * Demand signals for the product photo/enrichment pilot sample: per product
+ * code, distinct visitors on its page, watchers, search-result clicks and
+ * Watch taps, plus search words used by 2+ visitors. Counts only; no user
+ * or visitor ids leave the database.
+ */
+async function photoSample(sql: typeof import("../lib/db").sql) {
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  show("demand by product (top 400)", await sql`
+    with views as (
+      select csc, count(distinct visitor_id)::int as viewers, count(*)::int as views
+      from page_events where csc is not null group by csc),
+    watches as (select csc, count(*)::int as watchers from watchlist group by csc),
+    acts as (
+      select csc,
+             count(*) filter (where kind = 'click' and surface = 'search')::int as search_clicks,
+             count(distinct visitor_id) filter (where kind = 'watch_click')::int as watch_tappers
+      from discover_events where csc is not null group by csc)
+    select p.csc, p.name, p.category, p.size_ml,
+           coalesce(v.viewers, 0) as viewers, coalesce(v.views, 0) as views,
+           coalesce(w.watchers, 0) as watchers,
+           coalesce(a.search_clicks, 0) as search_clicks, coalesce(a.watch_tappers, 0) as watch_tappers
+    from products p
+    left join views v on v.csc = p.csc
+    left join watches w on w.csc = p.csc
+    left join acts a on a.csc = p.csc
+    where coalesce(v.viewers, 0) + coalesce(w.watchers, 0) + coalesce(a.search_clicks, 0) > 0
+    order by coalesce(w.watchers, 0) * 5 + coalesce(v.viewers, 0) + coalesce(a.search_clicks, 0) desc
+    limit 400`);
+  show("search words used by 2+ visitors (lowercased)", await sql`
+    select lower(trim(search_query)) as q, count(distinct visitor_id)::int as visitors
+    from page_events where search_query is not null and length(trim(search_query)) between 2 and 60
+    group by 1 having count(distinct visitor_id) >= 2 order by 2 desc limit 150`);
+  show("window", await sql`select min(created_at) as first_event, max(created_at) as last_event, count(*)::int as events from page_events`);
+  return sql.end();
+}
+
 async function main() {
   // These modes must work even when the session pooler (5432) is full, so go
   // through the transaction pooler (6543), which has its own client limit.
@@ -395,6 +432,7 @@ async function main() {
   if (process.argv[2] === "checks") return checks(sql);
   if (process.argv[2] === "discover") return discover(sql);
   if (process.argv[2] === "funnel") return funnel(sql);
+  if (process.argv[2] === "photosample") return photoSample(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");
     const ok = await runSearchCheck();
