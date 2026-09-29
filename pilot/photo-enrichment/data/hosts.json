@@ -1,0 +1,573 @@
+{
+ "www.esclans.com": {
+  "robots_found": true,
+  "disallow_rules": 22
+ },
+ "67wine.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.antinori.it": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.wine.com": {
+  "blocked": "403 bot challenge on https://www.wine.com/product/meiomi-pinot-noir/717100 at 2026-09-29T16:32:49.669Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "assets.wine.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.kimcrawfordwines.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.totalwine.com": {
+  "robots_found": true,
+  "disallow_rules": 23
+ },
+ "www.matua.co.nz": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "www.meiomi.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.gottwines.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.kingsoopers.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.blackboxwines.com": {
+  "robots_found": true,
+  "disallow_rules": 14
+ },
+ "www.target.com": {
+  "robots_found": true,
+  "disallow_rules": 114
+ },
+ "target.scene7.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.sonomacutrer.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.botabox.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.binnys.com": {
+  "blocked": "403 bot challenge on https://www.binnys.com/wine/white-wines/pinot-grigio/bota-box-pinot-grigio-14498/ at 2026-09-29T16:33:32.187Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "vampire.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.veuveclicquot.com": {
+  "robots_found": true,
+  "disallow_rules": 3
+ },
+ "winelibrary.com": {
+  "blocked": "403 bot challenge on https://winelibrary.com/wines/chardonnay/veuve-clicquot-yellow-label-brut-champagne-nv-17380 at 2026-09-29T16:38:17.157Z",
+  "robots_found": true,
+  "disallow_rules": 21
+ },
+ "www.lamarcaprosecco.com": {
+  "robots_found": true,
+  "disallow_rules": 14
+ },
+ "social-ejg-dm.s3.us-east-1.amazonaws.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.zonin1821.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.saratogawine.com": {
+  "robots_found": true,
+  "disallow_rules": 4
+ },
+ "www.epicbrewing.com": {
+  "robots_found": true,
+  "disallow_rules": 27
+ },
+ "images.squarespace-cdn.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.roostersbrewingco.com": {
+  "blocked": "403 bot challenge on https://www.roostersbrewingco.com/beer/ at 2026-09-29T16:38:58.942Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "shop.sokolblosser.com": {
+  "blocked": "200 bot challenge on https://shop.sokolblosser.com/product/2023-Evolution-Pinot-Noir at 2026-09-29T16:39:02.508Z",
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.skurnik.com": {
+  "robots_found": true,
+  "disallow_rules": 13
+ },
+ "spottswoode.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.hitimewine.net": {
+  "robots_found": true,
+  "disallow_rules": 18
+ },
+ "cdn11.bigcommerce.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "wineshop.bergstromwines.com": {
+  "blocked": "202 bot challenge on https://wineshop.bergstromwines.com/2022SiliceVineyardPinotNoir at 2026-09-29T16:39:38.426Z",
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "wilsondaniels.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "wineonsale.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.newbelgium.com": {
+  "robots_found": true,
+  "disallow_rules": 3
+ },
+ "www.voodooranger.com": {
+  "robots_found": true,
+  "disallow_rules": 3
+ },
+ "www.thecoppercan.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "static.wixstatic.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.stationplazawine.com": {
+  "robots_found": true,
+  "disallow_rules": 8
+ },
+ "icdn.bottlenose.wine": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.drinkmonaco.com": {
+  "blocked": "200 bot challenge on https://www.drinkmonaco.com/monaco-cocktails at 2026-09-29T16:40:46.674Z",
+  "robots_found": true,
+  "disallow_rules": 68
+ },
+ "bottleshopandtastingroom.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.acmemarkets.com": {
+  "blocked": "200 bot challenge on https://www.acmemarkets.com/shop/product-details.960320964.html at 2026-09-29T16:41:05.625Z",
+  "robots_found": true,
+  "disallow_rules": 9
+ },
+ "www.wbimports.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "halemarywine.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.eaglewinemerchant.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "prodigy-brewing.com": {
+  "blocked": "200 bot challenge on https://prodigy-brewing.com/category/big-beers/ at 2026-09-29T16:41:16.905Z",
+  "robots_found": true,
+  "disallow_rules": 6
+ },
+ "www.bbr.com": {
+  "robots_found": true,
+  "disallow_rules": 6
+ },
+ "media.bbr.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "nyc.flatiron-wines.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.2townsciderhouse.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "api.2townsciderhouse.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.samueladams.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.bostonbeer.com": {
+  "robots_found": true,
+  "disallow_rules": 3
+ },
+ "www.agricolaocchipinti.it": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "chambersstwines.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "winedos.com": {
+  "blocked": "403 bot challenge on https://winedos.com/product/chateau-dyquem-2013/ at 2026-09-29T16:42:16.472Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.lechateaubaret.com": {
+  "blocked": "200 bot challenge on https://www.lechateaubaret.com/en/chateau-baret/terroir-chateau-pessac at 2026-09-29T16:42:19.280Z",
+  "robots_found": true,
+  "disallow_rules": 15
+ },
+ "www.chateaunet.com": {
+  "robots_found": true,
+  "disallow_rules": 33
+ },
+ "buy.wasatch.co": {
+  "robots_found": true,
+  "disallow_rules": 6
+ },
+ "theliquorbarn.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "maxwellsclarkston.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "tfbrewing.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "craftpeak-cooler-images.imgix.net": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "utahbeers.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "shop.klwines.com": {
+  "blocked": "403 bot challenge on https://shop.klwines.com/products/details/1311530 at 2026-09-29T16:43:13.448Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "michters.com": {
+  "robots_found": true,
+  "disallow_rules": 3
+ },
+ "www.buffalotracedistillery.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "cms.buffalotracedistillery.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.abc.virginia.gov": {
+  "robots_found": true,
+  "disallow_rules": 5
+ },
+ "elijahcraig.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "heavenhilldistillery.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "blog.heavenhilldistillery.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.remedyliquor.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.popswine.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "cityhive-production-cdn.cityhive.net": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "preetliquor.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "cdn.shopify.com": {
+  "robots_found": true,
+  "disallow_rules": 2
+ },
+ "www.donjulio.com": {
+  "robots_found": true,
+  "disallow_rules": 2
+ },
+ "images.ctfassets.net": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.ohlq.com": {
+  "blocked": "403 bot challenge on https://www.ohlq.com/liquor/whiskey/american/bourbon/buffalo-trace-kentucky-straight-bourbon-whiskey at 2026-09-29T16:45:48.710Z",
+  "robots_found": true,
+  "disallow_rules": 42
+ },
+ "www.walmart.com": {
+  "blocked": "200 bot challenge on https://www.walmart.com/ip/Canadian-Mist-Canadian-Whisky-1-75l-Plastic-Bottle-80-Proof/978780270 at 2026-09-29T16:45:51.759Z",
+  "robots_found": true,
+  "disallow_rules": 57
+ },
+ "www.sendiks.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "images.freshop.ncrcloud.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.oldforester.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "flaskfinewines.com": {
+  "robots_found": true,
+  "disallow_rules": 57
+ },
+ "claseazul.com": {
+  "robots_found": true,
+  "disallow_rules": 6
+ },
+ "diffords.shop": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.lairdandcompany.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "www.festfoods.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "www.titosvodka.com": {
+  "robots_found": true,
+  "disallow_rules": 4
+ },
+ "titos-next.transforms.svdcdn.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "passionspirits.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "platform-ps-files.s3.us-east-2.amazonaws.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.caskers.com": {
+  "blocked": "403 bot challenge on https://www.caskers.com/barton-vodka-1750/ at 2026-09-29T16:47:41.975Z",
+  "robots_found": true,
+  "disallow_rules": 51
+ },
+ "www.casamigos.com": {
+  "robots_found": true,
+  "disallow_rules": 8
+ },
+ "www.patrontequila.com": {
+  "robots_found": true,
+  "disallow_rules": 3
+ },
+ "woodencork.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "lovescotch.com": {
+  "robots_found": true,
+  "disallow_rules": 47
+ },
+ "bevmo.com": {
+  "blocked": "403 bot challenge on https://bevmo.com/products/6794 at 2026-09-29T16:48:36.985Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "sipwhiskey.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.meijer.com": {
+  "blocked": "403 bot challenge on https://www.meijer.com/shopping/product/smirnoff-no-21-80-proof-vodka-1-75-l-pet-bottle/8200072760.html at 2026-09-29T16:48:52.071Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "lunazultequila.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "lunazultequila.comhttps": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "lunazultequila.comimages": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.missionliquor.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.ogdensown.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "www.crownroyal.com": {
+  "robots_found": true,
+  "disallow_rules": 2
+ },
+ "ship.highwest.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "applejack.com": {
+  "robots_found": true,
+  "disallow_rules": 2
+ },
+ "www.cutwaterspirits.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "cellar.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.grandmarnier.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "wineandliquormart.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "pjwine.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.angelsenvy.com": {
+  "robots_found": true,
+  "disallow_rules": 4
+ },
+ "d3cqmwe6z7cbal.cloudfront.net": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "dentedbrick.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "fnlxoens.elementor.cloud": {
+  "robots_found": true,
+  "disallow_rules": 1
+ },
+ "reedstreetbottleshop.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.knobcreek.com": {
+  "robots_found": true,
+  "disallow_rules": 27
+ },
+ "evanwilliams.com": {
+  "blocked": "200 bot challenge on https://evanwilliams.com/fire-bourbon?cta=fire at 2026-09-29T16:52:20.318Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "evanwilliams.comimages": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.kroger.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "seelbachs.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.thebarreltap.com": {
+  "robots_found": true,
+  "disallow_rules": 44
+ },
+ "newriffdistilling.com": {
+  "robots_found": true,
+  "disallow_rules": 4
+ },
+ "shop.newriffdistilling.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "ochotequila.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.lisasliquorbarn.com": {
+  "robots_found": true,
+  "disallow_rules": 4
+ },
+ "media.liquormax.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.legacylr.com": {
+  "blocked": "403 bot challenge on https://www.legacylr.com/bourbon-kentucky-evan-williams-white-label-bottled-in-bond-straight-bourbon-whiskey-175l-096749021178/ at 2026-09-29T16:53:58.248Z",
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "ballotinwhiskey.com": {
+  "robots_found": true,
+  "disallow_rules": 40
+ },
+ "www.sugarlands.com": {
+  "robots_found": false,
+  "disallow_rules": 0
+ },
+ "www.letsfcancer.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "www.kentuckybourbonwhiskey.com": {
+  "robots_found": true,
+  "disallow_rules": 0
+ },
+ "mexcream.com": {
+  "robots_found": true,
+  "disallow_rules": 1
+ }
+}

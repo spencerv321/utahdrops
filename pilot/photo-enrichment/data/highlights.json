@@ -1,0 +1,106 @@
+{
+ "successes": [
+  {
+   "csc": "016434",
+   "sha": "c84cf11eb9252f909b4d937f09e8306cfeb2e827d1a94e7cd1de72e4db4a85e3",
+   "lesson": "Exact from the producer: the label itself reads \u201cBottled in Bond \u2026 100 PROOF | 50% | 750 ML\u201d, and the brand page's 8-year and single-malt bottles were rejected."
+  },
+  {
+   "csc": "066685",
+   "sha": "e2c3c78e18261082d9c6a150545e4b7359ea2484bd0e4bfd3901e0e3bae3648c",
+   "lesson": "Exact from a retailer: \u201c70 cl \u2026 55% vol\u201d is legible on the label, matching DABS's 700 ml. The other retailer's copies were watermarked and included a 20 cl flask and Yellow Chartreuse."
+  },
+  {
+   "csc": "038178",
+   "sha": "11f348ec33d1201a75ce0a5803c72785883f02e9530b1d309c35fc4f353e8cee",
+   "lesson": "Exact: the 1.75 L handle is visible. The producer's own clean packshots were the 750 ml and 1 L bottles and were rejected for this code."
+  },
+  {
+   "csc": "005349",
+   "sha": "a1b34bc88b4e07051592063707e34df833d3aa41fd989f5bd072cf2d87d1775c",
+   "lesson": "Exact: \u201c1.75\u201d is legible on the label, on a page that sells only the 1.75 L. Related-product images on another retailer page were rejected."
+  },
+  {
+   "csc": "088296",
+   "sha": "605950b61378e56e143a45306ed270398a8e5fdc3824711c2634b494e15e01bb",
+   "lesson": "Exact from the producer: \u201c750 ml \u2026 40% alc./vol.\u201d is printed on the bottle in the image."
+  },
+  {
+   "csc": "012478",
+   "sha": "3cbecdeaca999cd8dd188762805644cac763f5b0d9e06a3473e5e11f14b7da80",
+   "lesson": "Exact: DABS's \u201cPET\u201d code matched a page for the 1.75 L plastic bottle, and the plastic handle bottle is visible."
+  },
+  {
+   "csc": "547123",
+   "sha": "d0cfea816e5e9fbf18cd6dfe05a29a92058f4501dea55327713cced595e130f6",
+   "lesson": "Exact for a wine: the box shows \u201c3L\u201d and no vintage, and the producer lists it as a non-vintage box wine."
+  },
+  {
+   "csc": "031474",
+   "sha": "2fd0c6600ea2341447ab524fc5880355af7c7788330116f07fc6be3ae97d46e6",
+   "lesson": "Exact: the 375 ml plastic flask matches DABS's 375 ml. Another retailer's \u201c375 ml\u201d page showed a full-size glass bottle with an older label."
+  },
+  {
+   "csc": "017913",
+   "sha": "ade514c2d0420333127b26b90a96a6da26920ac72378ea878a1b4ad018e4e44a",
+   "lesson": "Expression picked correctly: the producer page shows Small Batch, Straight Rye and Toasted Barrel in the identical bottle, and only the \u201cTOASTED BARREL\u201d band identifies the right one. Held at possible because no page confirms the size."
+  },
+  {
+   "csc": "024746",
+   "sha": "a1dffaaba552e4d730fd6b90e00becc3775b194e5d1ae5b4ebf1503ff8360a16",
+   "lesson": "Exact image, and the fact track caught a real conflict: one retailer says 45% (90 proof), while another retailer and the label in the photo say 49% (98 proof). Both claims are kept for review."
+  }
+ ],
+ "failures": [
+  {
+   "csc": "929191",
+   "sha": "a6a96f9da7148ca1e8b3530cd087dcb76f4afb8f978cda5a75cd801f38c0c778",
+   "lesson": "The most convincing wrong bottle: Berry Bros.' page for the 2022 village Vosne-Roman\u00e9e shows a 2021 Premier Cru \u201cLes Suchots\u201d from the same domaine, with the same label design."
+  },
+  {
+   "csc": "728795",
+   "sha": "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e",
+   "lesson": "The producer's \u201cProsecco\u201d page shows only the Ros\u00e9 and the Demi Sec, both in the same label design. The classic Prosecco DABS sells has no image anywhere we looked."
+  },
+  {
+   "csc": "017927",
+   "sha": "118445f0c94258c35a667e9c8df6a94f8f9e0942269b9a729ee55f1eca3173a9",
+   "lesson": "A retailer's \u201cElijah Craig 94 proof Private Barrel\u201d page uses an Angel's Envy Private Selection photo. The page text alone would have accepted it."
+  },
+  {
+   "csc": "931992",
+   "sha": "12389ee332a8452b415e27a527a0434e5c0d634d1d94750eb61e082139600df5",
+   "lesson": "A retailer's 2023 page shows the 2022 bottle; the vintage is legible on the label. Stale-vintage images are common and can only be representative."
+  },
+  {
+   "csc": "065127",
+   "sha": "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497",
+   "lesson": "The producer's own US page shows a label reading 700 ml, while DABS sells the 1 L. It was caught only by reading the label."
+  },
+  {
+   "csc": "018604",
+   "sha": "07945e19d485614a1f433e9e69409a000e8c527f0fb806e33ef0b4b3979bcdd8",
+   "lesson": "High West's 375 ml product page reuses the 750 ml bottle image, and the label says 750ml. Size claims from page text alone would be wrong."
+  },
+  {
+   "csc": "918778",
+   "sha": "0b9fea5814cacdcbbb4625911cda21fd42544db24d47b7f8ccd5622d0efcd8a2",
+   "lesson": "The only clean Juice Force render has 19.2 oz tall-can proportions, not the 355 ml can DABS lists."
+  },
+  {
+   "csc": "478071",
+   "sha": "3730a8f6c25faa6c621ea6e71f7d43e26a653d47dea5043bc94323a7e2215e0c",
+   "lesson": "The producer's Pinot Noir page uses a Cabernet \u201c815\u201d label close-up as its share image, which is exactly what an og:image scraper would grab."
+  },
+  {
+   "csc": "275090",
+   "sha": "3aea9779b307496d7ea645a567d19155660b83cff9b29d024dcd9a14d6061af5",
+   "lesson": "Whispering Angel: the producer page's packshot is the 20th-vintage limited label, and the same page carries \u201cThe Pale\u201d, a different ros\u00e9 in the same bottle shape."
+  },
+  {
+   "csc": "022085",
+   "sha": "68ba2b99c386f582bcc08101fa0eb773cba46b36b510940665e3de7e1bb1ad1d",
+   "lesson": "A false negative from the rules: Willett Small Batch 4 yr is sold as \u201cCask Strength\u201d, but DABS's name omits it, so the added words forced a reject even though the bottle appears right."
+  }
+ ]
+}

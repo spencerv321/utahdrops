@@ -1,0 +1,387 @@
+{
+ "classification": {
+  "possible": 43,
+  "exact": 14,
+  "none": 34,
+  "representative": 9
+ },
+ "by_kind_head": [
+  "",
+  "listings",
+  "exact",
+  "representative",
+  "possible",
+  "no image",
+  "exact %",
+  "exact+repr. %"
+ ],
+ "by_kind_rows": [
+  [
+   "spirits",
+   57,
+   12,
+   0,
+   30,
+   15,
+   "21%",
+   "21%"
+  ],
+  [
+   "wine",
+   27,
+   1,
+   9,
+   6,
+   11,
+   "4%",
+   "37%"
+  ],
+  [
+   "beer",
+   13,
+   0,
+   0,
+   6,
+   7,
+   "0%",
+   "0%"
+  ],
+  [
+   "other",
+   3,
+   1,
+   0,
+   1,
+   1,
+   "33%",
+   "33%"
+  ]
+ ],
+ "by_group_head": [
+  "",
+  "listings",
+  "exact",
+  "representative",
+  "possible",
+  "no image",
+  "exact %",
+  "exact+repr. %"
+ ],
+ "by_group_rows": [
+  [
+   "difficult:beer-package",
+   5,
+   0,
+   0,
+   1,
+   4,
+   "0%",
+   "0%"
+  ],
+  [
+   "difficult:gift-set",
+   5,
+   0,
+   0,
+   4,
+   1,
+   "0%",
+   "0%"
+  ],
+  [
+   "difficult:limited",
+   5,
+   0,
+   0,
+   1,
+   4,
+   "0%",
+   "0%"
+  ],
+  [
+   "difficult:multi-size",
+   5,
+   1,
+   0,
+   2,
+   2,
+   "20%",
+   "20%"
+  ],
+  [
+   "difficult:proof",
+   5,
+   2,
+   0,
+   3,
+   0,
+   "40%",
+   "40%"
+  ],
+  [
+   "difficult:reused-code",
+   5,
+   1,
+   1,
+   1,
+   2,
+   "20%",
+   "40%"
+  ],
+  [
+   "difficult:similar-expression",
+   5,
+   2,
+   0,
+   1,
+   2,
+   "40%",
+   "40%"
+  ],
+  [
+   "difficult:wine-vintage",
+   5,
+   0,
+   0,
+   1,
+   4,
+   "0%",
+   "0%"
+  ],
+  [
+   "popular:demand",
+   25,
+   3,
+   2,
+   13,
+   7,
+   "12%",
+   "20%"
+  ],
+  [
+   "popular:sales:beer",
+   5,
+   0,
+   0,
+   4,
+   1,
+   "0%",
+   "0%"
+  ],
+  [
+   "popular:sales:other",
+   3,
+   1,
+   0,
+   1,
+   1,
+   "33%",
+   "33%"
+  ],
+  [
+   "popular:sales:spirits",
+   15,
+   3,
+   0,
+   8,
+   4,
+   "20%",
+   "20%"
+  ],
+  [
+   "popular:sales:wine",
+   12,
+   1,
+   6,
+   3,
+   2,
+   "8%",
+   "58%"
+  ]
+ ],
+ "popular_vs_difficult": [
+  [
+   "popular",
+   60,
+   8,
+   8,
+   29,
+   15,
+   "13%",
+   "27%"
+  ],
+  [
+   "difficult",
+   40,
+   6,
+   1,
+   14,
+   19,
+   "15%",
+   "18%"
+  ]
+ ],
+ "exact_permission": {
+  "unknown: no permission stated": 14
+ },
+ "exact_source_type": {
+  "retailer": 11,
+  "producer": 3
+ },
+ "chosen_source_type": {
+  "producer": 29,
+  "retailer": 36,
+  "importer/distributor": 1
+ },
+ "rights_text": "All 14 exact matches have unknown permission: none of their pages states that the image may be reused (the pipeline looked for media-kit, press-image or reuse wording and found none that grants use). 11 of the 14 come from retailer pages and 3 from producer pages; retailer copies are usually the producer's own pack shot, but that is an inference, not permission.",
+ "candidates_total": 328,
+ "pages_total": 185,
+ "images_downloaded": 294,
+ "images_distinct_phash_groups": 235,
+ "image_bytes_total": 54112537,
+ "visually_wrong": 113,
+ "visually_wrong_product_photos": 62,
+ "text_rules_would_accept_wrong_as_exact": 24,
+ "text_rules_would_not_reject_wrong": 86,
+ "listings_with_caught_note": 30,
+ "wrong_rate_by_kind": {
+  "spirits": "69/217 candidate images",
+  "wine": "28/68 candidate images",
+  "beer": "14/31 candidate images",
+  "other": "2/12 candidate images"
+ },
+ "wrong_rate_by_group": {
+  "difficult:beer-package": "4/9",
+  "difficult:gift-set": "10/22",
+  "difficult:limited": "7/14",
+  "difficult:multi-size": "6/19",
+  "difficult:proof": "8/22",
+  "difficult:reused-code": "5/12",
+  "difficult:similar-expression": "9/21",
+  "difficult:wine-vintage": "14/17",
+  "popular": "50/192"
+ },
+ "page_status": {
+  "ok": 154,
+  "host blocked earlier: 403 bot challenge ": 11,
+  "HTTP 503": 8,
+  "HTTP 403": 9,
+  "HTTP 202": 1,
+  "HTTP 410": 1,
+  "HTTP 404": 1
+ },
+ "blocked_hosts": [
+  "bevmo.com",
+  "evanwilliams.com",
+  "prodigy-brewing.com",
+  "shop.klwines.com",
+  "shop.sokolblosser.com",
+  "winedos.com",
+  "winelibrary.com",
+  "wineshop.bergstromwines.com",
+  "www.acmemarkets.com",
+  "www.binnys.com",
+  "www.caskers.com",
+  "www.drinkmonaco.com",
+  "www.lechateaubaret.com",
+  "www.legacylr.com",
+  "www.meijer.com",
+  "www.ohlq.com",
+  "www.roostersbrewingco.com",
+  "www.walmart.com",
+  "www.wine.com"
+ ],
+ "facts_head": [
+  "attribute",
+  "DABS",
+  "producer",
+  "other source",
+  "any verified",
+  "conflicts kept",
+  "auto candidates (unverified)"
+ ],
+ "facts_rows": [
+  [
+   "producer",
+   0,
+   41,
+   0,
+   41,
+   0,
+   0
+  ],
+  [
+   "category",
+   100,
+   0,
+   0,
+   100,
+   0,
+   0
+  ],
+  [
+   "region",
+   0,
+   4,
+   8,
+   12,
+   0,
+   131
+  ],
+  [
+   "grape or grain",
+   0,
+   4,
+   5,
+   9,
+   0,
+   246
+  ],
+  [
+   "abv",
+   1,
+   2,
+   8,
+   11,
+   1,
+   123
+  ],
+  [
+   "size",
+   100,
+   0,
+   0,
+   100,
+   0,
+   0
+  ],
+  [
+   "age",
+   5,
+   3,
+   2,
+   8,
+   0,
+   46
+  ],
+  [
+   "vintage",
+   10,
+   0,
+   0,
+   10,
+   0,
+   0
+  ],
+  [
+   "tasting notes",
+   68,
+   7,
+   7,
+   73,
+   0,
+   40
+  ]
+ ],
+ "reused_codes": 9
+}

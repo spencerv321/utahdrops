@@ -39,7 +39,15 @@ scheduled workflows are enabled; `/api/health` is green.
   backgrounds in `assets/`), and "near you first" search ordering when an area
   is picked (default sort only; no area = unchanged "in stock first").
 
-## Product photos (not started for real)
+## Product photos + facts pilot (2026-09-29, staging only)
+- 100-listing pilot in `pilot/photo-enrichment/` (read `REPORT.md` there):
+  14 exact, 9 representative (wine), 43 possible, 34 no image; every image
+  looked at; all 14 exacts have unknown reuse permission. Text rules alone
+  would have accepted 24 wrong images as exact, so a visual check is required.
+  Nothing published; waiting on the owner's review of the packet and a
+  rights decision.
+
+## Product photos (earlier notes)
 - No product photos exist in the data, and DABS has none anywhere (checked the
   locator detail pages and abs.utah.gov); a neutral container glyph stands in.
 - Pilot (2026-09-24, kept in git history at `fcc5ffd`): free Bing image

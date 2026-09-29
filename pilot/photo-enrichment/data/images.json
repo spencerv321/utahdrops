@@ -1,0 +1,6320 @@
+{
+ "cdb313d3406f0210c7cbfa782664fb5b9b474c8d4a3281daa88c3ca0a66cdc22": {
+  "sha256": "cdb313d3406f0210c7cbfa782664fb5b9b474c8d4a3281daa88c3ca0a66cdc22",
+  "found_for": [
+   {
+    "csc": "275090",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.esclans.com/sites/default/files/styles/wine_thumbnail/public/node/wine/field_bottle/WA_2025.png.webp?itok=ABSz0_-L&akamai=9ec8718a766cd6014dc530a2e733e77d"
+  ],
+  "format": "WEBP",
+  "width": 316,
+  "height": 996,
+  "bytes": 21092,
+  "phash": "f3a131516b896cd6",
+  "dhash": "5e5f162bcca0cc45",
+  "dup_group": "cdb313d3406f"
+ },
+ "389093c5b78d008cd07ff6407179eef803d3320890d292b9680065197c5c9dea": {
+  "sha256": "389093c5b78d008cd07ff6407179eef803d3320890d292b9680065197c5c9dea",
+  "found_for": [
+   {
+    "csc": "275090",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.esclans.com/sites/default/files/styles/wine_gallery_m_/public/node/wine/field_gallery/0-ORIGINAL-RAW-WA%20block%201_modded.jpeg.webp?itok=lkskP02f&akamai=2bd0248072732791b32a5c591716ce2b"
+  ],
+  "format": "WEBP",
+  "width": 398,
+  "height": 488,
+  "bytes": 10536,
+  "phash": "b32067c74e8cf895",
+  "dhash": "0e9e9e1f4e5c1e0c",
+  "dup_group": "389093c5b78d"
+ },
+ "64ed0225e8e60f75f63b323b95f8dc3383f712a8810f2f80e0e774fae43bc97f": {
+  "sha256": "64ed0225e8e60f75f63b323b95f8dc3383f712a8810f2f80e0e774fae43bc97f",
+  "found_for": [
+   {
+    "csc": "275090",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.esclans.com/sites/default/files/styles/carousel_item_m_/public/paragraph/carousel_item/field_image/page%201_1.jpg.webp?itok=fPEymz_o&akamai=01a383c3e53172d0f9f8ea39156ebe70"
+  ],
+  "format": "WEBP",
+  "width": 366,
+  "height": 545,
+  "bytes": 14098,
+  "phash": "cef6901dd1586725",
+  "dhash": "700d8ea06273b39e",
+  "dup_group": "64ed0225e8e6"
+ },
+ "3aea9779b307496d7ea645a567d19155660b83cff9b29d024dcd9a14d6061af5": {
+  "sha256": "3aea9779b307496d7ea645a567d19155660b83cff9b29d024dcd9a14d6061af5",
+  "found_for": [
+   {
+    "csc": "275090",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.esclans.com/sites/default/files/styles/wine_thumbnail/public/node/wine/field_bottle/The%20Pale.png.webp?itok=ye8QTh9k&akamai=9ec8718a766cd6014dc530a2e733e77d"
+  ],
+  "format": "WEBP",
+  "width": 498,
+  "height": 996,
+  "bytes": 47722,
+  "phash": "b0c3d3326f69cc32",
+  "dhash": "4d4c0f2b0f1e1636",
+  "dup_group": "3aea9779b307"
+ },
+ "ff1853aff00b5d059422732c63aa8aec39f1fa9e88aef00d1dd17f21904bff00": {
+  "sha256": "ff1853aff00b5d059422732c63aa8aec39f1fa9e88aef00d1dd17f21904bff00",
+  "found_for": [
+   {
+    "csc": "275090",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "275090",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://67wine.com/cdn/shop/files/vmfjcvat86fbvelwlqzn.jpg?v=1779995275",
+   "http://67wine.com/cdn/shop/files/vmfjcvat86fbvelwlqzn.jpg?v=1779995275"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 34324,
+  "phash": "b3ce3331669b8a8c",
+  "dhash": "0c0c0d4d161e1e4d",
+  "dup_group": "ff1853aff00b"
+ },
+ "a9133ca9d717c113f0640549fd0eee6b261e43236c8710fec2cd211b9388cd31": {
+  "sha256": "a9133ca9d717c113f0640549fd0eee6b261e43236c8710fec2cd211b9388cd31",
+  "found_for": [
+   {
+    "csc": "346003",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.antinori.it/wp-content/uploads/dynimg_cache/6/1/6190dfa70bd9c8792e2b0afb88860eb5.jpg"
+  ],
+  "format": "JPEG",
+  "width": 500,
+  "height": 500,
+  "bytes": 42024,
+  "phash": "9952667399296735",
+  "dhash": "fcecd8d0d8d8cce4",
+  "dup_group": "a9133ca9d717"
+ },
+ "150298c6a1dbdc75725acac40b64a056342d8f6b9c61342e7ba6c07ab30e5081": {
+  "sha256": "150298c6a1dbdc75725acac40b64a056342d8f6b9c61342e7ba6c07ab30e5081",
+  "found_for": [
+   {
+    "csc": "407766",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.kimcrawfordwines.com/cdn/shop/files/High_ResPNG-KimCrawford2023SauvignonBlanc750mlFrontBottleShot.png?v=1756478770&width=1920"
+  ],
+  "format": "WEBP",
+  "width": 1920,
+  "height": 5632,
+  "bytes": 236392,
+  "phash": "ee90d34f9c6c904d",
+  "dhash": "0d4d8627232b230f",
+  "dup_group": "150298c6a1db"
+ },
+ "03acfb092a7963eedf74fab892e85404e4c8fed5be311f3c86bd1e63fbf06fca": {
+  "sha256": "03acfb092a7963eedf74fab892e85404e4c8fed5be311f3c86bd1e63fbf06fca",
+  "found_for": [
+   {
+    "csc": "407766",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "407766",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "http://www.kimcrawfordwines.com/cdn/shop/files/High_ResPNG-KimCrawford2023SauvignonBlanc750mlFrontBottleShot.png?v=1756478770",
+   "https://www.kimcrawfordwines.com/cdn/shop/files/High_ResPNG-KimCrawford2023SauvignonBlanc750mlFrontBottleShot.png?v=1756478770&width=3840"
+  ],
+  "format": "WEBP",
+  "width": 2191,
+  "height": 6427,
+  "bytes": 281016,
+  "phash": "ee90d34f9c6c904d",
+  "dhash": "0d4d8627232b230f",
+  "dup_group": "150298c6a1db"
+ },
+ "d286c9f1868ea5b0c414a303181c841ccd5fb2386a9f3154d5c4d6ce26657e58": {
+  "sha256": "d286c9f1868ea5b0c414a303181c841ccd5fb2386a9f3154d5c4d6ce26657e58",
+  "found_for": [
+   {
+    "csc": "407766",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.kimcrawfordwines.com/cdn/shop/files/High_ResPNG-KimCrawford2024IlluminateAlcohol-RemovedSauvignonBlanc750mlFrontBottleShot.png?v=1762788022&width=500"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 1447,
+  "bytes": 47368,
+  "phash": "ae90c5669ce8339d",
+  "dhash": "0d4d9633694d4727",
+  "dup_group": "d286c9f1868e"
+ },
+ "063701d0ef4cb925ce5f0427abe1ae8ef43089bba46f5a81686e87a5924fcd71": {
+  "sha256": "063701d0ef4cb925ce5f0427abe1ae8ef43089bba46f5a81686e87a5924fcd71",
+  "found_for": [
+   {
+    "csc": "407766",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/94641750/94641750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 1829,
+  "bytes": 46092,
+  "phash": "e6b430422f7eb4d8",
+  "dhash": "8e862667c3cdc107",
+  "dup_group": "063701d0ef4c"
+ },
+ "9f4bbc131eea0ce5ebde8a528ce6d8614ab703eddaa7e33e6460cf86dbc41236": {
+  "sha256": "9f4bbc131eea0ce5ebde8a528ce6d8614ab703eddaa7e33e6460cf86dbc41236",
+  "found_for": [
+   {
+    "csc": "407766",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/94641750/94641750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 23314,
+  "phash": "e69b636c322693cc",
+  "dhash": "4c0c4d4d4d4d4d4d",
+  "dup_group": "9f4bbc131eea"
+ },
+ "1e6dd429d2a82ee877d4d0b2fbf67092f210b1f116d322be717ee6fd8bcdf770": {
+  "sha256": "1e6dd429d2a82ee877d4d0b2fbf67092f210b1f116d322be717ee6fd8bcdf770",
+  "found_for": [
+   {
+    "csc": "443950",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.meiomi.com/wp-content/uploads/2026/01/Meiomi-Pinot-Noir.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1442,
+  "height": 1254,
+  "bytes": 70156,
+  "phash": "99666c996699cc66",
+  "dhash": "70f0c8ccccb2b24c",
+  "dup_group": "1e6dd429d2a8"
+ },
+ "5365aadca6f056a9d3ead0ce5fda6f54e3489c715190850bafaa4171097e5dc3": {
+  "sha256": "5365aadca6f056a9d3ead0ce5fda6f54e3489c715190850bafaa4171097e5dc3",
+  "found_for": [
+   {
+    "csc": "443950",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.meiomi.com/wp-content/uploads/2026/01/Meiomi-Wines-Pinot-Noir-copy.png"
+  ],
+  "format": "WEBP",
+  "width": 350,
+  "height": 1159,
+  "bytes": 259174,
+  "phash": "b6e185877eb86151",
+  "dhash": "8e4e9e3f7dbece1d",
+  "dup_group": "5365aadca6f0"
+ },
+ "3730a8f6c25faa6c621ea6e71f7d43e26a653d47dea5043bc94323a7e2215e0c": {
+  "sha256": "3730a8f6c25faa6c621ea6e71f7d43e26a653d47dea5043bc94323a7e2215e0c",
+  "found_for": [
+   {
+    "csc": "478071",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.gottwines.com/wp-content/uploads/2020/05/JGW_815_2018_2.jpg"
+  ],
+  "format": "JPEG",
+  "width": 430,
+  "height": 300,
+  "bytes": 13378,
+  "phash": "cf0ffae80717f020",
+  "dhash": "43436362e3c34343",
+  "dup_group": "3730a8f6c25f"
+ },
+ "6187489820134a53c704095c6383694267aba8170b23b9a1596a02625333508e": {
+  "sha256": "6187489820134a53c704095c6383694267aba8170b23b9a1596a02625333508e",
+  "found_for": [
+   {
+    "csc": "478071",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.gottwines.com/wp-content/uploads/2020/05/JG-V2023-California-PN-Front-Bottle-LR.png"
+  ],
+  "format": "WEBP",
+  "width": 321,
+  "height": 1000,
+  "bytes": 153626,
+  "phash": "b271c18e3ec8e917",
+  "dhash": "0f4d9e2f0d6d4d0d",
+  "dup_group": "618748982013"
+ },
+ "630710a51186dfdb615983cd0e343f3a8ad876e9a02222b41d36c33e9c269283": {
+  "sha256": "630710a51186dfdb615983cd0e343f3a8ad876e9a02222b41d36c33e9c269283",
+  "found_for": [
+   {
+    "csc": "478071",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.gottwines.com/wp-content/uploads/2020/08/JGW_Grenache_Clusters-1024x614.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1024,
+  "height": 614,
+  "bytes": 102023,
+  "phash": "bc84c3ebc6222f6c",
+  "dhash": "6c36363436323e7e",
+  "dup_group": "630710a51186"
+ },
+ "d0cfea816e5e9fbf18cd6dfe05a29a92058f4501dea55327713cced595e130f6": {
+  "sha256": "d0cfea816e5e9fbf18cd6dfe05a29a92058f4501dea55327713cced595e130f6",
+  "found_for": [
+   {
+    "csc": "547123",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_a1c96bfc-ec01-4e03-8c5e-59b8499811cf"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 9109,
+  "phash": "edc6c393c7cc8630",
+  "dhash": "161716260e0e1616",
+  "dup_group": "d0cfea816e5e"
+ },
+ "2244bc8a2db26a3e3c087ef7934053ab21f7f9abcd188133a82a1ed554e68b94": {
+  "sha256": "2244bc8a2db26a3e3c087ef7934053ab21f7f9abcd188133a82a1ed554e68b94",
+  "found_for": [
+   {
+    "csc": "560305",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.sonomacutrer.com/cdn/shop/files/2024-sonoma-cutrer-russian-river-ranches-chardonnay-750ml_450x450.png?v=1773432315"
+  ],
+  "format": "WEBP",
+  "width": 450,
+  "height": 450,
+  "bytes": 13534,
+  "phash": "e699998966cc3366",
+  "dhash": "0c0c4d4d4d4d4d4d",
+  "dup_group": "2244bc8a2db2"
+ },
+ "a780a5df681e951d25e3239896ba8bee53e230f7dce897001df19b7742486fc0": {
+  "sha256": "a780a5df681e951d25e3239896ba8bee53e230f7dce897001df19b7742486fc0",
+  "found_for": [
+   {
+    "csc": "560305",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.sonomacutrer.com/cdn/shop/files/2024-sonoma-cutrer-russian-river-ranches-chardonnay-750ml.png?v=1773432315&width=1920"
+  ],
+  "format": "WEBP",
+  "width": 1920,
+  "height": 1920,
+  "bytes": 95294,
+  "phash": "e699998966cc3366",
+  "dhash": "0c0c4d4d4d4d4d4d",
+  "dup_group": "2244bc8a2db2"
+ },
+ "f156cf247ff430ac48655f853f9d463aa6aad1f06ba15c251452607a62651103": {
+  "sha256": "f156cf247ff430ac48655f853f9d463aa6aad1f06ba15c251452607a62651103",
+  "found_for": [
+   {
+    "csc": "560305",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.sonomacutrer.com/cdn/shop/files/2024-sonoma-cutrer-russian-river-ranches-chardonnay-750ml.png?v=1773432315"
+  ],
+  "format": "WEBP",
+  "width": 2000,
+  "height": 2000,
+  "bytes": 96622,
+  "phash": "e699998966cc3366",
+  "dhash": "0c0c4d4d4d4d4d4d",
+  "dup_group": "2244bc8a2db2"
+ },
+ "68269b0b768d86d0cf5d86fcab6eb5b9e6e81c244cdd536c4caf3baa9d515026": {
+  "sha256": "68269b0b768d86d0cf5d86fcab6eb5b9e6e81c244cdd536c4caf3baa9d515026",
+  "found_for": [
+   {
+    "csc": "560305",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.sonomacutrer.com/cdn/shop/files/2024-sonoma-cutrer-russian-river-ranches-chardonnay-750ml.png?v=1773432315&width=600"
+  ],
+  "format": "WEBP",
+  "width": 600,
+  "height": 600,
+  "bytes": 19638,
+  "phash": "e699998966cc3366",
+  "dhash": "0c0c4d4d4d4d4d4d",
+  "dup_group": "2244bc8a2db2"
+ },
+ "6af4d83c1ad83cf9c9d2a65e1f11e0612b64092659219f7b22042583633ae413": {
+  "sha256": "6af4d83c1ad83cf9c9d2a65e1f11e0612b64092659219f7b22042583633ae413",
+  "found_for": [
+   {
+    "csc": "561015",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.botabox.com/wp-content/uploads/2026/09/BotaBox_26_PG_GroupProductShot.png?w=731"
+  ],
+  "format": "WEBP",
+  "width": 731,
+  "height": 1023,
+  "bytes": 528854,
+  "phash": "eea18f46c03e9956",
+  "dhash": "0f0f160705656563",
+  "dup_group": "6af4d83c1ad8"
+ },
+ "625ca23e00b7d92571449455cbab6d51a894a30d4c93ced297c3f741e9bc538d": {
+  "sha256": "625ca23e00b7d92571449455cbab6d51a894a30d4c93ced297c3f741e9bc538d",
+  "found_for": [
+   {
+    "csc": "561022",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_c20ad218-e036-49de-a3a1-100fa4dc540b"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 17235,
+  "phash": "bc6d6361c326c393",
+  "dhash": "1737373737373737",
+  "dup_group": "625ca23e00b7"
+ },
+ "15fffe69085c9607e280e1e888d1204910876967e4eb6cc45b6f9e7efd710b77": {
+  "sha256": "15fffe69085c9607e280e1e888d1204910876967e4eb6cc45b6f9e7efd710b77",
+  "found_for": [
+   {
+    "csc": "566375",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_45a89ec1-6bdb-47df-98f4-8fc4244d63bc"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 38103,
+  "phash": "bf87e09be4c83069",
+  "dhash": "7f5b5b617979713f",
+  "dup_group": "15fffe69085c"
+ },
+ "c1813c19f865169a58cccb6d57527dfba5aee4db7391ac912d5d7a02de9928d1": {
+  "sha256": "c1813c19f865169a58cccb6d57527dfba5aee4db7391ac912d5d7a02de9928d1",
+  "found_for": [
+   {
+    "csc": "566375",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/2364051/2364051-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 610,
+  "bytes": 49396,
+  "phash": "8280ee93eece3959",
+  "dhash": "efda99e5dad8e12d",
+  "dup_group": "c1813c19f865"
+ },
+ "1400773c677146193ba3e0b2862bae372a76e20bf8e198470b043ed121443609": {
+  "sha256": "1400773c677146193ba3e0b2862bae372a76e20bf8e198470b043ed121443609",
+  "found_for": [
+   {
+    "csc": "633870",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://vampire.com/cdn/shop/files/Gold_Medal_Chardonnay_with_Cape_2026.png?v=1768938398&width=1920"
+  ],
+  "format": "WEBP",
+  "width": 1920,
+  "height": 1920,
+  "bytes": 316098,
+  "phash": "ba91cd4cd3cd8334",
+  "dhash": "101d1c992d252719",
+  "dup_group": "1400773c6771"
+ },
+ "aff76fe8c98163f399e490a2b3ee417caf8ac26000ad49644065490315dfb5be": {
+  "sha256": "aff76fe8c98163f399e490a2b3ee417caf8ac26000ad49644065490315dfb5be",
+  "found_for": [
+   {
+    "csc": "633870",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "http://vampire.com/cdn/shop/files/Gold_Medal_Chardonnay_with_Cape_2026.png?v=1768938398"
+  ],
+  "format": "WEBP",
+  "width": 1979,
+  "height": 1979,
+  "bytes": 308126,
+  "phash": "be918d4cd3cd8334",
+  "dhash": "101d1c992d252719",
+  "dup_group": "1400773c6771"
+ },
+ "74060ad2602da7db87d88e2f738e3205770d5f2ac2dceab870000e672f8d9c13": {
+  "sha256": "74060ad2602da7db87d88e2f738e3205770d5f2ac2dceab870000e672f8d9c13",
+  "found_for": [
+   {
+    "csc": "704050",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.veuveclicquot.com/on/demandware.static/-/Sites-mh-master/default/dw3c43f571/images/large/veuve_clicquot/packshots/111111691-yellow-label-new-identity.png?"
+  ],
+  "format": "AVIF",
+  "width": 905,
+  "height": 1280,
+  "bytes": 21252,
+  "phash": "e6ca996c649b6499",
+  "dhash": "0d0d4d0d8e8e8e8e",
+  "dup_group": "74060ad2602d"
+ },
+ "3b79202420ca437959bb4bca3a912479c5f37b9210c5b0650597c37877dbbfc2": {
+  "sha256": "3b79202420ca437959bb4bca3a912479c5f37b9210c5b0650597c37877dbbfc2",
+  "found_for": [
+   {
+    "csc": "704050",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.veuveclicquot.com/on/demandware.static/-/Sites-mh-master/default/dwf85ccc48/images/large/veuve_clicquot/packshots/Macarons_YELLOW_Beautyshot_4x5.png?"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 1000,
+  "bytes": 31922,
+  "phash": "e34c38b34cce33b2",
+  "dhash": "9492a0e14848cfcf",
+  "dup_group": "3b79202420ca"
+ },
+ "ef8d74a18e1b380ffdca810a1abe79c1285ecc935f61dfe941cf0664702ce758": {
+  "sha256": "ef8d74a18e1b380ffdca810a1abe79c1285ecc935f61dfe941cf0664702ce758",
+  "found_for": [
+   {
+    "csc": "704050",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.veuveclicquot.com/on/demandware.static/-/Sites-VeuveClicquot_HUB-storefront/default/dwbc8cae98/VCP-CELLARS-21.jpg?im=Resize,width=312"
+  ],
+  "format": "AVIF",
+  "width": 312,
+  "height": 176,
+  "bytes": 14354,
+  "phash": "bce15939c39c64b8",
+  "dhash": "8f8f2e270f3f3534",
+  "dup_group": "ef8d74a18e1b"
+ },
+ "14c580fee6d7da108025e138efa90606c106a7f6136437a191580e7e71f33adc": {
+  "sha256": "14c580fee6d7da108025e138efa90606c106a7f6136437a191580e7e71f33adc",
+  "found_for": [
+   {
+    "csc": "704050",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.veuveclicquot.com/on/demandware.static/-/Sites-VeuveClicquot_HUB-storefront/default/dwf9933e50/Biarritz_%C3%A9vin_16x9.png?im=Resize,width=312"
+  ],
+  "format": "AVIF",
+  "width": 312,
+  "height": 173,
+  "bytes": 14741,
+  "phash": "da58e78e18866bac",
+  "dhash": "200811b9b94c6e0c",
+  "dup_group": "14c580fee6d7"
+ },
+ "9d1a452173b5bbddce4a74e4d7df2450d4b879bda28dd12fc0ab8c1a7ad50c73": {
+  "sha256": "9d1a452173b5bbddce4a74e4d7df2450d4b879bda28dd12fc0ab8c1a7ad50c73",
+  "found_for": [
+   {
+    "csc": "728795",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.lamarcaprosecco.com/dw/image/v2/BFWT_PRD/on/demandware.static/-/Sites-lamarca-Library/default/dw91b8cf23/cocktails/Tuscan%20Golden%20Hour/tuscan-golden-edited-1200-1800.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1200,
+  "height": 1799,
+  "bytes": 139794,
+  "phash": "f8782121bf836a4f",
+  "dhash": "8fb3292930b4cc8c",
+  "dup_group": "9d1a452173b5"
+ },
+ "49c7864de6c6325055d427e75ed55e536270728e3d972ad97d5f5f322e66b9d3": {
+  "sha256": "49c7864de6c6325055d427e75ed55e536270728e3d972ad97d5f5f322e66b9d3",
+  "found_for": [
+   {
+    "csc": "728795",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://social-ejg-dm.s3.us-east-1.amazonaws.com/lamarca/LAM-Redesign/explore_products/LAM-DemiSec-Rose.png"
+  ],
+  "format": "PNG",
+  "width": 1220,
+  "height": 4096,
+  "bytes": 5698536,
+  "phash": "eeb4a6423bc99c64",
+  "dhash": "0e4d266345c14141",
+  "dup_group": "49c7864de6c6"
+ },
+ "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e": {
+  "sha256": "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e",
+  "found_for": [
+   {
+    "csc": "728795",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://social-ejg-dm.s3.us-east-1.amazonaws.com/lamarca/LAM-Redesign/explore_products/LAM-DemiSec.png"
+  ],
+  "format": "PNG",
+  "width": 1220,
+  "height": 4096,
+  "bytes": 4704254,
+  "phash": "eeb496433da5304b",
+  "dhash": "0e4d860743c54543",
+  "dup_group": "5979425d3f85"
+ },
+ "9f4a7e4149de1b28863c33d7a670500b25415c0e95f717c31b8ec4cd530426f3": {
+  "sha256": "9f4a7e4149de1b28863c33d7a670500b25415c0e95f717c31b8ec4cd530426f3",
+  "found_for": [
+   {
+    "csc": "737346",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2024/01/19a4a6e-0-0.jpg"
+  ],
+  "format": "JPEG",
+  "width": 300,
+  "height": 1130,
+  "bytes": 69032,
+  "phash": "bfb0c14f2ed4d007",
+  "dhash": "96169e3f75747547",
+  "dup_group": "9f4a7e4149de"
+ },
+ "bd06328c47d2c4db28138d610d141c3f65eab08849027bec2723cc3be68d238e": {
+  "sha256": "bd06328c47d2c4db28138d610d141c3f65eab08849027bec2723cc3be68d238e",
+  "found_for": [
+   {
+    "csc": "737346",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "932298",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "080421",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "075050",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2022/11/12-Ship-Free-banner-1200.png"
+  ],
+  "format": "PNG",
+  "width": 1200,
+  "height": 195,
+  "bytes": 18545,
+  "phash": "a8add6d287787981",
+  "dhash": "58e633b7d829a554",
+  "dup_group": "bd06328c47d2"
+ },
+ "15307398f46af3cb149305c8f47b3d230a8188f82f4d7e64e98efdb70cc4d1f2": {
+  "sha256": "15307398f46af3cb149305c8f47b3d230a8188f82f4d7e64e98efdb70cc4d1f2",
+  "found_for": [
+   {
+    "csc": "737346",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "932298",
+    "page": 0,
+    "image": 2
+   },
+   {
+    "csc": "080421",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "075050",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2026/09/spanish-under-30-hero2-300x167.jpg"
+  ],
+  "format": "JPEG",
+  "width": 300,
+  "height": 167,
+  "bytes": 13532,
+  "phash": "e068e88419f7c63f",
+  "dhash": "8b9b8d9adce44449",
+  "dup_group": "15307398f46a"
+ },
+ "9d0b11281d2194cbd1a5398f57bd6619d2b552451dff4d954b781b8c32c82a0d": {
+  "sha256": "9d0b11281d2194cbd1a5398f57bd6619d2b552451dff4d954b781b8c32c82a0d",
+  "found_for": [
+   {
+    "csc": "737346",
+    "page": 1,
+    "image": 3
+   },
+   {
+    "csc": "932298",
+    "page": 0,
+    "image": 3
+   },
+   {
+    "csc": "080421",
+    "page": 1,
+    "image": 3
+   },
+   {
+    "csc": "075050",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2026/06/Penner_Ash_View-300x225.jpg"
+  ],
+  "format": "JPEG",
+  "width": 300,
+  "height": 225,
+  "bytes": 22967,
+  "phash": "d9d6f5b40629134e",
+  "dhash": "1410f0d1d19a125b",
+  "dup_group": "9d0b11281d21"
+ },
+ "e3a3cfca64aaaf4e80276027d7152dd5000992175120c48c322f67eff252137b": {
+  "sha256": "e3a3cfca64aaaf4e80276027d7152dd5000992175120c48c322f67eff252137b",
+  "found_for": [
+   {
+    "csc": "900286",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://images.squarespace-cdn.com/content/v1/5ecea08bff39df0155937536/1615923771018-T2L76MYI8IM63Q7HEXDU/Chasing+Ghosts+Can_.png"
+  ],
+  "format": "WEBP",
+  "width": 2500,
+  "height": 3867,
+  "bytes": 56056,
+  "phash": "8fa770588fa77058",
+  "dhash": "00408768f0954000",
+  "dup_group": "e3a3cfca64aa"
+ },
+ "bdec755d8fb76b788d626e82fd29055c3b9b425bbe68dae8e94a911e66b7c435": {
+  "sha256": "bdec755d8fb76b788d626e82fd29055c3b9b425bbe68dae8e94a911e66b7c435",
+  "found_for": [
+   {
+    "csc": "900286",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://images.squarespace-cdn.com/content/v1/5ecea08bff39df0155937536/1606935586859-NM79K33X1V6QTBU6V131/Chasing-Ghosts-16oz+%281%29.png"
+  ],
+  "format": "WEBP",
+  "width": 1978,
+  "height": 2000,
+  "bytes": 370904,
+  "phash": "e6cc993199669933",
+  "dhash": "0c0e0e0e8e0e0e0c",
+  "dup_group": "bdec755d8fb7"
+ },
+ "2f16faeec0e165a1ece1fc0e228e974bc1b0c163d53d6fb8e953b30b9a70d875": {
+  "sha256": "2f16faeec0e165a1ece1fc0e228e974bc1b0c163d53d6fb8e953b30b9a70d875",
+  "found_for": [
+   {
+    "csc": "900286",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/213894161/213894161-2-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 686,
+  "bytes": 26852,
+  "phash": "ecc6c61de6c73038",
+  "dhash": "0f0f0f0f0f170f0e",
+  "dup_group": "2f16faeec0e1"
+ },
+ "fd24de25e698cbdab97da858b92e9b84c0ce67497c65cdf6d8c7a3b88cd9b906": {
+  "sha256": "fd24de25e698cbdab97da858b92e9b84c0ce67497c65cdf6d8c7a3b88cd9b906",
+  "found_for": [
+   {
+    "csc": "900286",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/213894161/213894161-2-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 44770,
+  "phash": "e4cece38c6ce3131",
+  "dhash": "8e8e8e8e8e96868e",
+  "dup_group": "fd24de25e698"
+ },
+ "44649800f5850855dbd000d4e477ca5eb9cc4bbc20b761c3510b9a411bea2fce": {
+  "sha256": "44649800f5850855dbd000d4e477ca5eb9cc4bbc20b761c3510b9a411bea2fce",
+  "found_for": [
+   {
+    "csc": "910850",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.skurnik.com/wp-content/uploads/2022/07/zinfandel-kirschenmann-turley-2.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1496,
+  "height": 4488,
+  "bytes": 2016257,
+  "phash": "baf0d30bcccc915a",
+  "dhash": "0d4d8e070f0f2b0f",
+  "dup_group": "44649800f585"
+ },
+ "1eef74a5be17ef2d07b74a735f0e4f81499cb4bb6d0d2a8f2509b41b72642328": {
+  "sha256": "1eef74a5be17ef2d07b74a735f0e4f81499cb4bb6d0d2a8f2509b41b72642328",
+  "found_for": [
+   {
+    "csc": "910850",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.skurnik.com/wp-content/uploads/2022/07/zinfandel-kirschenmann-turley-2-200x600.jpg"
+  ],
+  "format": "JPEG",
+  "width": 200,
+  "height": 600,
+  "bytes": 26177,
+  "phash": "baf0d30bcccc914b",
+  "dhash": "0d4d8e070f0f230f",
+  "dup_group": "44649800f585"
+ },
+ "baa9cfc2cccc7c863f63aeb75d4ff1cbff3e8dcc9e89dd67076a53118b2193c0": {
+  "sha256": "baa9cfc2cccc7c863f63aeb75d4ff1cbff3e8dcc9e89dd67076a53118b2193c0",
+  "found_for": [
+   {
+    "csc": "910850",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/164601750/164601750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 686,
+  "bytes": 13712,
+  "phash": "b6c68b38c6ce3329",
+  "dhash": "4d4d4d4d8e9e968e",
+  "dup_group": "baa9cfc2cccc"
+ },
+ "e5d93130d14f0a23f04e8e75403fcdfdd78fc0a45d40947a90faa0135435dce0": {
+  "sha256": "e5d93130d14f0a23f04e8e75403fcdfdd78fc0a45d40947a90faa0135435dce0",
+  "found_for": [
+   {
+    "csc": "910850",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/164601750/164601750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 23248,
+  "phash": "b2ce8d31cecc3364",
+  "dhash": "0c4d4d4d4d4d4d4d",
+  "dup_group": "e5d93130d14f"
+ },
+ "b8186898c6a668bc5e1fd73fa3addd8669125ffcd589ce596873b4c9e3f1df4c": {
+  "sha256": "b8186898c6a668bc5e1fd73fa3addd8669125ffcd589ce596873b4c9e3f1df4c",
+  "found_for": [
+   {
+    "csc": "915138",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://spottswoode.com/wp-content/uploads/2020/01/SPW-SauvignonBlanc-2105-vin2025-TOP.jpg"
+  ],
+  "format": "JPEG",
+  "width": 2500,
+  "height": 2180,
+  "bytes": 273091,
+  "phash": "dab332d62707ce21",
+  "dhash": "4c98b0703030d04c",
+  "dup_group": "b8186898c6a6"
+ },
+ "68c9789b9866e95ec23e30fc20f653a16b579ca25e97683eb4165994cf9b97ac": {
+  "sha256": "68c9789b9866e95ec23e30fc20f653a16b579ca25e97683eb4165994cf9b97ac",
+  "found_for": [
+   {
+    "csc": "915138",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://spottswoode.com/wp-content/uploads/2020/01/SPW-SauvignonBlanc-vin2025-Label-430x551.png"
+  ],
+  "format": "PNG",
+  "width": 430,
+  "height": 551,
+  "bytes": 345276,
+  "phash": "b139cece64319393",
+  "dhash": "922b9e96ae8a9686",
+  "dup_group": "68c9789b9866"
+ },
+ "fcadd88b344b1078125fb06ff66adc8689ba5337796a63666c7fcca6e5e72051": {
+  "sha256": "fcadd88b344b1078125fb06ff66adc8689ba5337796a63666c7fcca6e5e72051",
+  "found_for": [
+   {
+    "csc": "915138",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://spottswoode.com/wp-content/uploads/2026/02/SPW-Sauvignon-Blanc-Map-2026-vin25-860x675.jpg"
+  ],
+  "format": "JPEG",
+  "width": 860,
+  "height": 675,
+  "bytes": 107882,
+  "phash": "f0590f251ed71f0a",
+  "dhash": "1a9b998c9c8e8ee6",
+  "dup_group": "fcadd88b344b"
+ },
+ "242fb0cb39fa4965e635ac07e151d00b91847aea40c488f77725afa0f0184132": {
+  "sha256": "242fb0cb39fa4965e635ac07e151d00b91847aea40c488f77725afa0f0184132",
+  "found_for": [
+   {
+    "csc": "915138",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/products/7244/images/649674/262630__59690_1776985364_1280_1280_1786713846__73073.1787224844.386.513.jpg?c=1"
+  ],
+  "format": "JPEG",
+  "width": 140,
+  "height": 500,
+  "bytes": 17985,
+  "phash": "eeb4346063971b39",
+  "dhash": "0406736111014563",
+  "dup_group": "242fb0cb39fa"
+ },
+ "41dc002addf537e3a6e3cceb47d235bab5c7e3ebff8e7f894243cb3f1608f970": {
+  "sha256": "41dc002addf537e3a6e3cceb47d235bab5c7e3ebff8e7f894243cb3f1608f970",
+  "found_for": [
+   {
+    "csc": "915138",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/images/stencil/508x508/products/7244/649674/262630__59690_1776985364_1280_1280_1786713846__73073.1787224844.jpg?c=1"
+  ],
+  "format": "WEBP",
+  "width": 140,
+  "height": 500,
+  "bytes": 10666,
+  "phash": "eeb4346063971b39",
+  "dhash": "0406736111014563",
+  "dup_group": "242fb0cb39fa"
+ },
+ "542f8ffa094a7405ff2ee39360021dbf284db9b69b7829865e449b5c5ce1282e": {
+  "sha256": "542f8ffa094a7405ff2ee39360021dbf284db9b69b7829865e449b5c5ce1282e",
+  "found_for": [
+   {
+    "csc": "915138",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/images/stencil/335x335/products/7687/652744/275433__65214_1751586284_1280_1280_1786715820__18553.1787227468.jpg?c=1"
+  ],
+  "format": "JPEG",
+  "width": 87,
+  "height": 335,
+  "bytes": 10307,
+  "phash": "fab1b033329b4b98",
+  "dhash": "8e0e170d0f0f0d23",
+  "dup_group": "542f8ffa094a"
+ },
+ "165fafd92249164a8ed662f65757f811a3582dbc9cc8a098c070a15c698b9931": {
+  "sha256": "165fafd92249164a8ed662f65757f811a3582dbc9cc8a098c070a15c698b9931",
+  "found_for": [
+   {
+    "csc": "916562",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://wilsondaniels.com/system/uploads/fae/image/asset/22/OG.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1200,
+  "height": 675,
+  "bytes": 276359,
+  "phash": "81fa95c6c8c1daf2",
+  "dhash": "cc1f1fb2cdccdadc",
+  "dup_group": "165fafd92249"
+ },
+ "65c40be21511cbc3e43b765727db5e56219ea3cb95f6734aa76d9278205bff96": {
+  "sha256": "65c40be21511cbc3e43b765727db5e56219ea3cb95f6734aa76d9278205bff96",
+  "found_for": [
+   {
+    "csc": "916562",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://wilsondaniels.com/system/uploads/fae/image/asset/360/xxl_Tuscany_4.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1200,
+  "height": 1200,
+  "bytes": 305004,
+  "phash": "a6d1daf5c69802ce",
+  "dhash": "684eafabc68e3665",
+  "dup_group": "65c40be21511"
+ },
+ "15adf476cb8a147156c3805eea9a2bccbb5202ae467ac2f5e0996bd891cdf17e": {
+  "sha256": "15adf476cb8a147156c3805eea9a2bccbb5202ae467ac2f5e0996bd891cdf17e",
+  "found_for": [
+   {
+    "csc": "916562",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://wilsondaniels.com/system/uploads/fae/image/asset/24/xxl_Leadership%2bAubert_-_600x400.jpg"
+  ],
+  "format": "JPEG",
+  "width": 600,
+  "height": 400,
+  "bytes": 45360,
+  "phash": "c9f022095f8c77b3",
+  "dhash": "9296145053737353",
+  "dup_group": "15adf476cb8a"
+ },
+ "ed7264b182a202f77def9b76b1c9580ed1694c8eb45956548e35450ad960facf": {
+  "sha256": "ed7264b182a202f77def9b76b1c9580ed1694c8eb45956548e35450ad960facf",
+  "found_for": [
+   {
+    "csc": "916562",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://wilsondaniels.com/system/uploads/fae/image/asset/127/xxl_Faiveley_Sibs_-_600x400.jpg"
+  ],
+  "format": "JPEG",
+  "width": 600,
+  "height": 400,
+  "bytes": 26947,
+  "phash": "c1e2ab9366b41f58",
+  "dhash": "cdc9c484c0c8a2e3",
+  "dup_group": "ed7264b182a2"
+ },
+ "bb6cc14cc748241a3b63bc8dd19dacd99cb07d60914deb7d3cf08e8e0a134e8b": {
+  "sha256": "bb6cc14cc748241a3b63bc8dd19dacd99cb07d60914deb7d3cf08e8e0a134e8b",
+  "found_for": [
+   {
+    "csc": "917090",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "917090",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "917090",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://wineonsale.com/cdn/shop/products/MANFamilyPinotage_900x.jpg?v=1702767312",
+   "https://wineonsale.com/cdn/shop/products/MANFamilyPinotage.jpg?v=1702767312&width=1024",
+   "http://wineonsale.com/cdn/shop/products/MANFamilyPinotage.jpg?v=1702767312"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 1350,
+  "bytes": 19336,
+  "phash": "e69399cc64dc9964",
+  "dhash": "4d4d4d0d8e86868e",
+  "dup_group": "bb6cc14cc748"
+ },
+ "c7b65ddae59c00d5cce56f37158969c8f47318f7a6d5eba01cdfa1468e01c6a6": {
+  "sha256": "c7b65ddae59c00d5cce56f37158969c8f47318f7a6d5eba01cdfa1468e01c6a6",
+  "found_for": [
+   {
+    "csc": "917090",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://wineonsale.com/cdn/shop/products/MANFamilyPinotage_600x600_crop_center.jpg?v=1702767312"
+  ],
+  "format": "WEBP",
+  "width": 600,
+  "height": 600,
+  "bytes": 8546,
+  "phash": "e6339bcc649b9324",
+  "dhash": "4d4d4d0d8e868686",
+  "dup_group": "c7b65ddae59c"
+ },
+ "acffac7b0dd493855334f14c2b1a71d20830a7908b32d9fd56c3053454afc9f4": {
+  "sha256": "acffac7b0dd493855334f14c2b1a71d20830a7908b32d9fd56c3053454afc9f4",
+  "found_for": [
+   {
+    "csc": "917890",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://images.squarespace-cdn.com/content/v1/5ecea08bff39df0155937536/1627398332256-G2SBV9CZ6CXIQZDHCE9J/SpiralJetty_12oz+%281%29.png"
+  ],
+  "format": "WEBP",
+  "width": 1450,
+  "height": 1800,
+  "bytes": 277904,
+  "phash": "e49e9b319a6c6c32",
+  "dhash": "000e869696969608",
+  "dup_group": "acffac7b0dd4"
+ },
+ "ccc4dc8f008d62e8c641cbe565722bf0fd43744970dbabc5a0d251336fc5a4d2": {
+  "sha256": "ccc4dc8f008d62e8c641cbe565722bf0fd43744970dbabc5a0d251336fc5a4d2",
+  "found_for": [
+   {
+    "csc": "918778",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "918778",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "953285",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.voodooranger.com/siteassets/beer/slasher-ipa/vr_slasher_menutout_2026_720x477.png"
+  ],
+  "format": "PNG",
+  "width": 721,
+  "height": 478,
+  "bytes": 97575,
+  "phash": "abb954462b5a52ab",
+  "dhash": "8d3e5bbb63e5e411",
+  "dup_group": "ccc4dc8f008d"
+ },
+ "e089d7762251bd0fd0448ad1c70ce9232825da7814f27040f6705faaa2a6b0e1": {
+  "sha256": "e089d7762251bd0fd0448ad1c70ce9232825da7814f27040f6705faaa2a6b0e1",
+  "found_for": [
+   {
+    "csc": "918778",
+    "page": 0,
+    "image": 2
+   },
+   {
+    "csc": "953285",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.newbelgium.com/siteassets/header/company/tbrugsbeertjegradient.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1200,
+  "height": 800,
+  "bytes": 219175,
+  "phash": "839dc1f0183fa763",
+  "dhash": "dcca4a6b69cccbc8",
+  "dup_group": "e089d7762251"
+ },
+ "f34aee87fdf20d6842c8bfb10f652c5e6321f10a7f5a275eae180b6877164361": {
+  "sha256": "f34aee87fdf20d6842c8bfb10f652c5e6321f10a7f5a275eae180b6877164361",
+  "found_for": [
+   {
+    "csc": "918778",
+    "page": 0,
+    "image": 3
+   },
+   {
+    "csc": "953285",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.newbelgium.com/siteassets/header/cart.png"
+  ],
+  "format": "WEBP",
+  "width": 364,
+  "height": 466,
+  "bytes": 35218,
+  "phash": "ebcd1285d929cd32",
+  "dhash": "1313031313130919",
+  "dup_group": "f34aee87fdf2"
+ },
+ "84cdf036f8eb9bd22ab6b2e74572adf134843ae08404fe8eb7e4288f72189adf": {
+  "sha256": "84cdf036f8eb9bd22ab6b2e74572adf134843ae08404fe8eb7e4288f72189adf",
+  "found_for": [
+   {
+    "csc": "918778",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.voodooranger.com/globalassets/beer/vr---juice-force/vrjf_web_fa_beer-glass-1440.png"
+  ],
+  "format": "WEBP",
+  "width": 6001,
+  "height": 8826,
+  "bytes": 5100472,
+  "phash": "fea0a6bd8954495a",
+  "dhash": "06050d0519030445",
+  "dup_group": "84cdf036f8eb"
+ },
+ "63dbb98263c9053497e49ec2e3666cfa2aa001355bfe74d156047ff716e05d81": {
+  "sha256": "63dbb98263c9053497e49ec2e3666cfa2aa001355bfe74d156047ff716e05d81",
+  "found_for": [
+   {
+    "csc": "918778",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.voodooranger.com/siteassets/beer/vr---juice-force/juice-force-ipa-family-19oz-12oz-7_5oz.png"
+  ],
+  "format": "WEBP",
+  "width": 1440,
+  "height": 1186,
+  "bytes": 330094,
+  "phash": "bbb190dcd063e549",
+  "dhash": "183b4b5b33272921",
+  "dup_group": "63dbb98263c9"
+ },
+ "0b9fea5814cacdcbbb4625911cda21fd42544db24d47b7f8ccd5622d0efcd8a2": {
+  "sha256": "0b9fea5814cacdcbbb4625911cda21fd42544db24d47b7f8ccd5622d0efcd8a2",
+  "found_for": [
+   {
+    "csc": "918778",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.newbelgium.com/siteassets/beer/voodoo-ranger-juice-force/vrjf_web_fa_vrfh_can_720x.png"
+  ],
+  "format": "WEBP",
+  "width": 720,
+  "height": 1426,
+  "bytes": 206512,
+  "phash": "f8839a3aecc8bb30",
+  "dhash": "31b892a6863b3933",
+  "dup_group": "0b9fea5814ca"
+ },
+ "4938936693b2763637f55dd1f49c9a15b257ecd1cb5d6ace3456dc7acb8d012e": {
+  "sha256": "4938936693b2763637f55dd1f49c9a15b257ecd1cb5d6ace3456dc7acb8d012e",
+  "found_for": [
+   {
+    "csc": "918800",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://static.wixstatic.com/media/0d2061_de93b7102f9a47f694e4c558e722f558~mv2.png/v1/fill/w_375,h_372,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Apple%20Cinnamon%20Final%20Can%20copy%20(1)_edited.png"
+  ],
+  "format": "AVIF",
+  "width": 375,
+  "height": 372,
+  "bytes": 26219,
+  "phash": "ec98939acc9b31cc",
+  "dhash": "b2b696b6b6960e96",
+  "dup_group": "4938936693b2"
+ },
+ "775c2301516e36fe8066ad9690282cfe1a87afdb921b6995a2cf81b8222c8af3": {
+  "sha256": "775c2301516e36fe8066ad9690282cfe1a87afdb921b6995a2cf81b8222c8af3",
+  "found_for": [
+   {
+    "csc": "918800",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://static.wixstatic.com/media/0d2061_27c9ba94bb654f46ac6608ce67128663~mv2.png/v1/fill/w_375,h_372,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Blueberry%20Maple%20Final%20Can%20copy_edited_pn.png"
+  ],
+  "format": "AVIF",
+  "width": 375,
+  "height": 372,
+  "bytes": 26630,
+  "phash": "eccd9398c6936338",
+  "dhash": "9696969696968e8e",
+  "dup_group": "775c2301516e"
+ },
+ "26b133cc5bd08bba7ec86d160a950239c771208e7802bfeecb05a59d530f71e9": {
+  "sha256": "26b133cc5bd08bba7ec86d160a950239c771208e7802bfeecb05a59d530f71e9",
+  "found_for": [
+   {
+    "csc": "918800",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://icdn.bottlenose.wine/images/full/464717.jpg?ar=1&fit=crop&crop=entropy"
+  ],
+  "format": "AVIF",
+  "width": 355,
+  "height": 355,
+  "bytes": 17722,
+  "phash": "eb948b623ea5a0b3",
+  "dhash": "7171546d69d94b6b",
+  "dup_group": "26b133cc5bd0"
+ },
+ "e40209e8f5ebd592ec008975a922dd0d0adaed3e901fbe7ab03b01138f376598": {
+  "sha256": "e40209e8f5ebd592ec008975a922dd0d0adaed3e901fbe7ab03b01138f376598",
+  "found_for": [
+   {
+    "csc": "918800",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://icdn.bottlenose.wine/images/full/464717.jpg?ar=4:3&fit=crop&crop=entropy"
+  ],
+  "format": "AVIF",
+  "width": 355,
+  "height": 266,
+  "bytes": 11947,
+  "phash": "eb701e0f6de1c191",
+  "dhash": "4d69d9d34b6b7b73",
+  "dup_group": "e40209e8f5eb"
+ },
+ "49c9005f92f89f8f2051a1d298735123964140226d15dd6502fde22689580c4b": {
+  "sha256": "49c9005f92f89f8f2051a1d298735123964140226d15dd6502fde22689580c4b",
+  "found_for": [
+   {
+    "csc": "918800",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://icdn.bottlenose.wine/images/full/464717.jpg?ar=16:9&fit=crop&crop=entropy"
+  ],
+  "format": "AVIF",
+  "width": 355,
+  "height": 200,
+  "bytes": 10036,
+  "phash": "eb701e0f2c6c6363",
+  "dhash": "6959c9934b4b6b73",
+  "dup_group": "49c9005f92f8"
+ },
+ "71eb7f0d4dcd694ba124f1968d076992670c503ea76e8a3e6a9b02d7eb754f4b": {
+  "sha256": "71eb7f0d4dcd694ba124f1968d076992670c503ea76e8a3e6a9b02d7eb754f4b",
+  "found_for": [
+   {
+    "csc": "918800",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://icdn.bottlenose.wine/images/full/464717.jpg?min-w=200&min-h=200&fit=crop"
+  ],
+  "format": "AVIF",
+  "width": 355,
+  "height": 707,
+  "bytes": 30464,
+  "phash": "ab4ab40bebb03e85",
+  "dhash": "71716d496b730d1f",
+  "dup_group": "71eb7f0d4dcd"
+ },
+ "8f12e35f387199a0c5152824a491925537cb5bd813ce1835732d1e63f482d4c7": {
+  "sha256": "8f12e35f387199a0c5152824a491925537cb5bd813ce1835732d1e63f482d4c7",
+  "found_for": [
+   {
+    "csc": "918825",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_d05e5ed0-a497-4b1b-b4d7-ae6057b5fc4b"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 29145,
+  "phash": "eb97902533628d3e",
+  "dhash": "4f6f63494b634d0f",
+  "dup_group": "8f12e35f3871"
+ },
+ "90b161d15383741c66f246848a3ebdcabd23c24e01f8d01061a0aad13021a4a1": {
+  "sha256": "90b161d15383741c66f246848a3ebdcabd23c24e01f8d01061a0aad13021a4a1",
+  "found_for": [
+   {
+    "csc": "918825",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_d05e5ed0-a497-4b1b-b4d7-ae6057b5fc4b?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 65432,
+  "phash": "eb97902533628d3e",
+  "dhash": "4f6f63494b634d0f",
+  "dup_group": "8f12e35f3871"
+ },
+ "ecf1568ff5c2fa6e119f0e1fb7291635038a695594dd60ed47943e6c4430c065": {
+  "sha256": "ecf1568ff5c2fa6e119f0e1fb7291635038a695594dd60ed47943e6c4430c065",
+  "found_for": [
+   {
+    "csc": "918885",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "918885",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://bottleshopandtastingroom.com/cdn/shop/files/ijbqizlwgf4nthnuiknr.png?v=1790458978&width=1920",
+   "http://bottleshopandtastingroom.com/cdn/shop/files/ijbqizlwgf4nthnuiknr.png?v=1790458978"
+  ],
+  "format": "WEBP",
+  "width": 680,
+  "height": 560,
+  "bytes": 27096,
+  "phash": "e4ce9b129a999a99",
+  "dhash": "0e86868686868606",
+  "dup_group": "ecf1568ff5c2"
+ },
+ "30ef00fa01929c4cdab5f869e7e16ac81e3435d330155751d86f1bc197d1e8cb": {
+  "sha256": "30ef00fa01929c4cdab5f869e7e16ac81e3435d330155751d86f1bc197d1e8cb",
+  "found_for": [
+   {
+    "csc": "918885",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://bottleshopandtastingroom.com/cdn/shop/files/srxizbup20uvv3x6y1bl.png?v=1790458265&width=500"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 412,
+  "bytes": 9952,
+  "phash": "e699996626999966",
+  "dhash": "2c2c0c0c0d0d0d0c",
+  "dup_group": "30ef00fa0192"
+ },
+ "eb20335d5373cfccd1f5049f70b36661ebe080d00ea28b80dd06792958c0a189": {
+  "sha256": "eb20335d5373cfccd1f5049f70b36661ebe080d00ea28b80dd06792958c0a189",
+  "found_for": [
+   {
+    "csc": "918885",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://bottleshopandtastingroom.com/cdn/shop/files/g7hvac2j0cgtbxlxirmj_0260c434-1a99-41d1-89a5-ccbf6fc64ab3.png?v=1790459114&width=500"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 412,
+  "bytes": 10568,
+  "phash": "e698729966996666",
+  "dhash": "252525062525060c",
+  "dup_group": "eb20335d5373"
+ },
+ "a6a96f9da7148ca1e8b3530cd087dcb76f4afb8f978cda5a75cd801f38c0c778": {
+  "sha256": "a6a96f9da7148ca1e8b3530cd087dcb76f4afb8f978cda5a75cd801f38c0c778",
+  "found_for": [
+   {
+    "csc": "929191",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://media.bbr.com/s/bbr/20228167433-ms?img404=Default_Wine&$deskPDP$&fmt=auto&qlt=default"
+  ],
+  "format": "AVIF",
+  "width": 363,
+  "height": 573,
+  "bytes": 4866,
+  "phash": "a666cecc30cde62c",
+  "dhash": "4d4d4d9e96969696",
+  "dup_group": "a6a96f9da714"
+ },
+ "af8a28260abd2ec69eab2148780eb41105c4f5930dfb6d42304ddb981828b1a3": {
+  "sha256": "af8a28260abd2ec69eab2148780eb41105c4f5930dfb6d42304ddb981828b1a3",
+  "found_for": [
+   {
+    "csc": "929191",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://media.bbr.com/i/bbr/all-wines-to-drink-now"
+  ],
+  "format": "JPEG",
+  "width": 2756,
+  "height": 765,
+  "bytes": 294884,
+  "phash": "f0c50f5af49ee0c8",
+  "dhash": "a48a968e94916995",
+  "dup_group": "af8a28260abd"
+ },
+ "5adc2c238e4ca8f1346e916efc56db641b1608d8a9ab3658abe4cc9ad9a354ac": {
+  "sha256": "5adc2c238e4ca8f1346e916efc56db641b1608d8a9ab3658abe4cc9ad9a354ac",
+  "found_for": [
+   {
+    "csc": "929191",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://nyc.flatiron-wines.com/cdn/shop/articles/unnamed_49_766929c7-08f5-4f05-ac41-963f3fd7c721.jpg?v=1786988152&width=460"
+  ],
+  "format": "WEBP",
+  "width": 460,
+  "height": 575,
+  "bytes": 32922,
+  "phash": "e3fa94946b689c62",
+  "dhash": "005555c90bea898b",
+  "dup_group": "5adc2c238e4c"
+ },
+ "5cccb39ac19721e0ec36e1251313e7fbb4eb0eb9e39ba686ee98cf1814d7d901": {
+  "sha256": "5cccb39ac19721e0ec36e1251313e7fbb4eb0eb9e39ba686ee98cf1814d7d901",
+  "found_for": [
+   {
+    "csc": "929191",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://nyc.flatiron-wines.com/cdn/shop/files/Serio-e-Batista-Borgogno-Barolo-Cannubi-2020-Red-Wine-Flatiron-Wines-Spirits-New-York_1d8454c3.jpg?v=1768494813&width=460"
+  ],
+  "format": "WEBP",
+  "width": 460,
+  "height": 767,
+  "bytes": 24258,
+  "phash": "b393cbcc3432c3c9",
+  "dhash": "4d4d4d8e8e8e8e8e",
+  "dup_group": "5cccb39ac197"
+ },
+ "ab1aa02323fedabb4a1a95e9cabfe535376e0f113bfae953d34c04bf7a3eff12": {
+  "sha256": "ab1aa02323fedabb4a1a95e9cabfe535376e0f113bfae953d34c04bf7a3eff12",
+  "found_for": [
+   {
+    "csc": "929191",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://nyc.flatiron-wines.com/cdn/shop/files/Domaine-Bruno-Dangin-Cremant-de-Bourgogne-Blanc-de-Noir-Cuvee-Blanche-NV-Sparkling-Wine-Flatiron-Wines-Spirits-New-York_9f256ef6.jpg?v=1768491083&width=460"
+  ],
+  "format": "WEBP",
+  "width": 460,
+  "height": 767,
+  "bytes": 19708,
+  "phash": "b3c3cf2c249a678c",
+  "dhash": "4d4c4d0f968e8e8e",
+  "dup_group": "ab1aa02323fe"
+ },
+ "0749af13a4649e946338725dbf6f3713a908e7ba01169760e4970034dddcd36b": {
+  "sha256": "0749af13a4649e946338725dbf6f3713a908e7ba01169760e4970034dddcd36b",
+  "found_for": [
+   {
+    "csc": "929191",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://nyc.flatiron-wines.com/cdn/shop/files/Marie-Weiss-Champagne-Brut-NV-Sparkling-Wine-Flatiron-Wines-Spirits-New-York_a7a7b397.jpg?v=1768488906&width=460"
+  ],
+  "format": "WEBP",
+  "width": 460,
+  "height": 767,
+  "bytes": 22516,
+  "phash": "b3cbcc3c249b26cc",
+  "dhash": "4d4c4d0f8e8e8e8e",
+  "dup_group": "0749af13a464"
+ },
+ "b6f1d8f357aca25791d12b76aee5d758cc483425454ff53e9b5fe59296226e2f": {
+  "sha256": "b6f1d8f357aca25791d12b76aee5d758cc483425454ff53e9b5fe59296226e2f",
+  "found_for": [
+   {
+    "csc": "929782",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.2townsciderhouse.com/_next/image?url=https%3A%2F%2Fapi.2townsciderhouse.com%2Fwp-content%2Fuploads%2F2025%2F09%2F2025_2T_Cosmic-Huckleberry_Product-Image-scaled.png&w=3840&q=75"
+  ],
+  "format": "WEBP",
+  "width": 2560,
+  "height": 2427,
+  "bytes": 107488,
+  "phash": "e133c66496c99bcc",
+  "dhash": "86969a9e8e969686",
+  "dup_group": "b6f1d8f357ac"
+ },
+ "e15525e9f79bc103a35f07e95250868c47d99fe420abeeb68ff9a45b1c4d608a": {
+  "sha256": "e15525e9f79bc103a35f07e95250868c47d99fe420abeeb68ff9a45b1c4d608a",
+  "found_for": [
+   {
+    "csc": "931484",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.samueladams.com/_next/image?url=https%3A%2F%2Fedge.sitecorecloud.io%2Fbostonbeerc916d-bostonbeerda77-prod8a10-c798%2Fmedia%2Fproject%2Fboston-beer%2Fsamuel-adams%2F2025_utopias_heroimgfile.jpeg%3Fh%3D776%26iar%3D0%26w%3D746&w=3840&q=75"
+  ],
+  "format": "AVIF",
+  "width": 746,
+  "height": 776,
+  "bytes": 25622,
+  "phash": "d14a373c62b11e2f",
+  "dhash": "c0f8fa9ab0345e42",
+  "dup_group": "e15525e9f79b"
+ },
+ "59d85efe43bb153f0b49a5eed3670aadca93b934e88709c92dce08c6a201e792": {
+  "sha256": "59d85efe43bb153f0b49a5eed3670aadca93b934e88709c92dce08c6a201e792",
+  "found_for": [
+   {
+    "csc": "931484",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.samueladams.com/_next/image?url=https%3A%2F%2Fedge.sitecorecloud.io%2Fbostonbeerc916d-bostonbeerda77-prod8a10-c798%2Fmedia%2Fproject%2Fboston-beer%2Fsamuel-adams%2Fpeople_bottlenumberfile.jpeg%3Fh%3D369%26iar%3D0%26w%3D554&w=3840&q=75"
+  ],
+  "format": "AVIF",
+  "width": 554,
+  "height": 369,
+  "bytes": 8773,
+  "phash": "8e613c043df790db",
+  "dhash": "e263616363616130",
+  "dup_group": "59d85efe43bb"
+ },
+ "c65d383d89dc2860fde72b92bea8aee014c19338238265e3c8938f2273c6309b": {
+  "sha256": "c65d383d89dc2860fde72b92bea8aee014c19338238265e3c8938f2273c6309b",
+  "found_for": [
+   {
+    "csc": "931484",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.bostonbeer.com/-/media/images/news/news-images/boston-beer/2026/samuel-adams-front-yard-beer-hall.jpg?h=731&w=1096&hash=8BC592016BF0838ECFDC387EB8C8AD1A"
+  ],
+  "format": "JPEG",
+  "width": 1096,
+  "height": 731,
+  "bytes": 290960,
+  "phash": "d2c0a1a1d3ad8d9f",
+  "dhash": "c6a478a84d8e0f5c",
+  "dup_group": "c65d383d89dc"
+ },
+ "e9dd4abcd12e4a6b7418f54c42f50f4ff98ad4d41648d64eb646b886206af599": {
+  "sha256": "e9dd4abcd12e4a6b7418f54c42f50f4ff98ad4d41648d64eb646b886206af599",
+  "found_for": [
+   {
+    "csc": "931992",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.agricolaocchipinti.it/occhipinti/wp-content/uploads/2023/08/home-slide1.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1230,
+  "height": 715,
+  "bytes": 292750,
+  "phash": "ced580bd86312e6e",
+  "dhash": "f800614b652281e5",
+  "dup_group": "e9dd4abcd12e"
+ },
+ "12389ee332a8452b415e27a527a0434e5c0d634d1d94750eb61e082139600df5": {
+  "sha256": "12389ee332a8452b415e27a527a0434e5c0d634d1d94750eb61e082139600df5",
+  "found_for": [
+   {
+    "csc": "931992",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "http://chambersstwines.com/cdn/shop/files/Occhipinti2022NeroSiccagno-FB_d8f3b041-179e-4bf0-85c3-b3a03e20a79f_grande.jpg?v=1771278763"
+  ],
+  "format": "WEBP",
+  "width": 400,
+  "height": 600,
+  "bytes": 11676,
+  "phash": "e3339b99659a8661",
+  "dhash": "4d4d4d0e86969696",
+  "dup_group": "12389ee332a8"
+ },
+ "53f8076e552184383844eefa1401dab58502a6188a0b06d684cd47aae3d62481": {
+  "sha256": "53f8076e552184383844eefa1401dab58502a6188a0b06d684cd47aae3d62481",
+  "found_for": [
+   {
+    "csc": "931992",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://chambersstwines.com/cdn/shop/files/Occhipinti2022NeroSiccagno-FB_d8f3b041-179e-4bf0-85c3-b3a03e20a79f_medium.jpg?v=1771278763"
+  ],
+  "format": "AVIF",
+  "width": 160,
+  "height": 240,
+  "bytes": 3552,
+  "phash": "e3339b99659a8631",
+  "dhash": "4d4d4d0e86969696",
+  "dup_group": "12389ee332a8"
+ },
+ "5e8e0b4600a705735a57df343f9b8650d4657696b2b07d60504ef7267be788ff": {
+  "sha256": "5e8e0b4600a705735a57df343f9b8650d4657696b2b07d60504ef7267be788ff",
+  "found_for": [
+   {
+    "csc": "932298",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2024/01/d292d4f-0-0.jpg"
+  ],
+  "format": "JPEG",
+  "width": 157,
+  "height": 598,
+  "bytes": 15170,
+  "phash": "baf164b534524a8f",
+  "dhash": "961669c97979dd31",
+  "dup_group": "5e8e0b4600a7"
+ },
+ "deb5b9ca175f3342054efeb24471660388509e701f4a1ad7d511fedf707fc34d": {
+  "sha256": "deb5b9ca175f3342054efeb24471660388509e701f4a1ad7d511fedf707fc34d",
+  "found_for": [
+   {
+    "csc": "953285",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.newbelgium.com/siteassets/beer/voodoo-ranger-juicy-haze/juicy-haze-1440w.png"
+  ],
+  "format": "PNG",
+  "width": 1440,
+  "height": 1236,
+  "bytes": 327685,
+  "phash": "b9c287c5c4c6c637",
+  "dhash": "031b0b331b133b3b",
+  "dup_group": "deb5b9ca175f"
+ },
+ "9656b7c12a4fce4b7f3b3f85ff0a4396b39761857a75929d3f1d5ac22b41fdc7": {
+  "sha256": "9656b7c12a4fce4b7f3b3f85ff0a4396b39761857a75929d3f1d5ac22b41fdc7",
+  "found_for": [
+   {
+    "csc": "953285",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_d716105c-2936-4e8a-87bc-9b53cb9c0d1c"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 31343,
+  "phash": "9d66a1abce95c4d0",
+  "dhash": "301d14343538587c",
+  "dup_group": "9656b7c12a4f"
+ },
+ "c345dab053914d8949402ec6078dbc060436b1900d29e1ac5cc998b4cf5b1158": {
+  "sha256": "c345dab053914d8949402ec6078dbc060436b1900d29e1ac5cc998b4cf5b1158",
+  "found_for": [
+   {
+    "csc": "953285",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_d716105c-2936-4e8a-87bc-9b53cb9c0d1c?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 66719,
+  "phash": "9d66a1abce95c4d0",
+  "dhash": "301d14343538587c",
+  "dup_group": "9656b7c12a4f"
+ },
+ "dbe47f7bf8cfc4e543d0feeddb753b8862524cf634f6c2b05a63d4757db5553f": {
+  "sha256": "dbe47f7bf8cfc4e543d0feeddb753b8862524cf634f6c2b05a63d4757db5553f",
+  "found_for": [
+   {
+    "csc": "953285",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_385884a3-b1b8-43c2-9e45-b8a4f18c13d7?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 41811,
+  "phash": "ec978394969a896b",
+  "dhash": "0c0f3b373717072b",
+  "dup_group": "dbe47f7bf8cf"
+ },
+ "ea8976d2e716522d391a91833189b5e7b0e69675ea90ee9bb550f18a25dfa6f2": {
+  "sha256": "ea8976d2e716522d391a91833189b5e7b0e69675ea90ee9bb550f18a25dfa6f2",
+  "found_for": [
+   {
+    "csc": "953285",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_dbe28d45-9ec2-4228-ab74-86f466094c2b?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 116396,
+  "phash": "dd944b52d0a5ab55",
+  "dhash": "2c1434a438293b13",
+  "dup_group": "ea8976d2e716"
+ },
+ "93bb877bae8d5a5b639a66e31addb399fce0863a193d66dc463c14486aef594e": {
+  "sha256": "93bb877bae8d5a5b639a66e31addb399fce0863a193d66dc463c14486aef594e",
+  "found_for": [
+   {
+    "csc": "954317",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "954317",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://theliquorbarn.com/cdn/shop/files/Weihenstephaner-Vitus__52592.jpg?v=1730513571&width=1920",
+   "http://theliquorbarn.com/cdn/shop/files/Weihenstephaner-Vitus__52592.jpg?crop=center&height=1200&v=1730513571&width=1200"
+  ],
+  "format": "WEBP",
+  "width": 600,
+  "height": 900,
+  "bytes": 36300,
+  "phash": "e1c68e8c66399b99",
+  "dhash": "4d4d548e9696968e",
+  "dup_group": "93bb877bae8d"
+ },
+ "50a0087759e9b8f804a18ca675be23d74ae3f15d15e4b18ceeb35c05fe190ffb": {
+  "sha256": "50a0087759e9b8f804a18ca675be23d74ae3f15d15e4b18ceeb35c05fe190ffb",
+  "found_for": [
+   {
+    "csc": "954317",
+    "page": 0,
+    "image": 2
+   },
+   {
+    "csc": "005349",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "031474",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "065735",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://theliquorbarn.com/cdn/shop/files/yutumomo-yutumomo-milk-candy-whiskey-700ml-bottle.webp?v=1790442937&width=460"
+  ],
+  "format": "WEBP",
+  "width": 460,
+  "height": 460,
+  "bytes": 29278,
+  "phash": "b3cece6699316c88",
+  "dhash": "0c080c4e4e4d4d0c",
+  "dup_group": "50a0087759e9"
+ },
+ "b304a8072ce47b5776518f49db797b9bdb9d4ca2475928221bac5748b54fa337": {
+  "sha256": "b304a8072ce47b5776518f49db797b9bdb9d4ca2475928221bac5748b54fa337",
+  "found_for": [
+   {
+    "csc": "954317",
+    "page": 0,
+    "image": 3
+   },
+   {
+    "csc": "005349",
+    "page": 1,
+    "image": 3
+   },
+   {
+    "csc": "031474",
+    "page": 1,
+    "image": 3
+   },
+   {
+    "csc": "065735",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://theliquorbarn.com/cdn/shop/files/dom-perignon-dom-perignon-brut-2017-bottle.webp?v=1790442419&width=460"
+  ],
+  "format": "WEBP",
+  "width": 460,
+  "height": 460,
+  "bytes": 20204,
+  "phash": "b39bcc64cecc9864",
+  "dhash": "080a084d4d4d4d4d",
+  "dup_group": "b304a8072ce4"
+ },
+ "501f8353c61ac3d9b70396432344426da475f7c9f5325d217d3a1f931fc3fe2b": {
+  "sha256": "501f8353c61ac3d9b70396432344426da475f7c9f5325d217d3a1f931fc3fe2b",
+  "found_for": [
+   {
+    "csc": "954317",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "954317",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://maxwellsclarkston.com/cdn/shop/products/VITUSNEW_180x.png?v=1591072798",
+   "http://maxwellsclarkston.com/cdn/shop/products/VITUSNEW_1200x1200.png?v=1591072798"
+  ],
+  "format": "WEBP",
+  "width": 180,
+  "height": 700,
+  "bytes": 30102,
+  "phash": "bee1e18547c6aa32",
+  "dhash": "16162d752c2c344d",
+  "dup_group": "501f8353c61a"
+ },
+ "b82c1320bb87785d6069add853de2a3e904512354e7fc34d27dfe12acfd6b3b6": {
+  "sha256": "b82c1320bb87785d6069add853de2a3e904512354e7fc34d27dfe12acfd6b3b6",
+  "found_for": [
+   {
+    "csc": "954782",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://craftpeak-cooler-images.imgix.net/templin-family-brewing/Ferda.jpg?auto=compress%2Cformat&ixlib=php-3.3.1&s=bb436f461c80d9140b9f5462039925d2"
+  ],
+  "format": "AVIF",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 22862,
+  "phash": "9ed331644eec1a93",
+  "dhash": "e6d8f96464b89667",
+  "dup_group": "b82c1320bb87"
+ },
+ "8d7a37496e5ee182d3326458c2356ed198cc0fe4377e192281f7fe77cd61f9d9": {
+  "sha256": "8d7a37496e5ee182d3326458c2356ed198cc0fe4377e192281f7fe77cd61f9d9",
+  "found_for": [
+   {
+    "csc": "989410",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://craftpeak-cooler-images.imgix.net/utah-beers/Hop-Rising-1.png?auto=compress%2Cformat&ixlib=php-3.3.1&s=12da238cdcd9dd120eea51f207b66974"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 32355,
+  "phash": "e18c93638e33cf31",
+  "dhash": "0e969696868e9e0e",
+  "dup_group": "8d7a37496e5e"
+ },
+ "986546021936b02aea6e4f73c131dbcc210495ba49e3cb5ccfa371354eacc883": {
+  "sha256": "986546021936b02aea6e4f73c131dbcc210495ba49e3cb5ccfa371354eacc883",
+  "found_for": [
+   {
+    "csc": "016882",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2026/03/Bomb_491x1378_300dpi-2026.jpg"
+  ],
+  "format": "JPEG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 251710,
+  "phash": "92c96d9899666733",
+  "dhash": "b2b2e8ccf8fcfc14",
+  "dup_group": "986546021936"
+ },
+ "9572872092e152c8c1de4aecda878cded38addff8a1b71911c2ff12c7c3a8ffe": {
+  "sha256": "9572872092e152c8c1de4aecda878cded38addff8a1b71911c2ff12c7c3a8ffe",
+  "found_for": [
+   {
+    "csc": "016882",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2025/06/Bomb2025491x1378_300dpi.jpg"
+  ],
+  "format": "JPEG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 279089,
+  "phash": "924969997566673a",
+  "dhash": "f0b269ccfcfcdc7c",
+  "dup_group": "9572872092e1"
+ },
+ "656600ef4959171bbb6e329d61b0f312d717df635e41d34c34143a794f5b992b": {
+  "sha256": "656600ef4959171bbb6e329d61b0f312d717df635e41d34c34143a794f5b992b",
+  "found_for": [
+   {
+    "csc": "016882",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2024/06/Bombergers_bottle-shot_2024_web.png"
+  ],
+  "format": "PNG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 521387,
+  "phash": "924969926766673e",
+  "dhash": "b2b2e8ccfcfcfc7c",
+  "dup_group": "9572872092e1"
+ },
+ "eef10444c09ca4239b18b182a8acf47cfb8518c9f3b31d4009aef870c9f9e51a": {
+  "sha256": "eef10444c09ca4239b18b182a8acf47cfb8518c9f3b31d4009aef870c9f9e51a",
+  "found_for": [
+   {
+    "csc": "016882",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2023/07/Bombergers_bottle-shot_2023_web.png"
+  ],
+  "format": "PNG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 600253,
+  "phash": "cf493cc16336639a",
+  "dhash": "b2b270ccc0e0fc3c",
+  "dup_group": "eef10444c09c"
+ },
+ "c250f411405e34062de5984a2f350f65eafcb890eb4a668eb31a85c3ef86a996": {
+  "sha256": "c250f411405e34062de5984a2f350f65eafcb890eb4a668eb31a85c3ef86a996",
+  "found_for": [
+   {
+    "csc": "016882",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2025/01/PFG_418x1378100_2025.jpg"
+  ],
+  "format": "JPEG",
+  "width": 418,
+  "height": 1378,
+  "bytes": 262923,
+  "phash": "d2c93d1c70b2631f",
+  "dhash": "f072c8cce0ecec0c",
+  "dup_group": "c250f411405e"
+ },
+ "37d4e46ddff4a822230740fab8917f7c956354f90f0d7ad7a2f560a31216fd41": {
+  "sha256": "37d4e46ddff4a822230740fab8917f7c956354f90f0d7ad7a2f560a31216fd41",
+  "found_for": [
+   {
+    "csc": "016850",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://cms.buffalotracedistillery.com/wp-content/uploads/2025/09/original-single-barrel.png"
+  ],
+  "format": "PNG",
+  "width": 705,
+  "height": 1428,
+  "bytes": 1357662,
+  "phash": "e6a4b44b8d9ec646",
+  "dhash": "07160e0703071317",
+  "dup_group": "37d4e46ddff4"
+ },
+ "788559220cc3d16324221e861aa6617a6dca71e22e89830178c9d05e800721af": {
+  "sha256": "788559220cc3d16324221e861aa6617a6dca71e22e89830178c9d05e800721af",
+  "found_for": [
+   {
+    "csc": "016850",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.buffalotracedistillery.com/_next/image/?url=https%3A%2F%2Fcms.buffalotracedistillery.com%2Fwp-content%2Fuploads%2F2025%2F11%2FBLANTONS_ORIGINAL_SINGLE_BARREL_BOTTLE.png&w=750&q=75"
+  ],
+  "format": "WEBP",
+  "width": 352,
+  "height": 714,
+  "bytes": 39914,
+  "phash": "e6a4b44b8d9ec646",
+  "dhash": "07160e0703071317",
+  "dup_group": "37d4e46ddff4"
+ },
+ "819807a57fe5006d622ba34d362b645aec8749249d97233ae9fb2bd28584b7aa": {
+  "sha256": "819807a57fe5006d622ba34d362b645aec8749249d97233ae9fb2bd28584b7aa",
+  "found_for": [
+   {
+    "csc": "016850",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.buffalotracedistillery.com/_next/image/?url=https%3A%2F%2Fcms.buffalotracedistillery.com%2Fwp-content%2Fuploads%2F2025%2F09%2FBlantons-bottle-and-drink-2-1.jpg&w=1920&q=75"
+  ],
+  "format": "WEBP",
+  "width": 1416,
+  "height": 1600,
+  "bytes": 93672,
+  "phash": "8f54b1078e7cc333",
+  "dhash": "001424246f611f59",
+  "dup_group": "819807a57fe5"
+ },
+ "3ca76b1f90e58e271a4fd1d444f9cfe91aa1e028a6524b87a93aebffa81acf73": {
+  "sha256": "3ca76b1f90e58e271a4fd1d444f9cfe91aa1e028a6524b87a93aebffa81acf73",
+  "found_for": [
+   {
+    "csc": "016850",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2020-q4/blantons-single-barrel.jpg?rev=3894de12e5ed4b25a8f1d3c10a4e4aac"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 32968,
+  "phash": "e692926d8c9ccb6c",
+  "dhash": "0d4d4d8e070f168e",
+  "dup_group": "3ca76b1f90e5"
+ },
+ "cb175f814160b028e1d15017592bf2f5a4ac969ce429d31fbc901cac2f695e3c": {
+  "sha256": "cb175f814160b028e1d15017592bf2f5a4ac969ce429d31fbc901cac2f695e3c",
+  "found_for": [
+   {
+    "csc": "016850",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2020-q4/blantons-single-barrel.jpg?rev=3894de12e5ed4b25a8f1d3c10a4e4aac&la=en&h=400&w=311&hash=E8F2A1903D03C32DC7B9215367191A2E"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 25250,
+  "phash": "e692926d8c9ccb6c",
+  "dhash": "0d4d4d8e070f168e",
+  "dup_group": "3ca76b1f90e5"
+ },
+ "8fc7537b122dade3523836f55f594f1eefaa15d78984652b2d014f12657eb8f1": {
+  "sha256": "8fc7537b122dade3523836f55f594f1eefaa15d78984652b2d014f12657eb8f1",
+  "found_for": [
+   {
+    "csc": "016850",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2020-q4/blantons-single-barrel.jpg?rev=3894de12e5ed4b25a8f1d3c10a4e4aac&la=en&h=100&w=78&hash=3D4822539AEA3D783B9468F09074088B"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3558,
+  "phash": "e692926d8c9ccb6c",
+  "dhash": "0d4d4d8e070f168e",
+  "dup_group": "3ca76b1f90e5"
+ },
+ "68ba843eba9b1d71c8b678f0ce6b64ee7e4f8a9b01c4c382a904bcea145de21e": {
+  "sha256": "68ba843eba9b1d71c8b678f0ce6b64ee7e4f8a9b01c4c382a904bcea145de21e",
+  "found_for": [
+   {
+    "csc": "017929",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2023---q2/elijah-craig-private-barrel---barrel-proof-bourbon.jpg?rev=c4f36466d96a49d9bfbf5fee0ccc12d4"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 34064,
+  "phash": "e196976e396126c3",
+  "dhash": "4d4d0e9692969696",
+  "dup_group": "68ba843eba9b"
+ },
+ "6f331681a56af60ab40c51ee5a10c6465881edf5d637a6716851d4611c505cdf": {
+  "sha256": "6f331681a56af60ab40c51ee5a10c6465881edf5d637a6716851d4611c505cdf",
+  "found_for": [
+   {
+    "csc": "017929",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2023---q2/elijah-craig-private-barrel---barrel-proof-bourbon.jpg?rev=c4f36466d96a49d9bfbf5fee0ccc12d4&la=en&h=400&w=311&hash=56A638730E4F82D2E7886110A2041FA1"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 25960,
+  "phash": "e196976e396126c3",
+  "dhash": "4d4d0e9692969696",
+  "dup_group": "68ba843eba9b"
+ },
+ "9f1e9943dcf923c2688b972a1b2fe7d0736dcf1694793200a8f55201cfc1426b": {
+  "sha256": "9f1e9943dcf923c2688b972a1b2fe7d0736dcf1694793200a8f55201cfc1426b",
+  "found_for": [
+   {
+    "csc": "017929",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2023---q2/elijah-craig-private-barrel---barrel-proof-bourbon.jpg?rev=c4f36466d96a49d9bfbf5fee0ccc12d4&la=en&h=100&w=78&hash=132EB4C97DDF7C80C48EA4EB11EF0581"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3623,
+  "phash": "e196936e396526c3",
+  "dhash": "4d4d0e9692969696",
+  "dup_group": "68ba843eba9b"
+ },
+ "3b02e78f17619b2110bf5f90ad5e1b3360f3b8c8dc787d90193630616ed535fc": {
+  "sha256": "3b02e78f17619b2110bf5f90ad5e1b3360f3b8c8dc787d90193630616ed535fc",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://elijahcraig.com/images/bottles/ec-small-batch.png?ver=2"
+  ],
+  "format": "PNG",
+  "width": 358,
+  "height": 824,
+  "bytes": 64815,
+  "phash": "ebb0b0475a3e65b0",
+  "dhash": "0f8c17737163692b",
+  "dup_group": "3b02e78f1761"
+ },
+ "de6cc9f135b59a192b8c62ab723d1eba69e94e6f3ac0b3918abf17b465fe1941": {
+  "sha256": "de6cc9f135b59a192b8c62ab723d1eba69e94e6f3ac0b3918abf17b465fe1941",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://elijahcraig.com/images/bottles/ec-rye-whiskey.png?ver=3"
+  ],
+  "format": "PNG",
+  "width": 358,
+  "height": 824,
+  "bytes": 287633,
+  "phash": "bbb1b0074a3a6db8",
+  "dhash": "0f8c177979632923",
+  "dup_group": "de6cc9f135b5"
+ },
+ "ade514c2d0420333127b26b90a96a6da26920ac72378ea878a1b4ad018e4e44a": {
+  "sha256": "ade514c2d0420333127b26b90a96a6da26920ac72378ea878a1b4ad018e4e44a",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://elijahcraig.com/images/bottles/ec-toasted-barrel.png?ver=2"
+  ],
+  "format": "PNG",
+  "width": 358,
+  "height": 824,
+  "bytes": 56783,
+  "phash": "abb0f4071a7f64c8",
+  "dhash": "0f8c177979436b23",
+  "dup_group": "ade514c2d042"
+ },
+ "fc1d85510288c9ba96b8e23ead905a9b0e8996683bcfe326345757ab1c64e778": {
+  "sha256": "fc1d85510288c9ba96b8e23ead905a9b0e8996683bcfe326345757ab1c64e778",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "017039",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://heavenhilldistillery.com/images/menu/hh-bib-25.png?ver=9"
+  ],
+  "format": "PNG",
+  "width": 184,
+  "height": 404,
+  "bytes": 106023,
+  "phash": "faa5a587867a9a48",
+  "dhash": "4c8e331d4d1d332b",
+  "dup_group": "fc1d85510288"
+ },
+ "090a250b2d05b65791ed1c19c341827eee4627d4d03ee1636becd632566d4cd0": {
+  "sha256": "090a250b2d05b65791ed1c19c341827eee4627d4d03ee1636becd632566d4cd0",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "017039",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://heavenhilldistillery.com/images/barktobottle-menu.jpg"
+  ],
+  "format": "JPEG",
+  "width": 744,
+  "height": 402,
+  "bytes": 64864,
+  "phash": "bb5281aef60539a9",
+  "dhash": "3155131d3d3f533b",
+  "dup_group": "090a250b2d05"
+ },
+ "5e3baa065f5f0f6f3ef5ace1c356db503c9700135ce46a8b91be49b8489ca1ae": {
+  "sha256": "5e3baa065f5f0f6f3ef5ace1c356db503c9700135ce46a8b91be49b8489ca1ae",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "017039",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://blog.heavenhilldistillery.com/admin/wp-content/uploads/2026/07/HHBIB_DM_Rickhouse_2-1.jpg"
+  ],
+  "format": "JPEG",
+  "width": 3000,
+  "height": 2002,
+  "bytes": 372720,
+  "phash": "ca2037c9d036cf3e",
+  "dhash": "9191c585b1f12908",
+  "dup_group": "5e3baa065f5f"
+ },
+ "290da37929e8931673111b07c9fe91253bf5c876b784746cedd4d61e1e3e0801": {
+  "sha256": "290da37929e8931673111b07c9fe91253bf5c876b784746cedd4d61e1e3e0801",
+  "found_for": [
+   {
+    "csc": "017913",
+    "page": 1,
+    "image": 3
+   },
+   {
+    "csc": "017039",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://blog.heavenhilldistillery.com/admin/wp-content/uploads/2026/06/OF_Decanter_Spring_2026.jpg"
+  ],
+  "format": "JPEG",
+  "width": 3000,
+  "height": 2003,
+  "bytes": 1721763,
+  "phash": "ca689669b6f91a34",
+  "dhash": "93c1e141c1d3d46c",
+  "dup_group": "290da37929e8"
+ },
+ "8ab1f50e083d3a0c6f5e55fc66f661209f938d1f7fd17f3a162d9365a66e1cff": {
+  "sha256": "8ab1f50e083d3a0c6f5e55fc66f661209f938d1f7fd17f3a162d9365a66e1cff",
+  "found_for": [
+   {
+    "csc": "021602",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://cms.buffalotracedistillery.com/wp-content/uploads/2025/11/E.H.TAYLOR_SMALL_BATCH_BOTTLE.png"
+  ],
+  "format": "PNG",
+  "width": 272,
+  "height": 750,
+  "bytes": 400615,
+  "phash": "ee70f301804dbf4e",
+  "dhash": "0f0f27a7f777776f",
+  "dup_group": "8ab1f50e083d"
+ },
+ "d7c16088984a04658d69b6efbbd03329f8b70e9f410ead07c73a36b040ce8c38": {
+  "sha256": "d7c16088984a04658d69b6efbbd03329f8b70e9f410ead07c73a36b040ce8c38",
+  "found_for": [
+   {
+    "csc": "021602",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/number-3---ready-to-be-uploaded/e-h-taylor-small-batch-whiskey.jpg?rev=fd2f7636607e42bba2284ae891b6e369"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 68359,
+  "phash": "b3cfcd8c32338b88",
+  "dhash": "0c0c4c0d1d0d0d4d",
+  "dup_group": "d7c16088984a"
+ },
+ "01f9fe1433b565bd18ff1e0e41b6af3a9fa486c68510473d5d3dbf59aabb6e0c": {
+  "sha256": "01f9fe1433b565bd18ff1e0e41b6af3a9fa486c68510473d5d3dbf59aabb6e0c",
+  "found_for": [
+   {
+    "csc": "021602",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/number-3---ready-to-be-uploaded/e-h-taylor-small-batch-whiskey.jpg?rev=fd2f7636607e42bba2284ae891b6e369&la=en&h=400&w=311&hash=1E6ADA8CDF5F1680FB8A71F0201B49C9"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 18594,
+  "phash": "b3cfcd8c32338b88",
+  "dhash": "0c0c4c0d1d0d0d4d",
+  "dup_group": "d7c16088984a"
+ },
+ "ad944b2fef8a182431b67e0b86a982defeb35685d5e2f9c01f29f0b91b5bf746": {
+  "sha256": "ad944b2fef8a182431b67e0b86a982defeb35685d5e2f9c01f29f0b91b5bf746",
+  "found_for": [
+   {
+    "csc": "021602",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/number-3---ready-to-be-uploaded/e-h-taylor-small-batch-whiskey.jpg?rev=fd2f7636607e42bba2284ae891b6e369&la=en&h=100&w=78&hash=03F2265285899051B20C3143AB09EF87"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3057,
+  "phash": "b3cfcd8c30338b8c",
+  "dhash": "0c0c4c0d1d0d0d4d",
+  "dup_group": "d7c16088984a"
+ },
+ "5e2678e298a2ef6cc30fc213f76b0ce3b17d34e487d3a6ca9c67d64228d9e6c0": {
+  "sha256": "5e2678e298a2ef6cc30fc213f76b0ce3b17d34e487d3a6ca9c67d64228d9e6c0",
+  "found_for": [
+   {
+    "csc": "017928",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/ec_privatebarrel_toastedbarrel_750ml.jpg?rev=1f55a33f19884f15bce94a8d7bd7fe68"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 41296,
+  "phash": "e196973e69616623",
+  "dhash": "4d4d0e9696969696",
+  "dup_group": "5e2678e298a2"
+ },
+ "4e603c1c0fe3f4ef8b09072ff808e4695162ac557db3bdf54d189229cc2eb5cc": {
+  "sha256": "4e603c1c0fe3f4ef8b09072ff808e4695162ac557db3bdf54d189229cc2eb5cc",
+  "found_for": [
+   {
+    "csc": "017928",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/ec_privatebarrel_toastedbarrel_750ml.jpg?rev=1f55a33f19884f15bce94a8d7bd7fe68&la=en&h=400&w=311&hash=9181C7ACF4FC01764DE2C542E40C85A2"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 28881,
+  "phash": "e196973e69616623",
+  "dhash": "4d4d0e9696969696",
+  "dup_group": "5e2678e298a2"
+ },
+ "a41cc8d3bfbfe20f2d16a80c48759eb4a87389571b215a1064620c5ee6144694": {
+  "sha256": "a41cc8d3bfbfe20f2d16a80c48759eb4a87389571b215a1064620c5ee6144694",
+  "found_for": [
+   {
+    "csc": "017928",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/ec_privatebarrel_toastedbarrel_750ml.jpg?rev=1f55a33f19884f15bce94a8d7bd7fe68&la=en&h=100&w=78&hash=15F4EB12FE7FFC181C5520FD6CCBE1ED"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 6732,
+  "phash": "e196973e69616623",
+  "dhash": "4d4d0e9697969696",
+  "dup_group": "5e2678e298a2"
+ },
+ "a1dffaaba552e4d730fd6b90e00becc3775b194e5d1ae5b4ebf1503ff8360a16": {
+  "sha256": "a1dffaaba552e4d730fd6b90e00becc3775b194e5d1ae5b4ebf1503ff8360a16",
+  "found_for": [
+   {
+    "csc": "024746",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/2126259606/2126259606-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 1299,
+  "bytes": 58020,
+  "phash": "e2b4b472cb2d9d18",
+  "dhash": "8e8d160341050541",
+  "dup_group": "a1dffaaba552"
+ },
+ "9cce636437f7ff794e90bc16636fb1f78695ff26c58d33e0169026c0d424fd47": {
+  "sha256": "9cce636437f7ff794e90bc16636fb1f78695ff26c58d33e0169026c0d424fd47",
+  "found_for": [
+   {
+    "csc": "024746",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/2126259606/2126259606-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 37430,
+  "phash": "e6939b61cc329b38",
+  "dhash": "4d4d4d0f868e8e86",
+  "dup_group": "9cce636437f7"
+ },
+ "385b9ac795910699bfa7945a911b6a993f9f21b299eac9560b524dc5043c0526": {
+  "sha256": "385b9ac795910699bfa7945a911b6a993f9f21b299eac9560b524dc5043c0526",
+  "found_for": [
+   {
+    "csc": "024746",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "024746",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "024746",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "024746",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.remedyliquor.com/cdn/shop/files/SPEAKEASYBOURBONKENTUCKYBOTTLEDBYWILLETTDISTILLERY750ML.png?v=1733433284&width=1920",
+   "http://www.remedyliquor.com/cdn/shop/files/SPEAKEASYBOURBONKENTUCKYBOTTLEDBYWILLETTDISTILLERY750ML.png?v=1733433284",
+   "https://www.remedyliquor.com/cdn/shop/files/SPEAKEASYBOURBONKENTUCKYBOTTLEDBYWILLETTDISTILLERY750ML.png?v=1733433284&width=1946",
+   "https://www.remedyliquor.com/cdn/shop/files/SPEAKEASYBOURBONKENTUCKYBOTTLEDBYWILLETTDISTILLERY750ML.png?v=1733433284&width=1445"
+  ],
+  "format": "WEBP",
+  "width": 1056,
+  "height": 1304,
+  "bytes": 68888,
+  "phash": "e5969361cc349a79",
+  "dhash": "4d4d4d0686869696",
+  "dup_group": "385b9ac79591"
+ },
+ "118445f0c94258c35a667e9c8df6a94f8f9e0942269b9a729ee55f1eca3173a9": {
+  "sha256": "118445f0c94258c35a667e9c8df6a94f8f9e0942269b9a729ee55f1eca3173a9",
+  "found_for": [
+   {
+    "csc": "017927",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "017927",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://cityhive-production-cdn.cityhive.net/product_details/6a347fc8e6a8ad0178ca6faa/primary_image/large.png?sig=b005a1095437877ed2dd20d5de9304307b6b1b04a75b279275ed7588169970f8",
+   "https://cityhive-production-cdn.cityhive.net/product_details/6a347fc8e6a8ad0178ca6faa/primary_image/large.png?sig=b005a1095437877ed2dd20d5de9304307b6b1b04a75b279275ed7588169970f8?format=square"
+  ],
+  "format": "WEBP",
+  "width": 207,
+  "height": 500,
+  "bytes": 12038,
+  "phash": "ec83d05a636dac72",
+  "dhash": "151607230b33330f",
+  "dup_group": "118445f0c942"
+ },
+ "a9afb1600cd7b116aa8c1d8dc946cdf10660d7d50fe1edde8a89fc8a022a60f8": {
+  "sha256": "a9afb1600cd7b116aa8c1d8dc946cdf10660d7d50fe1edde8a89fc8a022a60f8",
+  "found_for": [
+   {
+    "csc": "017927",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://cityhive-production-cdn.cityhive.net/web_assets/6a5c37a8dec1dc21ebb06bdc.png?1784428456"
+  ],
+  "format": "WEBP",
+  "width": 1024,
+  "height": 500,
+  "bytes": 93848,
+  "phash": "e493936cccc39999",
+  "dhash": "4d8e8e9696968e4d",
+  "dup_group": "a9afb1600cd7"
+ },
+ "766b98e963ac735138b62ff55d52aab38a9eb09fae763713d80316d2315ab03c": {
+  "sha256": "766b98e963ac735138b62ff55d52aab38a9eb09fae763713d80316d2315ab03c",
+  "found_for": [
+   {
+    "csc": "017927",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "017927",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "017927",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "017927",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://cdn.shopify.com/s/files/1/0830/6058/8863/files/Copy_of_Product_Image_Template_8_42d4fde3-e7b7-4c4d-94b6-469e4cefdcf3.png?v=1735953874",
+   "https://preetliquor.com/cdn/shop/files/Copy_of_Product_Image_Template_8_42d4fde3-e7b7-4c4d-94b6-469e4cefdcf3.png?v=1735953874&width=1800",
+   "https://preetliquor.com/cdn/shop/files/Copy_of_Product_Image_Template_8_42d4fde3-e7b7-4c4d-94b6-469e4cefdcf3.png?v=1735953874&width=1600",
+   "https://preetliquor.com/cdn/shop/files/Copy_of_Product_Image_Template_8_42d4fde3-e7b7-4c4d-94b6-469e4cefdcf3.png?v=1735953874&width=1500"
+  ],
+  "format": "WEBP",
+  "width": 1080,
+  "height": 1080,
+  "bytes": 55884,
+  "phash": "f25ada78a4a6a68c",
+  "dhash": "49494d0e96969616",
+  "dup_group": "766b98e963ac"
+ },
+ "659c342a50cc3a9dc37a7e01fb1c03003a8364df089a05ac0ee6ef2e9740a1ec": {
+  "sha256": "659c342a50cc3a9dc37a7e01fb1c03003a8364df089a05ac0ee6ef2e9740a1ec",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/msj5difukazp/6A6PYWG7x2w7YkQnPjKfgn/018d88f188f6ed2f2eb4a2889ca3ae5f/blanco-card-purest-expression.png"
+  ],
+  "format": "PNG",
+  "width": 600,
+  "height": 600,
+  "bytes": 725329,
+  "phash": "959322a51b966d97",
+  "dhash": "fcdcf8f8fac6fcfc",
+  "dup_group": "659c342a50cc"
+ },
+ "f3efe5bb84635e42fc2fb96b6f4e8891313538114bead96443685a4ef8a18a9a": {
+  "sha256": "f3efe5bb84635e42fc2fb96b6f4e8891313538114bead96443685a4ef8a18a9a",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/msj5difukazp/6d1QHwU46bQYHr11MEURxR/3ff132ac7e8eaae2dc63693af0cd329b/Don_Julio_Blanco_Margarita_19246739.jpg"
+  ],
+  "format": "JPEG",
+  "width": 700,
+  "height": 700,
+  "bytes": 221144,
+  "phash": "c8b663a3cb33e609",
+  "dhash": "cba2a031b00693c3",
+  "dup_group": "f3efe5bb8463"
+ },
+ "ed5953ddd8879006075546272e5b7de0a9191100c357da7506f8470ebf8895b1": {
+  "sha256": "ed5953ddd8879006075546272e5b7de0a9191100c357da7506f8470ebf8895b1",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/msj5difukazp/2l8NCX3OWatIX6PvTzN43X/1a1e73dee3b42f15848df5e9da8b7935/Recipe-sunrise-h"
+  ],
+  "format": "JPEG",
+  "width": 1999,
+  "height": 1012,
+  "bytes": 230958,
+  "phash": "d3b1754ba606725a",
+  "dhash": "4a121c5441915004",
+  "dup_group": "ed5953ddd887"
+ },
+ "76d77f4c196fa4ae5ce65e1b4999dca523c825837e31b9552bcabe68f97ad0f2": {
+  "sha256": "76d77f4c196fa4ae5ce65e1b4999dca523c825837e31b9552bcabe68f97ad0f2",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/msj5difukazp/4dtiNRz21tpABCbje8DA3O/200602e678084e0449e938ccebe950ad/Don_Julio_Blanco_Paloma_19247463.jpg"
+  ],
+  "format": "JPEG",
+  "width": 700,
+  "height": 700,
+  "bytes": 215880,
+  "phash": "b71d61219f7d08f0",
+  "dhash": "5f4e3676cddf8f8e",
+  "dup_group": "76d77f4c196f"
+ },
+ "864bf9aeb09d5f31d008f3e6f00bdf54b030b6ede13713ef8c21e16dc50ba270": {
+  "sha256": "864bf9aeb09d5f31d008f3e6f00bdf54b030b6ede13713ef8c21e16dc50ba270",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q1/don-julio-blanco.jpg?rev=64691c36435d45d0b35f83826d6eefd7"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 80664,
+  "phash": "e666a719c88dc19e",
+  "dhash": "0e0f0e172f1f1707",
+  "dup_group": "864bf9aeb09d"
+ },
+ "2d41351a63ecc24e0f2caac90a002a474e117126fb5b835ffb6d7b16af357d96": {
+  "sha256": "2d41351a63ecc24e0f2caac90a002a474e117126fb5b835ffb6d7b16af357d96",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q1/don-julio-blanco.jpg?rev=64691c36435d45d0b35f83826d6eefd7&la=en&h=400&w=311&hash=57076072659F703BA09C110699FC041F"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 38271,
+  "phash": "e666a719c88dc19e",
+  "dhash": "0e0f0e172f1f1707",
+  "dup_group": "864bf9aeb09d"
+ },
+ "bd6a83e9d14cc5a44141a6dd0465ab1f34917e01859cef2b961eec79de0d7d78": {
+  "sha256": "bd6a83e9d14cc5a44141a6dd0465ab1f34917e01859cef2b961eec79de0d7d78",
+  "found_for": [
+   {
+    "csc": "087485",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q1/don-julio-blanco.jpg?rev=64691c36435d45d0b35f83826d6eefd7&la=en&h=100&w=78&hash=2758485642855092F624210EAD992EE0"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 4217,
+  "phash": "e666a719c88dc19e",
+  "dhash": "0e0f0e172f1f1707",
+  "dup_group": "864bf9aeb09d"
+ },
+ "56b93a9e80dbda7eb7bf7cd269aeb7305b3d2f24757da1bd9ab035bfd76d4dec": {
+  "sha256": "56b93a9e80dbda7eb7bf7cd269aeb7305b3d2f24757da1bd9ab035bfd76d4dec",
+  "found_for": [
+   {
+    "csc": "018006",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://cms.buffalotracedistillery.com/wp-content/uploads/2025/11/BUFFALO_TRACE_BOTTLE-e1765117225509.png"
+  ],
+  "format": "PNG",
+  "width": 271,
+  "height": 750,
+  "bytes": 350463,
+  "phash": "e6b0b2c6233be48d",
+  "dhash": "8d8e1607e5454541",
+  "dup_group": "56b93a9e80db"
+ },
+ "3cbecdeaca999cd8dd188762805644cac763f5b0d9e06a3473e5e11f14b7da80": {
+  "sha256": "3cbecdeaca999cd8dd188762805644cac763f5b0d9e06a3473e5e11f14b7da80",
+  "found_for": [
+   {
+    "csc": "012478",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://images.freshop.ncrcloud.com/00088004048273/324a737987503296a84fadbce58f1cc6_large.png"
+  ],
+  "format": "PNG",
+  "width": 512,
+  "height": 512,
+  "bytes": 43976,
+  "phash": "b1c6964bcc39cccc",
+  "dhash": "0d4d0e1e071f1e86",
+  "dup_group": "3cbecdeaca99"
+ },
+ "3f6b021bdecf88144b55a75a7e48c5a95726b2ecb6eaf88f030ff8032bf3bfae": {
+  "sha256": "3f6b021bdecf88144b55a75a7e48c5a95726b2ecb6eaf88f030ff8032bf3bfae",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2026/03/Shenks491x1378_300dpi-2026.jpg"
+  ],
+  "format": "JPEG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 267858,
+  "phash": "92c96d99b126e666",
+  "dhash": "f2b2e8ccf8fcfc04",
+  "dup_group": "3f6b021bdecf"
+ },
+ "9a19b5a73e87428f1ab1a97871ebfe4f6d6d458fbd10e4fa12d3fc7494fe070c": {
+  "sha256": "9a19b5a73e87428f1ab1a97871ebfe4f6d6d458fbd10e4fa12d3fc7494fe070c",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2025/06/Shenks_418x1378lrg_2025.jpg"
+  ],
+  "format": "JPEG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 264420,
+  "phash": "92cd6d98b126e726",
+  "dhash": "f0b2e8ccf8fcfc04",
+  "dup_group": "3f6b021bdecf"
+ },
+ "3306b69d8d6f4c16aa0404fb3dbfc390ac63a37fb6ef4344b6d9b64aa1a362c5": {
+  "sha256": "3306b69d8d6f4c16aa0404fb3dbfc390ac63a37fb6ef4344b6d9b64aa1a362c5",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2024/06/Shenks_bottle-shot_2024_web.png"
+  ],
+  "format": "PNG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 534016,
+  "phash": "92496d936736661e",
+  "dhash": "b2b268ccf8f8f83c",
+  "dup_group": "3306b69d8d6f"
+ },
+ "2a0cf459b46f3b7ab834175911c9aaa215459b30b39afb9bca710a35fd1bcd14": {
+  "sha256": "2a0cf459b46f3b7ab834175911c9aaa215459b30b39afb9bca710a35fd1bcd14",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://michters.com/wp-content/uploads/2023/07/Shenks_bottle-shot_2023_web.png"
+  ],
+  "format": "PNG",
+  "width": 491,
+  "height": 1378,
+  "bytes": 600533,
+  "phash": "9e4d3cc66332631e",
+  "dhash": "b0b2f0c8e8e8fc1c",
+  "dup_group": "2a0cf459b46f"
+ },
+ "503c60490c60e5b197cd6170a026b5a3fa3d3bc86a14e59a179ddd708136cee0": {
+  "sha256": "503c60490c60e5b197cd6170a026b5a3fa3d3bc86a14e59a179ddd708136cee0",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2021-q4/shenks-homestead-sour-mash-whiskey.jpg?rev=ec641079559845e3845bd46b865ae801"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 41762,
+  "phash": "b39bcfcc88338a29",
+  "dhash": "4c084d0d0c0c4d4d",
+  "dup_group": "503c60490c60"
+ },
+ "f5d542b3f209aaf16e563cbd9dcc9aa9685d4bbb8125b4af95562dd8debed985": {
+  "sha256": "f5d542b3f209aaf16e563cbd9dcc9aa9685d4bbb8125b4af95562dd8debed985",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2021-q4/shenks-homestead-sour-mash-whiskey.jpg?rev=ec641079559845e3845bd46b865ae801&la=en&h=400&w=311&hash=E7619F3E4AEB81A0CBEE311D8A8E5E7F"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 19605,
+  "phash": "b39bcfcc88338a29",
+  "dhash": "4c084d0d0c0c4d4d",
+  "dup_group": "503c60490c60"
+ },
+ "0e035103feb2f17e65e3c88d4b08c45c28a9ad3fffdc888c60026b670a6a300d": {
+  "sha256": "0e035103feb2f17e65e3c88d4b08c45c28a9ad3fffdc888c60026b670a6a300d",
+  "found_for": [
+   {
+    "csc": "021492",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2021-q4/shenks-homestead-sour-mash-whiskey.jpg?rev=ec641079559845e3845bd46b865ae801&la=en&h=100&w=78&hash=8DF09D18232C2390144139A0F678EB6E"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3392,
+  "phash": "b39bcbcc89338a29",
+  "dhash": "4c0c4d0d0c0c0d4d",
+  "dup_group": "503c60490c60"
+ },
+ "37f365f10b368af50dd2d2366f572cb100b46fd561215b5fbaf2443d3c88ea8d": {
+  "sha256": "37f365f10b368af50dd2d2366f572cb100b46fd561215b5fbaf2443d3c88ea8d",
+  "found_for": [
+   {
+    "csc": "026159",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/old-forester-single-brl-rye-barrel-proof-everyday.jpg?rev=287506b861614affbb29c0701e487887"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 27546,
+  "phash": "b2cbcb34cc32ce32",
+  "dhash": "4c0a4d1f968e8e96",
+  "dup_group": "37f365f10b36"
+ },
+ "bbe921aec41184abb233e3829b0a3ac0084d2e81948fcd3c1d6c4552eb8582be": {
+  "sha256": "bbe921aec41184abb233e3829b0a3ac0084d2e81948fcd3c1d6c4552eb8582be",
+  "found_for": [
+   {
+    "csc": "026159",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/old-forester-single-brl-rye-barrel-proof-everyday.jpg?rev=287506b861614affbb29c0701e487887&la=en&h=400&w=311&hash=6F3083B0FA7CFE37FEEBC9615207FF5F"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 21323,
+  "phash": "b2cbcb34cc32ce23",
+  "dhash": "4c0a4d1f968e8e96",
+  "dup_group": "37f365f10b36"
+ },
+ "477a8416a8096888039bddecfeea92c7fb18f437009a9bb69a133fffc69fd20c": {
+  "sha256": "477a8416a8096888039bddecfeea92c7fb18f437009a9bb69a133fffc69fd20c",
+  "found_for": [
+   {
+    "csc": "026159",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/old-forester-single-brl-rye-barrel-proof-everyday.jpg?rev=287506b861614affbb29c0701e487887&la=en&h=100&w=78&hash=927EBF250E7906B01A690E47C76F170A"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3367,
+  "phash": "b2cbcb34cc36ce22",
+  "dhash": "4d0a4d1f968e8e96",
+  "dup_group": "37f365f10b36"
+ },
+ "beb30cde8979b1313251359e0c06c7fb641aefb78a1975dbcae7cf409aca6ba2": {
+  "sha256": "beb30cde8979b1313251359e0c06c7fb641aefb78a1975dbcae7cf409aca6ba2",
+  "found_for": [
+   {
+    "csc": "088920",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "088920",
+    "page": 0,
+    "image": 2
+   },
+   {
+    "csc": "088920",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://flaskfinewines.com/cdn/shop/files/ClaseAzulReposadoTequila375mlHalfBottle2.png?v=1749293730&width=1600",
+   "http://flaskfinewines.com/cdn/shop/files/ClaseAzulReposadoTequila375mlHalfBottle2.png?v=1749293730",
+   "https://flaskfinewines.com/cdn/shop/files/ClaseAzulReposadoTequila375mlHalfBottle2.png?v=1749293730&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 870,
+  "height": 1400,
+  "bytes": 61870,
+  "phash": "bf39c0c6c0c2bd69",
+  "dhash": "533b3b3b3b7b4d01",
+  "dup_group": "beb30cde8979"
+ },
+ "26cac34ed468eb9b7cc1795e08717c8aac1b2abde09fa2ba5483f31ba965f708": {
+  "sha256": "26cac34ed468eb9b7cc1795e08717c8aac1b2abde09fa2ba5483f31ba965f708",
+  "found_for": [
+   {
+    "csc": "088920",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://flaskfinewines.com/cdn/shop/files/ClaseAzulReposadoTequila375mlHalfBottle.jpg?v=1749293730&width=1600"
+  ],
+  "format": "WEBP",
+  "width": 800,
+  "height": 800,
+  "bytes": 25244,
+  "phash": "e74d4db89a2a4b62",
+  "dhash": "131603094c0d4d0c",
+  "dup_group": "26cac34ed468"
+ },
+ "32f2e9de511598876196469c86a8640cf72adef3d4dee4052049d00a1f38c650": {
+  "sha256": "32f2e9de511598876196469c86a8640cf72adef3d4dee4052049d00a1f38c650",
+  "found_for": [
+   {
+    "csc": "066685",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "066685",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/products/14775/images/54183/105160__33775.1716841364.386.513.jpg?c=1",
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/images/stencil/508x508/products/14775/54183/105160__33775.1716841364.jpg?c=1"
+  ],
+  "format": "JPEG",
+  "width": 148,
+  "height": 500,
+  "bytes": 26358,
+  "phash": "eab4b07a3760e196",
+  "dhash": "8d8c160f0d31230b",
+  "dup_group": "32f2e9de5115"
+ },
+ "ba929c0d1239395e7cbf6c1d9b03a0989cb5fdb8515318b87ad6104aa971c4c4": {
+  "sha256": "ba929c0d1239395e7cbf6c1d9b03a0989cb5fdb8515318b87ad6104aa971c4c4",
+  "found_for": [
+   {
+    "csc": "066685",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/images/stencil/335x335/products/13770/57862/105140__83037.1728589529.jpg?c=1"
+  ],
+  "format": "WEBP",
+  "width": 191,
+  "height": 335,
+  "bytes": 13140,
+  "phash": "fea1a57036278b4a",
+  "dhash": "8616130f3d310f44",
+  "dup_group": "ba929c0d1239"
+ },
+ "3758cce2b9ab03f4f63848bfdf29eab326fe77f04d64a7ef4f1d4f74ac58da53": {
+  "sha256": "3758cce2b9ab03f4f63848bfdf29eab326fe77f04d64a7ef4f1d4f74ac58da53",
+  "found_for": [
+   {
+    "csc": "066685",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://cdn11.bigcommerce.com/s-k0y7xl9dpv/images/stencil/335x335/products/14776/54185/105190__88140.1716843935.jpg?c=1"
+  ],
+  "format": "JPEG",
+  "width": 335,
+  "height": 335,
+  "bytes": 13571,
+  "phash": "e69b8c66338ccc99",
+  "dhash": "0c0c0c4d4d4d4d4d",
+  "dup_group": "3758cce2b9ab"
+ },
+ "e2c3c78e18261082d9c6a150545e4b7359ea2484bd0e4bfd3901e0e3bae3648c": {
+  "sha256": "e2c3c78e18261082d9c6a150545e4b7359ea2484bd0e4bfd3901e0e3bae3648c",
+  "found_for": [
+   {
+    "csc": "066685",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "http://diffords.shop/cdn/shop/files/green-chartreuse-700.jpg?v=1765631036"
+  ],
+  "format": "WEBP",
+  "width": 1200,
+  "height": 1200,
+  "bytes": 37442,
+  "phash": "b3999933cccc98d8",
+  "dhash": "0c0c0c4d4d4d4d4d",
+  "dup_group": "e2c3c78e1826"
+ },
+ "a61ca2b346cd405f641a849bf1166b47e5cbadee50289127cfdf73c147cad612": {
+  "sha256": "a61ca2b346cd405f641a849bf1166b47e5cbadee50289127cfdf73c147cad612",
+  "found_for": [
+   {
+    "csc": "053536",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://static.wixstatic.com/media/ece997_9f2c855d873a47b194027ad059e6998c~mv2.jpg/v1/fill/w_480,h_600,al_c,q_80/Laird's%20Blended%20Applejack.jpg"
+  ],
+  "format": "JPEG",
+  "width": 480,
+  "height": 600,
+  "bytes": 30885,
+  "phash": "e692ce6199cc33cc",
+  "dhash": "4d4d4d96968e9696",
+  "dup_group": "a61ca2b346cd"
+ },
+ "acffe7f8ea72b496d19193cfe0945298f92b5af3eef91a474d5e90c1f6544cfe": {
+  "sha256": "acffe7f8ea72b496d19193cfe0945298f92b5af3eef91a474d5e90c1f6544cfe",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_1a8fd13e-2e9a-451b-a73b-3d5a8958bf30"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 7826,
+  "phash": "b3cccc3333cccc31",
+  "dhash": "0c0c040c0e0e0e0e",
+  "dup_group": "acffe7f8ea72"
+ },
+ "11f348ec33d1201a75ce0a5803c72785883f02e9530b1d309c35fc4f353e8cee": {
+  "sha256": "11f348ec33d1201a75ce0a5803c72785883f02e9530b1d309c35fc4f353e8cee",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_1a8fd13e-2e9a-451b-a73b-3d5a8958bf30?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 18026,
+  "phash": "b3cccc3333cccc31",
+  "dhash": "0c0c040c0e0e0e0e",
+  "dup_group": "acffe7f8ea72"
+ },
+ "bb7b4227a6eb6301fc4fbde21febcfe4f3f7d099fb7d48dafeba28d9292976a2": {
+  "sha256": "bb7b4227a6eb6301fc4fbde21febcfe4f3f7d099fb7d48dafeba28d9292976a2",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 0,
+    "image": 2
+   },
+   {
+    "csc": "038177",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_4df62a8c-e90d-4113-8a60-7ad8353d05fc?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 35652,
+  "phash": "95916a7e2de05a0f",
+  "dhash": "135cd89e78383cf3",
+  "dup_group": "bb7b4227a6eb"
+ },
+ "c593a6a17020c6f1bbab56243093dbea2cbbd7dd56130f11f9f673fc57634483": {
+  "sha256": "c593a6a17020c6f1bbab56243093dbea2cbbd7dd56130f11f9f673fc57634483",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 0,
+    "image": 3
+   },
+   {
+    "csc": "038177",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_0e96d400-7c6d-438e-940c-d4294b9c5f51?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 28500,
+  "phash": "b06dc998c6e696c6",
+  "dhash": "06330f0f161f0f00",
+  "dup_group": "c593a6a17020"
+ },
+ "04709b5c82a6412fa76f9a5fbba4bf00e59c491168b6ea12ff46426365c8ccee": {
+  "sha256": "04709b5c82a6412fa76f9a5fbba4bf00e59c491168b6ea12ff46426365c8ccee",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 2,
+    "image": 0
+   },
+   {
+    "csc": "038177",
+    "page": 2,
+    "image": 0
+   },
+   {
+    "csc": "038176",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://titos-next.transforms.svdcdn.com/production/images/SEO/seo-card.jpg?w=1200&h=630&q=82&auto=format&fit=min&crop=focalpoint&fp-x=0.7012&fp-y=0.4921&dm=1745952611&s=efb9726ba6c3980526fe5f623a3b45ad"
+  ],
+  "format": "WEBP",
+  "width": 1200,
+  "height": 630,
+  "bytes": 60194,
+  "phash": "c29d739459269ab6",
+  "dhash": "80828d93b0e4ccd9",
+  "dup_group": "04709b5c82a6"
+ },
+ "769b509b2b95f05ee4c272ebbb4dc21a5a191b722dd54b85327005610a897528": {
+  "sha256": "769b509b2b95f05ee4c272ebbb4dc21a5a191b722dd54b85327005610a897528",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 2,
+    "image": 1
+   },
+   {
+    "csc": "038177",
+    "page": 2,
+    "image": 1
+   },
+   {
+    "csc": "038176",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.titosvodka.com/static/img/whats-in-the-bottle-image.png"
+  ],
+  "format": "PNG",
+  "width": 316,
+  "height": 1165,
+  "bytes": 424610,
+  "phash": "eab5956a36939624",
+  "dhash": "0d16127107617167",
+  "dup_group": "769b509b2b95"
+ },
+ "8b5b36a0216e384007ecd19ab78785dc463c781457e23ddb1ca57a0d6d4078fe": {
+  "sha256": "8b5b36a0216e384007ecd19ab78785dc463c781457e23ddb1ca57a0d6d4078fe",
+  "found_for": [
+   {
+    "csc": "038178",
+    "page": 2,
+    "image": 2
+   },
+   {
+    "csc": "038177",
+    "page": 2,
+    "image": 2
+   },
+   {
+    "csc": "038176",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.titosvodka.com/static/img/age-gate-bottle.webp"
+  ],
+  "format": "WEBP",
+  "width": 421,
+  "height": 1489,
+  "bytes": 303838,
+  "phash": "eab5956a66139724",
+  "dhash": "0f16135107617133",
+  "dup_group": "769b509b2b95"
+ },
+ "5cdd9121fbb5115be2dd5419ac635023fa284c40d954ab349ae94aed1a7f54f5": {
+  "sha256": "5cdd9121fbb5115be2dd5419ac635023fa284c40d954ab349ae94aed1a7f54f5",
+  "found_for": [
+   {
+    "csc": "038177",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_0f9bbc6d-42e3-4778-86f9-2a0dd8f440dc"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 6830,
+  "phash": "e699996699899b26",
+  "dhash": "0c0c080c4d4d4d0c",
+  "dup_group": "5cdd9121fbb5"
+ },
+ "2506213986a1e060318c55c0bdf57e295e325a63c7616fef556778debee3891f": {
+  "sha256": "2506213986a1e060318c55c0bdf57e295e325a63c7616fef556778debee3891f",
+  "found_for": [
+   {
+    "csc": "038177",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_0f9bbc6d-42e3-4778-86f9-2a0dd8f440dc?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 15887,
+  "phash": "e699996699899b26",
+  "dhash": "0c0c080c4d4d4d0c",
+  "dup_group": "5cdd9121fbb5"
+ },
+ "dc11dfe34621f09125cc4336a8daee91619c141e5c8d36ed045a7e64dd5221be": {
+  "sha256": "dc11dfe34621f09125cc4336a8daee91619c141e5c8d36ed045a7e64dd5221be",
+  "found_for": [
+   {
+    "csc": "038177",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://platform-ps-files.s3.us-east-2.amazonaws.com/images/origin/tito_s_vodka_02_1lt_main_dda1637440.png"
+  ],
+  "format": "PNG",
+  "width": 720,
+  "height": 900,
+  "bytes": 106860,
+  "phash": "e6da5a6632a4a5a6",
+  "dhash": "090914160e060606",
+  "dup_group": "dc11dfe34621"
+ },
+ "6678e4c044c0570a033ee02b0a6b7474bc708b0795b21866765ac98839ae6d8d": {
+  "sha256": "6678e4c044c0570a033ee02b0a6b7474bc708b0795b21866765ac98839ae6d8d",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/hpoa7h16o9wc/2VlWRYUfaxGY0NpsGENIxN/66b689b24a464b488a03e95714ef8341/Process_ProductThumb-Blanco.png"
+  ],
+  "format": "PNG",
+  "width": 576,
+  "height": 720,
+  "bytes": 553127,
+  "phash": "ee26b14e94994e95",
+  "dhash": "0e1771706123339c",
+  "dup_group": "6678e4c044c0"
+ },
+ "584594c84522bbbbcfc5a9ff3fe55068b6d625f9c7447a9b299923bb5f1a4f4b": {
+  "sha256": "584594c84522bbbbcfc5a9ff3fe55068b6d625f9c7447a9b299923bb5f1a4f4b",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/hpoa7h16o9wc/4f0xv7akcdIoa2Dgh02XvJ/7cb428a31dd51c707abba048f5f0a273/blancoThree_v2.jpg"
+  ],
+  "format": "JPEG",
+  "width": 954,
+  "height": 1518,
+  "bytes": 285273,
+  "phash": "fefe9144c481c566",
+  "dhash": "2d2969352535d253",
+  "dup_group": "584594c84522"
+ },
+ "86ec5b1b6c9900a680729588d57e66aa5eef300e7db3c17911ef8dce4c2682d4": {
+  "sha256": "86ec5b1b6c9900a680729588d57e66aa5eef300e7db3c17911ef8dce4c2682d4",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/hpoa7h16o9wc/3UfYLU1I0C6AM0vHiDHBIn/9b5268435bff3b12adbf251e53add7ee/Blanco_Hero.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1440,
+  "height": 970,
+  "bytes": 170877,
+  "phash": "dcd6e34c90738ccc",
+  "dhash": "00100808b0300b0f",
+  "dup_group": "86ec5b1b6c99"
+ },
+ "239ea25c7b2899b946686afc02292180a4a3e35b0eddd5639d496959af218439": {
+  "sha256": "239ea25c7b2899b946686afc02292180a4a3e35b0eddd5639d496959af218439",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/hpoa7h16o9wc/1QWRxWPu0l9OdkfAuazemT/5930b717d89d18c9fbcdd5ee1887e1bd/Blanco.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1536,
+  "height": 1828,
+  "bytes": 947084,
+  "phash": "d8f273cca0738ccc",
+  "dhash": "10100808b2321807",
+  "dup_group": "239ea25c7b28"
+ },
+ "0bbe434ac81c615e462ccfc55f6eca35f67c68a619cf38bf6af72f724e19104b": {
+  "sha256": "0bbe434ac81c615e462ccfc55f6eca35f67c68a619cf38bf6af72f724e19104b",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "088296",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "088018",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/images/default_socialogimage.jpg?rev=b131ee7c82ec4a69abdac01894f87d49"
+  ],
+  "format": "JPEG",
+  "width": 1170,
+  "height": 450,
+  "bytes": 58725,
+  "phash": "b92fc39064e63969",
+  "dhash": "03581b3f333b2802",
+  "dup_group": "0bbe434ac81c"
+ },
+ "099f069fc82385be790b6581cacad1311bdb2cc7b43cd327ff04f51839e44733": {
+  "sha256": "099f069fc82385be790b6581cacad1311bdb2cc7b43cd327ff04f51839e44733",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/tequila/silver/casamigos-blanco-750ml.jpg?rev=b4cf7c0081d943a487946dc2b84b2675&la=en&h=400&w=400&hash=205FA768187C40C2A661F4B8918E5234"
+  ],
+  "format": "JPEG",
+  "width": 400,
+  "height": 400,
+  "bytes": 16685,
+  "phash": "e68e9964cc396666",
+  "dhash": "0c0c4d56050d144d",
+  "dup_group": "099f069fc823"
+ },
+ "a75a7e2e486e18bb83c666fb92f0d64ecd997379680530e11bb5e2bfcee2137b": {
+  "sha256": "a75a7e2e486e18bb83c666fb92f0d64ecd997379680530e11bb5e2bfcee2137b",
+  "found_for": [
+   {
+    "csc": "087280",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/tequila/silver/casamigos-blanco-750ml.jpg?rev=b4cf7c0081d943a487946dc2b84b2675&la=en&h=100&w=100&hash=4D057E74C8D4A9EA114F8203D86F87DA"
+  ],
+  "format": "JPEG",
+  "width": 100,
+  "height": 100,
+  "bytes": 2848,
+  "phash": "e68e9b64cc396626",
+  "dhash": "0c0c4d56050d144d",
+  "dup_group": "099f069fc823"
+ },
+ "3780fd587d367db9c9619ff600e738a9fa70c80e5cd2169c1de0eb654a26e685": {
+  "sha256": "3780fd587d367db9c9619ff600e738a9fa70c80e5cd2169c1de0eb654a26e685",
+  "found_for": [
+   {
+    "csc": "088296",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.patrontequila.com/binaries/large/content/gallery/patrontequila/products/patron-silver/2025_bottle_silver.png"
+  ],
+  "format": "PNG",
+  "width": 380,
+  "height": 635,
+  "bytes": 231418,
+  "phash": "b3b31b99cc84c6c6",
+  "dhash": "1c0e0d17690d8d71",
+  "dup_group": "3780fd587d36"
+ },
+ "605950b61378e56e143a45306ed270398a8e5fdc3824711c2634b494e15e01bb": {
+  "sha256": "605950b61378e56e143a45306ed270398a8e5fdc3824711c2634b494e15e01bb",
+  "found_for": [
+   {
+    "csc": "088296",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "088296",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.patrontequila.com/binaries/content/gallery/patrontequila/products/patron-silver/2025_bottle_silver.png",
+   "https://www.patrontequila.com/binaries/mobile/content/gallery/patrontequila/products/patron-silver/2025_bottle_silver.png"
+  ],
+  "format": "PNG",
+  "width": 899,
+  "height": 1500,
+  "bytes": 979007,
+  "phash": "b3b31b99cc84c6c6",
+  "dhash": "1c0d0d17690d8d71",
+  "dup_group": "3780fd587d36"
+ },
+ "bbde98bf83a546a994ffcd7c732cdd2080c5603922e9d9d02fd764ac72b51abb": {
+  "sha256": "bbde98bf83a546a994ffcd7c732cdd2080c5603922e9d9d02fd764ac72b51abb",
+  "found_for": [
+   {
+    "csc": "088296",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.patrontequila.com/binaries/content/gallery/patrontequila/products/patron-silver/v3/siver-story-asset-1-big.jpg"
+  ],
+  "format": "JPEG",
+  "width": 800,
+  "height": 800,
+  "bytes": 480848,
+  "phash": "b9b146cecec63131",
+  "dhash": "ef9f9e9953153720",
+  "dup_group": "bbde98bf83a5"
+ },
+ "ead0d069f9d0ca53f1fc68853ea79b3ba0d3601b8da553124a2f411ed0010b49": {
+  "sha256": "ead0d069f9d0ca53f1fc68853ea79b3ba0d3601b8da553124a2f411ed0010b49",
+  "found_for": [
+   {
+    "csc": "088296",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2026-april/fy26_us_patrn_darwin_digital_silver_ipx_750ml_5000x5000.jpg?rev=996e87fcbab843e5b18d2a60c3163d56&la=en&h=400&w=311&hash=823102F685F21242463E1E5B076B9151"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 19534,
+  "phash": "e2b7739199854e86",
+  "dhash": "4d4d4d172b0d4d33",
+  "dup_group": "ead0d069f9d0"
+ },
+ "c188e8a92a44561d6a731819a7ba53c77bde4edc03f00db851357bd556e4424f": {
+  "sha256": "c188e8a92a44561d6a731819a7ba53c77bde4edc03f00db851357bd556e4424f",
+  "found_for": [
+   {
+    "csc": "088296",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2026-april/fy26_us_patrn_darwin_digital_silver_ipx_750ml_5000x5000.jpg?rev=996e87fcbab843e5b18d2a60c3163d56&la=en&h=100&w=78&hash=D8367A251059E38D5755BE6A690B6BF6"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3650,
+  "phash": "e2b3739199954e86",
+  "dhash": "4d4d4d172b0d4d33",
+  "dup_group": "ead0d069f9d0"
+ },
+ "4233f6f1896360b0ff31357980b0685d1797b781df9f22cd170b810b6ad16ca4": {
+  "sha256": "4233f6f1896360b0ff31357980b0685d1797b781df9f22cd170b810b6ad16ca4",
+  "found_for": [
+   {
+    "csc": "011298",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "011298",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "011298",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://woodencork.com/cdn/shop/products/Crown_Royal_1.75L.png?v=1699066667&width=1920",
+   "http://woodencork.com/cdn/shop/products/Crown_Royal_1.75L.png?v=1699066667",
+   "https://woodencork.com/cdn/shop/products/Crown_Royal_1.75L.png?v=1699066667&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 686,
+  "height": 686,
+  "bytes": 55400,
+  "phash": "b1c3c7cc38393963",
+  "dhash": "0d4d0e9696969696",
+  "dup_group": "4233f6f18963"
+ },
+ "26da2df60a2bcf1ec2f32467e9d5835e2b3682f68e13aa6515c1b60c4a7d65f8": {
+  "sha256": "26da2df60a2bcf1ec2f32467e9d5835e2b3682f68e13aa6515c1b60c4a7d65f8",
+  "found_for": [
+   {
+    "csc": "011298",
+    "page": 0,
+    "image": 3
+   },
+   {
+    "csc": "015379",
+    "page": 0,
+    "image": 3
+   },
+   {
+    "csc": "065735",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://woodencork.com/cdn/shop/products/pappy-cigar-hero.png?v=1675893911&width=900"
+  ],
+  "format": "WEBP",
+  "width": 694,
+  "height": 694,
+  "bytes": 66088,
+  "phash": "e8ca963dd0258f74",
+  "dhash": "1f919b9b1333060d",
+  "dup_group": "26da2df60a2b"
+ },
+ "4be26e524309df9a62123dc603bfbe888d03db904e203ab6a4ba78d63909006d": {
+  "sha256": "4be26e524309df9a62123dc603bfbe888d03db904e203ab6a4ba78d63909006d",
+  "found_for": [
+   {
+    "csc": "026828",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "026828",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://sipwhiskey.com/cdn/shop/products/jack-daniels-old-no-7_b61b7cb2-84e8-4f8e-8f81-dcac71ff7ef2.jpg?v=1586306130&width=1920",
+   "http://sipwhiskey.com/cdn/shop/products/jack-daniels-old-no-7_b61b7cb2-84e8-4f8e-8f81-dcac71ff7ef2.jpg?v=1586306130"
+  ],
+  "format": "JPEG",
+  "width": 600,
+  "height": 600,
+  "bytes": 26696,
+  "phash": "e69b9a33cc649893",
+  "dhash": "4d4d4d0e0e0e0e06",
+  "dup_group": "4be26e524309"
+ },
+ "16fe05933b0f5fb8a063462127714d6229dbc428039e3cd3a0b4f067406d6f80": {
+  "sha256": "16fe05933b0f5fb8a063462127714d6229dbc428039e3cd3a0b4f067406d6f80",
+  "found_for": [
+   {
+    "csc": "026828",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://sipwhiskey.com/cdn/shop/products/BuyBuffaloTraceBourbonOnline.png?v=1589479757&width=900"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 900,
+  "bytes": 30688,
+  "phash": "e69b33669926c998",
+  "dhash": "4c4d0c0f8e0e0e0e",
+  "dup_group": "16fe05933b0f"
+ },
+ "85209c899aa5ff23d46d57d4aadc146f93d700ba84a2feae7892c66a1701394a": {
+  "sha256": "85209c899aa5ff23d46d57d4aadc146f93d700ba84a2feae7892c66a1701394a",
+  "found_for": [
+   {
+    "csc": "026828",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://sipwhiskey.com/cdn/shop/files/50_1024x1024_1fb83ddd-4588-419a-9bac-79c30a891a4c.webp?v=1699735838&width=1000"
+  ],
+  "format": "WEBP",
+  "width": 750,
+  "height": 750,
+  "bytes": 116074,
+  "phash": "be8f8141c16fd23c",
+  "dhash": "7373337537753716",
+  "dup_group": "85209c899aa5"
+ },
+ "bc68414ba4492db7b55430488d51f5062baf557415733b1cb150a6ef9342c922": {
+  "sha256": "bc68414ba4492db7b55430488d51f5062baf557415733b1cb150a6ef9342c922",
+  "found_for": [
+   {
+    "csc": "088018",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/lunazul-blanco.jpg?rev=ff31300802a2454fa09656fafb7bac70&la=en&h=400&w=311&hash=6BCE816CEE3B121C2F1A48533031D9B8"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 26398,
+  "phash": "b0c3d330cfcc34cb",
+  "dhash": "4d4d0d2296969e0e",
+  "dup_group": "bc68414ba449"
+ },
+ "98fa2436f3addf79135abc0f12e3ede992db7f2184f69cf32c52e4509d3eb217": {
+  "sha256": "98fa2436f3addf79135abc0f12e3ede992db7f2184f69cf32c52e4509d3eb217",
+  "found_for": [
+   {
+    "csc": "088018",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2024-q3/lunazul-blanco.jpg?rev=ff31300802a2454fa09656fafb7bac70&la=en&h=100&w=78&hash=E910BA26CFF707BCB70025EBCC90FFB4"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 6228,
+  "phash": "b0c3d330cfcc34cb",
+  "dhash": "4d4d0d2a16969e0e",
+  "dup_group": "bc68414ba449"
+ },
+ "c01038af1e36e982edfb3517e5fb8dd803db1ef1d45259b93828e59327bde450": {
+  "sha256": "c01038af1e36e982edfb3517e5fb8dd803db1ef1d45259b93828e59327bde450",
+  "found_for": [
+   {
+    "csc": "038176",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/96260750/96260750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 1805,
+  "bytes": 76622,
+  "phash": "eab5a176b2932472",
+  "dhash": "8e3616f001275101",
+  "dup_group": "c01038af1e36"
+ },
+ "e8ef47da472a55fd6495b4ca0f54844e29954e49d89ef94fc50754159a5b9241": {
+  "sha256": "e8ef47da472a55fd6495b4ca0f54844e29954e49d89ef94fc50754159a5b9241",
+  "found_for": [
+   {
+    "csc": "038176",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/96260750/96260750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 36090,
+  "phash": "e699996693893366",
+  "dhash": "0c0c0c144d4d4d4d",
+  "dup_group": "5cdd9121fbb5"
+ },
+ "e47acdde38e89db576a511d0b204b52421a440e7a7b1f4fcef9db04d9d5b19ac": {
+  "sha256": "e47acdde38e89db576a511d0b204b52421a440e7a7b1f4fcef9db04d9d5b19ac",
+  "found_for": [
+   {
+    "csc": "038068",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "038068",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "038068",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.missionliquor.com/cdn/shop/products/7996_feaeafa1b35de96e8f48210b71ef893f_600x_a23f1d57-2099-4d42-af1e-a9d305f3ace0.jpg?v=1592078116&width=152",
+   "http://www.missionliquor.com/cdn/shop/products/7996_feaeafa1b35de96e8f48210b71ef893f_600x_a23f1d57-2099-4d42-af1e-a9d305f3ace0.jpg?v=1592078116",
+   "https://www.missionliquor.com/cdn/shop/products/7996_feaeafa1b35de96e8f48210b71ef893f_600x_a23f1d57-2099-4d42-af1e-a9d305f3ace0.jpg?v=1592078116&width=1920"
+  ],
+  "format": "AVIF",
+  "width": 152,
+  "height": 354,
+  "bytes": 11712,
+  "phash": "b2e7673a86c81c63",
+  "dhash": "4d4d0f4d0f371f0f",
+  "dup_group": "e47acdde38e8"
+ },
+ "eaa81c58b5ef3630de84aa82e731460987aa1f324a7585f062b45210d80f6c2c": {
+  "sha256": "eaa81c58b5ef3630de84aa82e731460987aa1f324a7585f062b45210d80f6c2c",
+  "found_for": [
+   {
+    "csc": "010807",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/wf4e4r4dkfx8/6NaBx3InNJrQQFA3Mxc3uU/28a92e848af3019c557db331a9f28b0a/CR_Apple.png"
+  ],
+  "format": "PNG",
+  "width": 690,
+  "height": 1024,
+  "bytes": 846118,
+  "phash": "ea86a4371a7ae929",
+  "dhash": "0d0c0f6117171733",
+  "dup_group": "eaa81c58b5ef"
+ },
+ "5e8d36d11e59815d4050d5fb822720610a1c21b60d0d0a23fb37019ec10640b4": {
+  "sha256": "5e8d36d11e59815d4050d5fb822720610a1c21b60d0d0a23fb37019ec10640b4",
+  "found_for": [
+   {
+    "csc": "010807",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/wf4e4r4dkfx8/6NaBx3InNJrQQFA3Mxc3uU/28a92e848af3019c557db331a9f28b0a/CR_Apple.png?fm=avif&w=828&q=30"
+  ],
+  "format": "AVIF",
+  "width": 690,
+  "height": 1024,
+  "bytes": 47304,
+  "phash": "ea86a4375a6ae929",
+  "dhash": "0d0c0f6917171733",
+  "dup_group": "eaa81c58b5ef"
+ },
+ "36f1e461baee72b548c2690a51b957cfd423215d7724676c5663cc164d139268": {
+  "sha256": "36f1e461baee72b548c2690a51b957cfd423215d7724676c5663cc164d139268",
+  "found_for": [
+   {
+    "csc": "010807",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://images.ctfassets.net/wf4e4r4dkfx8/769L28461mtXHklPqGu3QR/c1107928ba0a17f29c6e2f987975ecfe/CR_Salted_Caramel.png?fm=avif&w=1200&q=30"
+  ],
+  "format": "AVIF",
+  "width": 690,
+  "height": 1024,
+  "bytes": 44490,
+  "phash": "bbd2f4334e0a2c2d",
+  "dhash": "0d0c0f690f173b33",
+  "dup_group": "36f1e461baee"
+ },
+ "7a942b0b5291790f861f80fc5ba7f4cf00dc42fc197f7b5a57913eb976b80f92": {
+  "sha256": "7a942b0b5291790f861f80fc5ba7f4cf00dc42fc197f7b5a57913eb976b80f92",
+  "found_for": [
+   {
+    "csc": "010807",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/march/crown-royal-regal-apple-whiskey.jpg?rev=06103623d6bc4c58a84c627105d88bc6"
+  ],
+  "format": "JPEG",
+  "width": 303,
+  "height": 450,
+  "bytes": 77212,
+  "phash": "eac1be34414b3ae9",
+  "dhash": "4d0c079696175569",
+  "dup_group": "7a942b0b5291"
+ },
+ "a45e931770b3fefb817d1dd8eb54d504e1c6e28e44a04ecd43f20d415bd810bf": {
+  "sha256": "a45e931770b3fefb817d1dd8eb54d504e1c6e28e44a04ecd43f20d415bd810bf",
+  "found_for": [
+   {
+    "csc": "010807",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/march/crown-royal-regal-apple-whiskey.jpg?rev=06103623d6bc4c58a84c627105d88bc6&la=en&h=400&w=269&hash=A3C5627D2E23EF2CE18E6CF7A2A872D5"
+  ],
+  "format": "JPEG",
+  "width": 269,
+  "height": 400,
+  "bytes": 55846,
+  "phash": "eac1be34414b3ae9",
+  "dhash": "4d0c079696175569",
+  "dup_group": "7a942b0b5291"
+ },
+ "f1b0be3787af7ccd036b4e3c41f0b4cf570eea59c19e9914ddbee256cb0a6ead": {
+  "sha256": "f1b0be3787af7ccd036b4e3c41f0b4cf570eea59c19e9914ddbee256cb0a6ead",
+  "found_for": [
+   {
+    "csc": "010807",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/march/crown-royal-regal-apple-whiskey.jpg?rev=06103623d6bc4c58a84c627105d88bc6&la=en&h=100&w=67&hash=C7729189ECA7253E98AFCC3BFB4EA862"
+  ],
+  "format": "JPEG",
+  "width": 67,
+  "height": 100,
+  "bytes": 5450,
+  "phash": "eac1be34414b3ae9",
+  "dhash": "4d0c079696175569",
+  "dup_group": "7a942b0b5291"
+ },
+ "07945e19d485614a1f433e9e69409a000e8c527f0fb806e33ef0b4b3979bcdd8": {
+  "sha256": "07945e19d485614a1f433e9e69409a000e8c527f0fb806e33ef0b4b3979bcdd8",
+  "found_for": [
+   {
+    "csc": "018604",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "018604",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "018604",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "http://ship.highwest.com/cdn/shop/products/high-west-bourbon-thumb.png?v=1698080589",
+   "https://ship.highwest.com/cdn/shop/products/high-west-bourbon-thumb.png?v=1698080589&width=3840"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 500,
+  "bytes": 29526,
+  "phash": "b3cccc9966333323",
+  "dhash": "0c084d4d4d4d4d4d",
+  "dup_group": "07945e19d485"
+ },
+ "0116c93dea4ecec7783fc667a91b9c1f76ffa7b8551bce0b3208dcc7158233d1": {
+  "sha256": "0116c93dea4ecec7783fc667a91b9c1f76ffa7b8551bce0b3208dcc7158233d1",
+  "found_for": [
+   {
+    "csc": "018604",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://ship.highwest.com/cdn/shop/files/High_West_Three_Bottles.jpg?v=1763141930&width=3840"
+  ],
+  "format": "WEBP",
+  "width": 2500,
+  "height": 1225,
+  "bytes": 118110,
+  "phash": "e0de1c400f8f731f",
+  "dhash": "8080808080808080",
+  "dup_group": "0116c93dea4e"
+ },
+ "ada6e1a1d7d1d6c4b9fe6df8eb9cde57a4ea7673ed97229eb4a42e5fe3e741c3": {
+  "sha256": "ada6e1a1d7d1d6c4b9fe6df8eb9cde57a4ea7673ed97229eb4a42e5fe3e741c3",
+  "found_for": [
+   {
+    "csc": "018604",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://ship.highwest.com/cdn/shop/files/2025-05-21_-_High_West-Core_Four-12216_web.jpg?v=1763053482&width=3840"
+  ],
+  "format": "JPEG",
+  "width": 3840,
+  "height": 1335,
+  "bytes": 896462,
+  "phash": "c0813ec63fcee338",
+  "dhash": "e4e484c0e4c4e4b0",
+  "dup_group": "ada6e1a1d7d1"
+ },
+ "0d8cca3706e4dcc209e3aef10ede026ed6a70cdf3f1439ccbdb53f86f070d156": {
+  "sha256": "0d8cca3706e4dcc209e3aef10ede026ed6a70cdf3f1439ccbdb53f86f070d156",
+  "found_for": [
+   {
+    "csc": "018604",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://ship.highwest.com/cdn/shop/products/high-west-double-rye-ii-thumb.png?v=1698085220&width=3840"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 500,
+  "bytes": 25768,
+  "phash": "b3cc999b26333323",
+  "dhash": "0c084d4d4d4d4d4d",
+  "dup_group": "07945e19d485"
+ },
+ "cfc3d19c3c39debff213d0397221f93c5a0ca7a6a0995311652f71d87270bb4d": {
+  "sha256": "cfc3d19c3c39debff213d0397221f93c5a0ca7a6a0995311652f71d87270bb4d",
+  "found_for": [
+   {
+    "csc": "018604",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://ship.highwest.com/cdn/shop/files/HWD_REN_750_LightBckgrd_500x500_Thumbnail.png?v=1719579156&width=3840"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 500,
+  "bytes": 22854,
+  "phash": "b3cc8c9966339966",
+  "dhash": "0c084d4d4d4d4d4d",
+  "dup_group": "cfc3d19c3c39"
+ },
+ "db09445ec0f2c90cf36c108c5dbd9fbafbd004b6f6a5fbcc6d7089a7191ba0ac": {
+  "sha256": "db09445ec0f2c90cf36c108c5dbd9fbafbd004b6f6a5fbcc6d7089a7191ba0ac",
+  "found_for": [
+   {
+    "csc": "034821",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_2e398e8a-a4a1-4903-b9a8-0955b98eea49"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 6784,
+  "phash": "b326869b666698cd",
+  "dhash": "4d4d160e0e161616",
+  "dup_group": "db09445ec0f2"
+ },
+ "d42401f31d93bb6bcc880e99e8f7e03316104ead9c62c5b9feffb79b7e228f46": {
+  "sha256": "d42401f31d93bb6bcc880e99e8f7e03316104ead9c62c5b9feffb79b7e228f46",
+  "found_for": [
+   {
+    "csc": "034821",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_2e398e8a-a4a1-4903-b9a8-0955b98eea49?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 11546,
+  "phash": "b326c69b66668ccc",
+  "dhash": "4d4d160e0e161616",
+  "dup_group": "db09445ec0f2"
+ },
+ "0788f5a7752280f02672ef86467638334345c952978a3f95884bdd1872ba2730": {
+  "sha256": "0788f5a7752280f02672ef86467638334345c952978a3f95884bdd1872ba2730",
+  "found_for": [
+   {
+    "csc": "034821",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_1cfe0ee1-476d-4fc1-8bbe-7ff9a3aa18b8?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 93895,
+  "phash": "94d1494a96376b6b",
+  "dhash": "bc9cca8c8c4c3c3c",
+  "dup_group": "0788f5a77522"
+ },
+ "353184d8bebd64c36c9864073b9879928d3038b93cf022f630725daf80c22905": {
+  "sha256": "353184d8bebd64c36c9864073b9879928d3038b93cf022f630725daf80c22905",
+  "found_for": [
+   {
+    "csc": "034821",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_c0c38a11-503f-46b6-827d-e5796a5f736c?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 43050,
+  "phash": "d131764e2bb826e6",
+  "dhash": "71ca8cf2faa03021",
+  "dup_group": "353184d8bebd"
+ },
+ "98cf74fbba45f128aa9ad7dbf679cb66b18ce08f84964b7c2b46bcaeb6a44bbc": {
+  "sha256": "98cf74fbba45f128aa9ad7dbf679cb66b18ce08f84964b7c2b46bcaeb6a44bbc",
+  "found_for": [
+   {
+    "csc": "034821",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://applejack.com/site/images/Svedka-Vodka-175-l_1.png"
+  ],
+  "format": "AVIF",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 30799,
+  "phash": "b366cb9a336630cc",
+  "dhash": "0c080e0e0c140c0c",
+  "dup_group": "98cf74fbba45"
+ },
+ "f8e85b8a1cba244cf32d08288c95beca4765c462322285df6a55741d77cf8dac": {
+  "sha256": "f8e85b8a1cba244cf32d08288c95beca4765c462322285df6a55741d77cf8dac",
+  "found_for": [
+   {
+    "csc": "034821",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://applejack.com/sca-dev-2020-1/img/no_image_available.jpeg"
+  ],
+  "format": "AVIF",
+  "width": 1601,
+  "height": 1601,
+  "bytes": 4802,
+  "phash": "f2c88d277ac826a7",
+  "dhash": "000049314c4c3008",
+  "dup_group": "f8e85b8a1cba"
+ },
+ "4ae984f01b653ab45d402e52a8fc63f4484d3e388ffcf658af1497c75d917d0a": {
+  "sha256": "4ae984f01b653ab45d402e52a8fc63f4484d3e388ffcf658af1497c75d917d0a",
+  "found_for": [
+   {
+    "csc": "058250",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_c09307f8-f56d-4dca-9a4e-42aee3e240bd"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 24466,
+  "phash": "bee19037c39d6262",
+  "dhash": "002f2b2b4d6d3421",
+  "dup_group": "4ae984f01b65"
+ },
+ "3a17d330f46694fe37804d64e4685a3826b0db7885404257eb6fdbf3adec0c9e": {
+  "sha256": "3a17d330f46694fe37804d64e4685a3826b0db7885404257eb6fdbf3adec0c9e",
+  "found_for": [
+   {
+    "csc": "058250",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_c09307f8-f56d-4dca-9a4e-42aee3e240bd?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 46995,
+  "phash": "bee19037c39d6262",
+  "dhash": "002f2b2b4d6d3421",
+  "dup_group": "4ae984f01b65"
+ },
+ "392999f4a82b963c18fc3503552ccf9ec47e9ff7c61d5552a17d05dee7a4510b": {
+  "sha256": "392999f4a82b963c18fc3503552ccf9ec47e9ff7c61d5552a17d05dee7a4510b",
+  "found_for": [
+   {
+    "csc": "058250",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_33df1052-27f2-404b-b25e-f46b7fb3f462?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 51011,
+  "phash": "fec0c03fc39d8962",
+  "dhash": "202f2b294d3d2909",
+  "dup_group": "392999f4a82b"
+ },
+ "41ce546ad4c30d1faab525de6970f4b94c1ee49d63566b2c014b84f8668c8064": {
+  "sha256": "41ce546ad4c30d1faab525de6970f4b94c1ee49d63566b2c014b84f8668c8064",
+  "found_for": [
+   {
+    "csc": "058250",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_1714d166-ee2f-4cf1-840d-10c9764a524f?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 83124,
+  "phash": "dce1939f6a280753",
+  "dhash": "60942ca721303030",
+  "dup_group": "41ce546ad4c3"
+ },
+ "77a20fb402ea14a572326da36882749836e58a784156dcaa3a0f4c5245fdbaa5": {
+  "sha256": "77a20fb402ea14a572326da36882749836e58a784156dcaa3a0f4c5245fdbaa5",
+  "found_for": [
+   {
+    "csc": "048108",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_375ed038-a095-4096-8156-a2a38a4b504b"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 10185,
+  "phash": "b39bcc3c33cccc24",
+  "dhash": "0c0c084d8f96164e",
+  "dup_group": "77a20fb402ea"
+ },
+ "3f5f40c8fc277bff404550109503ab284e9054064ec9eff18af625f09469541a": {
+  "sha256": "3f5f40c8fc277bff404550109503ab284e9054064ec9eff18af625f09469541a",
+  "found_for": [
+   {
+    "csc": "048108",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_375ed038-a095-4096-8156-a2a38a4b504b?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 24113,
+  "phash": "b39bcc3c33cccc24",
+  "dhash": "0c0c084d8f96164e",
+  "dup_group": "77a20fb402ea"
+ },
+ "6802e93c7ea9020a0e091dcb5750b71ddb4db1cae612039fbcbd7f266b6d1d1f": {
+  "sha256": "6802e93c7ea9020a0e091dcb5750b71ddb4db1cae612039fbcbd7f266b6d1d1f",
+  "found_for": [
+   {
+    "csc": "048108",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_8c4cbce5-3d07-49ff-8b29-f04b50efac81?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 29509,
+  "phash": "fbc48a29c552e936",
+  "dhash": "7873294c5e1b1959",
+  "dup_group": "6802e93c7ea9"
+ },
+ "607654aac4071c4815874d2d1bdc3315f30cbf5546ba16992a3970114df478d5": {
+  "sha256": "607654aac4071c4815874d2d1bdc3315f30cbf5546ba16992a3970114df478d5",
+  "found_for": [
+   {
+    "csc": "048108",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_48b47c05-38cd-474f-8629-3df6b90716d0?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 127804,
+  "phash": "d085537e084d6edb",
+  "dhash": "88cac5e2b90c8888",
+  "dup_group": "607654aac407"
+ },
+ "f50f3a8011daf488fb2e34a3b34d63746acc53bc650318b4d66f2a5e008aae22": {
+  "sha256": "f50f3a8011daf488fb2e34a3b34d63746acc53bc650318b4d66f2a5e008aae22",
+  "found_for": [
+   {
+    "csc": "048108",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "048108",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "048108",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "http://cellar.com/cdn/shop/products/130543.jpg?v=1681882523",
+   "https://cellar.com/cdn/shop/products/130543.jpg?v=1681882523&width=1946",
+   "https://cellar.com/cdn/shop/products/130543.jpg?v=1681882523&width=1445"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 750,
+  "bytes": 26610,
+  "phash": "b1c6ce3865649e39",
+  "dhash": "0c0d4d0e9e9e968e",
+  "dup_group": "f50f3a8011da"
+ },
+ "9d2fcaea8baf74839a6ed6c752edb21500596a1c17000a77b0c328759ae8cf0c": {
+  "sha256": "9d2fcaea8baf74839a6ed6c752edb21500596a1c17000a77b0c328759ae8cf0c",
+  "found_for": [
+   {
+    "csc": "005349",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_02e8ce56-3c4b-491d-b45a-3fa5f8609d69"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 9081,
+  "phash": "b3ce8e99268c9933",
+  "dhash": "0c4c0e060e1e0e0e",
+  "dup_group": "9d2fcaea8baf"
+ },
+ "a1b34bc88b4e07051592063707e34df833d3aa41fd989f5bd072cf2d87d1775c": {
+  "sha256": "a1b34bc88b4e07051592063707e34df833d3aa41fd989f5bd072cf2d87d1775c",
+  "found_for": [
+   {
+    "csc": "005349",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_02e8ce56-3c4b-491d-b45a-3fa5f8609d69?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 19784,
+  "phash": "b3ce8e99268c9933",
+  "dhash": "0c4d0e060e1e0e0e",
+  "dup_group": "9d2fcaea8baf"
+ },
+ "74f38901e1e42a0b115f028ae62d46520581f0bc29855018c83561abf269ff61": {
+  "sha256": "74f38901e1e42a0b115f028ae62d46520581f0bc29855018c83561abf269ff61",
+  "found_for": [
+   {
+    "csc": "005349",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_afed1f53-d853-492b-9163-910c37900ce0?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 64403,
+  "phash": "e4cab09e5a3671a6",
+  "dhash": "99a2864161c6a68e",
+  "dup_group": "74f38901e1e4"
+ },
+ "77359f0efd70a5e9a5eba3271353a5cb9dd5ad1be92d8ab888369085750a1850": {
+  "sha256": "77359f0efd70a5e9a5eba3271353a5cb9dd5ad1be92d8ab888369085750a1850",
+  "found_for": [
+   {
+    "csc": "005349",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_fafbbc87-a60c-49b1-b0a4-e593a7b90e1d?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 41841,
+  "phash": "d0e57c1966423737",
+  "dhash": "9e92ccc0d8f8b18b",
+  "dup_group": "77359f0efd70"
+ },
+ "b9e929f7478d046fe5b1f2465a763540fbf53818714e538d1025b57eaf5e26d0": {
+  "sha256": "b9e929f7478d046fe5b1f2465a763540fbf53818714e538d1025b57eaf5e26d0",
+  "found_for": [
+   {
+    "csc": "005349",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "005349",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://theliquorbarn.com/cdn/shop/files/JohnnieWalkerRedLabel1.75L_fc194e00-3660-4ce8-9be8-9d68bcbe0e44.webp?v=1744572611&width=1920",
+   "http://theliquorbarn.com/cdn/shop/files/JohnnieWalkerRedLabel1.75L_fc194e00-3660-4ce8-9be8-9d68bcbe0e44.webp?crop=center&height=1200&v=1744572611&width=1200"
+  ],
+  "format": "WEBP",
+  "width": 600,
+  "height": 600,
+  "bytes": 21970,
+  "phash": "b3ce9b8866193366",
+  "dhash": "0d0c0f160e1e1e0e",
+  "dup_group": "b9e929f7478d"
+ },
+ "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497": {
+  "sha256": "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497",
+  "found_for": [
+   {
+    "csc": "065127",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.grandmarnier.com/app/uploads/2022/04/product-cutout-cordon-rouge-min.png"
+  ],
+  "format": "WEBP",
+  "width": 309,
+  "height": 628,
+  "bytes": 36880,
+  "phash": "e6a6945b2fa47642",
+  "dhash": "4d4d8e064d9090cc",
+  "dup_group": "ca33a2386715"
+ },
+ "83b90d61e9af46a8e0ee094568b7a5ebf1fc6f40057965d0e6f18908cebfb153": {
+  "sha256": "83b90d61e9af46a8e0ee094568b7a5ebf1fc6f40057965d0e6f18908cebfb153",
+  "found_for": [
+   {
+    "csc": "087410",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_193d6fc6-2e63-4998-b5d3-d20f0dd93390"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 8721,
+  "phash": "b38ace339966cc8c",
+  "dhash": "4c4c0e0e4e4d4d14",
+  "dup_group": "83b90d61e9af"
+ },
+ "b23ea326d7f106d0648a682caca5af7e1ed8fdde0c703fa0060a243cf2eb2960": {
+  "sha256": "b23ea326d7f106d0648a682caca5af7e1ed8fdde0c703fa0060a243cf2eb2960",
+  "found_for": [
+   {
+    "csc": "087410",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_193d6fc6-2e63-4998-b5d3-d20f0dd93390?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 19365,
+  "phash": "b38ace339966cc8c",
+  "dhash": "4c4c0e0e0e4d4d14",
+  "dup_group": "83b90d61e9af"
+ },
+ "ae53a31949619e47f1c7c187bc64fadd36997092027bafbae237b61f493cb4d4": {
+  "sha256": "ae53a31949619e47f1c7c187bc64fadd36997092027bafbae237b61f493cb4d4",
+  "found_for": [
+   {
+    "csc": "087410",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_e66a6df5-af35-48a2-8ff3-f63b383f2695?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 58158,
+  "phash": "818ff0748769a2d7",
+  "dhash": "ef94d3db7a9692f8",
+  "dup_group": "ae53a3194961"
+ },
+ "168b2a46eb4969cdbd44c8a3a9e2e351d1da19bcba385abfa932fc1e5d1e470a": {
+  "sha256": "168b2a46eb4969cdbd44c8a3a9e2e351d1da19bcba385abfa932fc1e5d1e470a",
+  "found_for": [
+   {
+    "csc": "087410",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_aee3e6ea-9c40-4258-90b4-4733d33e2bb8?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 143519,
+  "phash": "81c3d694f4f4e952",
+  "dhash": "e8d8d3d2d2d3dab2",
+  "dup_group": "168b2a46eb49"
+ },
+ "5b7b09f30b029b227b71d93892daa5b9896b18b6b24bcb7d405e10f00d8384ea": {
+  "sha256": "5b7b09f30b029b227b71d93892daa5b9896b18b6b24bcb7d405e10f00d8384ea",
+  "found_for": [
+   {
+    "csc": "076905",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/239320750/239320750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 686,
+  "bytes": 27956,
+  "phash": "b1d3c73399646698",
+  "dhash": "4d4d869696969696",
+  "dup_group": "5b7b09f30b02"
+ },
+ "80a10ee8c07c481f928a75a51e548ba202615d3d0c839148dc52d5c34b81e2a1": {
+  "sha256": "80a10ee8c07c481f928a75a51e548ba202615d3d0c839148dc52d5c34b81e2a1",
+  "found_for": [
+   {
+    "csc": "076905",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/239320750/239320750-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 48156,
+  "phash": "b18bc63399666699",
+  "dhash": "4d4d0e96968e9696",
+  "dup_group": "5b7b09f30b02"
+ },
+ "fb59a98dff1381dc7bf44795697ecea90a5ff72c5ffd5caa90e2baa89938cadb": {
+  "sha256": "fb59a98dff1381dc7bf44795697ecea90a5ff72c5ffd5caa90e2baa89938cadb",
+  "found_for": [
+   {
+    "csc": "027380",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://d3cqmwe6z7cbal.cloudfront.net/wp-content/uploads/sites/2/2026/04/29081018/FY27_AngelsEnvy_SignatureSeries_RyeFinish_HeroBanner_Desktop3000.avif"
+  ],
+  "format": "AVIF",
+  "width": 3000,
+  "height": 1688,
+  "bytes": 77937,
+  "phash": "b87aa456a69672a6",
+  "dhash": "3c3b38383b393ee7",
+  "dup_group": "fb59a98dff13"
+ },
+ "f33de48337e50811c91c8ec376302c615bcb66caca0721ece7964433c21fe6ec": {
+  "sha256": "f33de48337e50811c91c8ec376302c615bcb66caca0721ece7964433c21fe6ec",
+  "found_for": [
+   {
+    "csc": "027380",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://d3cqmwe6z7cbal.cloudfront.net/wp-content/uploads/sites/2/2024/12/28090544/FY27_AngelsEnvy_SignatureSeries_RyeFinish_TastingNotes-1-1.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1440,
+  "height": 1080,
+  "bytes": 330353,
+  "phash": "e101777ff88a805d",
+  "dhash": "9acee59312646707",
+  "dup_group": "f33de48337e5"
+ },
+ "a92d005c02825d3bd1e32144bb31d0c135e7db2ca4ab6769c181e807114c5ad5": {
+  "sha256": "a92d005c02825d3bd1e32144bb31d0c135e7db2ca4ab6769c181e807114c5ad5",
+  "found_for": [
+   {
+    "csc": "027380",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://d3cqmwe6z7cbal.cloudfront.net/wp-content/uploads/sites/2/2026/04/21075410/FY26_AngelsEnvy_Nav_SignatureSeries.png"
+  ],
+  "format": "PNG",
+  "width": 320,
+  "height": 480,
+  "bytes": 169234,
+  "phash": "eb96b46bc4b49984",
+  "dhash": "4d69693751494d00",
+  "dup_group": "a92d005c0282"
+ },
+ "f6e98a3526c10e9a154de003991b844b699f4e75a6b2a9547cb4863890187027": {
+  "sha256": "f6e98a3526c10e9a154de003991b844b699f4e75a6b2a9547cb4863890187027",
+  "found_for": [
+   {
+    "csc": "027380",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://d3cqmwe6z7cbal.cloudfront.net/wp-content/uploads/sites/2/2026/04/21081424/FY26_AngelsEnvy_Nav_SignatureSeries-1.png"
+  ],
+  "format": "PNG",
+  "width": 320,
+  "height": 480,
+  "bytes": 139306,
+  "phash": "ad98d22d26d2cdd2",
+  "dhash": "3332333333333300",
+  "dup_group": "f6e98a3526c1"
+ },
+ "b7163f694563d33bf7579825f9cb8da6d7edb0389560f223c7996692ee194c5b": {
+  "sha256": "b7163f694563d33bf7579825f9cb8da6d7edb0389560f223c7996692ee194c5b",
+  "found_for": [
+   {
+    "csc": "027380",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "027380",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.missionliquor.com/cdn/shop/files/Angel_s-Envy-Rye-Whiskey-750ml.jpg?v=1703787808&width=191",
+   "http://www.missionliquor.com/cdn/shop/files/Angel_s-Envy-Rye-Whiskey-750ml.jpg?v=1703787808"
+  ],
+  "format": "AVIF",
+  "width": 191,
+  "height": 512,
+  "bytes": 21157,
+  "phash": "eec6a406567d6a29",
+  "dhash": "4d0e17257133330f",
+  "dup_group": "b7163f694563"
+ },
+ "f6fe8b64d764a7494262a1d58d4df241b44f584fb54fba6dcfe625e5be3fe97a": {
+  "sha256": "f6fe8b64d764a7494262a1d58d4df241b44f584fb54fba6dcfe625e5be3fe97a",
+  "found_for": [
+   {
+    "csc": "029913",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://fnlxoens.elementor.cloud/wp-content/uploads/2024/03/cropped-64ac7c4e52d7bf5e394462cd_DBD-2023.webp"
+  ],
+  "format": "WEBP",
+  "width": 500,
+  "height": 500,
+  "bytes": 14866,
+  "phash": "ac38c36f9696c98c",
+  "dhash": "0023171e37030620",
+  "dup_group": "f6fe8b64d764"
+ },
+ "536219c4d1a63be8663a284f78debccc80fc51c76fde4de0e34a63ec8387e0b8": {
+  "sha256": "536219c4d1a63be8663a284f78debccc80fc51c76fde4de0e34a63ec8387e0b8",
+  "found_for": [
+   {
+    "csc": "029913",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://dentedbrick.com/wp-content/uploads/2024/03/07.03.2026-Premium-Gin-Bricks.webp"
+  ],
+  "format": "WEBP",
+  "width": 1088,
+  "height": 1445,
+  "bytes": 1364960,
+  "phash": "cc1e733c6ec13478",
+  "dhash": "f0f0f0f0b0f0f260",
+  "dup_group": "536219c4d1a6"
+ },
+ "c9055660d0abd8826724a5fa11571b4b765622bc0f93ce7e0e124d188c01cec3": {
+  "sha256": "c9055660d0abd8826724a5fa11571b4b765622bc0f93ce7e0e124d188c01cec3",
+  "found_for": [
+   {
+    "csc": "029913",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "029913",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "http://reedstreetbottleshop.com/cdn/shop/files/IMG_0495_23cc8f6b-3a1f-4738-9448-613f439d78b9.jpg?v=1736455727",
+   "https://reedstreetbottleshop.com/cdn/shop/files/IMG_0495.jpg?v=1735396789&width=3840"
+  ],
+  "format": "WEBP",
+  "width": 3024,
+  "height": 4032,
+  "bytes": 1625522,
+  "phash": "a0daadd2275e2d51",
+  "dhash": "fffbb7258c9a1946",
+  "dup_group": "c9055660d0ab"
+ },
+ "3dda30c7aae667d56b282d5d7c9bcec77038b76b3a6d61d0046717700487b0d1": {
+  "sha256": "3dda30c7aae667d56b282d5d7c9bcec77038b76b3a6d61d0046717700487b0d1",
+  "found_for": [
+   {
+    "csc": "029913",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://reedstreetbottleshop.com/cdn/shop/files/FullSizeRender_8f5959ee-d2cc-40eb-8559-4c97c21baf35.jpg?v=1775844449&width=533"
+  ],
+  "format": "WEBP",
+  "width": 533,
+  "height": 708,
+  "bytes": 73656,
+  "phash": "e69b99e600ce33d8",
+  "dhash": "adcccdc5c5cdc583",
+  "dup_group": "3dda30c7aae6"
+ },
+ "8ca7611fed11601641c6de1e8a7d8ee418901e991a61e1959fcfb96747ab06a7": {
+  "sha256": "8ca7611fed11601641c6de1e8a7d8ee418901e991a61e1959fcfb96747ab06a7",
+  "found_for": [
+   {
+    "csc": "029913",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://reedstreetbottleshop.com/cdn/shop/files/FullSizeRender_dede41bd-ad90-40f8-977f-45a7622ecfe4.jpg?v=1778788467&width=533"
+  ],
+  "format": "WEBP",
+  "width": 533,
+  "height": 708,
+  "bytes": 60670,
+  "phash": "e69a1bc931e69964",
+  "dhash": "0c4c4d4d4d454d4d",
+  "dup_group": "8ca7611fed11"
+ },
+ "e29f053b08f82e81b6d8a8dc660a9ad96035ef8829db005c45dd4a0dd405b025": {
+  "sha256": "e29f053b08f82e81b6d8a8dc660a9ad96035ef8829db005c45dd4a0dd405b025",
+  "found_for": [
+   {
+    "csc": "019239",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.knobcreek.com/sites/default/files/styles/original/public/2024-09/12-year-old-kentucky-bottle-whiskey-knob-creek.webp?itok=N4MZweZD"
+  ],
+  "format": "WEBP",
+  "width": 1140,
+  "height": 1140,
+  "bytes": 128160,
+  "phash": "e5939b61cc2c9acc",
+  "dhash": "4c4d0f96868e9696",
+  "dup_group": "e29f053b08f8"
+ },
+ "37bd26040b47c458e928f2da9e4067ea554a410d6ff187972c1d41535afe1829": {
+  "sha256": "37bd26040b47c458e928f2da9e4067ea554a410d6ff187972c1d41535afe1829",
+  "found_for": [
+   {
+    "csc": "019239",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.knobcreek.com/sites/default/files/2024-09/12-year-old-kentucky-bottle-whiskey-knob-creek.webp"
+  ],
+  "format": "WEBP",
+  "width": 1140,
+  "height": 1140,
+  "bytes": 113838,
+  "phash": "e5939b61cc2c9acc",
+  "dhash": "4c4d0f96868e9696",
+  "dup_group": "e29f053b08f8"
+ },
+ "7fbbd632bf62e8ce8ab685e5933ca0d64a4d0cde8c493379c93ca18f784dddce": {
+  "sha256": "7fbbd632bf62e8ce8ab685e5933ca0d64a4d0cde8c493379c93ca18f784dddce",
+  "found_for": [
+   {
+    "csc": "019239",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.knobcreek.com/sites/default/files/styles/original/public/2024-08/12-year-old-kentucky-bottle-whiskey-knob-creek-bottle-side-whiskey-knob-creek.png.webp?itok=nqsMyJWY"
+  ],
+  "format": "WEBP",
+  "width": 1500,
+  "height": 1500,
+  "bytes": 208488,
+  "phash": "b1839b69cc38cecc",
+  "dhash": "0e4d8e969686969e",
+  "dup_group": "7fbbd632bf62"
+ },
+ "934b76243b85b0cfd3d8d55282f993043466f6d5e7784de0b8f9aa2d11297b1e": {
+  "sha256": "934b76243b85b0cfd3d8d55282f993043466f6d5e7784de0b8f9aa2d11297b1e",
+  "found_for": [
+   {
+    "csc": "019239",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.knobcreek.com/sites/default/files/styles/original/public/2024-08/12-year-old-kentucky-bottle-back-whiskey-knob-creek.png.webp?itok=V6w_IMXC"
+  ],
+  "format": "WEBP",
+  "width": 1500,
+  "height": 1500,
+  "bytes": 164108,
+  "phash": "e1c6ce3998399999",
+  "dhash": "0d4d0e9696969686",
+  "dup_group": "934b76243b85"
+ },
+ "2fd0c6600ea2341447ab524fc5880355af7c7788330116f07fc6be3ae97d46e6": {
+  "sha256": "2fd0c6600ea2341447ab524fc5880355af7c7788330116f07fc6be3ae97d46e6",
+  "found_for": [
+   {
+    "csc": "031474",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_5e39680e-9e11-460f-a2a4-40f45e9a278c"
+  ],
+  "format": "AVIF",
+  "width": 400,
+  "height": 400,
+  "bytes": 21637,
+  "phash": "e68c9a666666b299",
+  "dhash": "4d0c1e0e0f4d0f0e",
+  "dup_group": "2fd0c6600ea2"
+ },
+ "4250f7f3250df1fe3ff6ddac3e3becda9167cd004912a8e2f87639c08e701e19": {
+  "sha256": "4250f7f3250df1fe3ff6ddac3e3becda9167cd004912a8e2f87639c08e701e19",
+  "found_for": [
+   {
+    "csc": "031474",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_5e39680e-9e11-460f-a2a4-40f45e9a278c?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 35060,
+  "phash": "e68c9a6666669399",
+  "dhash": "4d0c1e0e0f4d0f0e",
+  "dup_group": "2fd0c6600ea2"
+ },
+ "8332595355903c7849749420db69164f0fced43f30798d83534ed093a40dd49a": {
+  "sha256": "8332595355903c7849749420db69164f0fced43f30798d83534ed093a40dd49a",
+  "found_for": [
+   {
+    "csc": "031474",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_e955d0bb-db30-4780-a7a3-6985ce99b145?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 24197,
+  "phash": "ee95913e7ae16181",
+  "dhash": "2160476969637400",
+  "dup_group": "833259535590"
+ },
+ "5a9c0419b433deea03cd25ccf1007439c1df5fd882d872f8af11e1febf7e05bd": {
+  "sha256": "5a9c0419b433deea03cd25ccf1007439c1df5fd882d872f8af11e1febf7e05bd",
+  "found_for": [
+   {
+    "csc": "031474",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://target.scene7.com/is/image/Target/GUEST_90c04edf-e66e-4fb1-a9d6-f843a62024a7?wid=800&hei=800&qlt=80&fmt=pjpeg"
+  ],
+  "format": "AVIF",
+  "width": 800,
+  "height": 800,
+  "bytes": 124839,
+  "phash": "cfbf60ab19d49848",
+  "dhash": "696d332b637bd4b1",
+  "dup_group": "5a9c0419b433"
+ },
+ "96e82c7e3337df64a304d077b4b032bd21fd8b1cd9cc6d5b79c5adb0bda50001": {
+  "sha256": "96e82c7e3337df64a304d077b4b032bd21fd8b1cd9cc6d5b79c5adb0bda50001",
+  "found_for": [
+   {
+    "csc": "031474",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "031474",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://theliquorbarn.com/cdn/shop/files/new-amsterdam-750__09951__67936.jpg?v=1730459900&width=1920",
+   "http://theliquorbarn.com/cdn/shop/files/new-amsterdam-750__09951__67936.jpg?crop=center&height=1200&v=1730459900&width=1200"
+  ],
+  "format": "WEBP",
+  "width": 400,
+  "height": 560,
+  "bytes": 21438,
+  "phash": "e79ace66316c8989",
+  "dhash": "0d4d0e8e8e0e0616",
+  "dup_group": "96e82c7e3337"
+ },
+ "d04add9d28262b8c609b04947a323d402d5255864f921495beb72cfc92b9b229": {
+  "sha256": "d04add9d28262b8c609b04947a323d402d5255864f921495beb72cfc92b9b229",
+  "found_for": [
+   {
+    "csc": "016307",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "016307",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://seelbachs.com/cdn/shop/files/HolladaySoftRedWheatBottledInBond6YearOldStraightBourbon.png?v=1759500098&width=1920",
+   "http://seelbachs.com/cdn/shop/files/HolladaySoftRedWheatBottledInBond6YearOldStraightBourbon.png?v=1759500098"
+  ],
+  "format": "WEBP",
+  "width": 1512,
+  "height": 2016,
+  "bytes": 120890,
+  "phash": "b3c6c6396c6c938c",
+  "dhash": "4d4d0d969e9e868e",
+  "dup_group": "d04add9d2826"
+ },
+ "89451627aca7e6c7f8178b44cf5027140b10e43ada79bed422bbf373f72065cb": {
+  "sha256": "89451627aca7e6c7f8178b44cf5027140b10e43ada79bed422bbf373f72065cb",
+  "found_for": [
+   {
+    "csc": "016307",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://seelbachs.com/cdn/shop/files/HolladaySoftRedWheatBottledInBond6YearOldStraightBourbon.png?v=1759500098&width=1200"
+  ],
+  "format": "WEBP",
+  "width": 1200,
+  "height": 1600,
+  "bytes": 95280,
+  "phash": "b3c6c6396c6c938c",
+  "dhash": "4d4d4d969e9e868e",
+  "dup_group": "d04add9d2826"
+ },
+ "1ec03b13df5db4282d1257c0f7acbd76ecd83b5a0232ecfd9afbce1fb8927307": {
+  "sha256": "1ec03b13df5db4282d1257c0f7acbd76ecd83b5a0232ecfd9afbce1fb8927307",
+  "found_for": [
+   {
+    "csc": "016307",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://seelbachs.com/cdn/shop/files/zbxFOXr2gYqOMrsAEMtVT_dbd6a52e89ad4d73ba3eed7cfcc67485.webp?v=1757512953"
+  ],
+  "format": "AVIF",
+  "width": 256,
+  "height": 256,
+  "bytes": 9485,
+  "phash": "fe94916bc36c4691",
+  "dhash": "0330272723273300",
+  "dup_group": "1ec03b13df5d"
+ },
+ "deaac1ba8c84195db8326efbd13efcc3ab6d37243b9eee785daa3ec0e6fd3195": {
+  "sha256": "deaac1ba8c84195db8326efbd13efcc3ab6d37243b9eee785daa3ec0e6fd3195",
+  "found_for": [
+   {
+    "csc": "016307",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "016307",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "016307",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.thebarreltap.com/cdn/shop/files/Holladay_Soft_Red_Wheat_Bottled_In_Bond_6_Year_Old_Straight_Bourbon_750mL_1024x1024.webp?v=1720495686",
+   "http://www.thebarreltap.com/cdn/shop/files/Holladay_Soft_Red_Wheat_Bottled_In_Bond_6_Year_Old_Straight_Bourbon_750mL.webp?v=1720495686",
+   "https://www.thebarreltap.com/cdn/shop/files/Holladay_Soft_Red_Wheat_Bottled_In_Bond_6_Year_Old_Straight_Bourbon_750mL.webp?v=1720495686&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 700,
+  "height": 800,
+  "bytes": 22886,
+  "phash": "b3cece3124649bcc",
+  "dhash": "4c4c4d8e8e1e0d0d",
+  "dup_group": "deaac1ba8c84"
+ },
+ "572f2dab5a12abca445f19e37cf2d396b813dc9d67e546966eabf61256c1db1d": {
+  "sha256": "572f2dab5a12abca445f19e37cf2d396b813dc9d67e546966eabf61256c1db1d",
+  "found_for": [
+   {
+    "csc": "016434",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://newriffdistilling.com/wp-content/uploads/2026/02/NRD_BIB_RYE_1.webp"
+  ],
+  "format": "WEBP",
+  "width": 1152,
+  "height": 1440,
+  "bytes": 123446,
+  "phash": "f0f0be02bac17f60",
+  "dhash": "181c16888cc6c727",
+  "dup_group": "572f2dab5a12"
+ },
+ "774f5a426b7a9c3d388df4ead9ef7a9d5fa57fc19db0c9dbf4b46489daf3f58f": {
+  "sha256": "774f5a426b7a9c3d388df4ead9ef7a9d5fa57fc19db0c9dbf4b46489daf3f58f",
+  "found_for": [
+   {
+    "csc": "016434",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://newriffdistilling.com/wp-content/uploads/2026/02/NRD_Product_Category_Thumbnail_Bourbon.webp"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 1330,
+  "bytes": 64564,
+  "phash": "b4c6c61ccf659266",
+  "dhash": "0594969eb6969606",
+  "dup_group": "774f5a426b7a"
+ },
+ "3bdd326c1c250610295ef6646af3b30af8fbc0e46df0253c4f11e665e7b5484f": {
+  "sha256": "3bdd326c1c250610295ef6646af3b30af8fbc0e46df0253c4f11e665e7b5484f",
+  "found_for": [
+   {
+    "csc": "016434",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://newriffdistilling.com/wp-content/uploads/2026/02/NRD_Product_Category_Thumbnail_Rye.webp"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 1330,
+  "bytes": 59872,
+  "phash": "a4c6c63ccf659266",
+  "dhash": "0594969696968606",
+  "dup_group": "774f5a426b7a"
+ },
+ "673ab9613eb4fe8207e50d923aca54ca7a52529a0a0290ba7a024555562b2329": {
+  "sha256": "673ab9613eb4fe8207e50d923aca54ca7a52529a0a0290ba7a024555562b2329",
+  "found_for": [
+   {
+    "csc": "016434",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://newriffdistilling.com/wp-content/uploads/2026/03/NRD_Product_Category_Thumbnail_Single-Malt_20260313.webp"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 1330,
+  "bytes": 64084,
+  "phash": "a486c62ccf65d366",
+  "dhash": "05959696a686860e",
+  "dup_group": "774f5a426b7a"
+ },
+ "c84cf11eb9252f909b4d937f09e8306cfeb2e827d1a94e7cd1de72e4db4a85e3": {
+  "sha256": "c84cf11eb9252f909b4d937f09e8306cfeb2e827d1a94e7cd1de72e4db4a85e3",
+  "found_for": [
+   {
+    "csc": "016434",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "016434",
+    "page": 1,
+    "image": 2
+   },
+   {
+    "csc": "016434",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://shop.newriffdistilling.com/cdn/shop/files/NRD_BIB_RYE_FRONT_3_1.png?v=1770823092&width=900",
+   "https://shop.newriffdistilling.com/cdn/shop/files/NRD_BIB_RYE_FRONT_3_1.png?v=1770823092&width=1946",
+   "https://shop.newriffdistilling.com/cdn/shop/files/NRD_BIB_RYE_FRONT_3_1.png?v=1770823092&width=1445"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 1329,
+  "bytes": 56538,
+  "phash": "b3c7ce2c1931ce26",
+  "dhash": "4d4d4d8e0e0c4d0c",
+  "dup_group": "c84cf11eb925"
+ },
+ "5414f27440413c77c3276e915d889b94e9f9d6f5d07437fb70696ebd6cc7515a": {
+  "sha256": "5414f27440413c77c3276e915d889b94e9f9d6f5d07437fb70696ebd6cc7515a",
+  "found_for": [
+   {
+    "csc": "016434",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "http://shop.newriffdistilling.com/cdn/shop/files/NRD_BIB_RYE_FRONT_3_1.png?v=1770823092"
+  ],
+  "format": "WEBP",
+  "width": 900,
+  "height": 1329,
+  "bytes": 56580,
+  "phash": "b3c7ce2c1931ce26",
+  "dhash": "4d4d4d8e0e0c4d0c",
+  "dup_group": "c84cf11eb925"
+ },
+ "ac7841a4fb9e1ee4022262ab44484da77f8c30a3b7140a833d33d16d02d3b967": {
+  "sha256": "ac7841a4fb9e1ee4022262ab44484da77f8c30a3b7140a833d33d16d02d3b967",
+  "found_for": [
+   {
+    "csc": "017039",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2026-april/hhbib_double-mash_750ml-(1).jpg?rev=ec27c528c08e4e25905f9a98aeebe9f3"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 31806,
+  "phash": "e186e69e9a619969",
+  "dhash": "4d0d069e93929686",
+  "dup_group": "ac7841a4fb9e"
+ },
+ "8a8dd8660243d382caeae9e062620bf2424d728460aa0107d382e0086d9b7921": {
+  "sha256": "8a8dd8660243d382caeae9e062620bf2424d728460aa0107d382e0086d9b7921",
+  "found_for": [
+   {
+    "csc": "017039",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2026-april/hhbib_double-mash_750ml-(1).jpg?rev=ec27c528c08e4e25905f9a98aeebe9f3&la=en&h=400&w=311&hash=EF583201CAB0BAFE8A2325CB1AF68CA4"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 23926,
+  "phash": "e186e69e9a619969",
+  "dhash": "4d0d069e93929686",
+  "dup_group": "ac7841a4fb9e"
+ },
+ "3e9e7e2d942473906bb4b966cfc251d27b318ec0c67d6217ba6d234fae10eff1": {
+  "sha256": "3e9e7e2d942473906bb4b966cfc251d27b318ec0c67d6217ba6d234fae10eff1",
+  "found_for": [
+   {
+    "csc": "017039",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2026-april/hhbib_double-mash_750ml-(1).jpg?rev=ec27c528c08e4e25905f9a98aeebe9f3&la=en&h=100&w=78&hash=1EE4461E07E9C2A0BCB4A614D0B9F1C5"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 3450,
+  "phash": "e186e69e9a619969",
+  "dhash": "4d4d069e93929686",
+  "dup_group": "ac7841a4fb9e"
+ },
+ "ea34de32569c305b46f52ca6ce61a43e60e4b29dcda73474f704dda3f35ce557": {
+  "sha256": "ea34de32569c305b46f52ca6ce61a43e60e4b29dcda73474f704dda3f35ce557",
+  "found_for": [
+   {
+    "csc": "084679",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://ochotequila.com/front-page/terroir-unico/"
+  ],
+  "error": "cannot identify image file '/home/user/utahdrops/pilot/photo-enrichment/.cache/img-ea34de32569c305b46f52ca6ce61a43e60e4b29dcda73474f704dda3f35ce557'"
+ },
+ "3c2868c42a61ba3a0d45f55c032bc179b7c7e27a3cc3fd2f518aa9f0e35a5030": {
+  "sha256": "3c2868c42a61ba3a0d45f55c032bc179b7c7e27a3cc3fd2f518aa9f0e35a5030",
+  "found_for": [
+   {
+    "csc": "084679",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/2126267997/2126267997-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 1969,
+  "bytes": 57550,
+  "phash": "e6e46e24656969c9",
+  "dhash": "860e97c5cc5d4151",
+  "dup_group": "3c2868c42a61"
+ },
+ "ca02ba64a40317f61fc1674008ae4c865772e894894a0cf63bbd3cfb57c19c5d": {
+  "sha256": "ca02ba64a40317f61fc1674008ae4c865772e894894a0cf63bbd3cfb57c19c5d",
+  "found_for": [
+   {
+    "csc": "084679",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/2126267997/2126267997-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 24178,
+  "phash": "e6ce6623266666cc",
+  "dhash": "0c0c4d4d4c4d4d4d",
+  "dup_group": "ca02ba64a403"
+ },
+ "d581256a96c259ea1de708681f8fb3a041886d8e9e84143b29e88bc554e58a0c": {
+  "sha256": "d581256a96c259ea1de708681f8fb3a041886d8e9e84143b29e88bc554e58a0c",
+  "found_for": [
+   {
+    "csc": "016098",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://media.liquormax.com/eq4rxnkvcouvc1anfqqhe/096749021178-1.jpg"
+  ],
+  "format": "JPEG",
+  "width": 500,
+  "height": 500,
+  "bytes": 35720,
+  "phash": "e78e8c998d663299",
+  "dhash": "0c0c4d4d4e4d0d0e",
+  "dup_group": "d581256a96c2"
+ },
+ "7792ab4a4349c7c1f1eb8e763c979b2abe9296691bbcbdb2b16ddd15303efea3": {
+  "sha256": "7792ab4a4349c7c1f1eb8e763c979b2abe9296691bbcbdb2b16ddd15303efea3",
+  "found_for": [
+   {
+    "csc": "016098",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://media.liquormax.com/eq4rxnkvcouvc1anfqqhe/lisa-liquor-barn-social-media.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1200,
+  "height": 630,
+  "bytes": 148322,
+  "phash": "84a3fe58a79548f8",
+  "dhash": "e84df7e8aaf1a4a6",
+  "dup_group": "7792ab4a4349"
+ },
+ "73f44a5ec205e004f148ec8a7b5c54d691bcfa7c3974697f550d52e5d34e040c": {
+  "sha256": "73f44a5ec205e004f148ec8a7b5c54d691bcfa7c3974697f550d52e5d34e040c",
+  "found_for": [
+   {
+    "csc": "072382",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "072382",
+    "page": 0,
+    "image": 2
+   },
+   {
+    "csc": "072382",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://ballotinwhiskey.com/cdn/shop/files/Ballotin-Chocolate-Mocha-Cream-750ml-Bottle-Image.png?v=1692042492&width=1920",
+   "https://ballotinwhiskey.com/cdn/shop/files/Ballotin-Chocolate-Mocha-Cream-750ml-Bottle-Image.png?v=1692042492&width=1946",
+   "https://ballotinwhiskey.com/cdn/shop/files/Ballotin-Chocolate-Mocha-Cream-750ml-Bottle-Image.png?v=1692042492&width=1445"
+  ],
+  "format": "WEBP",
+  "width": 700,
+  "height": 1757,
+  "bytes": 114070,
+  "phash": "e2b6b6471c68c8dc",
+  "dhash": "0fcc070955c10303",
+  "dup_group": "73f44a5ec205"
+ },
+ "1180ab1fffeb2a730351474d10245a3637ff07db48d0ec15bbb5b9ccf271f1c2": {
+  "sha256": "1180ab1fffeb2a730351474d10245a3637ff07db48d0ec15bbb5b9ccf271f1c2",
+  "found_for": [
+   {
+    "csc": "072382",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://ballotinwhiskey.com/cdn/shop/t/1/assets/social-share-og-old-fashioned.jpg?v=84926460298862633891706887081"
+  ],
+  "format": "WEBP",
+  "width": 670,
+  "height": 890,
+  "bytes": 85974,
+  "phash": "d595324669bf9a22",
+  "dhash": "94fcf8c2c2c50c18",
+  "dup_group": "1180ab1fffeb"
+ },
+ "7e0ebc444a9af74841906976fd1bae4b71804c8ad38c3840f1dd2ab1f3581fc5": {
+  "sha256": "7e0ebc444a9af74841906976fd1bae4b71804c8ad38c3840f1dd2ab1f3581fc5",
+  "found_for": [
+   {
+    "csc": "078390",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.sugarlands.com/wp-content/uploads/2022/11/whiskey-trail-menu-1024x1024.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1024,
+  "height": 1024,
+  "bytes": 176005,
+  "phash": "8707f9564c6e61aa",
+  "dhash": "e0dccfe6e5dc2fb3",
+  "dup_group": "7e0ebc444a9a"
+ },
+ "5989528a09153be95a59466db03317d4676e48709f1847535e25aaf2ae1c9de4": {
+  "sha256": "5989528a09153be95a59466db03317d4676e48709f1847535e25aaf2ae1c9de4",
+  "found_for": [
+   {
+    "csc": "078390",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.sugarlands.com/wp-content/uploads/2022/11/mega-min-1-1024x1024.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1024,
+  "height": 1024,
+  "bytes": 172151,
+  "phash": "81546462b537b57e",
+  "dhash": "86e178d8dbdbcbce",
+  "dup_group": "5989528a0915"
+ },
+ "286978421e0a04058753a371d7eb9b52502374d7a949536767106c4d4878154f": {
+  "sha256": "286978421e0a04058753a371d7eb9b52502374d7a949536767106c4d4878154f",
+  "found_for": [
+   {
+    "csc": "078390",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.sugarlands.com/wp-content/uploads/2022/11/230502-Gatlinburg-Still-V7-1-1024x1024.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1024,
+  "height": 1024,
+  "bytes": 200895,
+  "phash": "80d97c8e67b33d44",
+  "dhash": "b2b292dbf4baf5b4",
+  "dup_group": "286978421e0a"
+ },
+ "db926562abd1b2880a97811a9e12302bf561f6e687b0662f1cf8150fc33a3cc7": {
+  "sha256": "db926562abd1b2880a97811a9e12302bf561f6e687b0662f1cf8150fc33a3cc7",
+  "found_for": [
+   {
+    "csc": "078390",
+    "page": 0,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.sugarlands.com/wp-content/uploads/2022/11/sdc-events-menu-1024x1024.jpg"
+  ],
+  "format": "JPEG",
+  "width": 1024,
+  "height": 1024,
+  "bytes": 119923,
+  "phash": "f09ecb4d70230bb6",
+  "dhash": "008c4d9e94c28c88",
+  "dup_group": "db926562abd1"
+ },
+ "878d29b312de86ae3d29af9f04e08f7aad61743edbc83b4ad3306623e2472c48": {
+  "sha256": "878d29b312de86ae3d29af9f04e08f7aad61743edbc83b4ad3306623e2472c48",
+  "found_for": [
+   {
+    "csc": "080421",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2023---q2/pa-dutch_pumpkin-spice_750ml_v2.jpg?rev=9e0aff054db54f00912b35016290d2f2"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 54832,
+  "phash": "e68e9b31cc4c9933",
+  "dhash": "4d4d4d060e0e0e06",
+  "dup_group": "878d29b312de"
+ },
+ "34d7a569d926aa7e614cb091c2ce1ccafc147c9277d2208a3de90ecb74bab1a6": {
+  "sha256": "34d7a569d926aa7e614cb091c2ce1ccafc147c9277d2208a3de90ecb74bab1a6",
+  "found_for": [
+   {
+    "csc": "080421",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2023---q2/pa-dutch_pumpkin-spice_750ml_v2.jpg?rev=9e0aff054db54f00912b35016290d2f2&la=en&h=400&w=311&hash=77D5A2D53FBB38695DDBE035E04BB289"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 25420,
+  "phash": "e68e9b31cc4c9933",
+  "dhash": "4d4d4d060e0e0e06",
+  "dup_group": "878d29b312de"
+ },
+ "b18128028ccdb32a71e5a9435d4767a1451a85827300fce2c0a7dfca3d518068": {
+  "sha256": "b18128028ccdb32a71e5a9435d4767a1451a85827300fce2c0a7dfca3d518068",
+  "found_for": [
+   {
+    "csc": "080421",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2023---q2/pa-dutch_pumpkin-spice_750ml_v2.jpg?rev=9e0aff054db54f00912b35016290d2f2&la=en&h=100&w=78&hash=1073E81D2FAE7BA876F2DA60C500F665"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 5963,
+  "phash": "e68e9b31cc4c9933",
+  "dhash": "4d4d4d060e0e0e06",
+  "dup_group": "878d29b312de"
+ },
+ "8a272d99e8359bd1575c95c0e2462744092d37611c63f8e2748dad93fb647900": {
+  "sha256": "8a272d99e8359bd1575c95c0e2462744092d37611c63f8e2748dad93fb647900",
+  "found_for": [
+   {
+    "csc": "080421",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2024/01/7ae20aa-0-0.png"
+  ],
+  "format": "PNG",
+  "width": 185,
+  "height": 645,
+  "bytes": 201504,
+  "phash": "f2a5a432cacf8d34",
+  "dhash": "868e07411d190d49",
+  "dup_group": "8a272d99e835"
+ },
+ "7424b512fe4afc4acbbc8188c6081a5b3e87216ae1d1af125f0a7185a3e88a19": {
+  "sha256": "7424b512fe4afc4acbbc8188c6081a5b3e87216ae1d1af125f0a7185a3e88a19",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2025-october/penelope-f-cancer-bourbon.jpg?rev=64a9368c6b484c7c872040cac3e97196"
+  ],
+  "format": "JPEG",
+  "width": 350,
+  "height": 450,
+  "bytes": 22627,
+  "phash": "e69b99644c339966",
+  "dhash": "0c084d4d4d0d4d4d",
+  "dup_group": "7424b512fe4a"
+ },
+ "6d192e1142d75508531b9b277795956ac9c8d1518930bca21fae5b32724050ad": {
+  "sha256": "6d192e1142d75508531b9b277795956ac9c8d1518930bca21fae5b32724050ad",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2025-october/penelope-f-cancer-bourbon.jpg?rev=64a9368c6b484c7c872040cac3e97196&la=en&h=400&w=311&hash=A8113B24C48576CD50D45734ECCC9A53"
+  ],
+  "format": "JPEG",
+  "width": 311,
+  "height": 400,
+  "bytes": 18620,
+  "phash": "e69b99644c339966",
+  "dhash": "0c084d4d4d0d4d4d",
+  "dup_group": "7424b512fe4a"
+ },
+ "c060445466074eed843be20f8e728d4837e717d06ba246342c351bbfc1125195": {
+  "sha256": "c060445466074eed843be20f8e728d4837e717d06ba246342c351bbfc1125195",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.abc.virginia.gov/library/product-images/2025-october/penelope-f-cancer-bourbon.jpg?rev=64a9368c6b484c7c872040cac3e97196&la=en&h=100&w=78&hash=39758A8C38745617E597B81264F290D7"
+  ],
+  "format": "JPEG",
+  "width": 78,
+  "height": 100,
+  "bytes": 5883,
+  "phash": "e69b99644c339966",
+  "dhash": "0c084d4d4d0d4d4d",
+  "dup_group": "7424b512fe4a"
+ },
+ "9c2bdc9258155b42dac17797f725300a6615839d2a953f89d36506a65e70aff1": {
+  "sha256": "9c2bdc9258155b42dac17797f725300a6615839d2a953f89d36506a65e70aff1",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.letsfcancer.com/wp-content/uploads/2022/07/FC-SocialShare-16-9.png"
+  ],
+  "format": "PNG",
+  "width": 1601,
+  "height": 901,
+  "bytes": 35841,
+  "phash": "919e4ae02f2d6d6a",
+  "dhash": "dcdc1a36b69e9841",
+  "dup_group": "9c2bdc925815"
+ },
+ "557911bcb157652556251085347c88ffe1ec2cd21cacc707107c81914401052a": {
+  "sha256": "557911bcb157652556251085347c88ffe1ec2cd21cacc707107c81914401052a",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.letsfcancer.com/wp-content/uploads/2026/09/Penelope-Bourbon-Fundraiser-Banner-AltBottles-v2.png"
+  ],
+  "format": "PNG",
+  "width": 1500,
+  "height": 1541,
+  "bytes": 937451,
+  "phash": "fa81857e2709c5dc",
+  "dhash": "696969696969694d",
+  "dup_group": "557911bcb157"
+ },
+ "2f3470cfa44e17b0f8570d9f5c7ab6d005f13454fa925a28cda449b2488b5384": {
+  "sha256": "2f3470cfa44e17b0f8570d9f5c7ab6d005f13454fa925a28cda449b2488b5384",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://www.letsfcancer.com/wp-content/uploads/2026/09/Penelope-Bourbon-product.jpg"
+  ],
+  "format": "JPEG",
+  "width": 579,
+  "height": 568,
+  "bytes": 127505,
+  "phash": "8a7f7f80458175aa",
+  "dhash": "55555555d5d55555",
+  "dup_group": "2f3470cfa44e"
+ },
+ "50f02e5eb2ae98807602ccac67100f0b0b70d2d98a57823dbe2afd8ed75ce5bf": {
+  "sha256": "50f02e5eb2ae98807602ccac67100f0b0b70d2d98a57823dbe2afd8ed75ce5bf",
+  "found_for": [
+   {
+    "csc": "021050",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://www.letsfcancer.com/wp-content/uploads/2025/08/people-v2.jpg"
+  ],
+  "format": "JPEG",
+  "width": 563,
+  "height": 553,
+  "bytes": 82031,
+  "phash": "ec0757e3863850f9",
+  "dhash": "684292a5e7871724",
+  "dup_group": "50f02e5eb2ae"
+ },
+ "68ba2b99c386f582bcc08101fa0eb773cba46b36b510940665e3de7e1bb1ad1d": {
+  "sha256": "68ba2b99c386f582bcc08101fa0eb773cba46b36b510940665e3de7e1bb1ad1d",
+  "found_for": [
+   {
+    "csc": "022085",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/490x/images/2126275740/2126275740-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 490,
+  "height": 2218,
+  "bytes": 70202,
+  "phash": "f0b1f135422c6acf",
+  "dhash": "9e1e11018d8f37c1",
+  "dup_group": "68ba2b99c386"
+ },
+ "914be8847cc04b55c8c1d4e7d1f301d50d3c5db8e90db0931d1acd10e4226b86": {
+  "sha256": "914be8847cc04b55c8c1d4e7d1f301d50d3c5db8e90db0931d1acd10e4226b86",
+  "found_for": [
+   {
+    "csc": "022085",
+    "page": 1,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://www.totalwine.com/dynamic/x1000,sq/images/2126275740/2126275740-1-fr.png"
+  ],
+  "format": "WEBP",
+  "width": 1000,
+  "height": 1000,
+  "bytes": 28366,
+  "phash": "a69bcc336633668c",
+  "dhash": "0c084d4d4d4d4d4d",
+  "dup_group": "914be8847cc0"
+ },
+ "de906ea38d75d5eb99e83131f1b6c2d41d11ca64a8c114c1fdde2b34798e338b": {
+  "sha256": "de906ea38d75d5eb99e83131f1b6c2d41d11ca64a8c114c1fdde2b34798e338b",
+  "found_for": [
+   {
+    "csc": "015379",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "015379",
+    "page": 0,
+    "image": 1
+   },
+   {
+    "csc": "015379",
+    "page": 0,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://woodencork.com/cdn/shop/products/gold-spot-9-year.png?v=1677291526&width=1920",
+   "http://woodencork.com/cdn/shop/products/gold-spot-9-year.png?v=1677291526",
+   "https://woodencork.com/cdn/shop/products/gold-spot-9-year.png?v=1677291526&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 732,
+  "height": 732,
+  "bytes": 49186,
+  "phash": "b1c939c3c732cec4",
+  "dhash": "9696960e0e0e1e9e",
+  "dup_group": "de906ea38d75"
+ },
+ "a67b29cbc7ba43d9b06d4a49da5de606ccc774ddd7cc671ea4246b890285767e": {
+  "sha256": "a67b29cbc7ba43d9b06d4a49da5de606ccc774ddd7cc671ea4246b890285767e",
+  "found_for": [
+   {
+    "csc": "015379",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "015379",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "015379",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://woodencork.com/cdn/shop/files/080432001677.jpg?v=1732052959&width=1920",
+   "http://woodencork.com/cdn/shop/files/080432001677.jpg?v=1732052959",
+   "https://woodencork.com/cdn/shop/files/080432001677.jpg?v=1732052959&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 750,
+  "height": 750,
+  "bytes": 19400,
+  "phash": "b2c673669c31cccc",
+  "dhash": "4d4d4d1c0c0c4d4d",
+  "dup_group": "a67b29cbc7ba"
+ },
+ "7c1ad71ded79c30772c15cf1939c22033be4ad382223fcaf420f15f70dac9c34": {
+  "sha256": "7c1ad71ded79c30772c15cf1939c22033be4ad382223fcaf420f15f70dac9c34",
+  "found_for": [
+   {
+    "csc": "015379",
+    "page": 1,
+    "image": 3
+   }
+  ],
+  "urls": [
+   "https://woodencork.com/cdn/shop/files/image001-5.png?v=1732052962&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 610,
+  "height": 610,
+  "bytes": 24848,
+  "phash": "bf2ed0f4c0988799",
+  "dhash": "0e2f6b53530f3b9e",
+  "dup_group": "7c1ad71ded79"
+ },
+ "8f79b256f24b3d1ff3576a66a7a4d8b55300871bdf1bc09e211829df8276ce1d": {
+  "sha256": "8f79b256f24b3d1ff3576a66a7a4d8b55300871bdf1bc09e211829df8276ce1d",
+  "found_for": [
+   {
+    "csc": "075050",
+    "page": 0,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://mexcream.com/wp-content/uploads/2023/07/mex-mango-botella-frontal-ecoomerce.png"
+  ],
+  "format": "PNG",
+  "width": 1030,
+  "height": 1030,
+  "bytes": 146831,
+  "phash": "e699993266669999",
+  "dhash": "0c080c4d4d4d0d0d",
+  "dup_group": "8f79b256f24b"
+ },
+ "a8f07ba79c0779d4f86a917ec154ef508c50fb739cf7e756e72e56df5c21cf66": {
+  "sha256": "a8f07ba79c0779d4f86a917ec154ef508c50fb739cf7e756e72e56df5c21cf66",
+  "found_for": [
+   {
+    "csc": "075050",
+    "page": 1,
+    "image": 0
+   }
+  ],
+  "urls": [
+   "https://www.saratogawine.com/wp-content/uploads/2024/01/cropped-SW-social-avatar.png"
+  ],
+  "format": "PNG",
+  "width": 512,
+  "height": 512,
+  "bytes": 31131,
+  "phash": "c4373fc8c437d2c8",
+  "dhash": "4009d0c6c4a55a80",
+  "dup_group": "a8f07ba79c07"
+ },
+ "7be55e2c2955b89f52cd1f9198df63cb9825fd7c7e8390f612f79ffc1ab13dcd": {
+  "sha256": "7be55e2c2955b89f52cd1f9198df63cb9825fd7c7e8390f612f79ffc1ab13dcd",
+  "found_for": [
+   {
+    "csc": "065735",
+    "page": 0,
+    "image": 0
+   },
+   {
+    "csc": "065735",
+    "page": 0,
+    "image": 1
+   }
+  ],
+  "urls": [
+   "https://theliquorbarn.com/cdn/shop/files/MalibuPinkRum750ML.webp?v=1768615490&width=1920",
+   "http://theliquorbarn.com/cdn/shop/files/MalibuPinkRum750ML.webp?crop=center&height=1200&v=1768615490&width=1200"
+  ],
+  "format": "WEBP",
+  "width": 562,
+  "height": 562,
+  "bytes": 9004,
+  "phash": "e6999b646631996c",
+  "dhash": "0c0d0c4d4d4d4d4d",
+  "dup_group": "7be55e2c2955"
+ },
+ "df1ccf723e181b9bd64625297e5434709a7dcfc244c4f0b878ca2ee8ece474e3": {
+  "sha256": "df1ccf723e181b9bd64625297e5434709a7dcfc244c4f0b878ca2ee8ece474e3",
+  "found_for": [
+   {
+    "csc": "065735",
+    "page": 1,
+    "image": 0
+   },
+   {
+    "csc": "065735",
+    "page": 1,
+    "image": 1
+   },
+   {
+    "csc": "065735",
+    "page": 1,
+    "image": 2
+   }
+  ],
+  "urls": [
+   "https://woodencork.com/cdn/shop/files/MalibuPinkRumLiqueur750mL.webp?v=1769613523&width=1920",
+   "http://woodencork.com/cdn/shop/files/MalibuPinkRumLiqueur750mL.webp?v=1769613523",
+   "https://woodencork.com/cdn/shop/files/MalibuPinkRumLiqueur750mL.webp?v=1769613523&width=1080"
+  ],
+  "format": "WEBP",
+  "width": 700,
+  "height": 800,
+  "bytes": 22030,
+  "phash": "e69b936466339964",
+  "dhash": "4d0c4c4d0c0c4c4d",
+  "dup_group": "7424b512fe4a"
+ }
+}
