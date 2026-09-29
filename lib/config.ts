@@ -51,10 +51,12 @@ export function isFreshStoreCheck(checkedAt: Date | string | null | undefined, n
  * from the catalog pass (3×/day, catalog.yml); store-by-store counts for
  * watched bottles from every store pass (every 4h, store-inventory.yml,
  * usually started ~2h late by GitHub), with a reserved share of each run.
- * The copy stays conservative until report.yml → freshness confirms more. Check against report.yml → freshness.
+ * Measured 2026-09-25..29 (report.yml → freshness): watched bottles re-checked
+ * at every store run, runs usually 4–6h apart (max 6.7h once the store job
+ * sized runs by elapsed time), 38/38 within the 12h target at every check. Check against report.yml → freshness.
  */
 export const WATCH_REFRESH_NOTE =
-  "We check statewide stock about 3 times a day, and store-by-store stock for watched bottles about twice a day.";
+  "We check statewide stock about 3 times a day, and store-by-store stock for watched bottles several times a day (usually every 4 to 6 hours).";
 
 /** Watchlisted SKUs get scrape priority, so keep one account from hogging it. */
 export const MAX_WATCHLIST = 50;

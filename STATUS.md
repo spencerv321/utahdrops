@@ -133,12 +133,18 @@ scheduled workflows are enabled; `/api/health` is green.
   home vs page, "Was this useful?").
 
 ### Open items (next session: pick these up)
-- **Verify the new store schedule** with `report.yml` → `freshness`
-  (Claude check-ins scheduled Sep 25, 26, 27 and 29; if this session is gone,
-  run it by hand). Pass = no killed runs, `stopped_early` rare, watched on
-  target except DABS-500 SKUs, never/>7d buckets ~0 by Sep 27–28.
-- If it passes, change `WATCH_REFRESH_NOTE` (`lib/config.ts`) and the digest
-  footer from "about twice a day" to the measured frequency.
+- **Store schedule verified (2026-09-25..29, PRs #34, #37, #38, this PR).**
+  GitHub fires only part of the frequent triggers here (hourly ~⅓, 2–3-hourly
+  ~½; 3×/day reliable), so the store job now starts from its cron *and* when
+  catalog/health/cron finish, skips if a success began < 3.5h ago, and sizes
+  each run by elapsed time. Sep 27–29: every run succeeded, real runs every
+  ~4–7h (392–674 SKUs, 15–25 min), 2.36 s/SKU, 0.4% failures, none killed or
+  stopped early. Watched 38/38 within 12h at every check. In-stock: 0 past
+  the 7-day cutoff (was 1,831), 96% within 3 days; the 211 at 3–7 days were
+  ordinary bottles behind the allocated/limited head start, so the rate went
+  100 → 120 SKUs/hour (~2.3-day cycle). Copy now says watched bottles are
+  checked "usually every 4 to 6 hours". Re-check `freshness` after Oct 1:
+  expect ~100% within 3 days.
 - Re-run `report.yml` → `discover` after Sep 28 (store rotation caught up) and
   after Oct 23 (Back view can first appear); check /admin → Discovery weekly.
 - **Owner test** (2026-09-24, partial): the request and confirm email worked,

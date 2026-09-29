@@ -63,7 +63,10 @@ export function storeCapacity(c: CapacityInput): CapacityResult {
  * how many runs happen: ~STORE_SKUS_PER_HOUR × hours, capped so one run
  * stays well inside the job timeout at the 1.1 s DABS pacing (~2.3 s/SKU).
  */
-export const STORE_SKUS_PER_HOUR = 100;
+// 120/h (~2,900/day), up from 100 on 2026-09-29: at 100/h the allocated /
+// limited head start left ordinary bottles on a ~2.8-day cycle (96% within
+// 3 days, 211 at 3–7 days); 120/h gives ~2.3 days with the head start kept.
+export const STORE_SKUS_PER_HOUR = 120;
 export const STORE_RUN_MIN = 100;
 export const STORE_RUN_MAX = 1500;
 
