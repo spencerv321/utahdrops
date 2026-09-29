@@ -1,0 +1,2771 @@
+{
+ "275090": {
+  "csc": "275090",
+  "fetched_at": "2026-09-29T17:46:01.060Z",
+  "http_status": 200,
+  "page_bytes": 160015,
+  "page_name": "CHAT D'ESCLANS WHISPERING ANGEL 2025 75",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 58535,
+  "sha256": "f162794b5295d2120357253ab1cc81dacc48f3da03be4b5292318443ed8b2db1",
+  "file": "dabs-f162794b5295d2120357253ab1cc81dacc48f3da03be4b5292318443ed8b2db1.png",
+  "alt": "Product bottle or can",
+  "width": 140,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e6a6e66638c1999a",
+  "dhash": "464d4e932f230313",
+  "edge_variance": 2089.0,
+  "nearest_external_any": [
+   {
+    "sha256": "49c7864de6c6325055d427e75ed55e536270728e3d972ad97d5f5f322e66b9d3",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "728795"
+    ]
+   },
+   {
+    "sha256": "96e82c7e3337df64a304d077b4b032bd21fd8b1cd9cc6d5b79c5adb0bda50001",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "031474",
+     "031474"
+    ]
+   },
+   {
+    "sha256": "73f44a5ec205e004f148ec8a7b5c54d691bcfa7c3974697f550d52e5d34e040c",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "072382",
+     "072382",
+     "072382"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "389093c5b78d008cd07ff6407179eef803d3320890d292b9680065197c5c9dea",
+    "distance": 28
+   },
+   {
+    "sha256": "3aea9779b307496d7ea645a567d19155660b83cff9b29d024dcd9a14d6061af5",
+    "distance": 30
+   },
+   {
+    "sha256": "ff1853aff00b5d059422732c63aa8aec39f1fa9e88aef00d1dd17f21904bff00",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "346003": {
+  "csc": "346003",
+  "fetched_at": "2026-09-29T17:45:13.263Z",
+  "http_status": 200,
+  "page_bytes": 88491,
+  "page_name": "GUADO AL TASSO IL BRUCIATO BOLGHERI750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 42740,
+  "sha256": "c4ad3c5095bf1633165935a7c42c1970530c4d6d776f9f6f0726e3b22a490e57",
+  "file": "dabs-c4ad3c5095bf1633165935a7c42c1970530c4d6d776f9f6f0726e3b22a490e57.png",
+  "alt": "Product bottle or can",
+  "width": 118,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "eaa7e79689689981",
+  "dhash": "0f0c0f233f3b230b",
+  "edge_variance": 3014.9,
+  "nearest_external_any": [
+   {
+    "sha256": "bd06328c47d2c4db28138d610d141c3f65eab08849027bec2723cc3be68d238e",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "737346",
+     "932298",
+     "080421"
+    ]
+   },
+   {
+    "sha256": "ac7841a4fb9e1ee4022262ab44484da77f8c30a3b7140a833d33d16d02d3b967",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "017039"
+    ]
+   },
+   {
+    "sha256": "8a8dd8660243d382caeae9e062620bf2424d728460aa0107d382e0086d9b7921",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "017039"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "a9133ca9d717c113f0640549fd0eee6b261e43236c8710fec2cd211b9388cd31",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "407766": {
+  "csc": "407766",
+  "fetched_at": "2026-09-29T17:45:54.436Z",
+  "http_status": 200,
+  "page_bytes": 164150,
+  "page_name": "KIM CRAWFORD SAUVIGNON BLANC 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 61049,
+  "sha256": "77ad39cb7fffb2e4194e97cdb64ce018de7abde0460138ad1b023ad952eb836a",
+  "file": "dabs-77ad39cb7fffb2e4194e97cdb64ce018de7abde0460138ad1b023ad952eb836a.png",
+  "alt": "Product bottle or can",
+  "width": 113,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "efb0f34b2d4c9049",
+  "dhash": "0d4d8627634b6307",
+  "edge_variance": 3386.8,
+  "nearest_external_any": [
+   {
+    "sha256": "150298c6a1dbdc75725acac40b64a056342d8f6b9c61342e7ba6c07ab30e5081",
+    "distance": 10,
+    "same_csc": true,
+    "found_for": [
+     "407766"
+    ]
+   },
+   {
+    "sha256": "03acfb092a7963eedf74fab892e85404e4c8fed5be311f3c86bd1e63fbf06fca",
+    "distance": 10,
+    "same_csc": true,
+    "found_for": [
+     "407766",
+     "407766"
+    ]
+   },
+   {
+    "sha256": "1eef74a5be17ef2d07b74a735f0e4f81499cb4bb6d0d2a8f2509b41b72642328",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "910850"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "03acfb092a7963eedf74fab892e85404e4c8fed5be311f3c86bd1e63fbf06fca",
+    "distance": 10
+   },
+   {
+    "sha256": "150298c6a1dbdc75725acac40b64a056342d8f6b9c61342e7ba6c07ab30e5081",
+    "distance": 10
+   },
+   {
+    "sha256": "063701d0ef4cb925ce5f0427abe1ae8ef43089bba46f5a81686e87a5924fcd71",
+    "distance": 18
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "418330": {
+  "csc": "418330",
+  "fetched_at": "2026-09-29T17:46:09.892Z",
+  "http_status": 200,
+  "page_bytes": 173351,
+  "page_name": "MATUA SAUVIGNON BLANC 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 66629,
+  "sha256": "8ca17e078b6a3e9b84a0a12c346dc254128b92a0344b11028e89e1403e5a9245",
+  "file": "dabs-8ca17e078b6a3e9b84a0a12c346dc254128b92a0344b11028e89e1403e5a9245.png",
+  "alt": "Product bottle or can",
+  "width": 316,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e699666699661999",
+  "dhash": "2d2d0c0c0c0d0d0d",
+  "edge_variance": 1473.8,
+  "nearest_external_any": [
+   {
+    "sha256": "16fe05933b0f5fb8a063462127714d6229dbc428039e3cd3a0b4f067406d6f80",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "026828"
+    ]
+   },
+   {
+    "sha256": "96e82c7e3337df64a304d077b4b032bd21fd8b1cd9cc6d5b79c5adb0bda50001",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "031474",
+     "031474"
+    ]
+   },
+   {
+    "sha256": "d286c9f1868ea5b0c414a303181c841ccd5fb2386a9f3154d5c4d6ce26657e58",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "407766"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "443950": {
+  "csc": "443950",
+  "fetched_at": "2026-09-29T17:46:14.284Z",
+  "http_status": 200,
+  "page_bytes": 160583,
+  "page_name": "MEIOMI PINOT NOIR 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 57853,
+  "sha256": "4cb2f25801bc36932aca2d302c179160622776797baf55052062375049480ab9",
+  "file": "dabs-4cb2f25801bc36932aca2d302c179160622776797baf55052062375049480ab9.png",
+  "alt": "Product bottle or can",
+  "width": 103,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b4f1c1867ea96951",
+  "dhash": "8e8e1e3f75be8e3e",
+  "edge_variance": 3720.8,
+  "nearest_external_any": [
+   {
+    "sha256": "5365aadca6f056a9d3ead0ce5fda6f54e3489c715190850bafaa4171097e5dc3",
+    "distance": 8,
+    "same_csc": true,
+    "found_for": [
+     "443950"
+    ]
+   },
+   {
+    "sha256": "6187489820134a53c704095c6383694267aba8170b23b9a1596a02625333508e",
+    "distance": 12,
+    "same_csc": false,
+    "found_for": [
+     "478071"
+    ]
+   },
+   {
+    "sha256": "4233f6f1896360b0ff31357980b0685d1797b781df9f22cd170b810b6ad16ca4",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "011298",
+     "011298",
+     "011298"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "5365aadca6f056a9d3ead0ce5fda6f54e3489c715190850bafaa4171097e5dc3",
+    "distance": 8
+   },
+   {
+    "sha256": "1e6dd429d2a82ee877d4d0b2fbf67092f210b1f116d322be717ee6fd8bcdf770",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "478071": {
+  "csc": "478071",
+  "fetched_at": "2026-09-29T17:44:57.014Z",
+  "http_status": 200,
+  "page_bytes": 96390,
+  "page_name": "JOEL GOTT CA PINOT NOIR 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 35801,
+  "sha256": "871455163a12aeb1d3ba9cd1613392c3fea16b590a86ddaae634d780a4225b0a",
+  "file": "dabs-871455163a12aeb1d3ba9cd1613392c3fea16b590a86ddaae634d780a4225b0a.png",
+  "alt": "Product bottle or can",
+  "width": 127,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "f267879e78892127",
+  "dhash": "4e4e8e0f2d3d6d2f",
+  "edge_variance": 3661.2,
+  "nearest_external_any": [
+   {
+    "sha256": "6187489820134a53c704095c6383694267aba8170b23b9a1596a02625333508e",
+    "distance": 18,
+    "same_csc": true,
+    "found_for": [
+     "478071"
+    ]
+   },
+   {
+    "sha256": "4233f6f1896360b0ff31357980b0685d1797b781df9f22cd170b810b6ad16ca4",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "011298",
+     "011298",
+     "011298"
+    ]
+   },
+   {
+    "sha256": "5365aadca6f056a9d3ead0ce5fda6f54e3489c715190850bafaa4171097e5dc3",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "443950"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "6187489820134a53c704095c6383694267aba8170b23b9a1596a02625333508e",
+    "distance": 18
+   },
+   {
+    "sha256": "630710a51186dfdb615983cd0e343f3a8ad876e9a02222b41d36c33e9c269283",
+    "distance": 34
+   },
+   {
+    "sha256": "3730a8f6c25faa6c621ea6e71f7d43e26a653d47dea5043bc94323a7e2215e0c",
+    "distance": 38
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "547123": {
+  "csc": "547123",
+  "fetched_at": "2026-09-29T17:46:07.697Z",
+  "http_status": 200,
+  "page_bytes": 203056,
+  "page_name": "BLACK BOX CHARDONNAY 3000ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 86108,
+  "sha256": "40c84db5633a062e62dfe8c30b68feab9b7c7d9d07895e4d764587584644aa68",
+  "file": "dabs-40c84db5633a062e62dfe8c30b68feab9b7c7d9d07895e4d764587584644aa68.png",
+  "alt": "Product bottle or can",
+  "width": 189,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "a0b23a54698b3b3f",
+  "dhash": "8c8cccd4d4d4d44d",
+  "edge_variance": 2862.5,
+  "nearest_external_any": [
+   {
+    "sha256": "0116c93dea4ecec7783fc667a91b9c1f76ffa7b8551bce0b3208dcc7158233d1",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "018604"
+    ]
+   },
+   {
+    "sha256": "242fb0cb39fa4965e635ac07e151d00b91847aea40c488f77725afa0f0184132",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "915138"
+    ]
+   },
+   {
+    "sha256": "41dc002addf537e3a6e3cceb47d235bab5c7e3ebff8e7f894243cb3f1608f970",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "915138"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "d0cfea816e5e9fbf18cd6dfe05a29a92058f4501dea55327713cced595e130f6",
+    "distance": 38
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "560305": {
+  "csc": "560305",
+  "fetched_at": "2026-09-29T17:46:05.456Z",
+  "http_status": 200,
+  "page_bytes": 166452,
+  "page_name": "SONOMA CUTRER CHARDONNAY RR 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 62663,
+  "sha256": "9318957c367f24c60d63db46cb6d23d356ac8a99b5f8b0282388a9b8ae611234",
+  "file": "dabs-9318957c367f24c60d63db46cb6d23d356ac8a99b5f8b0282388a9b8ae611234.png",
+  "alt": "Product bottle or can",
+  "width": 101,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "eaa594d04bad2de4",
+  "dhash": "0e8e070b8d8f0f0d",
+  "edge_variance": 3503.1,
+  "nearest_external_any": [
+   {
+    "sha256": "cdb313d3406f0210c7cbfa782664fb5b9b474c8d4a3281daa88c3ca0a66cdc22",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "275090"
+    ]
+   },
+   {
+    "sha256": "a1dffaaba552e4d730fd6b90e00becc3775b194e5d1ae5b4ebf1503ff8360a16",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "024746"
+    ]
+   },
+   {
+    "sha256": "8a272d99e8359bd1575c95c0e2462744092d37611c63f8e2748dad93fb647900",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "080421"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "a780a5df681e951d25e3239896ba8bee53e230f7dce897001df19b7742486fc0",
+    "distance": 26
+   },
+   {
+    "sha256": "f156cf247ff430ac48655f853f9d463aa6aad1f06ba15c251452607a62651103",
+    "distance": 26
+   },
+   {
+    "sha256": "68269b0b768d86d0cf5d86fcab6eb5b9e6e81c244cdd536c4caf3baa9d515026",
+    "distance": 26
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "561015": {
+  "csc": "561015",
+  "fetched_at": "2026-09-29T17:46:03.275Z",
+  "http_status": 200,
+  "page_bytes": 77406,
+  "page_name": "BOTA BOX PINOT GRIGIO 3000ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "561022": {
+  "csc": "561022",
+  "fetched_at": "2026-09-29T17:46:12.095Z",
+  "http_status": 200,
+  "page_bytes": 69366,
+  "page_name": "BOTA BOX SAUVIGNON BLANC 3000ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "566375": {
+  "csc": "566375",
+  "fetched_at": "2026-09-29T17:46:16.509Z",
+  "http_status": 200,
+  "page_bytes": 76299,
+  "page_name": "FRANZIA CRISP WHITE HOUSE WINE 5000ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "633870": {
+  "csc": "633870",
+  "fetched_at": "2026-09-29T17:47:16.136Z",
+  "http_status": 200,
+  "page_bytes": 50212,
+  "page_name": "VAMPIRE CHARDONNAY W/CAPES 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "704050": {
+  "csc": "704050",
+  "fetched_at": "2026-09-29T17:45:56.638Z",
+  "http_status": 200,
+  "page_bytes": 151569,
+  "page_name": "VEUVE CLICQUOT BRUT YELLOW LABEL 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 53185,
+  "sha256": "f41997f7ca8009f0bb7b84c3f5c41ea53d04e46864aa07c17751698fac0475ad",
+  "file": "dabs-f41997f7ca8009f0bb7b84c3f5c41ea53d04e46864aa07c17751698fac0475ad.png",
+  "alt": "Product bottle or can",
+  "width": 139,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "ef90924b6d9470cb",
+  "dhash": "0d4d8e0e0b0b2f0f",
+  "edge_variance": 3490.2,
+  "nearest_external_any": [
+   {
+    "sha256": "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e",
+    "distance": 12,
+    "same_csc": false,
+    "found_for": [
+     "728795"
+    ]
+   },
+   {
+    "sha256": "9f4a7e4149de1b28863c33d7a670500b25415c0e95f717c31b8ec4cd530426f3",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "737346"
+    ]
+   },
+   {
+    "sha256": "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "065127"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "74060ad2602da7db87d88e2f738e3205770d5f2ac2dceab870000e672f8d9c13",
+    "distance": 24
+   },
+   {
+    "sha256": "ef8d74a18e1b380ffdca810a1abe79c1285ecc935f61dfe941cf0664702ce758",
+    "distance": 30
+   },
+   {
+    "sha256": "3b79202420ca437959bb4bca3a912479c5f37b9210c5b0650597c37877dbbfc2",
+    "distance": 30
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "728795": {
+  "csc": "728795",
+  "fetched_at": "2026-09-29T17:45:52.207Z",
+  "http_status": 200,
+  "page_bytes": 164232,
+  "page_name": "LAMARCA PROSECCO 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 60531,
+  "sha256": "0bea9b06eea051b3602defbb404ab7487225dc030dc9ef721f5d2b5208425d9d",
+  "file": "dabs-0bea9b06eea051b3602defbb404ab7487225dc030dc9ef721f5d2b5208425d9d.png",
+  "alt": "Product bottle or can",
+  "width": 130,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "eea4965b6984674a",
+  "dhash": "4e4d0e0f0b4d690b",
+  "edge_variance": 3201.8,
+  "nearest_external_any": [
+   {
+    "sha256": "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "065127"
+    ]
+   },
+   {
+    "sha256": "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e",
+    "distance": 14,
+    "same_csc": true,
+    "found_for": [
+     "728795"
+    ]
+   },
+   {
+    "sha256": "37d4e46ddff4a822230740fab8917f7c956354f90f0d7ad7a2f560a31216fd41",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "016850"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e",
+    "distance": 14
+   },
+   {
+    "sha256": "49c7864de6c6325055d427e75ed55e536270728e3d972ad97d5f5f322e66b9d3",
+    "distance": 24
+   },
+   {
+    "sha256": "9d1a452173b5bbddce4a74e4d7df2450d4b879bda28dd12fc0ab8c1a7ad50c73",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "737346": {
+  "csc": "737346",
+  "fetched_at": "2026-09-29T17:45:58.846Z",
+  "http_status": 200,
+  "page_bytes": 118099,
+  "page_name": "ZONIN PROSECCO 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 28160,
+  "sha256": "df422f4c82b666d27364913d5f75529cd8e4fc339491f78e881c1453184276ed",
+  "file": "dabs-df422f4c82b666d27364913d5f75529cd8e4fc339491f78e881c1453184276ed.png",
+  "alt": "Product bottle or can",
+  "width": 105,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "bac3c53ec161964e",
+  "dhash": "0c0f4d8e3f2d2f06",
+  "edge_variance": 3791.1,
+  "nearest_external_any": [
+   {
+    "sha256": "774f5a426b7a9c3d388df4ead9ef7a9d5fa57fc19db0c9dbf4b46489daf3f58f",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "016434"
+    ]
+   },
+   {
+    "sha256": "3bdd326c1c250610295ef6646af3b30af8fbc0e46df0253c4f11e665e7b5484f",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "016434"
+    ]
+   },
+   {
+    "sha256": "673ab9613eb4fe8207e50d923aca54ca7a52529a0a0290ba7a024555562b2329",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "016434"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "9d0b11281d2194cbd1a5398f57bd6619d2b552451dff4d954b781b8c32c82a0d",
+    "distance": 22
+   },
+   {
+    "sha256": "9f4a7e4149de1b28863c33d7a670500b25415c0e95f717c31b8ec4cd530426f3",
+    "distance": 30
+   },
+   {
+    "sha256": "15307398f46af3cb149305c8f47b3d230a8188f82f4d7e64e98efdb70cc4d1f2",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "900286": {
+  "csc": "900286",
+  "fetched_at": "2026-09-29T17:46:25.337Z",
+  "http_status": 200,
+  "page_bytes": 167891,
+  "page_name": "EPIC CHASING GHOSTS HAZY DIPA CANS 473ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 63450,
+  "sha256": "2f74803191bb57add189089dde7d7e545b097504d28d19c02ce870feab2d8c9d",
+  "file": "dabs-2f74803191bb57add189089dde7d7e545b097504d28d19c02ce870feab2d8c9d.png",
+  "alt": "Product bottle or can",
+  "width": 346,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e6ce993099669933",
+  "dhash": "0c0e0e0e8e0e0e0c",
+  "edge_variance": 2096.6,
+  "nearest_external_any": [
+   {
+    "sha256": "bdec755d8fb76b788d626e82fd29055c3b9b425bbe68dae8e94a911e66b7c435",
+    "distance": 2,
+    "same_csc": true,
+    "found_for": [
+     "900286"
+    ]
+   },
+   {
+    "sha256": "878d29b312de86ae3d29af9f04e08f7aad61743edbc83b4ad3306623e2472c48",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "080421"
+    ]
+   },
+   {
+    "sha256": "34d7a569d926aa7e614cb091c2ce1ccafc147c9277d2208a3de90ecb74bab1a6",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "080421"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "bdec755d8fb76b788d626e82fd29055c3b9b425bbe68dae8e94a911e66b7c435",
+    "distance": 2
+   },
+   {
+    "sha256": "fd24de25e698cbdab97da858b92e9b84c0ce67497c65cdf6d8c7a3b88cd9b906",
+    "distance": 20
+   },
+   {
+    "sha256": "2f16faeec0e165a1ece1fc0e228e974bc1b0c163d53d6fb8e953b30b9a70d875",
+    "distance": 30
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "900358": {
+  "csc": "900358",
+  "fetched_at": "2026-09-29T17:47:22.771Z",
+  "http_status": 200,
+  "page_bytes": 19751,
+  "page_name": "ROOSTERS SEASONAL CAN 355 m",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "908033": {
+  "csc": "908033",
+  "fetched_at": "2026-09-29T17:47:53.702Z",
+  "http_status": 200,
+  "page_bytes": 116950,
+  "page_name": "SOKOL BLOSSER EVOLUTION PN 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 52721,
+  "sha256": "13232000e5267c6dfa626d64fc003abad67666c9e1049ba062ee9b20d72cabc1",
+  "file": "dabs-13232000e5267c6dfa626d64fc003abad67666c9e1049ba062ee9b20d72cabc1.png",
+  "alt": "Product bottle or can",
+  "width": 102,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e2a596527a8b6d94",
+  "dhash": "0e8e07030d191519",
+  "edge_variance": 4518.1,
+  "nearest_external_any": [
+   {
+    "sha256": "cdb313d3406f0210c7cbfa782664fb5b9b474c8d4a3281daa88c3ca0a66cdc22",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "275090"
+    ]
+   },
+   {
+    "sha256": "8a272d99e8359bd1575c95c0e2462744092d37611c63f8e2748dad93fb647900",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "080421"
+    ]
+   },
+   {
+    "sha256": "542f8ffa094a7405ff2ee39360021dbf284db9b69b7829865e449b5c5ce1282e",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "915138"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "910850": {
+  "csc": "910850",
+  "fetched_at": "2026-09-29T17:44:43.777Z",
+  "http_status": 200,
+  "page_bytes": 90673,
+  "page_name": "TURLEY ZINFANDEL KIRSCHENMANN'23",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 44554,
+  "sha256": "7f18e3d709fc055da75321a5e01bf1da02d57754745426f22793d7fdc1df76e0",
+  "file": "dabs-7f18e3d709fc055da75321a5e01bf1da02d57754745426f22793d7fdc1df76e0.png",
+  "alt": "Product bottle or can",
+  "width": 110,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b2b0d20befecd083",
+  "dhash": "8f0d8e0f494d4d4d",
+  "edge_variance": 3139.0,
+  "nearest_external_any": [
+   {
+    "sha256": "1eef74a5be17ef2d07b74a735f0e4f81499cb4bb6d0d2a8f2509b41b72642328",
+    "distance": 12,
+    "same_csc": true,
+    "found_for": [
+     "910850"
+    ]
+   },
+   {
+    "sha256": "44649800f5850855dbd000d4e477ca5eb9cc4bbc20b761c3510b9a411bea2fce",
+    "distance": 14,
+    "same_csc": true,
+    "found_for": [
+     "910850"
+    ]
+   },
+   {
+    "sha256": "9f4a7e4149de1b28863c33d7a670500b25415c0e95f717c31b8ec4cd530426f3",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "737346"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "1eef74a5be17ef2d07b74a735f0e4f81499cb4bb6d0d2a8f2509b41b72642328",
+    "distance": 12
+   },
+   {
+    "sha256": "44649800f5850855dbd000d4e477ca5eb9cc4bbc20b761c3510b9a411bea2fce",
+    "distance": 14
+   },
+   {
+    "sha256": "baa9cfc2cccc7c863f63aeb75d4ff1cbff3e8dcc9e89dd67076a53118b2193c0",
+    "distance": 28
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "915138": {
+  "csc": "915138",
+  "fetched_at": "2026-09-29T17:47:55.930Z",
+  "http_status": 200,
+  "page_bytes": 105313,
+  "page_name": "SPOTTSWOODE SAUV BLANC'25 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 53254,
+  "sha256": "187436fa2971afe8c53f97ae8a49aa5d9ee5179d54c6c730c7b5fe8d6a7af688",
+  "file": "dabs-187436fa2971afe8c53f97ae8a49aa5d9ee5179d54c6c730c7b5fe8d6a7af688.png",
+  "alt": "Product bottle or can",
+  "width": 90,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "a4b466e063975b39",
+  "dhash": "8e063bcc9e86cc43",
+  "edge_variance": 4414.3,
+  "nearest_external_any": [
+   {
+    "sha256": "242fb0cb39fa4965e635ac07e151d00b91847aea40c488f77725afa0f0184132",
+    "distance": 8,
+    "same_csc": true,
+    "found_for": [
+     "915138"
+    ]
+   },
+   {
+    "sha256": "41dc002addf537e3a6e3cceb47d235bab5c7e3ebff8e7f894243cb3f1608f970",
+    "distance": 8,
+    "same_csc": true,
+    "found_for": [
+     "915138"
+    ]
+   },
+   {
+    "sha256": "7792ab4a4349c7c1f1eb8e763c979b2abe9296691bbcbdb2b16ddd15303efea3",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "016098"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "41dc002addf537e3a6e3cceb47d235bab5c7e3ebff8e7f894243cb3f1608f970",
+    "distance": 8
+   },
+   {
+    "sha256": "242fb0cb39fa4965e635ac07e151d00b91847aea40c488f77725afa0f0184132",
+    "distance": 8
+   },
+   {
+    "sha256": "542f8ffa094a7405ff2ee39360021dbf284db9b69b7829865e449b5c5ce1282e",
+    "distance": 26
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "916562": {
+  "csc": "916562",
+  "fetched_at": "2026-09-29T17:47:38.241Z",
+  "http_status": 200,
+  "page_bytes": 94818,
+  "page_name": "BERGSTROM PINOT NOIR SALICE 2022",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 50791,
+  "sha256": "e62f0ae6384e939ef288c2b0b8d26c3e08a229847d461551c8ebc55733e41a93",
+  "file": "dabs-e62f0ae6384e939ef288c2b0b8d26c3e08a229847d461551c8ebc55733e41a93.png",
+  "alt": "Product bottle or can",
+  "width": 108,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e2b696da2bcd9450",
+  "dhash": "0f4d0e0797858103",
+  "edge_variance": 4386.9,
+  "nearest_external_any": [
+   {
+    "sha256": "49c7864de6c6325055d427e75ed55e536270728e3d972ad97d5f5f322e66b9d3",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "728795"
+    ]
+   },
+   {
+    "sha256": "a1dffaaba552e4d730fd6b90e00becc3775b194e5d1ae5b4ebf1503ff8360a16",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "024746"
+    ]
+   },
+   {
+    "sha256": "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "065127"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "165fafd92249164a8ed662f65757f811a3582dbc9cc8a098c070a15c698b9931",
+    "distance": 26
+   },
+   {
+    "sha256": "ed7264b182a202f77def9b76b1c9580ed1694c8eb45956548e35450ad960facf",
+    "distance": 28
+   },
+   {
+    "sha256": "15adf476cb8a147156c3805eea9a2bccbb5202ae467ac2f5e0996bd891cdf17e",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "917090": {
+  "csc": "917090",
+  "fetched_at": "2026-09-29T17:45:16.876Z",
+  "http_status": 200,
+  "page_bytes": 83754,
+  "page_name": "MAN VINTNERS PINOTAGE 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 35498,
+  "sha256": "0b5fd9c5823f81e91abcdc02516e7d82ba529c7dc653514ea9dd0b271d41e69b",
+  "file": "dabs-0b5fd9c5823f81e91abcdc02516e7d82ba529c7dc653514ea9dd0b271d41e69b.png",
+  "alt": "Product bottle or can",
+  "width": 116,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e3b692ca692d946a",
+  "dhash": "0d4d8e070b41230b",
+  "edge_variance": 4018.0,
+  "nearest_external_any": [
+   {
+    "sha256": "5adc2c238e4ca8f1346e916efc56db641b1608d8a9ab3658abe4cc9ad9a354ac",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "929191"
+    ]
+   },
+   {
+    "sha256": "5979425d3f859e5f360b85a610bb15072eb897a237a70506dd3e6c841957e95e",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "728795"
+    ]
+   },
+   {
+    "sha256": "9f1e9943dcf923c2688b972a1b2fe7d0736dcf1694793200a8f55201cfc1426b",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "017929"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "bb6cc14cc748241a3b63bc8dd19dacd99cb07d60914deb7d3cf08e8e0a134e8b",
+    "distance": 24
+   },
+   {
+    "sha256": "c7b65ddae59c00d5cce56f37158969c8f47318f7a6d5eba01cdfa1468e01c6a6",
+    "distance": 24
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "917890": {
+  "csc": "917890",
+  "fetched_at": "2026-09-29T17:47:27.236Z",
+  "http_status": 200,
+  "page_bytes": 173680,
+  "page_name": "EPIC SPIRAL JETTY IPA CANS 355 ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 74757,
+  "sha256": "417d6bf1f091b9fb1ef3583f5f398a31c882dec97e4161c69d403a1882d62da3",
+  "file": "dabs-417d6bf1f091b9fb1ef3583f5f398a31c882dec97e4161c69d403a1882d62da3.png",
+  "alt": "Product bottle or can",
+  "width": 282,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e49a9b319b6c6c32",
+  "dhash": "000e869696969608",
+  "edge_variance": 2221.3,
+  "nearest_external_any": [
+   {
+    "sha256": "acffac7b0dd493855334f14c2b1a71d20830a7908b32d9fd56c3053454afc9f4",
+    "distance": 2,
+    "same_csc": true,
+    "found_for": [
+     "917890"
+    ]
+   },
+   {
+    "sha256": "bdec755d8fb76b788d626e82fd29055c3b9b425bbe68dae8e94a911e66b7c435",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "900286"
+    ]
+   },
+   {
+    "sha256": "878d29b312de86ae3d29af9f04e08f7aad61743edbc83b4ad3306623e2472c48",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "080421"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "acffac7b0dd493855334f14c2b1a71d20830a7908b32d9fd56c3053454afc9f4",
+    "distance": 2
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "918005": {
+  "csc": "918005",
+  "fetched_at": "2026-09-29T17:47:20.542Z",
+  "http_status": 200,
+  "page_bytes": 164639,
+  "page_name": "EPIC PFEIFFERHORN LAGER CANS 355 m",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 71037,
+  "sha256": "5b190ac1ef8e98ca4fd872d8a0c9a005f7928f45620844757bd9861ee7462872",
+  "file": "dabs-5b190ac1ef8e98ca4fd872d8a0c9a005f7928f45620844757bd9861ee7462872.png",
+  "alt": "Product bottle or can",
+  "width": 282,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e4ce9b318b653c64",
+  "dhash": "000e868696969608",
+  "edge_variance": 1144.5,
+  "nearest_external_any": [
+   {
+    "sha256": "acffac7b0dd493855334f14c2b1a71d20830a7908b32d9fd56c3053454afc9f4",
+    "distance": 12,
+    "same_csc": false,
+    "found_for": [
+     "917890"
+    ]
+   },
+   {
+    "sha256": "bdec755d8fb76b788d626e82fd29055c3b9b425bbe68dae8e94a911e66b7c435",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "900286"
+    ]
+   },
+   {
+    "sha256": "e5d93130d14f0a23f04e8e75403fcdfdd78fc0a45d40947a90faa0135435dce0",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "910850"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "918778": {
+  "csc": "918778",
+  "fetched_at": "2026-09-29T17:46:27.589Z",
+  "http_status": 200,
+  "page_bytes": 349464,
+  "page_name": "NEW BELGIUM VOODOO JUICE FORCE 355 ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 192413,
+  "sha256": "43afc16f74f6f1fa547b7560f96d4750d2fe512c4e01e255bcb13a808f2c24ad",
+  "file": "dabs-43afc16f74f6f1fa547b7560f96d4750d2fe512c4e01e255bcb13a808f2c24ad.png",
+  "alt": "Product bottle or can",
+  "width": 195,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "f8839aaae4cb31b2",
+  "dhash": "31b09aa6861a39bb",
+  "edge_variance": 4699.3,
+  "nearest_external_any": [
+   {
+    "sha256": "0b9fea5814cacdcbbb4625911cda21fd42544db24d47b7f8ccd5622d0efcd8a2",
+    "distance": 10,
+    "same_csc": true,
+    "found_for": [
+     "918778"
+    ]
+   },
+   {
+    "sha256": "fd24de25e698cbdab97da858b92e9b84c0ce67497c65cdf6d8c7a3b88cd9b906",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "900286"
+    ]
+   },
+   {
+    "sha256": "4938936693b2763637f55dd1f49c9a15b257ecd1cb5d6ace3456dc7acb8d012e",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "918800"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "0b9fea5814cacdcbbb4625911cda21fd42544db24d47b7f8ccd5622d0efcd8a2",
+    "distance": 10
+   },
+   {
+    "sha256": "f34aee87fdf20d6842c8bfb10f652c5e6321f10a7f5a275eae180b6877164361",
+    "distance": 30
+   },
+   {
+    "sha256": "63dbb98263c9053497e49ec2e3666cfa2aa001355bfe74d156047ff716e05d81",
+    "distance": 30
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "918800": {
+  "csc": "918800",
+  "fetched_at": "2026-09-29T17:46:31.968Z",
+  "http_status": 200,
+  "page_bytes": 75066,
+  "page_name": "COPPER CAN MOSCOW MULE 355 ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "918825": {
+  "csc": "918825",
+  "fetched_at": "2026-09-29T17:46:34.170Z",
+  "http_status": 200,
+  "page_bytes": 72720,
+  "page_name": "MONACO CITRUS RUSH 355ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "918885": {
+  "csc": "918885",
+  "fetched_at": "2026-09-29T17:46:23.148Z",
+  "http_status": 200,
+  "page_bytes": 73967,
+  "page_name": "NATTY DADDY 355 ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "922628": {
+  "csc": "922628",
+  "fetched_at": "2026-09-29T17:45:14.685Z",
+  "http_status": 200,
+  "page_bytes": 31226,
+  "page_name": "2 COPAS SPARKLING ROSE 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "924369": {
+  "csc": "924369",
+  "fetched_at": "2026-09-29T17:47:40.480Z",
+  "http_status": 200,
+  "page_bytes": 18324,
+  "page_name": "HALE MARY PINOT NOIR RR'22 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "924826": {
+  "csc": "924826",
+  "fetched_at": "2026-09-29T17:47:51.503Z",
+  "http_status": 200,
+  "page_bytes": 20570,
+  "page_name": "PRODIGY BREWING HOP LIGHT DISTRICT 473ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "929191": {
+  "csc": "929191",
+  "fetched_at": "2026-09-29T17:47:36.043Z",
+  "http_status": 200,
+  "page_bytes": 18321,
+  "page_name": "ARNOD BAILLOT VOSNE ROMANEE 2022 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "929782": {
+  "csc": "929782",
+  "fetched_at": "2026-09-29T17:48:02.529Z",
+  "http_status": 200,
+  "page_bytes": 18322,
+  "page_name": "2 TOWNS HUCKLEBERRY COSMIC CRISP",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "931484": {
+  "csc": "931484",
+  "fetched_at": "2026-09-29T17:47:44.865Z",
+  "http_status": 200,
+  "page_bytes": 29577,
+  "page_name": "SAMUEL ADAMS UTOPIA 710ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "931992": {
+  "csc": "931992",
+  "fetched_at": "2026-09-29T17:47:31.615Z",
+  "http_status": 200,
+  "page_bytes": 18346,
+  "page_name": "OCCHIPINTI SICCAGNO NERO D'AVOLA 2023 75",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "932298": {
+  "csc": "932298",
+  "fetched_at": "2026-09-29T17:47:33.825Z",
+  "http_status": 200,
+  "page_bytes": 18328,
+  "page_name": "CHATEAU D'YQUEM 2013 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "948327": {
+  "csc": "948327",
+  "fetched_at": "2026-09-29T17:48:00.324Z",
+  "http_status": 200,
+  "page_bytes": 27751,
+  "page_name": "CHAT BARET PESSAC LEOGNAN '23 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "953285": {
+  "csc": "953285",
+  "fetched_at": "2026-09-29T17:47:24.960Z",
+  "http_status": 200,
+  "page_bytes": 424809,
+  "page_name": "NEW BELGIUM VOODOO JUICY HAZE CAN 355 ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 244265,
+  "sha256": "8319324e82d259a30d74bfbf39f298c89f64a68aa6a5ba557a0470b519b28858",
+  "file": "dabs-8319324e82d259a30d74bfbf39f298c89f64a68aa6a5ba557a0470b519b28858.png",
+  "alt": "Product bottle or can",
+  "width": 458,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "be461103636fe2e9",
+  "dhash": "4d34232735353332",
+  "edge_variance": 5396.4,
+  "nearest_external_any": [
+   {
+    "sha256": "85209c899aa5ff23d46d57d4aadc146f93d700ba84a2feae7892c66a1701394a",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "026828"
+    ]
+   },
+   {
+    "sha256": "b7163f694563d33bf7579825f9cb8da6d7edb0389560f223c7996692ee194c5b",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "027380",
+     "027380"
+    ]
+   },
+   {
+    "sha256": "1ec03b13df5db4282d1257c0f7acbd76ecd83b5a0232ecfd9afbce1fb8927307",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "016307"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "ccc4dc8f008d62e8c641cbe565722bf0fd43744970dbabc5a0d251336fc5a4d2",
+    "distance": 28
+   },
+   {
+    "sha256": "c345dab053914d8949402ec6078dbc060436b1900d29e1ac5cc998b4cf5b1158",
+    "distance": 28
+   },
+   {
+    "sha256": "9656b7c12a4fce4b7f3b3f85ff0a4396b39761857a75929d3f1d5ac22b41fdc7",
+    "distance": 28
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "953821": {
+  "csc": "953821",
+  "fetched_at": "2026-09-29T17:44:59.234Z",
+  "http_status": 200,
+  "page_bytes": 133897,
+  "page_name": "SOTW PATRIOTS CREED VODKA 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 65799,
+  "sha256": "d81ddb9c0d93d1f2052f2945ffcc38f26cf971e3e23b3e636199435eb4ef0c62",
+  "file": "dabs-d81ddb9c0d93d1f2052f2945ffcc38f26cf971e3e23b3e636199435eb4ef0c62.png",
+  "alt": "Product bottle or can",
+  "width": 524,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e699ce2399668999",
+  "dhash": "0c0c0c0c084d4d0c",
+  "edge_variance": 1125.4,
+  "nearest_external_any": [
+   {
+    "sha256": "96e82c7e3337df64a304d077b4b032bd21fd8b1cd9cc6d5b79c5adb0bda50001",
+    "distance": 12,
+    "same_csc": false,
+    "found_for": [
+     "031474",
+     "031474"
+    ]
+   },
+   {
+    "sha256": "4be26e524309df9a62123dc603bfbe888d03db904e203ab6a4ba78d63909006d",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "026828",
+     "026828"
+    ]
+   },
+   {
+    "sha256": "16fe05933b0f5fb8a063462127714d6229dbc428039e3cd3a0b4f067406d6f80",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "026828"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "954317": {
+  "csc": "954317",
+  "fetched_at": "2026-09-29T17:45:10.262Z",
+  "http_status": 200,
+  "page_bytes": 18321,
+  "page_name": "WEIHENSTEPHANER VITUS 500",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "954782": {
+  "csc": "954782",
+  "fetched_at": "2026-09-29T17:46:18.698Z",
+  "http_status": 200,
+  "page_bytes": 201242,
+  "page_name": "TEMPLIN FERDA DBL IPA 473ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 86172,
+  "sha256": "5b9f08d0ced79e40953d29532a9f5ee4f1acfb81fe7cdc48484e5a8d899756fb",
+  "file": "dabs-5b9f08d0ced79e40953d29532a9f5ee4f1acfb81fe7cdc48484e5a8d899756fb.png",
+  "alt": "Product bottle or can",
+  "width": 467,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b3cc0c66cc33d933",
+  "dhash": "f0c8ccc8cccccccc",
+  "edge_variance": 834.6,
+  "nearest_external_any": [
+   {
+    "sha256": "8d7a37496e5ee182d3326458c2356ed198cc0fe4377e192281f7fe77cd61f9d9",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "989410"
+    ]
+   },
+   {
+    "sha256": "37f365f10b368af50dd2d2366f572cb100b46fd561215b5fbaf2443d3c88ea8d",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "026159"
+    ]
+   },
+   {
+    "sha256": "bbe921aec41184abb233e3829b0a3ac0084d2e81948fcd3c1d6c4552eb8582be",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "026159"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "b82c1320bb87785d6069add853de2a3e904512354e7fc34d27dfe12acfd6b3b6",
+    "distance": 30
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "989410": {
+  "csc": "989410",
+  "fetched_at": "2026-09-29T17:46:21.016Z",
+  "http_status": 200,
+  "page_bytes": 77443,
+  "page_name": "SQUATTERS HOP RISING DBLE IPA CAN 355ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "989451": {
+  "csc": "989451",
+  "fetched_at": "2026-09-29T17:47:29.399Z",
+  "http_status": 200,
+  "page_bytes": 247439,
+  "page_name": "UINTA DETOUR DOUBLE IPA CAN 355ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 118108,
+  "sha256": "5890b2ca835f4aff4d934a457020c698e2bee71e1339accf0163d610006398c0",
+  "file": "dabs-5890b2ca835f4aff4d934a457020c698e2bee71e1339accf0163d610006398c0.png",
+  "alt": "Product bottle or can",
+  "width": 175,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "df863ac8ea95a548",
+  "dhash": "717170f0f0707033",
+  "edge_variance": 5161.6,
+  "nearest_external_any": [
+   {
+    "sha256": "3730a8f6c25faa6c621ea6e71f7d43e26a653d47dea5043bc94323a7e2215e0c",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "478071"
+    ]
+   },
+   {
+    "sha256": "e3a3cfca64aaaf4e80276027d7152dd5000992175120c48c322f67eff252137b",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "900286"
+    ]
+   },
+   {
+    "sha256": "9656b7c12a4fce4b7f3b3f85ff0a4396b39761857a75929d3f1d5ac22b41fdc7",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "953285"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "016882": {
+  "csc": "016882",
+  "fetched_at": "2026-09-29T17:44:24.918Z",
+  "http_status": 200,
+  "page_bytes": 18352,
+  "page_name": "BOMBERGER'S KENTUCKY STR BOURBON 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "016850": {
+  "csc": "016850",
+  "fetched_at": "2026-09-29T17:44:26.180Z",
+  "http_status": 200,
+  "page_bytes": 240196,
+  "page_name": "BLANTON BOURBON SNGL BRRL 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 122552,
+  "sha256": "a0d6311d5826c8e1a109c8bdb1ec8b1e50a0255ca8edf6158bd395f9e247594c",
+  "file": "dabs-a0d6311d5826c8e1a109c8bdb1ec8b1e50a0255ca8edf6158bd395f9e247594c.png",
+  "alt": "Product bottle or can",
+  "width": 182,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e2b6b44a0d8fc64e",
+  "dhash": "0f9f0c0703051317",
+  "edge_variance": 2406.5,
+  "nearest_external_any": [
+   {
+    "sha256": "37d4e46ddff4a822230740fab8917f7c956354f90f0d7ad7a2f560a31216fd41",
+    "distance": 8,
+    "same_csc": true,
+    "found_for": [
+     "016850"
+    ]
+   },
+   {
+    "sha256": "788559220cc3d16324221e861aa6617a6dca71e22e89830178c9d05e800721af",
+    "distance": 8,
+    "same_csc": true,
+    "found_for": [
+     "016850"
+    ]
+   },
+   {
+    "sha256": "ca33a2386715138707148a9f8687c8731fe7d282007d30e357cdedf87bf09497",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "065127"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "37d4e46ddff4a822230740fab8917f7c956354f90f0d7ad7a2f560a31216fd41",
+    "distance": 8
+   },
+   {
+    "sha256": "788559220cc3d16324221e861aa6617a6dca71e22e89830178c9d05e800721af",
+    "distance": 8
+   },
+   {
+    "sha256": "cb175f814160b028e1d15017592bf2f5a4ac969ce429d31fbc901cac2f695e3c",
+    "distance": 20
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "017929": {
+  "csc": "017929",
+  "fetched_at": "2026-09-29T17:44:28.554Z",
+  "http_status": 200,
+  "page_bytes": 18329,
+  "page_name": "ELIJAH CRAIG PRIVATE BARREL BRRL PR750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "017913": {
+  "csc": "017913",
+  "fetched_at": "2026-09-29T17:44:30.530Z",
+  "http_status": 200,
+  "page_bytes": 177180,
+  "page_name": "ELIJAH CRAIG TOASTED BARREL 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 90843,
+  "sha256": "23a9063728c423b73ba22eaef16dc834d21a2d5be17e974e80c0fbedcfe6a789",
+  "file": "dabs-23a9063728c423b73ba22eaef16dc834d21a2d5be17e974e80c0fbedcfe6a789.png",
+  "alt": "Product bottle or can",
+  "width": 179,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "bfc2940f683d9199",
+  "dhash": "0d4d0e1f2b333327",
+  "edge_variance": 2741.0,
+  "nearest_external_any": [
+   {
+    "sha256": "93bb877bae8d5a5b639a66e31addb399fce0863a193d66dc463c14486aef594e",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "954317",
+     "954317"
+    ]
+   },
+   {
+    "sha256": "d04add9d28262b8c609b04947a323d402d5255864f921495beb72cfc92b9b229",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "016307",
+     "016307"
+    ]
+   },
+   {
+    "sha256": "89451627aca7e6c7f8178b44cf5027140b10e43ada79bed422bbf373f72065cb",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "016307"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "090a250b2d05b65791ed1c19c341827eee4627d4d03ee1636becd632566d4cd0",
+    "distance": 22
+   },
+   {
+    "sha256": "de6cc9f135b59a192b8c62ab723d1eba69e94e6f3ac0b3918abf17b465fe1941",
+    "distance": 22
+   },
+   {
+    "sha256": "ade514c2d0420333127b26b90a96a6da26920ac72378ea878a1b4ad018e4e44a",
+    "distance": 24
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "021602": {
+  "csc": "021602",
+  "fetched_at": "2026-09-29T17:44:32.810Z",
+  "http_status": 200,
+  "page_bytes": 136994,
+  "page_name": "E H TAYLOR SMALL BATCH 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 83002,
+  "sha256": "d968f4aa3dad147395222d829234c7c8cc329c9a76f968ab83717b3cba04cd36",
+  "file": "dabs-d968f4aa3dad147395222d829234c7c8cc329c9a76f968ab83717b3cba04cd36.png",
+  "alt": "Product bottle or can",
+  "width": 230,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "e567cf389a188a9a",
+  "dhash": "4646069696969618",
+  "edge_variance": 1516.8,
+  "nearest_external_any": [
+   {
+    "sha256": "934b76243b85b0cfd3d8d55282f993043466f6d5e7784de0b8f9aa2d11297b1e",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "019239"
+    ]
+   },
+   {
+    "sha256": "ecf1568ff5c2fa6e119f0e1fb7291635038a695594dd60ed47943e6c4430c065",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "918885",
+     "918885"
+    ]
+   },
+   {
+    "sha256": "26cac34ed468eb9b7cc1795e08717c8aac1b2abde09fa2ba5483f31ba965f708",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "088920"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "01f9fe1433b565bd18ff1e0e41b6af3a9fa486c68510473d5d3dbf59aabb6e0c",
+    "distance": 22
+   },
+   {
+    "sha256": "d7c16088984a04658d69b6efbbd03329f8b70e9f410ead07c73a36b040ce8c38",
+    "distance": 22
+   },
+   {
+    "sha256": "ad944b2fef8a182431b67e0b86a982defeb35685d5e2f9c01f29f0b91b5bf746",
+    "distance": 24
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "017928": {
+  "csc": "017928",
+  "fetched_at": "2026-09-29T17:44:35.026Z",
+  "http_status": 200,
+  "page_bytes": 18330,
+  "page_name": "ELIJAH CRAIG TOASTED BRRL PROOF PRV750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "024746": {
+  "csc": "024746",
+  "fetched_at": "2026-09-29T17:44:37.162Z",
+  "http_status": 200,
+  "page_bytes": 28456,
+  "page_name": "SPEAKEASY BOURBON BY WILLETT 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "017927": {
+  "csc": "017927",
+  "fetched_at": "2026-09-29T17:44:39.354Z",
+  "http_status": 200,
+  "page_bytes": 18329,
+  "page_name": "ELIJAH CRAIG 94PF PRIVATE BARREL 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "087485": {
+  "csc": "087485",
+  "fetched_at": "2026-09-29T17:44:41.565Z",
+  "http_status": 200,
+  "page_bytes": 76247,
+  "page_name": "DON JULIO BLANCO TEQUILA 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "018006": {
+  "csc": "018006",
+  "fetched_at": "2026-09-29T17:44:45.996Z",
+  "http_status": 200,
+  "page_bytes": 207443,
+  "page_name": "BUFFALO TRACE BOURBON 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 91578,
+  "sha256": "7ff3b20444c996fb5b6752bcc9bf995846b1e88a8c49cc0aa8cc0ae0b433ce82",
+  "file": "dabs-7ff3b20444c996fb5b6752bcc9bf995846b1e88a8c49cc0aa8cc0ae0b433ce82.png",
+  "alt": "Product bottle or can",
+  "width": 136,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b7d2e33fc848988c",
+  "dhash": "0d8d0c0f6f0f2b23",
+  "edge_variance": 3281.3,
+  "nearest_external_any": [
+   {
+    "sha256": "d04add9d28262b8c609b04947a323d402d5255864f921495beb72cfc92b9b229",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "016307",
+     "016307"
+    ]
+   },
+   {
+    "sha256": "89451627aca7e6c7f8178b44cf5027140b10e43ada79bed422bbf373f72065cb",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "016307"
+    ]
+   },
+   {
+    "sha256": "e2c3c78e18261082d9c6a150545e4b7359ea2484bd0e4bfd3901e0e3bae3648c",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "066685"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "56b93a9e80dbda7eb7bf7cd269aeb7305b3d2f24757da1bd9ab035bfd76d4dec",
+    "distance": 32
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "012478": {
+  "csc": "012478",
+  "fetched_at": "2026-09-29T17:44:48.215Z",
+  "http_status": 200,
+  "page_bytes": 70521,
+  "page_name": "CANADIAN MIST PET 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "021492": {
+  "csc": "021492",
+  "fetched_at": "2026-09-29T17:44:50.395Z",
+  "http_status": 200,
+  "page_bytes": 27340,
+  "page_name": "SHENK'S SOUR MASH WHISKEY 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "012288": {
+  "csc": "012288",
+  "fetched_at": "2026-09-29T17:44:52.598Z",
+  "http_status": 200,
+  "page_bytes": 213127,
+  "page_name": "CANADIAN HOST 3 YR 1750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 98421,
+  "sha256": "0bb0d4161440e42264e26cf6e73a6d3d515f255187927e42ba3788c118ca24c7",
+  "file": "dabs-0bb0d4161440e42264e26cf6e73a6d3d515f255187927e42ba3788c118ca24c7.png",
+  "alt": "Product bottle or can",
+  "width": 120,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "a6f3d38ec9183ec0",
+  "dhash": "0d0c0f072727070f",
+  "edge_variance": 3885.4,
+  "nearest_external_any": [
+   {
+    "sha256": "65c40be21511cbc3e43b765727db5e56219ea3cb95f6734aa76d9278205bff96",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "916562"
+    ]
+   },
+   {
+    "sha256": "4938936693b2763637f55dd1f49c9a15b257ecd1cb5d6ace3456dc7acb8d012e",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "918800"
+    ]
+   },
+   {
+    "sha256": "c188e8a92a44561d6a731819a7ba53c77bde4edc03f00db851357bd556e4424f",
+    "distance": 22,
+    "same_csc": false,
+    "found_for": [
+     "088296"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "026159": {
+  "csc": "026159",
+  "fetched_at": "2026-09-29T17:44:54.839Z",
+  "http_status": 200,
+  "page_bytes": 21789,
+  "page_name": "OLD FORESTER SNGL BRL RYE BRL PRF 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "088920": {
+  "csc": "088920",
+  "fetched_at": "2026-09-29T17:45:01.477Z",
+  "http_status": 200,
+  "page_bytes": 48785,
+  "page_name": "CLASE AZUL REPOSADO 375ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "066685": {
+  "csc": "066685",
+  "fetched_at": "2026-09-29T17:45:03.635Z",
+  "http_status": 200,
+  "page_bytes": 24140,
+  "page_name": "CHARTREUSE GREEN 700ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "053536": {
+  "csc": "053536",
+  "fetched_at": "2026-09-29T17:45:05.848Z",
+  "http_status": 200,
+  "page_bytes": 18327,
+  "page_name": "LAIRD'S APPLEJACK 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "088741": {
+  "csc": "088741",
+  "fetched_at": "2026-09-29T17:45:08.066Z",
+  "http_status": 200,
+  "page_bytes": 59368,
+  "page_name": "CLASE AZUL REPOSADO TEQUILA 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "038178": {
+  "csc": "038178",
+  "fetched_at": "2026-09-29T17:45:19.097Z",
+  "http_status": 200,
+  "page_bytes": 76292,
+  "page_name": "TITOS HANDMADE VODKA 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "038177": {
+  "csc": "038177",
+  "fetched_at": "2026-09-29T17:45:21.318Z",
+  "http_status": 200,
+  "page_bytes": 75148,
+  "page_name": "TITOS HANDMADE VODKA 1000ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "038176": {
+  "csc": "038176",
+  "fetched_at": "2026-09-29T17:45:23.576Z",
+  "http_status": 200,
+  "page_bytes": 77413,
+  "page_name": "TITOS HANDMADE VODKA 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "035318": {
+  "csc": "035318",
+  "fetched_at": "2026-09-29T17:45:25.711Z",
+  "http_status": 200,
+  "page_bytes": 168337,
+  "page_name": "BARTON VODKA 1750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 64837,
+  "sha256": "0efd2ee6bf154c9390d7af06a45d6242f927c871619ec6064fb5f8ea1aa000a3",
+  "file": "dabs-0efd2ee6bf154c9390d7af06a45d6242f927c871619ec6064fb5f8ea1aa000a3.png",
+  "alt": "Product bottle or can",
+  "width": 219,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b2c39334cc99cc75",
+  "dhash": "4d4d0d0e8e868e0e",
+  "edge_variance": 2181.6,
+  "nearest_external_any": [
+   {
+    "sha256": "37f365f10b368af50dd2d2366f572cb100b46fd561215b5fbaf2443d3c88ea8d",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "026159"
+    ]
+   },
+   {
+    "sha256": "bbe921aec41184abb233e3829b0a3ac0084d2e81948fcd3c1d6c4552eb8582be",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "026159"
+    ]
+   },
+   {
+    "sha256": "3aea9779b307496d7ea645a567d19155660b83cff9b29d024dcd9a14d6061af5",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "275090"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "087280": {
+  "csc": "087280",
+  "fetched_at": "2026-09-29T17:45:27.936Z",
+  "http_status": 200,
+  "page_bytes": 77371,
+  "page_name": "CASAMIGOS BLANCO TEQUILA 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "088296": {
+  "csc": "088296",
+  "fetched_at": "2026-09-29T17:45:30.133Z",
+  "http_status": 200,
+  "page_bytes": 77397,
+  "page_name": "PATRON SILVER TEQUILA 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "011298": {
+  "csc": "011298",
+  "fetched_at": "2026-09-29T17:45:32.333Z",
+  "http_status": 200,
+  "page_bytes": 75120,
+  "page_name": "CROWN ROYAL 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "026828": {
+  "csc": "026828",
+  "fetched_at": "2026-09-29T17:45:34.561Z",
+  "http_status": 200,
+  "page_bytes": 75140,
+  "page_name": "JACK DANIELS BLACK LABEL 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "038008": {
+  "csc": "038008",
+  "fetched_at": "2026-09-29T17:45:36.769Z",
+  "http_status": 200,
+  "page_bytes": 73923,
+  "page_name": "SMIRNOFF RED VODKA PET 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "088018": {
+  "csc": "088018",
+  "fetched_at": "2026-09-29T17:45:39.011Z",
+  "http_status": 200,
+  "page_bytes": 198153,
+  "page_name": "LUNAZUL TEQUILA BLANCO 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 84706,
+  "sha256": "3d42faaaf06bd8c80744dd826827c1bb48e09054844c881d950c6230fb1a90d4",
+  "file": "dabs-3d42faaaf06bd8c80744dd826827c1bb48e09054844c881d950c6230fb1a90d4.png",
+  "alt": "Product bottle or can",
+  "width": 137,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b2b43422d5cd0afd",
+  "dhash": "8e0e0ff0457171a3",
+  "edge_variance": 3956.2,
+  "nearest_external_any": [
+   {
+    "sha256": "242fb0cb39fa4965e635ac07e151d00b91847aea40c488f77725afa0f0184132",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "915138"
+    ]
+   },
+   {
+    "sha256": "41dc002addf537e3a6e3cceb47d235bab5c7e3ebff8e7f894243cb3f1608f970",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "915138"
+    ]
+   },
+   {
+    "sha256": "8a272d99e8359bd1575c95c0e2462744092d37611c63f8e2748dad93fb647900",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "080421"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "bc68414ba4492db7b55430488d51f5062baf557415733b1cb150a6ef9342c922",
+    "distance": 28
+   },
+   {
+    "sha256": "98fa2436f3addf79135abc0f12e3ede992db7f2184f69cf32c52e4509d3eb217",
+    "distance": 28
+   },
+   {
+    "sha256": "0bbe434ac81c615e462ccfc55f6eca35f67c68a619cf38bf6af72f724e19104b",
+    "distance": 34
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "038068": {
+  "csc": "038068",
+  "fetched_at": "2026-09-29T17:45:41.198Z",
+  "http_status": 200,
+  "page_bytes": 182147,
+  "page_name": "TAAKA VODKA 1750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 75388,
+  "sha256": "dfc8ea262e51544f378ab5a2e2364c2f1450e02fcad0294e36665626e0c28460",
+  "file": "dabs-dfc8ea262e51544f378ab5a2e2364c2f1450e02fcad0294e36665626e0c28460.png",
+  "alt": "Product bottle or can",
+  "width": 114,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b4e2b12fc296a9ca",
+  "dhash": "0c8e17ec27330e33",
+  "edge_variance": 3896.5,
+  "nearest_external_any": [
+   {
+    "sha256": "392999f4a82b963c18fc3503552ccf9ec47e9ff7c61d5552a17d05dee7a4510b",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "058250"
+    ]
+   },
+   {
+    "sha256": "9656b7c12a4fce4b7f3b3f85ff0a4396b39761857a75929d3f1d5ac22b41fdc7",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "953285"
+    ]
+   },
+   {
+    "sha256": "c345dab053914d8949402ec6078dbc060436b1900d29e1ac5cc998b4cf5b1158",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "953285"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "e47acdde38e89db576a511d0b204b52421a440e7a7b1f4fcef9db04d9d5b19ac",
+    "distance": 28
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "036117": {
+  "csc": "036117",
+  "fetched_at": "2026-09-29T17:45:43.404Z",
+  "http_status": 200,
+  "page_bytes": 161729,
+  "page_name": "FIVE WIVES VODKA 1750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 62468,
+  "sha256": "4f3ed34b83b8f0aa04dcf3552ba0f2b734d0acdc9192ea8612893a20427b2767",
+  "file": "dabs-4f3ed34b83b8f0aa04dcf3552ba0f2b734d0acdc9192ea8612893a20427b2767.png",
+  "alt": "Product bottle or can",
+  "width": 156,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b2e7e7348b09cc98",
+  "dhash": "4d4d0f0f0f1f1f0f",
+  "edge_variance": 3221.2,
+  "nearest_external_any": [
+   {
+    "sha256": "3aea9779b307496d7ea645a567d19155660b83cff9b29d024dcd9a14d6061af5",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "275090"
+    ]
+   },
+   {
+    "sha256": "50a0087759e9b8f804a18ca675be23d74ae3f15d15e4b18ceeb35c05fe190ffb",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "954317",
+     "005349",
+     "031474"
+    ]
+   },
+   {
+    "sha256": "a67b29cbc7ba43d9b06d4a49da5de606ccc774ddd7cc671ea4246b890285767e",
+    "distance": 18,
+    "same_csc": false,
+    "found_for": [
+     "015379",
+     "015379",
+     "015379"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [],
+  "identical_file_on_other_cscs": []
+ },
+ "010807": {
+  "csc": "010807",
+  "fetched_at": "2026-09-29T17:45:45.614Z",
+  "http_status": 200,
+  "page_bytes": 75124,
+  "page_name": "CROWN ROYAL REGAL APPLE 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "018604": {
+  "csc": "018604",
+  "fetched_at": "2026-09-29T17:45:47.803Z",
+  "http_status": 200,
+  "page_bytes": 209100,
+  "page_name": "HIGH WEST BOURBON 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 91823,
+  "sha256": "1e2ae15623c675cdd428a83a12edac8e6df6ccc727cf46ba755bd45cb0c6d038",
+  "file": "dabs-1e2ae15623c675cdd428a83a12edac8e6df6ccc727cf46ba755bd45cb0c6d038.png",
+  "alt": "Product bottle or can",
+  "width": 116,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "ce1c38e34cce4c79",
+  "dhash": "b0b0636343436323",
+  "edge_variance": 1968.4,
+  "nearest_external_any": [
+   {
+    "sha256": "3b79202420ca437959bb4bca3a912479c5f37b9210c5b0650597c37877dbbfc2",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "704050"
+    ]
+   },
+   {
+    "sha256": "063701d0ef4cb925ce5f0427abe1ae8ef43089bba46f5a81686e87a5924fcd71",
+    "distance": 24,
+    "same_csc": false,
+    "found_for": [
+     "407766"
+    ]
+   },
+   {
+    "sha256": "c1813c19f865169a58cccb6d57527dfba5aee4db7391ac912d5d7a02de9928d1",
+    "distance": 24,
+    "same_csc": false,
+    "found_for": [
+     "566375"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "ada6e1a1d7d1d6c4b9fe6df8eb9cde57a4ea7673ed97229eb4a42e5fe3e741c3",
+    "distance": 26
+   },
+   {
+    "sha256": "0116c93dea4ecec7783fc667a91b9c1f76ffa7b8551bce0b3208dcc7158233d1",
+    "distance": 28
+   },
+   {
+    "sha256": "cfc3d19c3c39debff213d0397221f93c5a0ca7a6a0995311652f71d87270bb4d",
+    "distance": 38
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "034821": {
+  "csc": "034821",
+  "fetched_at": "2026-09-29T17:45:50.026Z",
+  "http_status": 200,
+  "page_bytes": 72716,
+  "page_name": "SVEDKA VODKA 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "058250": {
+  "csc": "058250",
+  "fetched_at": "2026-09-29T17:46:29.789Z",
+  "http_status": 200,
+  "page_bytes": 75080,
+  "page_name": "CUTWATER RTD TEQUILA MARGARITA",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "048108": {
+  "csc": "048108",
+  "fetched_at": "2026-09-29T17:46:36.387Z",
+  "http_status": 200,
+  "page_bytes": 66005,
+  "page_name": "HENNESSY VS COGNAC 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "005349": {
+  "csc": "005349",
+  "fetched_at": "2026-09-29T17:46:38.621Z",
+  "http_status": 200,
+  "page_bytes": 72765,
+  "page_name": "JOHNNIE WALKER RED 1750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "065127": {
+  "csc": "065127",
+  "fetched_at": "2026-09-29T17:46:40.855Z",
+  "http_status": 200,
+  "page_bytes": 59374,
+  "page_name": "GRAND MARNIER CORDON ROUGE 1000ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "087410": {
+  "csc": "087410",
+  "fetched_at": "2026-09-29T17:46:43.016Z",
+  "http_status": 200,
+  "page_bytes": 72860,
+  "page_name": "CUERVO ESPECIAL SILVER TEQUILA 1750 ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "076905": {
+  "csc": "076905",
+  "fetched_at": "2026-09-29T17:46:45.231Z",
+  "http_status": 200,
+  "page_bytes": 172058,
+  "page_name": "PORTER'S FIRE FLAVORED WHISKEY 375 ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 77347,
+  "sha256": "c03f857666b6e21d3600b98f2e2ba93da1dcefc6617144551615259ba54e2af1",
+  "file": "dabs-c03f857666b6e21d3600b98f2e2ba93da1dcefc6617144551615259ba54e2af1.png",
+  "alt": "Product bottle or can",
+  "width": 161,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b1c3c633396ccc8d",
+  "dhash": "4d4d170f0b0f0f0f",
+  "edge_variance": 3135.9,
+  "nearest_external_any": [
+   {
+    "sha256": "83b90d61e9af46a8e0ee094568b7a5ebf1fc6f40057965d0e6f18908cebfb153",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "087410"
+    ]
+   },
+   {
+    "sha256": "b23ea326d7f106d0648a682caca5af7e1ed8fdde0c703fa0060a243cf2eb2960",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "087410"
+    ]
+   },
+   {
+    "sha256": "5b7b09f30b029b227b71d93892daa5b9896b18b6b24bcb7d405e10f00d8384ea",
+    "distance": 12,
+    "same_csc": true,
+    "found_for": [
+     "076905"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "80a10ee8c07c481f928a75a51e548ba202615d3d0c839148dc52d5c34b81e2a1",
+    "distance": 12
+   },
+   {
+    "sha256": "5b7b09f30b029b227b71d93892daa5b9896b18b6b24bcb7d405e10f00d8384ea",
+    "distance": 12
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "027380": {
+  "csc": "027380",
+  "fetched_at": "2026-09-29T17:46:47.461Z",
+  "http_status": 200,
+  "page_bytes": 39107,
+  "page_name": "ANGELS ENVY FINISHED RYE 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "029913": {
+  "csc": "029913",
+  "fetched_at": "2026-09-29T17:46:49.657Z",
+  "http_status": 200,
+  "page_bytes": 103594,
+  "page_name": "DENTED BRICK PREMIUM GIN 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 39050,
+  "sha256": "57d9686c9ebf20063b0c86918c927f54946ba854003d8468c82c6b2c6855ab52",
+  "file": "dabs-57d9686c9ebf20063b0c86918c927f54946ba854003d8468c82c6b2c6855ab52.png",
+  "alt": "Product bottle or can",
+  "width": 350,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "b3cbcd333300ce33",
+  "dhash": "4a08080c4d0d0c0c",
+  "edge_variance": 1875.2,
+  "nearest_external_any": [
+   {
+    "sha256": "acffe7f8ea72b496d19193cfe0945298f92b5af3eef91a474d5e90c1f6544cfe",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "038178"
+    ]
+   },
+   {
+    "sha256": "11f348ec33d1201a75ce0a5803c72785883f02e9530b1d309c35fc4f353e8cee",
+    "distance": 10,
+    "same_csc": false,
+    "found_for": [
+     "038178"
+    ]
+   },
+   {
+    "sha256": "77a20fb402ea14a572326da36882749836e58a784156dcaa3a0f4c5245fdbaa5",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "048108"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "c9055660d0abd8826724a5fa11571b4b765622bc0f93ce7e0e124d188c01cec3",
+    "distance": 26
+   },
+   {
+    "sha256": "8ca7611fed11601641c6de1e8a7d8ee418901e991a61e1959fcfb96747ab06a7",
+    "distance": 34
+   },
+   {
+    "sha256": "f6fe8b64d764a7494262a1d58d4df241b44f584fb54fba6dcfe625e5be3fe97a",
+    "distance": 36
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "019239": {
+  "csc": "019239",
+  "fetched_at": "2026-09-29T17:46:51.876Z",
+  "http_status": 200,
+  "page_bytes": 18347,
+  "page_name": "KNOB CREEK 12 YR 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "073721": {
+  "csc": "073721",
+  "fetched_at": "2026-09-29T17:46:54.049Z",
+  "http_status": 200,
+  "page_bytes": 53598,
+  "page_name": "EVAN WILLIAMS FIRE 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "031474": {
+  "csc": "031474",
+  "fetched_at": "2026-09-29T17:46:56.262Z",
+  "http_status": 200,
+  "page_bytes": 71574,
+  "page_name": "NEW AMSTERDAM GIN 375 ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "016307": {
+  "csc": "016307",
+  "fetched_at": "2026-09-29T17:46:58.477Z",
+  "http_status": 200,
+  "page_bytes": 145153,
+  "page_name": "HOLLADAY RED WHEAT 6YR BOURBON BIB 750ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 76045,
+  "sha256": "229e54cb1ab895336c06b1b73889fdcce6b91b298ea75a5ca5ddb62125b10059",
+  "file": "dabs-229e54cb1ab895336c06b1b73889fdcce6b91b298ea75a5ca5ddb62125b10059.png",
+  "alt": "Product bottle or can",
+  "width": 123,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "fac6c61b4d4c91c9",
+  "dhash": "0f4d0f171b1b330b",
+  "edge_variance": 5204.4,
+  "nearest_external_any": [
+   {
+    "sha256": "d04add9d28262b8c609b04947a323d402d5255864f921495beb72cfc92b9b229",
+    "distance": 12,
+    "same_csc": true,
+    "found_for": [
+     "016307",
+     "016307"
+    ]
+   },
+   {
+    "sha256": "89451627aca7e6c7f8178b44cf5027140b10e43ada79bed422bbf373f72065cb",
+    "distance": 12,
+    "same_csc": true,
+    "found_for": [
+     "016307"
+    ]
+   },
+   {
+    "sha256": "1eef74a5be17ef2d07b74a735f0e4f81499cb4bb6d0d2a8f2509b41b72642328",
+    "distance": 14,
+    "same_csc": false,
+    "found_for": [
+     "910850"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "89451627aca7e6c7f8178b44cf5027140b10e43ada79bed422bbf373f72065cb",
+    "distance": 12
+   },
+   {
+    "sha256": "d04add9d28262b8c609b04947a323d402d5255864f921495beb72cfc92b9b229",
+    "distance": 12
+   },
+   {
+    "sha256": "deaac1ba8c84195db8326efbd13efcc3ab6d37243b9eee785daa3ec0e6fd3195",
+    "distance": 18
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "016434": {
+  "csc": "016434",
+  "fetched_at": "2026-09-29T17:47:00.685Z",
+  "http_status": 200,
+  "page_bytes": 33007,
+  "page_name": "NEW RIFF STR RYE WHSKY BIB 4YR 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "017039": {
+  "csc": "017039",
+  "fetched_at": "2026-09-29T17:47:02.887Z",
+  "http_status": 200,
+  "page_bytes": 18329,
+  "page_name": "HEAVEN HILL BRBN BIB DOUBLE MASH 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "084679": {
+  "csc": "084679",
+  "fetched_at": "2026-09-29T17:47:05.093Z",
+  "http_status": 200,
+  "page_bytes": 18347,
+  "page_name": "TEQUILA OCHO BARREL PROOF REPOSADO 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "016098": {
+  "csc": "016098",
+  "fetched_at": "2026-09-29T17:47:07.306Z",
+  "http_status": 200,
+  "page_bytes": 176289,
+  "page_name": "EVAN WILLIAMS BIB WHITE LABEL 1750 ml",
+  "inline_images": 1,
+  "has_image": true,
+  "mime": "image/png",
+  "bytes": 72143,
+  "sha256": "fb396c012780e5236e40717e6ffdeaa91855af6bd0c14342c7a486e5df966e52",
+  "file": "dabs-fb396c012780e5236e40717e6ffdeaa91855af6bd0c14342c7a486e5df966e52.png",
+  "alt": "Product bottle or can",
+  "width": 132,
+  "height": 350,
+  "format": "PNG",
+  "mode": "RGBA",
+  "phash": "fbb0c3833ae5a894",
+  "dhash": "1d1d16175d514d61",
+  "edge_variance": 4929.8,
+  "nearest_external_any": [
+   {
+    "sha256": "26b133cc5bd08bba7ec86d160a950239c771208e7802bfeecb05a59d530f71e9",
+    "distance": 16,
+    "same_csc": false,
+    "found_for": [
+     "918800"
+    ]
+   },
+   {
+    "sha256": "389093c5b78d008cd07ff6407179eef803d3320890d292b9680065197c5c9dea",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "275090"
+    ]
+   },
+   {
+    "sha256": "6187489820134a53c704095c6383694267aba8170b23b9a1596a02625333508e",
+    "distance": 20,
+    "same_csc": false,
+    "found_for": [
+     "478071"
+    ]
+   }
+  ],
+  "nearest_external_same_csc": [
+   {
+    "sha256": "d581256a96c259ea1de708681f8fb3a041886d8e9e84143b29e88bc554e58a0c",
+    "distance": 32
+   },
+   {
+    "sha256": "7792ab4a4349c7c1f1eb8e763c979b2abe9296691bbcbdb2b16ddd15303efea3",
+    "distance": 36
+   }
+  ],
+  "identical_file_on_other_cscs": []
+ },
+ "072382": {
+  "csc": "072382",
+  "fetched_at": "2026-09-29T17:47:09.534Z",
+  "http_status": 200,
+  "page_bytes": 18329,
+  "page_name": "BALLOTIN CHOCOLATE MOCHA WHISKEY CR750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "078390": {
+  "csc": "078390",
+  "fetched_at": "2026-09-29T17:47:11.719Z",
+  "http_status": 200,
+  "page_bytes": 19472,
+  "page_name": "SUGARLANDS FIELD & STREAM HONEY PECAN 75",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "080421": {
+  "csc": "080421",
+  "fetched_at": "2026-09-29T17:47:13.924Z",
+  "http_status": 200,
+  "page_bytes": 71256,
+  "page_name": "PENNSYLVANIA DUTCH PUMPKIN 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "021050": {
+  "csc": "021050",
+  "fetched_at": "2026-09-29T17:47:18.358Z",
+  "http_status": 200,
+  "page_bytes": 18347,
+  "page_name": "PENELOPE BOURBON F CANCER 2026 7",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "022085": {
+  "csc": "022085",
+  "fetched_at": "2026-09-29T17:47:42.658Z",
+  "http_status": 200,
+  "page_bytes": 18795,
+  "page_name": "WILLETT BOURBON SMALL BATCH 4YR 750ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "015379": {
+  "csc": "015379",
+  "fetched_at": "2026-09-29T17:47:47.070Z",
+  "http_status": 200,
+  "page_bytes": 19453,
+  "page_name": "GOLD SPOT IRISH WHISKEY 700ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "075050": {
+  "csc": "075050",
+  "fetched_at": "2026-09-29T17:47:49.277Z",
+  "http_status": 200,
+  "page_bytes": 71245,
+  "page_name": "MEX TEQUILA CREAM MANGO 700ml",
+  "inline_images": 0,
+  "has_image": false
+ },
+ "065735": {
+  "csc": "065735",
+  "fetched_at": "2026-09-29T17:47:58.140Z",
+  "http_status": 200,
+  "page_bytes": 71251,
+  "page_name": "MALIBU RUM PINK 750ml",
+  "inline_images": 0,
+  "has_image": false
+ }
+}

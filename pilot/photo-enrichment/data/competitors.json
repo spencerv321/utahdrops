@@ -1,0 +1,89 @@
+{
+ "checked": "2026-09-29, public pages only (curl; the sandbox browser can't render outside sites, so nothing below is a screenshot of a rendered product page)",
+ "DABS": {
+  "verified": "Product detail page (webapps2.abc.utah.gov ProductLocatorCore, GetDetailUrl \u2192 ProductDetail/Index) embeds an inline 350 px-tall PNG, alt 'Product bottle or can'. 38/100 sample CSCs have one; identical files are attached to several sizes of some brands (Five Wives, Porter's Fire). Catalog JSON, monthly XLSX, drawing and allocated pages carry no image.",
+  "source_of_images": "DABS New Item Listings page: listing applications include 'High-resolution product image' and 'Images of unit and case UPCs' (https://abs.utah.gov/vendors/new-item-listings/). Only a 350 px copy and no UPC are public.",
+  "rights": "Utah.gov disclaimer: 'The State makes no warranty, however, that the materials contained within these pages are free from copyright claims, or other restrictions or limitations on free use or display.' (https://www.utah.gov/support/disclaimer.html)",
+  "UT DABS app (claim)": "App Store text lists search by category, name, price, bottle size, ratings, availability; it does not mention photos. Not installed or observed."
+ },
+ "Utah Neat (utahneat.app)": {
+  "verified": "Public, robots-allowed /api/products returns an image_url field. 175 of 783 unique products have one, all hotlinked from thewhiskyedition.com (a review site); 62 distinct image URLs; 147 products share an image URL with at least one other product (other sizes, ages or expressions).",
+  "examples": {
+   "high-west-double-rye-whiskey.webp": [
+    "HIGH WEST BIB STR BOURBON WHISKEY 750ml",
+    "HIGH WEST BOTTLED IN BOND 750",
+    "HIGH WEST BOURBON 1750ml",
+    "HIGH WEST BOURBON 375 ml",
+    "HIGH WEST BOURBON 750ml",
+    "HIGH WEST BOURYE WHISKEY 750ml",
+    "HIGH WEST CAMPFIRE BLENDED WHISKE 750ml",
+    "HIGH WEST DOUBLE RYE WHISKEY 1750ml",
+    "HIGH WEST DOUBLE RYE WHISKEY 375 ml",
+    "HIGH WEST DOUBLE RYE WHISKEY 750ml",
+    "HIGH WEST PEDRO XIMENEZ SHERRY WHISKEY",
+    "HIGH WEST PRISONER SHARE WHISKEY 750",
+    "HIGH WEST RED BLEND BARREL WHISKEY 750m",
+    "HIGH WEST RENDEZVOUS RYE WHISK 750ml"
+   ],
+   "jack-daniels-bonded.webp": [
+    "JACK DANIELS BLACK LABEL 1000ml",
+    "JACK DANIELS BLACK LABEL 1750ml",
+    "JACK DANIELS BLACK LABEL 200ml",
+    "JACK DANIELS BLACK LABEL 3000ml",
+    "JACK DANIELS BLACK LABEL 375ml",
+    "JACK DANIELS BLACK LABEL 750ml",
+    "JACK DANIELS BONDED WHISKEY 700ml",
+    "JACK DANIELS SINATRA 1000ml",
+    "JACK DANIELS TENNESSEE HONEY 1750ml",
+    "JACK DANIELS TENNESSEE HONEY 375 ml",
+    "JACK DANIELS TENNESSEE HONEY 750ml"
+   ],
+   "johnnie-walker-18-years-old.webp": [
+    "JOHNNIE WALKER AGED 18 YR 750ml",
+    "JOHNNIE WALKER BLUE 750ml",
+    "JOHNNIE WALKER DOUBLE BLACK 750ml",
+    "JOHNNIE WALKER GREEN 750ml",
+    "JOHNNIE WALKER LUNAR YEAR HORSE 750ml",
+    "JOHNNIE WALKER RED 1750ml",
+    "JOHNNIE WALKER RED 375ml",
+    "JOHNNIE WALKER RED 750ml"
+   ],
+   "macallan-12-double-cask.webp": [
+    "MACALLAN ART IS THE FLOWER 700ml",
+    "MACALLAN DOUBLE CASK 12 YR 375 ml",
+    "MACALLAN DOUBLE CASK 12 YR 750ml",
+    "MACALLAN DOUBLE CASK 15 YR 750ml",
+    "MACALLAN DOUBLE CASK 18 YR 750ml",
+    "MACALLAN DOUBLE CASK 30 YEAR 750ml",
+    "MACALLAN RARE CASK 750ml",
+    "MACALLAN SHERRY OAK 12 YR 750ml"
+   ],
+   "woodford-reserve-distiller-s-select.webp": [
+    "WOODFORD RES DOUBLE OAKED 750ml",
+    "WOODFORD RESERVE BACCARAT EDITION 700ml",
+    "WOODFORD RESERVE BARREL STRNGTH RYE700ml",
+    "WOODFORD RESERVE DBL DBL OAKED 700ml",
+    "WOODFORD RESERVE DISTILLER SELEC 1750 ml",
+    "WOODFORD RESERVE MALT 750ml",
+    "WOODFORD RESERVE STRAIGHT WHEAT 750ml"
+   ],
+   "ardbeg-an-oa.webp": [
+    "ARDBEG 10 YR SM SCOTCH 750ml",
+    "ARDBEG 17YR 750ml",
+    "ARDBEG 25YR 750ml",
+    "ARDBEG ANTHOLOGY 14 YR 750ml",
+    "ARDBEG UIGEADAIL SCOTCH 750ml",
+    "ARDBEG Y2K 700ml"
+   ]
+  },
+  "not verified": "Whether and where the web app renders these images (not rendered here)."
+ },
+ "Liquor In Front (liquorinfront.com)": {
+  "verified": "Public web-app script requests `/api/products/{sku}/image` from api.liquorinfront.com and shows it when a product has hasImage; its stylesheet comment says 'White well like every thumbnail (the DABS photos carry a baked-in white ground)'. So its thumbnails are DABS photos keyed by SKU and inherit DABS's reuse and staleness.",
+  "not verified": "Rendered pages or image rights; no robots.txt served (returns the app HTML)."
+ },
+ "Heathen (heathen.app)": {
+  "claim": "App Store: 'See product pictures (where available) to easily identify items in stores'. Last version 2.0.4 (2023-04-01). Web site is a landing page only (no product pages).",
+  "not verified": "Source, coverage or accuracy of its pictures; the app wasn't installed."
+ }
+}

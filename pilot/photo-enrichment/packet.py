@@ -18,6 +18,12 @@ products = R["products"]
 facts = json.load(open(os.path.join(DIR, "data/facts.json")))
 hl = json.load(open(os.path.join(DIR, "data/highlights.json")))
 summary = json.load(open(os.path.join(DIR, "data/summary.json")))
+DI = json.load(open(os.path.join(DIR, "data/dabs-images.json")))
+DS = json.load(open(os.path.join(DIR, "data/dabs-images-siblings.json")))
+DV = json.load(open(os.path.join(DIR, "data/dabs-review.json")))["items"]
+DY = json.load(open(os.path.join(DIR, "data/dabs-yield.json")))
+DH = json.load(open(os.path.join(DIR, "data/dabs-highlights.json")))
+SIB = json.load(open(os.path.join(DIR, "data/sibling-codes.json")))["codes"]
 e = lambda s: html.escape(str(s if s is not None else ""))
 
 _thumbs = {}
@@ -30,6 +36,17 @@ def thumb(sha):
     _thumbs[sha] = "data:image/jpeg;base64," + base64.b64encode(b.getvalue()).decode()
     return _thumbs[sha]
 
+def dabs_thumb(rec, box=200):
+    """DABS pictures are only 350 px tall; shown at most at that size, never upscaled."""
+    key = "d" + rec["sha256"] + str(box)
+    if key in _thumbs: return _thumbs[key]
+    im = Image.open(os.path.join(DIR, ".cache", rec["file"])).convert("RGBA")
+    bg = Image.new("RGBA", im.size, (255, 255, 255, 255)); im = Image.alpha_composite(bg, im).convert("RGB")
+    im.thumbnail((box, box)); b = io.BytesIO(); im.save(b, "JPEG", quality=72)
+    _thumbs[key] = "data:image/jpeg;base64," + base64.b64encode(b.getvalue()).decode()
+    return _thumbs[key]
+
+CAND_LABEL = {"exact": "✓ This image: accepted as exact", "representative": "✓ This image: accepted as representative (wine)", "possible": "? This image: possible, not accepted", "reject": "✕ This image: rejected"}
 CLS_LABEL = {"exact": "Exact", "representative": "Representative", "possible": "Possible", "reject": "Rejected", "none": "No image"}
 VIS_LABEL = {"matches": "looked: matches", "family-only": "looked: family only", "wrong": "looked: wrong item", "not-inspected": "not inspected"}
 
@@ -47,7 +64,7 @@ def pick(cands):
             seen.add(g); keep.append(c); n += 1
     return keep
 
-def cand_html(c):
+def cand_html(c, chosen=None):
     t = thumb(c["sha256"])
     img = f'<img src="{t}" alt="" loading="lazy">' if t else '<div class="noimg">no thumbnail</div>'
     cmp = c["comparison"]
@@ -58,9 +75,10 @@ def cand_html(c):
     if stated["vintages"]: bits.append("vintage " + "/".join(str(s) for s in stated["vintages"]))
     if c.get("gtins"): bits.append(", ".join(c["gtins"]))
     return f"""<figure class="cand c-{c['classification']}">
-  <div class="thumb">{img}</div>
+  <div class="thumb">{img}{'<span class="xmark" aria-hidden="true">✕</span>' if c['classification'] == 'reject' else ''}</div>
   <figcaption>
-    <span class="pill p-{c['classification']}">{CLS_LABEL[c['classification']]}</span>
+    <span class="cverdict cv-{c['classification']}">{CAND_LABEL[c['classification']]}</span>
+    {'<span class="shown">Image proposed for this listing</span>' if c['sha256'] == chosen else ''}
     <span class="vis">{e(VIS_LABEL.get(c['visual'], c['visual']))}</span>
     <p class="note">{e(c.get('review_notes') or '')}</p>
     <p class="why">{e('; '.join(c['why'][:3]))}</p>
@@ -88,6 +106,33 @@ def facts_html(csc):
     return f"""<details class="facts"><summary>Proposed facts ({len(rows)} claims; unknown: {e(', '.join(a.replace('_', ' ') for a in unknown)) or 'none'})</summary>
 <div class="tablewrap"><table><thead><tr><th>Attribute</th><th>Value</th><th>Source</th><th>Status</th><th>Exact supporting text</th></tr></thead><tbody>{''.join(out)}</tbody></table></div></details>"""
 
+def dabs_panel(p):
+    rec = DI.get(p["csc"]) or {}
+    y = DY["per_listing"][p["csc"]]
+    if not rec.get("has_image"):
+        return '<div class="dabs none"><span class="dlab">DABS attached image</span> <span class="muted">none on the DABS detail page for this CSC</span></div>'
+    v = DV[p["csc"]]
+    exact = y["dabs_strict"]
+    depict = ("Yes, strict: size legible in the picture" if exact else
+              "Only with the shape-cue rule (sensitivity)" if y["dabs_shape"] else
+              "Only with the one-size-catalog rule (sensitivity)" if y["one_size_catalog"] else
+              "No: conflicts with the listing" if v["visual"] == "conflict" else "No: " + ("size not shown" if v["size_evidence"] == "none" else "not proven"))
+    near = rec.get("nearest_external_same_csc") or []
+    near_txt = f"closest pilot candidate for this CSC: phash distance {near[0]['distance']}" + (" (same packshot)" if near[0]['distance'] <= 10 else "") if near else "no pilot candidate to compare"
+    return f"""<div class="dabs dv-{v['visual']}">
+  <img src="{dabs_thumb(rec)}" alt="Image DABS attaches to {e(p['csc'])}">
+  <div class="dbody">
+    <span class="dlab">DABS attached image</span> <span class="mono">{rec['width']}×{rec['height']} PNG · {rec['bytes']//1024} KB · sha256 {rec['sha256'][:12]}…</span>
+    <ul class="judg">
+      <li><b>Attached to the official CSC:</b> yes (inline on the DABS detail page for {e(p['csc'])})</li>
+      <li><b>Visually verified exact depiction:</b> {e(depict)}</li>
+      <li><b>Reuse rights:</b> not established (DABS hosting ≠ permission; Utah.gov disclaims copyright warranties)</li>
+    </ul>
+    <p>{e(v['notes'])}</p>
+    <p class="muted">Looked: {e(v['visual'])} · size evidence: {e(v['size_evidence'])} · vintage: {e(v['vintage'])} · {e(near_txt)}{(' · identical file on sample codes ' + e(', '.join(rec['identical_file_on_other_cscs']))) if rec.get('identical_file_on_other_cscs') else ''}</p>
+  </div>
+</div>"""
+
 def product_html(p):
     cls = p["classification"]
     cands = pick(p["candidates"])
@@ -101,11 +146,12 @@ def product_html(p):
       {('<p class="muted">Sold under: ' + e(' | '.join(p['sale_names'])) + '</p>') if len(p['sale_names']) > 1 else ''}
       {('<p class="desc">DABS text: “' + e(p['dabs_description']) + '”</p>') if p.get('dabs_description') else ''}
     </div>
-    <span class="pill big p-{cls}">{CLS_LABEL[cls]}</span>
+    <div class="lverdict lv-{cls}"><span class="lvlab">Listing result</span><span class="lvval">{CLS_LABEL[cls]}</span><span class="lvsub">external sources, pilot rules</span></div>
   </header>
+  {dabs_panel(p)}
   {('<p class="caught">Caught in review: ' + e(p['caught']) + '</p>') if p.get('caught') else ''}
   {('<p class="pnote">' + e(p['notes']) + '</p>') if p.get('notes') else ''}
-  <div class="cands">{''.join(cand_html(c) for c in cands) or '<p class="muted">No candidate image.</p>'}</div>
+  <div class="cands">{''.join(cand_html(c, p['chosen']) for c in cands) or '<p class="muted">No candidate image.</p>'}</div>
   <details class="pages"><summary>Sources tried ({len(p['pages'])})</summary><ul>{pages}</ul></details>
   {facts_html(p['csc'])}
 </article>"""
@@ -117,9 +163,41 @@ def hl_html(items, kind):
         p = by[h["csc"]]
         c = next((x for x in p["candidates"] if x["sha256"] == h.get("sha")), None) or (p["candidates"][0] if p["candidates"] else None)
         t = thumb(c["sha256"]) if c else None
-        out.append(f"""<li class="hl hl-{kind}"><a href="#p{p['csc']}">{f'<img src="{t}" alt="">' if t else '<div class="noimg">—</div>'}</a>
-<div><strong>{i}. {e(p['dabs_name'])}</strong> <span class="pill p-{p['classification']}">{CLS_LABEL[p['classification']]}</span><p>{e(h['lesson'])}</p>
+        ccls = c["classification"] if c else None
+        out.append(f"""<li class="hl hl-{kind}"><a href="#p{p['csc']}" class="hlimg{' rej' if ccls == 'reject' else ''}">{f'<img src="{t}" alt="">' if t else '<div class="noimg">—</div>'}{'<span class="xmark" aria-hidden="true">✕</span>' if ccls == 'reject' else ''}</a>
+<div><strong>{i}. {e(p['dabs_name'])}</strong>
+<p class="twov"><span class="cverdict cv-{ccls}">{CAND_LABEL.get(ccls, 'no image')}</span> <span class="lvinline">Listing result: <b class="p-{p['classification']}">{CLS_LABEL[p['classification']]}</b></span></p>
+<p>{e(h['lesson'])}</p>
 {f'<p class="muted"><a href="{e(c["source_page"])}" target="_blank" rel="noopener">{e(c["source_org"])}</a> · <a href="{e(c["image_url"])}" target="_blank" rel="noopener">image</a></p>' if c else ''}</div></li>""")
+    return "".join(out)
+
+def sib_html():
+    groups = {}
+    for c in SIB: groups.setdefault(c["group"], []).append(c["csc"])
+    out = []
+    for g in DH["sibling_groups"]:
+        full = next(k for k in groups if k.startswith(g["group"]))
+        samp = full.split("sample: ")[1].split()[0].rstrip(",)")
+        tiles = []
+        for c in [samp] + groups[full]:
+            rec = DI.get(c) or DS.get(c)
+            name = rec.get("page_name", c)
+            if rec.get("has_image"):
+                tiles.append(f'<figure><img src="{dabs_thumb(rec, 140)}" alt=""><figcaption>{e(name[-12:])}<br><span class="mono">{rec["sha256"][:8]}</span></figcaption></figure>')
+            else:
+                tiles.append(f'<figure><div class="noimg">no image</div><figcaption>{e(name[-12:])}</figcaption></figure>')
+        out.append(f'<div class="sib"><p><b>{e(g["group"])}</b> — {e(g["finding"])}</p><div class="sibrow">{"".join(tiles)}</div></div>')
+    return "".join(out)
+
+def dabs_hl(items, kind):
+    by = {p["csc"]: p for p in products}
+    out = []
+    for i, h in enumerate(items, 1):
+        p = by[h["csc"]]; rec = DI[h["csc"]]
+        out.append(f"""<li class="hl hl-{kind}"><a href="#p{p['csc']}" class="hlimg"><img src="{dabs_thumb(rec, 140)}" alt=""></a>
+<div><strong>{i}. {e(p['dabs_name'])}</strong>
+<p class="twov"><span class="cverdict cv-{'exact' if DY['per_listing'][p['csc']]['dabs_strict'] else ('reject' if DV[p['csc']]['visual'] == 'conflict' else 'possible')}">DABS image: {e(DV[p['csc']]['visual'])}, size evidence {e(DV[p['csc']]['size_evidence'])}</span> <span class="lvinline">Listing result (external): <b class="p-{p['classification']}">{CLS_LABEL[p['classification']]}</b></span></p>
+<p>{e(h['lesson'])}</p></div></li>""")
     return "".join(out)
 
 def table(rows, head):
@@ -133,6 +211,7 @@ body = f"""
 <header class="top">
   <p class="eyebrow">Utah Drops · staging only · not published</p>
   <h1>Product photo & facts pilot</h1>
+  <p><a href="#dabs">Jump to the DABS image follow-up</a></p>
   <p class="lede">100 DABS listings, {S['candidates_total']} candidate images from {S['pages_total']} public pages, every downloaded image looked at. Generated {e(R['generated_at'][:16].replace('T', ' '))} UTC. Classification rules: exact needs brand, expression and size confirmed, no conflicts and a visual check; wine without a confirmed vintage is at most representative; anything unclear is possible or nothing.</p>
   <div class="tiles">{tiles}</div>
 </header>
@@ -144,6 +223,16 @@ body = f"""
   <p>{e(S['rights_text'])}</p>
   <h2>Facts coverage</h2>
   {table(S['facts_rows'], S['facts_head'])}
+</section>
+<section class="dabsfu" id="dabs">
+  <h2>Follow-up: the image DABS attaches to each CSC</h2>
+  <p class="lede">The only DABS product image is embedded in each product's public detail page (inline PNG, 350 px tall, alt “Product bottle or can”). The catalog table, the monthly XLSX and the drawing/allocated pages carry none. 38 of the frozen 100 have one. Three claims are kept apart: <b>attached to the CSC</b> (provenance), <b>visually verified exact depiction</b> (size, expression, vintage in the picture), and <b>reuse rights</b> (not established for any image).</p>
+  {table(DY['table'], DY['columns'])}
+  <p class="muted">Strict = the pilot's rules (size legible in the picture or a single-size page). Shape cue and one-size-catalog are looser sensitivity rules, not recommendations. Every DABS picture is 350 px tall; under the pilot's 400 px card rule only 3 of 38 qualify and neither strict DABS gain does.</p>
+  <h3 class="sub">DABS reuses one file across sizes (sibling annex, outside the frozen 100)</h3>
+  <div class="sibs">{sib_html()}</div>
+  <h3 class="sub">DABS image: instructive successes</h3><ol class="hls">{dabs_hl(DH['successes'], 'ok')}</ol>
+  <h3 class="sub">DABS image: dangerous failures</h3><ol class="hls">{dabs_hl(DH['failures'], 'bad')}</ol>
 </section>
 <section class="highlights">
   <h2>Ten instructive successes</h2><ol class="hls">{hl_html(hl['successes'], 'ok')}</ol>
@@ -215,6 +304,33 @@ dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 8px;margin:4px 
 dt{color:var(--muted)}dd{margin:0;overflow-wrap:anywhere}
 details{margin-top:10px;font-size:.85rem}summary{cursor:pointer;color:var(--accent)}
 .pages ul{margin:6px 0;padding-left:18px}
+.lverdict{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:2px solid currentColor;padding:6px 10px;min-width:9.5rem}
+.lvlab{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.lvval{font-family:var(--display);font-size:1.15rem;font-weight:600}
+.lvsub{font-size:.7rem;color:var(--muted)}
+.lv-exact{color:var(--exact)}.lv-representative{color:var(--rep)}.lv-possible{color:var(--poss)}.lv-none{color:var(--none)}
+.cverdict{display:inline-block;font-size:.74rem;font-weight:700;padding:2px 6px;border-radius:2px;color:var(--panel)}
+.cv-exact{background:var(--exact)}.cv-representative{background:var(--rep)}.cv-possible{background:var(--poss)}.cv-reject{background:var(--bad)}.cv-None{background:var(--none)}
+.shown{display:inline-block;font-size:.72rem;font-weight:600;color:var(--exact);border:1px dashed var(--exact);padding:1px 5px}
+.thumb{position:relative}
+.xmark{position:absolute;top:4px;right:6px;font-size:1.6rem;font-weight:700;color:var(--bad);line-height:1}
+.cand.c-reject .thumb img{opacity:.55;filter:grayscale(.6)}
+.cand.c-reject{border:2px solid var(--bad)}
+.hlimg{position:relative;display:block}.hlimg.rej img{opacity:.55;filter:grayscale(.6);outline:2px solid var(--bad)}
+.twov{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.lvinline{font-size:.82rem;color:var(--muted)}
+.dabs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;margin-top:12px;padding:10px;border:1px solid var(--line);background:var(--bg)}
+.dabs.none{display:block}
+.dabs img{max-height:175px;width:auto;background:#fff}
+.dv-conflict{border:2px solid var(--bad)}
+.dlab{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--accent)}
+.judg{margin:6px 0;padding-left:18px;font-size:.85rem}.dbody p{margin:4px 0;font-size:.85rem}
+.sub{font-family:var(--body);font-size:1rem;margin-top:16px}
+.sibs{display:grid;gap:10px}.sib p{margin:4px 0}
+.sibrow{display:flex;flex-wrap:wrap;gap:8px}
+.sibrow figure{margin:0;background:#fff;border:1px solid var(--line);padding:4px;width:110px;text-align:center}
+.sibrow img{max-height:140px;max-width:100%}
+.sibrow figcaption{font-size:.7rem;color:#555}
 @media (max-width:560px){.product header{flex-direction:column}h1{font-size:1.7rem}}
 """
 JS = """

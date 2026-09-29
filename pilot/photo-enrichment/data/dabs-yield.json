@@ -1,0 +1,1256 @@
+{
+ "columns": [
+  "cut",
+  "listings",
+  "External only",
+  "DABS image present",
+  "DABS only, strict",
+  "Combined, strict",
+  "Combined + shape cue",
+  "Combined + one-size catalog"
+ ],
+ "table": [
+  [
+   "all",
+   100,
+   14,
+   38,
+   2,
+   16,
+   24,
+   28
+  ],
+  [
+   "popular",
+   60,
+   8,
+   27,
+   0,
+   8,
+   13,
+   17
+  ],
+  [
+   "difficult",
+   40,
+   6,
+   11,
+   2,
+   8,
+   11,
+   11
+  ],
+  [
+   "spirits",
+   57,
+   12,
+   15,
+   1,
+   13,
+   17,
+   21
+  ],
+  [
+   "wine",
+   27,
+   1,
+   16,
+   0,
+   1,
+   1,
+   1
+  ],
+  [
+   "beer",
+   13,
+   0,
+   7,
+   1,
+   1,
+   5,
+   5
+  ],
+  [
+   "other",
+   3,
+   1,
+   0,
+   0,
+   1,
+   1,
+   1
+  ]
+ ],
+ "possible_upgraded": {
+  "dabs_strict": [],
+  "dabs_shape": [
+   "900286",
+   "016098",
+   "917890"
+  ],
+  "one_size_catalog": [
+   "016850",
+   "017913",
+   "018006",
+   "900286",
+   "016098",
+   "917890"
+  ]
+ },
+ "none_to_exact": {
+  "dabs_strict": [
+   "029913",
+   "989451"
+  ],
+  "dabs_shape": [
+   "012288",
+   "035318",
+   "038068",
+   "954782",
+   "029913",
+   "918005",
+   "989451"
+  ],
+  "one_size_catalog": [
+   "012288",
+   "953821",
+   "035318",
+   "038068",
+   "954782",
+   "029913",
+   "918005",
+   "989451"
+  ]
+ },
+ "dabs_conflicts": [
+  "547123",
+  "560305",
+  "953285",
+  "036117",
+  "076905"
+ ],
+ "wine_dabs_representative_candidates": [
+  "275090",
+  "346003",
+  "407766",
+  "418330",
+  "443950",
+  "478071",
+  "704050",
+  "728795",
+  "737346",
+  "908033",
+  "910850",
+  "915138",
+  "916562",
+  "917090"
+ ],
+ "dabs_images": 38,
+ "dabs_bytes_total": 2896276,
+ "dabs_bytes_median": 66629,
+ "dabs_height_px": [
+  350
+ ],
+ "pilot_400px_rule_passes": 3,
+ "per_listing": {
+  "016882": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "016850": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "017929": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "017913": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "021602": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "family"
+  },
+  "017928": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "024746": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "017927": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "087485": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "910850": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": "family"
+  },
+  "018006": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "012478": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    750
+   ],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "021492": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "012288": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [
+    375,
+    750,
+    1000
+   ],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "026159": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "478071": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": "family"
+  },
+  "953821": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "088920": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    1750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "066685": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "053536": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "088741": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "954317": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    330
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "346003": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "family"
+  },
+  "922628": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "917090": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "family"
+  },
+  "038178": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    200,
+    375,
+    750,
+    1000
+   ],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "038177": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    200,
+    375,
+    750,
+    1750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "038176": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    200,
+    375,
+    1000,
+    1750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "035318": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [
+    375,
+    750,
+    1000
+   ],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "087280": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "088296": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    1750
+   ],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "011298": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    200,
+    375,
+    750,
+    1000
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "026828": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    200,
+    375,
+    750,
+    1000,
+    3000
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "038008": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "088018": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    1000,
+    1750
+   ],
+   "external_class": "possible",
+   "dabs_visual": "family"
+  },
+  "038068": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [
+    375,
+    750,
+    1000
+   ],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "036117": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    50,
+    375,
+    750,
+    1000
+   ],
+   "external_class": "none",
+   "dabs_visual": "conflict"
+  },
+  "010807": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    1750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "018604": {
+   "external": true,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    1750
+   ],
+   "external_class": "exact",
+   "dabs_visual": "family"
+  },
+  "034821": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "728795": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    187,
+    375,
+    1500
+   ],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "407766": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": "family"
+  },
+  "704050": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375
+   ],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "737346": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    187,
+    200,
+    375,
+    1500
+   ],
+   "external_class": "possible",
+   "dabs_visual": "family"
+  },
+  "275090": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": "family"
+  },
+  "561015": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": null
+  },
+  "560305": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": "conflict"
+  },
+  "547123": {
+   "external": true,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    500
+   ],
+   "external_class": "exact",
+   "dabs_visual": "conflict"
+  },
+  "418330": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "family"
+  },
+  "561022": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": null
+  },
+  "443950": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375
+   ],
+   "external_class": "representative",
+   "dabs_visual": "family"
+  },
+  "566375": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "954782": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "989410": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "918885": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "900286": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "918778": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "family"
+  },
+  "058250": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "918800": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "918825": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "048108": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "005349": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    750
+   ],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "065127": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    750
+   ],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "087410": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    375,
+    750
+   ],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "076905": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    750,
+    1750
+   ],
+   "external_class": "none",
+   "dabs_visual": "conflict"
+  },
+  "027380": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "029913": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": true,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "019239": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "073721": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "031474": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [
+    750,
+    1750
+   ],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "016307": {
+   "external": true,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": "matches"
+  },
+  "016434": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "017039": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "084679": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "016098": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [
+    750
+   ],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "072382": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "078390": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "080421": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "633870": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "021050": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "918005": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "900358": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "953285": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "conflict"
+  },
+  "917890": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "matches"
+  },
+  "989451": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": true,
+   "dabs_shape": true,
+   "one_size_catalog": true,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "matches"
+  },
+  "931992": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "932298": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "929191": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "916562": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "family"
+  },
+  "924369": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "022085": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "931484": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "015379": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "075050": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": null
+  },
+  "924826": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "908033": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": "family"
+  },
+  "915138": {
+   "external": false,
+   "dabs_image": true,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "possible",
+   "dabs_visual": "family"
+  },
+  "065735": {
+   "external": true,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "exact",
+   "dabs_visual": null
+  },
+  "948327": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "none",
+   "dabs_visual": null
+  },
+  "929782": {
+   "external": false,
+   "dabs_image": false,
+   "dabs_strict": false,
+   "dabs_shape": false,
+   "one_size_catalog": false,
+   "other_sizes_in_catalog": [],
+   "external_class": "representative",
+   "dabs_visual": null
+  }
+ }
+}

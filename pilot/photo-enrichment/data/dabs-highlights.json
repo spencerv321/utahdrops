@@ -1,0 +1,30 @@
+{
+ "successes": [
+  {"csc": "029913", "lesson": "Strict exact from the DABS picture: “PREMIUM GIN … 45% ALC/VOL … 750 ML” is legible. The external producer page showed a bottle labeled “Grain to Glass Gin”, so DABS fixed the identity. It's still 350 px, below the 400 px card rule."},
+  {"csc": "989451", "lesson": "Strict exact from the DABS picture: the can reads “12 FL. OZ.” No external page was reachable (Target 404, K&L 403), so DABS is the only source."},
+  {"csc": "728795", "lesson": "DABS attaches the classic La Marca Prosecco D.O.C.; the producer's page showed only the Rosé and the Demi Sec. Right expression, size unprovable, so it stays possible."},
+  {"csc": "916562", "lesson": "The label reads Bergström “SILICE” Chehalem Mountains Pinot Noir, confirming DABS's “SALICE” is a typo. It's the only clean image found; the vintage isn't on the front label."},
+  {"csc": "012288", "lesson": "Canadian Host had no public page anywhere. DABS has a different picture for each size (375 flask, 750, 1 L, 1.75 L), and the 1.75 L one is the large ribbed bottle."},
+  {"csc": "918005", "lesson": "The Pfeifferhorn Lager can had no external candidate. DABS keeps the 651 ml bottle (917735) as a separate picture, so can vs bottle stays distinct."},
+  {"csc": "016850", "lesson": "The Blanton's case: DABS attaches the producer's own Original Single Barrel packshot (phash distance 8). That's strong provenance for 016850, but the picture shows no volume, so under the strict rule it stays possible."},
+  {"csc": "035318", "lesson": "Barton Vodka: DABS pictures differ by size (375 flask, 750 glass, 1.75 L PET), so here the attachment carries real size information. That only holds brand by brand, though; see Five Wives below."}
+ ],
+ "failures": [
+  {"csc": "547123", "lesson": "DABS's Black Box Chardonnay picture is an old box with “2016” printed on it. The pilot's accepted external image is the current non-vintage box. Relying on DABS here would have shown a ten-year-old package."},
+  {"csc": "036117", "lesson": "Five Wives Vodka: the identical file is attached to the 375 ml, 750 ml, 1 L and 1.75 L codes, and it's a 750-style bottle. On the 1.75 L listing it shows the wrong size."},
+  {"csc": "076905", "lesson": "Porter's Fire: one file on the 375 ml, 750 ml and 1.75 L codes, showing the full-size bottle on this 375 ml listing."},
+  {"csc": "953285", "lesson": "DABS names this code “VOODOO JUICY HAZE CAN 355 ml”, but the picture is the 12-pack carton."},
+  {"csc": "560305", "lesson": "The DABS label reads Sonoma-Cutrer “SONOMA COAST” Chardonnay while the listing is “RR” (Russian River Ranches). It may be a relabel of the same wine, but the name on the label doesn't match, so it isn't accepted."},
+  {"csc": "478071", "lesson": "Joel Gott Pinot Noir: the DABS label shows 2021 while the producer now shows 2023. DABS pictures are frozen at listing time."}
+ ],
+ "sibling_groups": [
+  {"group": "Five Wives Vodka sizes", "finding": "identical file (sha 4f3ed34b) on 375 / 750 / 1000 / 1750 ml: attachment says nothing about size."},
+  {"group": "Porter's Fire sizes", "finding": "identical file (sha c03f8576) on 375 / 750 / 1750 ml."},
+  {"group": "Barton Vodka sizes", "finding": "a different picture per size (flask, glass, PET); 1 L has none."},
+  {"group": "Canadian Host 3 yr sizes", "finding": "a different picture per size."},
+  {"group": "Taaka Vodka sizes", "finding": "different pictures per size, in two label designs."},
+  {"group": "Dented Brick other spirits", "finding": "Premium Vodka and Premium Gin share one label template (phash distance 6) and differ only in the word GIN/VODKA: near-duplicate hashing would wrongly merge them."},
+  {"group": "Epic bottles vs cans", "finding": "the cans and the 651 ml bottles have separate pictures."},
+  {"group": "Kim Crawford Illuminate", "finding": "Illuminate (alcohol-removed) has its own picture, distinct from the regular Sauvignon Blanc."}
+ ]
+}

@@ -80,7 +80,7 @@
   {
    "csc": "018604",
    "sha": "07945e19d485614a1f433e9e69409a000e8c527f0fb806e33ef0b4b3979bcdd8",
-   "lesson": "High West's 375 ml product page reuses the 750 ml bottle image, and the label says 750ml. Size claims from page text alone would be wrong."
+   "lesson": "High West's 375 ml product page reuses the 750 ml bottle image, and the label says 750ml. This file was correctly accepted for the 750 ml listing, but on the 375 ml page it's the wrong size, so size claims from page text alone would be wrong."
   },
   {
    "csc": "918778",

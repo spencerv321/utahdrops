@@ -26,7 +26,7 @@ FAILURES = [
     ("017927", "A", "A retailer's “Elijah Craig 94 proof Private Barrel” page uses an Angel's Envy Private Selection photo. The page text alone would have accepted it."),
     ("931992", "B", "A retailer's 2023 page shows the 2022 bottle; the vintage is legible on the label. Stale-vintage images are common and can only be representative."),
     ("065127", "A", "The producer's own US page shows a label reading 700 ml, while DABS sells the 1 L. It was caught only by reading the label."),
-    ("018604", "E", "High West's 375 ml product page reuses the 750 ml bottle image, and the label says 750ml. Size claims from page text alone would be wrong."),
+    ("018604", "E", "High West's 375 ml product page reuses the 750 ml bottle image, and the label says 750ml. This file was correctly accepted for the 750 ml listing, but on the 375 ml page it's the wrong size, so size claims from page text alone would be wrong."),
     ("918778", "G", "The only clean Juice Force render has 19.2 oz tall-can proportions, not the 355 ml can DABS lists."),
     ("478071", "A", "The producer's Pinot Noir page uses a Cabernet “815” label close-up as its share image, which is exactly what an og:image scraper would grab."),
     ("275090", "D", "Whispering Angel: the producer page's packshot is the 20th-vintage limited label, and the same page carries “The Pale”, a different rosé in the same bottle shape."),

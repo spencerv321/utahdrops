@@ -1,0 +1,141 @@
+{
+ "purpose": "Annex outside the frozen 100: sibling sizes/expressions of sample products with a DABS image, to test whether DABS reuses one picture across CSCs.",
+ "codes": [
+  {
+   "csc": "035314",
+   "group": "Barton Vodka sizes (sample: 035318 1750)"
+  },
+  {
+   "csc": "035316",
+   "group": "Barton Vodka sizes (sample: 035318 1750)"
+  },
+  {
+   "csc": "035317",
+   "group": "Barton Vodka sizes (sample: 035318 1750)"
+  },
+  {
+   "csc": "012284",
+   "group": "Canadian Host 3 yr sizes (sample: 012288 1750)"
+  },
+  {
+   "csc": "012286",
+   "group": "Canadian Host 3 yr sizes (sample: 012288 1750)"
+  },
+  {
+   "csc": "012287",
+   "group": "Canadian Host 3 yr sizes (sample: 012288 1750)"
+  },
+  {
+   "csc": "037924",
+   "group": "Five Wives Vodka sizes (sample: 036117 1750)"
+  },
+  {
+   "csc": "035929",
+   "group": "Five Wives Vodka sizes (sample: 036117 1750)"
+  },
+  {
+   "csc": "036711",
+   "group": "Five Wives Vodka sizes (sample: 036117 1750)"
+  },
+  {
+   "csc": "038064",
+   "group": "Taaka Vodka sizes (sample: 038068 1750)"
+  },
+  {
+   "csc": "038066",
+   "group": "Taaka Vodka sizes (sample: 038068 1750)"
+  },
+  {
+   "csc": "038067",
+   "group": "Taaka Vodka sizes (sample: 038068 1750)"
+  },
+  {
+   "csc": "018603",
+   "group": "High West Bourbon sizes (sample: 018604 750)"
+  },
+  {
+   "csc": "018657",
+   "group": "High West Bourbon sizes (sample: 018604 750)"
+  },
+  {
+   "csc": "016096",
+   "group": "Evan Williams BIB sizes (sample: 016098 1750)"
+  },
+  {
+   "csc": "088024",
+   "group": "Lunazul Blanco sizes + Reposado (sample: 088018 Blanco 750)"
+  },
+  {
+   "csc": "088014",
+   "group": "Lunazul Blanco sizes + Reposado (sample: 088018 Blanco 750)"
+  },
+  {
+   "csc": "088015",
+   "group": "Lunazul Blanco sizes + Reposado (sample: 088018 Blanco 750)"
+  },
+  {
+   "csc": "089468",
+   "group": "Lunazul Blanco sizes + Reposado (sample: 088018 Blanco 750)"
+  },
+  {
+   "csc": "076906",
+   "group": "Porter's Fire sizes (sample: 076905 375)"
+  },
+  {
+   "csc": "076908",
+   "group": "Porter's Fire sizes (sample: 076905 375)"
+  },
+  {
+   "csc": "917737",
+   "group": "Epic bottles vs cans (sample: 917890, 918005 cans)"
+  },
+  {
+   "csc": "917735",
+   "group": "Epic bottles vs cans (sample: 917890, 918005 cans)"
+  },
+  {
+   "csc": "443951",
+   "group": "Meiomi Pinot Noir 375 (sample: 443950 750)"
+  },
+  {
+   "csc": "080023",
+   "group": "Buffalo Trace Bourbon Cream (sample: 018006 bourbon)"
+  },
+  {
+   "csc": "016873",
+   "group": "Blanton's other expressions (sample: 016850 Original)"
+  },
+  {
+   "csc": "921500",
+   "group": "Blanton's other expressions (sample: 016850 Original)"
+  },
+  {
+   "csc": "027101",
+   "group": "E.H. Taylor Straight Rye (sample: 021602 Small Batch)"
+  },
+  {
+   "csc": "924913",
+   "group": "Whispering Angel large formats (sample: 275090 750)"
+  },
+  {
+   "csc": "924914",
+   "group": "Whispering Angel large formats (sample: 275090 750)"
+  },
+  {
+   "csc": "407757",
+   "group": "Kim Crawford Illuminate (sample: 407766 Sauvignon Blanc)"
+  },
+  {
+   "csc": "029912",
+   "group": "Dented Brick other spirits (sample: 029913 Premium Gin)"
+  },
+  {
+   "csc": "037639",
+   "group": "Dented Brick other spirits (sample: 029913 Premium Gin)"
+  },
+  {
+   "csc": "931964",
+   "group": "Voodoo Ranger Sweet Ride (sample: 918778, 953285)"
+  }
+ ]
+}
