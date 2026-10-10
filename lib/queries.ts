@@ -129,7 +129,7 @@ export async function searchProducts(filters: SearchFilters) {
 async function storesWithin(at: { lat: number; lng: number; miles: number }): Promise<number[]> {
   const rows = (await sql`
     select id from stores
-    where lat is not null and 3959 * 2 * asin(least(1, sqrt(
+    where lat is not null and not is_club and 3959 * 2 * asin(least(1, sqrt(
       sin(radians(lat - ${at.lat}) / 2) ^ 2 +
       cos(radians(${at.lat})) * cos(radians(lat)) * sin(radians(lng - ${at.lng}) / 2) ^ 2
     ))) <= ${at.miles}`) as unknown as { id: number }[];
@@ -187,11 +187,12 @@ export interface StoreAvailability {
   phone: string | null;
   lat: number | null;
   lng: number | null;
+  is_club: boolean;
 }
 
 export async function getStoreAvailability(csc: string): Promise<StoreAvailability[]> {
   return (await sql`
-    select c.store_id, c.qty, c.scraped_at, s.name, s.address, s.city, s.phone, s.lat, s.lng
+    select c.store_id, c.qty, c.scraped_at, s.name, s.address, s.city, s.phone, s.lat, s.lng, s.is_club
     from store_inventory_current c
     join stores s on s.id = c.store_id
     where c.csc = ${csc}
@@ -398,7 +399,7 @@ export async function getNearby(
     join stores s on s.id = c.store_id
     join products p on p.csc = c.csc
     cross join lateral (
-      select s.lat is not null and 3959 * 2 * asin(least(1, sqrt(
+      select s.lat is not null and not s.is_club and 3959 * 2 * asin(least(1, sqrt(
         sin(radians(s.lat - ${at.lat}) / 2) ^ 2 +
         cos(radians(${at.lat})) * cos(radians(s.lat)) * sin(radians(s.lng - ${at.lng}) / 2) ^ 2
       ))) <= ${miles} as near

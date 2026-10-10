@@ -288,7 +288,7 @@ function evidenceLines(p: WineProfile, contributions: Contribution[], readAt: Da
 async function storeIdsNear(a: Area): Promise<number[]> {
   const rows = (await sql`
     select id from stores
-    where lat is not null and 3959 * 2 * asin(least(1, sqrt(
+    where lat is not null and not is_club and 3959 * 2 * asin(least(1, sqrt(
       sin(radians(lat - ${a.lat}) / 2) ^ 2 +
       cos(radians(${a.lat})) * cos(radians(lat)) * sin(radians(lng - ${a.lng}) / 2) ^ 2
     ))) <= ${NEARBY_MILES}`) as unknown as { id: number }[];

@@ -96,6 +96,10 @@ export function AreaPicker({
           <option value={ALL}>All of Utah</option>
           <option value={HERE}>{current?.label === "Near you" ? "Near you" : "Use my location"}</option>
           <optgroup label="Areas with a state store">
+            {/* A saved area that's no longer a store city still shows as chosen. */}
+            {current && current.label !== "Near you" && !areas.some((a) => a.label === current.label) ? (
+              <option value={current.label}>{current.label}</option>
+            ) : null}
             {areas.map((a) => (
               <option key={a.label} value={a.label}>
                 {a.label}

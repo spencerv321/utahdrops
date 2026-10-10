@@ -1,11 +1,14 @@
 import { AREA_COOKIE, serializeArea, type Area } from "@/lib/area";
 
-// Product pages sort stores by distance from coordinates kept here; keep it in
-// step with the area cookie so both follow one choice.
-export const LOCATION_STORAGE_KEY = "ud_location";
-export const AREA_EVENT = "ud-area";
+/**
+ * The one place a chosen area is kept: the ud_area cookie, read by server
+ * pages (search, product, Worth a look). Product pages used to keep their
+ * own copy of the coordinates in localStorage ("ud_location"), which could
+ * disagree with the cookie; it's cleared here and no longer read.
+ */
+const LEGACY_LOCATION_KEY = "ud_location";
 
-/** Remember the area for server pages (cookie) and product pages (localStorage). */
+/** Remember the area (or "All of Utah" = null) for every page. */
 export function rememberArea(area: Area | null) {
   if (area) {
     document.cookie = `${AREA_COOKIE}=${serializeArea(area)}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
@@ -13,12 +16,10 @@ export function rememberArea(area: Area | null) {
     document.cookie = `${AREA_COOKIE}=; path=/; max-age=0; samesite=lax`;
   }
   try {
-    if (area) window.localStorage.setItem(LOCATION_STORAGE_KEY, JSON.stringify({ lat: area.lat, lng: area.lng }));
-    else window.localStorage.removeItem(LOCATION_STORAGE_KEY);
+    window.localStorage.removeItem(LEGACY_LOCATION_KEY);
   } catch {
-    // not persisted; the cookie still works
+    // storage blocked: nothing to clear
   }
-  window.dispatchEvent(new Event(AREA_EVENT));
 }
 
 export function locate(): Promise<Area> {

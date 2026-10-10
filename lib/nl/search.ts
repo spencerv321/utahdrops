@@ -95,7 +95,7 @@ export async function runNlSearch(
                )
              ) as distance_mi
       from stores
-      where lat is not null
+      where lat is not null and not is_club
       order by distance_mi asc
       limit 3`) as unknown as {
       id: number; name: string; city: string | null; address: string | null; distance_mi: number;
