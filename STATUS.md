@@ -41,18 +41,22 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   backgrounds in `assets/`), and "near you first" search ordering when an area
   is picked (default sort only; no area = unchanged "in stock first").
 
-## Product photos (batch 1 live with this PR)
-- 92 verified photos covering 143 products (other sizes share a label photo),
-  for the top 100 by `report.yml` → `phototargets` (interest first: watched,
-  2+ visitors, drawings/rare; then DABS sales dollars). 4 of the 100 left
-  without one (no confident match). Shown on product pages, search rows, the
-  feed and /discover via `components/bottle-photo.tsx`; glyph otherwise.
+## Product photos (top 300 covered)
+- 232 verified photos covering 426 products (other sizes share a label photo,
+  and a few "PET"/small-size listings reuse their bottle's photo), for the top
+  300 by `report.yml` → `phototargets` (interest first: watched, 2+ visitors,
+  drawings/rare; then DABS sales dollars). 10 of the 300 left without one (no
+  confident match: e.g. Four Roses 2026 LE, Seagram's VO, Natty Daddy 12oz).
+  Shown on product pages, search rows, the feed and /discover via
+  `components/bottle-photo.tsx`; glyph otherwise.
 - Rule: right label; size and vintage/edition may differ. Never a different
   expression, never generic stock. Sources in `data/bottle-photo-sources.json`.
 - How: `scripts/photos/README.md` (Yahoo Images from the cloud sandbox, contact
-  sheets reviewed by Claude, cut out onto the dark theme). Bing serves decoy
-  results to scripts (why the Sept pilot got 1/28); DuckDuckGo throttles.
-- Next: batch 2 (ranks 101–300), then the photo on product share cards.
+  sheets reviewed by Claude, cut out onto the dark theme; clear/white bottles
+  and wine boxes need a small `step`). Bing serves decoy results to scripts
+  (why the Sept pilot got 1/28); DuckDuckGo throttles.
+- Next: the photo on product share cards; more batches only if
+  `phototargets` shows traffic landing on bottles without one.
 
 ## Admin dashboard + sign-in fix (PRs #16–#18, live)
 - `/admin` is live for `ADMIN_EMAILS` (set in Vercel): live visitors, traffic,
@@ -258,7 +262,7 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   wait. Send by running `cron.yml` with job `invite-signups` and `send` checked.
 
 ## Next
-- Product photos batch 2 (above).
+- Bottle photo on product share cards (above).
 - Nice-to-have: near-you counts on the browse buttons (low value; results
   already show them).
 - Remaining review items (see `REVIEW.md` §4): push/PWA alerts, price history
