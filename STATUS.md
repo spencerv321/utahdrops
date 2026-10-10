@@ -55,8 +55,10 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   sheets reviewed by Claude, cut out onto the dark theme; clear/white bottles
   and wine boxes need a small `step`). Bing serves decoy results to scripts
   (why the Sept pilot got 1/28); DuckDuckGo throttles.
-- Next: the photo on product share cards; more batches only if
-  `phototargets` shows traffic landing on bottles without one.
+- Product share cards show the bottle on the right (palette PNG copies in
+  `assets/og/bottles/`, 6.7 MB, shipped only with the product routes).
+- Next: more batches only if `phototargets` shows traffic landing on bottles
+  without one.
 
 ## Admin dashboard + sign-in fix (PRs #16–#18, live)
 - `/admin` is live for `ADMIN_EMAILS` (set in Vercel): live visitors, traffic,
@@ -262,7 +264,6 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   wait. Send by running `cron.yml` with job `invite-signups` and `send` checked.
 
 ## Next
-- Bottle photo on product share cards (above).
 - Nice-to-have: near-you counts on the browse buttons (low value; results
   already show them).
 - Remaining review items (see `REVIEW.md` §4): push/PWA alerts, price history

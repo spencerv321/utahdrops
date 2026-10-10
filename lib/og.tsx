@@ -52,6 +52,7 @@ export async function ogAssets() {
   return assets;
 }
 
+
 /** The glass mark, as on the site (inline SVG renders in Satori). */
 function GlassMark({ size }: { size: number }) {
   return (
@@ -78,15 +79,21 @@ export function Wordmark() {
   );
 }
 
-/** Full-bleed card: background photo, wordmark top-left, content, footer line. */
+/**
+ * Full-bleed card: background photo, wordmark top-left, content, footer line.
+ * `aside` (e.g. the bottle photo) is placed on the card itself, so position it
+ * against the 1200×630 card, not the text column.
+ */
 export function OgCard({
   background,
   children,
   footer,
+  aside,
 }: {
   background?: string;
   children: React.ReactNode;
   footer: string;
+  aside?: React.ReactNode;
 }) {
   return (
     <div
@@ -109,11 +116,12 @@ export function OgCard({
         <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center" }}>{children}</div>
         <div style={{ display: "flex", fontSize: 24, color: C.muted }}>{footer}</div>
       </div>
+      {aside}
     </div>
   );
 }
 
-export function Kicker({ children, color = C.amber }: { children: React.ReactNode; color?: string }) {
+export function Kicker({ children, color = C.amber, maxWidth }: { children: React.ReactNode; color?: string; maxWidth?: number }) {
   return (
     <div
       style={{
@@ -124,6 +132,7 @@ export function Kicker({ children, color = C.amber }: { children: React.ReactNod
         textTransform: "uppercase",
         color,
         marginBottom: 18,
+        ...(maxWidth ? { maxWidth } : {}), // Satori rejects undefined style values
       }}
     >
       {children}

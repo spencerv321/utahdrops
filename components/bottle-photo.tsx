@@ -2,17 +2,7 @@ import Image from "next/image";
 import type { ProductKind } from "@/lib/format";
 import { BottleGlyph } from "@/components/bottle-glyph";
 import { cn } from "@/lib/utils";
-import photos from "@/lib/bottle-photos.json";
-
-const FILES: Record<string, number[]> = photos.files;
-const PRODUCTS: Record<string, string> = photos.products;
-
-/** Photo file for a product, if a verified one exists (one per label, shared across sizes). */
-export function bottlePhoto(csc: string | null | undefined) {
-  const id = csc ? PRODUCTS[csc] : undefined;
-  const dims = id ? FILES[id] : undefined;
-  return id && dims ? { src: `/bottles/${id}.webp`, width: dims[0], height: dims[1] } : null;
-}
+import { bottlePhoto } from "@/lib/bottle-photo";
 
 /**
  * The bottle's photo, cut out onto the page, or the container glyph when we
