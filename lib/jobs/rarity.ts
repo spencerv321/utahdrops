@@ -17,6 +17,9 @@ export async function runRarityJob() {
     const db = await sql.reserve();
     try {
       await db`set client_min_messages = warning`;
+      // Batch job over the full history: allow longer than the role's default
+      // statement timeout (the workflow itself stops at 20 min).
+      await db`set statement_timeout = '10min'`;
       const { rows, drawings, history } = await assessAll(db);
       const keep = rows.filter((a) => a.r.label !== "Special order" && a.r.label !== "Being discontinued");
       if (keep.length < MIN_ROWS) throw new Error(`only ${keep.length} assessments — an input likely failed; not writing`);

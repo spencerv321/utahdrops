@@ -152,9 +152,10 @@ export async function buildStockMetrics(
   await db`drop table if exists rarity_store_days`;
   await db`
     create temp table rarity_store_days as
-    with store_gaps as (
+    with store_gaps as materialized (
       -- Store-job outages (>48h between successful runs): no store observation
-      -- carries forward across one.
+      -- carries forward across one. Materialized so the per-row lookup below
+      -- scans these few rows, not the whole run history once per row.
       select started_at + interval '12 hours' as gap_start from (
         select started_at, lead(started_at) over (order by started_at) as next_at
         from scrape_runs where job = 'store_inventory' and ok
