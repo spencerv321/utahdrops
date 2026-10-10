@@ -69,7 +69,7 @@ function nearJoin(area: Area | null) {
     cte: sql`
       near_stores as (
         select id from stores
-        where lat is not null and 3959 * 2 * asin(least(1, sqrt(
+        where lat is not null and not is_club and 3959 * 2 * asin(least(1, sqrt(
           sin(radians(lat - ${area.lat}) / 2) ^ 2 +
           cos(radians(${area.lat})) * cos(radians(lat)) * sin(radians(lng - ${area.lng}) / 2) ^ 2
         ))) <= ${NEARBY_MILES}

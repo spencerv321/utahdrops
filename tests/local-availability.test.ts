@@ -93,3 +93,28 @@ test("the area decides nearness, not where the bottle is stocked", () => {
   const a = localAnswer({ ...base, area: ST_GEORGE, stores: [parkCity(5), slc(9)], checkedAt: h(2) });
   assert.equal(a.kind, "fresh-zero");
 });
+
+// Club stores sell to licensed businesses only: never a shopper's nearby stock.
+const club = (qty: number): LocalStore => ({ ...store(3, 40.665, -111.505, qty), is_club: true });
+
+test("club store stock near the area is not counted", () => {
+  const a = localAnswer({ ...base, stores: [club(8), parkCity(5)], checkedAt: h(3) });
+  assert.equal(a.kind, "fresh-positive");
+  if (a.kind !== "fresh-positive") return;
+  assert.equal(a.stores, 1);
+  assert.equal(a.units, 5);
+  assert.equal(a.nearest.store_id, 1);
+});
+
+test("only a club store nearby reads as none near, pointing to a public store", () => {
+  const a = localAnswer({ ...base, stores: [club(8), slc(9)], checkedAt: h(3) });
+  assert.equal(a.kind, "fresh-zero");
+  if (a.kind !== "fresh-zero") return;
+  assert.equal(a.elsewhere?.store_id, 2);
+});
+
+test("club stock still counts toward ruling out a smaller statewide count", () => {
+  // Statewide shows 10; nearby stores had 5 public + 8 club = 13 > 10.
+  const a = localAnswer({ ...base, statewide: { qty: 10, at: h(1) }, stores: [club(8), parkCity(5)], checkedAt: h(3) });
+  assert.equal(a.kind, "disproved");
+});

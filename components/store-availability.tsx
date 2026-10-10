@@ -16,6 +16,8 @@ export interface StoreRow {
   lat: number | null;
   lng: number | null;
   qty: number;
+  /** Club store: sells to licensed businesses only. */
+  is_club?: boolean;
 }
 
 export interface HomeStore {
@@ -95,10 +97,12 @@ export function StoreAvailability({
   const outdated = rows.filter((r) => r.outdated);
   const ago = checkedAgo(checkedAt);
   const recent = canClaimNone(checkedAt);
+  // Club stores sell to licensed businesses only: listed, never the suggested store.
+  const forShoppers = inStock.filter((r) => !r.is_club);
   const nearest = here
-    ? [...inStock].filter((r) => r.miles != null).sort((a, b) => a.miles! - b.miles!)[0]
+    ? [...forShoppers].filter((r) => r.miles != null).sort((a, b) => a.miles! - b.miles!)[0]
     : undefined;
-  const mostBottles = [...inStock].sort((a, b) => b.qty - a.qty)[0];
+  const mostBottles = [...forShoppers].sort((a, b) => b.qty - a.qty)[0];
   const mineInStock = inStock.filter((r) => r.mine).sort((a, b) => b.qty - a.qty)[0];
 
   // The one-glance answer.

@@ -20,7 +20,9 @@ import { canClaimNone, exceedsStatewide, noneStatewideSince, type Stamp, type St
  *                    or none nearby in a check too old to rule stores out
  *
  * A zero is only ever claimed from a fresh check or a newer statewide count;
- * "unknown" is never shown as none.
+ * "unknown" is never shown as none. Club stores (licensed businesses only) never
+ * count as stock a shopper can buy; they still count toward ruling out a
+ * statewide count, which includes them.
  */
 
 export interface LocalStore {
@@ -32,6 +34,8 @@ export interface LocalStore {
   lat: number | null;
   lng: number | null;
   qty: number;
+  /** Club store: sells to licensed businesses only. */
+  is_club?: boolean;
 }
 
 export interface StoreHit extends LocalStore {
@@ -85,19 +89,21 @@ export function localAnswer(input: {
     .map((s) => ({ ...s, miles: milesBetween(area, { lat: s.lat!, lng: s.lng! }) }))
     .sort((a, b) => a.miles - b.miles);
   const stocked = withMiles.filter((s) => s.qty > 0);
-  const near = stocked.filter((s) => s.miles <= NEARBY_MILES);
+  const nearAll = stocked.filter((s) => s.miles <= NEARBY_MILES);
+  const near = nearAll.filter((s) => !s.is_club);
   const units = near.reduce((a, s) => a + s.qty, 0);
 
   if (near.length > 0) {
     // The whole state has fewer than these stores had (or none): out of date.
-    if (noneStatewideSince(statewide, checkedAt) || exceedsStatewide(units, statewide, checkedAt)) {
+    const nearAllUnits = nearAll.reduce((a, s) => a + s.qty, 0);
+    if (noneStatewideSince(statewide, checkedAt) || exceedsStatewide(nearAllUnits, statewide, checkedAt)) {
       return { kind: "disproved", checkedAt };
     }
     const kind = canClaimNone(checkedAt, now) ? "fresh-positive" : "stale-positive";
     return { kind, stores: near.length, units, checkedAt, nearest: near[0] };
   }
   if (canClaimNone(checkedAt, now)) {
-    const elsewhere = stocked.find((s) => !exceedsStatewide(s.qty, statewide, checkedAt)) ?? null;
+    const elsewhere = stocked.find((s) => !s.is_club && !exceedsStatewide(s.qty, statewide, checkedAt)) ?? null;
     return { kind: "fresh-zero", checkedAt, elsewhere };
   }
   return { kind: "unknown", checkedAt };

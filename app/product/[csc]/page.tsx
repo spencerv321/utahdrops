@@ -111,6 +111,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
     lat: s.lat,
     lng: s.lng,
     qty: s.qty,
+    is_club: s.is_club,
   }));
   // DABS flags some products in stock with nothing on store shelves (warehouse only).
   const onShelves = product.in_stock && (product.store_qty ?? 0) > 0;
