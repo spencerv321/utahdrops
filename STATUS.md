@@ -1,9 +1,11 @@
 # Utah Drops — status
 
-_Last updated: 2026-09-24 (PRs #25–#27, Worth a look). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
+_Last updated: 2026-10-10 (PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
 
-**Production is healthy.** Statewide stock refreshes 3×/day, store-by-store every 4h; all
-scheduled workflows are enabled; `/api/health` is green.
+**Production is healthy (checked 2026-10-10).** Statewide stock refreshes 3×/day,
+store-by-store several times a day; all scheduled workflows are enabled and green;
+`/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
+(386 in-stock products at 0), as designed; the next pass was normal.
 
 ## Shipped (PRs #1–#5, all merged and deployed)
 - Recovery from the Aug–Sep outage: catalog timeout fixed, jobs moved into the
@@ -83,6 +85,11 @@ scheduled workflows are enabled; `/api/health` is green.
   The Sep 23 oldest-first rotation reaches all ~5.4k in ~5 days; confirm with
   `report.yml` → `storecoverage` after Sep 28. Popular bottles get ratings
   ~10 in-stock days after their first store check.
+- 2026-10-06..10: the daily job timed out every run (scores last written
+  Oct 5). The store-outage CTE in `rarity_store_days` was inlined into a
+  per-row subquery, so cost grew with history. PR #42 materializes it
+  (local 1.2M rows: 273 s → 11 s, identical output) and gives the job a
+  10-min statement timeout; the production run on Oct 10 took 50 s.
 - Next: get people onto rated bottle pages; read the feedback notes.
 
 ## Bottle-hunting journey (PRs #25–#27, live 2026-09-24)
@@ -171,7 +178,7 @@ scheduled workflows are enabled; `/api/health` is green.
   on/after Sep 28 (backlog of > 7-day products should have cleared) before
   touching it.
 
-## Product page: local answer first (2026-09-27, PR open)
+## Product page: local answer first (PR #40, live 2026-10-10)
 - Identity and price first, then "Stock near <area>": the chosen area (the
   same `ud_area` cookie search uses, now changeable on the page; every store
   city, whatever this bottle's stock), one honest answer
@@ -183,7 +190,11 @@ scheduled workflows are enabled; `/api/health` is green.
   history and details below.
 - The product page's separate `ud_location` localStorage copy is gone
   (cleared on the next area choice), so search and product can't disagree.
-- Screenshots: `review/product-page-2026-09-27/`.
+- Club stores (`stores.is_club`, licensed businesses only) never count as
+  nearby stock or the suggested store, on the product page or in search,
+  Worth a look, taste picks and AI search. They stay in the store list and
+  still count toward disproving a statewide count.
+- Screenshots: `review/product-page-2026-09-27/` (before the club fix).
 
 ## Taste picks (beta, wine only; PR #32, live 2026-09-25)
 - One search box. A wine request with a taste in it ("white, not too dry,
