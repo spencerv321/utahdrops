@@ -1,7 +1,7 @@
 # Bottle photos
 
 Verified product photos live in `public/bottles/<csc>.webp` (cut out, 400px
-tall). `lib/bottle-photos.json` maps every product that shares a label
+tall), with a PNG copy for the product share card in `assets/og/bottles/`. `lib/bottle-photos.json` maps every product that shares a label
 (other sizes) to its photo; `data/bottle-photo-sources.json` records where
 each photo came from, so one can be traced and removed. `components/bottle-photo.tsx`
 shows the photo, or the container glyph when there is none.
@@ -24,7 +24,9 @@ never OK. No generic stock photos. When unsure, leave the bottle without one.
    | [index, note, threshold, mode, step] | {"same": "<csc>"} | null }`
    (`same` reuses another product's photo, e.g. a "PET" listing). Prefer plain
    white-background bottle shots.
-5. `node apply.mjs <repo>` processes picks into the repo files; then
+5. `node apply.mjs <repo>` processes picks into the repo files, then
+   `node og.mjs <repo>` makes the share-card PNG copies in `assets/og/bottles/`
+   (Satori can't read WebP; palette PNGs look the same). Then
    `node preview.mjs check.jpg <repo>/public/bottles/*.webp` and look at every
    cutout on the dark background (halos, labels eaten by the cutout). Fix with
    another candidate or a smaller `step`: 5–6 for white labels, 4 for clear

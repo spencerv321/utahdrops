@@ -43,7 +43,9 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   (`opengraph-image` routes) use `lib/og.tsx` with TTF fonts and pre-toned
   JPEGs in `assets/` (Satori can't read WOFF2 or WebP).
 - Bottle photos: `scripts/photos/README.md`. Right label only (size/vintage may
-  differ), reviewed by eye, never stock; unsure = no photo (glyph).
+  differ), reviewed by eye, never stock; unsure = no photo (glyph). Product
+  share cards use the PNG copy (`lib/og-bottle.ts`; keep it out of `lib/og.tsx`
+  or every card function ships the PNGs).
 - Visitor area lives only in the `ud_area` cookie (`lib/area*.ts`; no localStorage copy); "near" = 10 mi. Product-page local claims: `lib/local-availability.ts`.
   Per-store stock refreshes in rotation, so every store count shows its check
   time. Claim rules live in `lib/store-freshness.ts`: negatives ("none near",

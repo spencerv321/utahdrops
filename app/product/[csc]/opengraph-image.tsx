@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { C, Kicker, OgCard, OG_CONTENT_TYPE, OG_SIZE, ogAssets } from "@/lib/og";
+import { ogBottlePhoto } from "@/lib/og-bottle";
 import { getProduct, getStoreAvailability } from "@/lib/queries";
 import { categoryLabel, formatPrice, formatQty, productTitle, sizeLabel, unitWord } from "@/lib/format";
 
@@ -12,10 +13,11 @@ const shortDate = (d: Date | string) =>
 
 export default async function Image({ params }: { params: Promise<{ csc: string }> }) {
   const { csc } = await params;
-  const [{ fonts, bg, bgDim }, product, stores] = await Promise.all([
+  const [{ fonts, bg, bgDim }, product, stores, photo] = await Promise.all([
     ogAssets(),
     getProduct(csc),
     getStoreAvailability(csc),
+    ogBottlePhoto(csc),
   ]);
 
   if (!product) {
@@ -30,7 +32,22 @@ export default async function Image({ params }: { params: Promise<{ csc: string 
   }
 
   const title = productTitle(product.name, product.size_ml);
-  const titleSize = title.length > 34 ? 72 : title.length > 22 ? 88 : 104;
+  // With a bottle photo on the right, the text gets ~700px instead of 1000.
+  const titleSize = photo
+    ? title.length > 26 ? 64 : title.length > 18 ? 80 : 96
+    : title.length > 34 ? 72 : title.length > 22 ? 88 : 104;
+  // Bottle photo bottom-right on the card: at most 470 tall and 250 wide, so it
+  // clears the text column (~700px from the left padding).
+  const bottleW = photo ? Math.min(250, Math.round((photo.width / photo.height) * 470)) : 0;
+  const bottle = photo ? (
+    <img
+      src={photo.src}
+      alt=""
+      width={bottleW}
+      height={Math.round((photo.height / photo.width) * bottleW)}
+      style={{ position: "absolute", right: 80, bottom: 64 }}
+    />
+  ) : undefined;
   const kicker = [categoryLabel(product.category), sizeLabel(product.size_ml)].filter(Boolean).join(" · ");
   const storeCount = stores.filter((s) => s.qty > 0).length;
   const units = product.store_qty ?? 0;
@@ -44,9 +61,9 @@ export default async function Image({ params }: { params: Promise<{ csc: string 
 
   return new ImageResponse(
     (
-      <OgCard background={bgDim} footer={`Stock & price from DABS, ${shortDate(product.last_seen)} · utahdrops.com`}>
-        {kicker ? <Kicker>{kicker}</Kicker> : null}
-        <div style={{ display: "flex", fontFamily: "Serif", fontSize: titleSize, lineHeight: 1, maxWidth: 1000 }}>
+      <OgCard background={bgDim} aside={bottle} footer={`Stock & price from DABS, ${shortDate(product.last_seen)} · utahdrops.com`}>
+        {kicker ? <Kicker maxWidth={photo ? 700 : undefined}>{kicker}</Kicker> : null}
+        <div style={{ display: "flex", fontFamily: "Serif", fontSize: titleSize, lineHeight: 1, maxWidth: photo ? 700 : 1000 }}>
           {title}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 32, marginTop: 34 }}>
