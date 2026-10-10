@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { WatchStar } from "@/components/watch-star";
-import { BottleGlyph } from "@/components/bottle-glyph";
+import { BottlePhoto } from "@/components/bottle-photo";
 import {
   categoryLabel,
   formatPrice,
@@ -47,7 +47,7 @@ export function ProductList({
         return (
           <li key={p.csc} className="flex items-center gap-3 py-3">
             <RowLink href={`/product/${p.csc}`} csc={p.csc} rank={track ? track.offset + i + 1 : 0} track={track}>
-              <BottleGlyph kind={productKind(p.category, p.size_ml)} className="mt-0.5 h-14 w-10 lg:mt-0" />
+              <BottlePhoto csc={p.csc} kind={productKind(p.category, p.size_ml)} className="mt-0.5 h-14 w-10 lg:mt-0" />
               {/* Phones: stacked. Desktop: bottle | availability | price, like a shelf list. */}
               <span className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem_6rem] lg:items-center lg:gap-6">
                 <span className="block min-w-0">

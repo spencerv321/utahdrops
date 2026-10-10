@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { WatchStar } from "@/components/watch-star";
-import { BottleGlyph } from "@/components/bottle-glyph";
+import { BottlePhoto } from "@/components/bottle-photo";
 import {
   categoryLabel,
   dayKey,
@@ -98,7 +98,7 @@ export function HomeFeed({
                     href={e.csc ? `/product/${e.csc}` : "/drops"}
                     className="group flex min-w-0 flex-1 items-center gap-3"
                   >
-                    <BottleGlyph kind={productKind(e.category, e.size_ml)} className="h-12 w-9" />
+                    <BottlePhoto csc={e.csc} kind={productKind(e.category, e.size_ml)} className="h-12 w-9" />
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline justify-between gap-3">
                         <span className="line-clamp-2 font-medium group-hover:underline group-hover:underline-offset-4">

@@ -38,7 +38,7 @@ import {
   unitWord,
   whenLabel,
 } from "@/lib/format";
-import { BottleGlyph } from "@/components/bottle-glyph";
+import { BottlePhoto } from "@/components/bottle-photo";
 import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
 import { noneStatewideSince } from "@/lib/store-freshness";
 
@@ -177,7 +177,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
       {/* Is this the right bottle, and what does it cost? Then: is it near me? */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
         <header className="flex gap-4 lg:self-start">
-          <BottleGlyph kind={productKind(product.category, product.size_ml)} className="h-20 w-16 sm:h-28 sm:w-20" />
+          <BottlePhoto csc={product.csc} alt={`${productTitle(product.name, product.size_ml)} bottle`} kind={productKind(product.category, product.size_ml)} className="h-20 w-16 sm:h-28 sm:w-20" photoClassName="h-36 w-20 sm:h-48 sm:w-28" />
           <div className="min-w-0 flex-1 space-y-1.5">
             {product.category ? (
               <Link prefetch={false}

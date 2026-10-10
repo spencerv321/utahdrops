@@ -401,6 +401,9 @@ async function main() {
     await sql.end();
     process.exit(ok ? 0 : 1);
   }
+  if (process.argv[2]?.startsWith("phototargets")) {
+    return (await import("./photo-targets")).photoTargets(sql, Number(process.argv[2].split(":")[1] ?? 300));
+  }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
   if (process.argv[2] === "taste") return (await import("./taste-report")).tasteReport(sql);
   if (process.argv[2] === "searchlog") return (await import("./taste-report")).searchLog(sql);
