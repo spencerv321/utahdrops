@@ -21,6 +21,7 @@ fs.mkdirSync("preview", { recursive: true });
 let made = 0;
 for (const [csc, pick] of Object.entries(picks)) {
   if (pick == null) continue;
+  if (pick.same) continue; // handled below
   const [i, note, threshold = 225, mode = "cut", step = 12] = Array.isArray(pick) ? pick : [pick];
   const r = results[csc];
   const c = r?.cands[i];
@@ -37,6 +38,8 @@ for (const [csc, pick] of Object.entries(picks)) {
   made++;
   if (bytes > 40000) console.log("large", csc, bytes);
 }
+// Same bottle under another name (e.g. a "PET" listing): reuse that photo.
+for (const [csc, pick] of Object.entries(picks)) if (pick?.same && manifest.products[pick.same]) manifest.products[csc] = manifest.products[pick.same];
 const sortObj = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => a.localeCompare(b)));
 fs.writeFileSync(manifestPath, JSON.stringify({ files: sortObj(manifest.files), products: sortObj(manifest.products) }, null, 0).replace(/\],"/g, '],\n"').replace(/","/g, '",\n"') + "\n");
 fs.writeFileSync(sourcesPath, JSON.stringify(sortObj(sources), null, 1) + "\n");

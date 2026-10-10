@@ -21,9 +21,11 @@ never OK. No generic stock photos. When unsure, leave the bottle without one.
    writes contact sheets to `out/sheets/`. Resumable. Bing serves decoy
    results to scripts; don't use it.
 4. Review every sheet and write `picks.json`: `{ "<csc>": index | [index, note]
-   | [index, note, threshold, mode, step] | null }`. Prefer plain
+   | [index, note, threshold, mode, step] | {"same": "<csc>"} | null }`
+   (`same` reuses another product's photo, e.g. a "PET" listing). Prefer plain
    white-background bottle shots.
 5. `node apply.mjs <repo>` processes picks into the repo files; then
    `node preview.mjs check.jpg <repo>/public/bottles/*.webp` and look at every
    cutout on the dark background (halos, labels eaten by the cutout). Fix with
-   another candidate or a smaller `step` (e.g. 6) for white labels.
+   another candidate or a smaller `step`: 5–6 for white labels, 4 for clear
+   bottles, 2–3 for wine boxes, white cans and frosted bottles.
