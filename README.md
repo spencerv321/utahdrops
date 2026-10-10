@@ -54,7 +54,7 @@ Postgres with the catalog loaded, see CLAUDE.md; never sends email).
 | Job | Where it runs in prod | Schedule (UTC) |
 |---|---|---|
 | `catalog` | `.github/workflows/catalog.yml` (in the runner) | 06, 14, 22:00 |
-| `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | cron every 2h + after catalog/health/cron runs; runs when the last success is ≥ 3.5h old, ~100 SKUs per hour since then |
+| `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | cron every 2h + after catalog/health/cron runs; runs when the last success is ≥ 3.5h old, ~120 SKUs per hour since then |
 | `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
 | `sales` | `.github/workflows/sales.yml` (in the runner) | Mondays 16:40 |
 | `rarity`, then `taste-profiles` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
@@ -115,7 +115,7 @@ home store) once, for the account with that email, within 24h
 ones; nothing suppresses statewide alerts.
 
 **Freshness**: statewide counts come from the catalog pass (3×/day). Each
-store pass (about every 4h when GitHub delivers the triggers; ~100 SKUs per
+store pass (about every 4h when GitHub delivers the triggers; ~120 SKUs per
 hour since the last success, ~2.3 s each at the 1.1 s DABS pacing, stopping
 cleanly at a 70-minute time budget) reserves up to 40% of its budget for
 watched bottles not checked in 3h, then rotates everything else in stock

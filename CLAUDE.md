@@ -95,4 +95,4 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   frequent triggers on this repo (Sep 24–26: hourly ~⅓, 2–3-hourly ~½;
   3×/day reliable). Don't rely on any single trigger: the store job also
   starts when catalog/health/cron finish, skips if a success began < 3.5h ago,
-  and sizes each run by time since the last success (~100 SKUs/hour).
+  and sizes each run by time since the last success (~120 SKUs/hour).

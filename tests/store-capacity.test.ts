@@ -35,9 +35,9 @@ test("a re-check threshold at or above the run spacing can skip a run", () => {
 });
 
 test("run size follows elapsed time, so dropped triggers don't lose throughput", () => {
-  assert.equal(runBudget(4), 400, "normal 4h cadence = the sized 400");
-  assert.equal(runBudget(10), 1000, "a 10h gap is made up in one run");
-  assert.equal(runBudget(3.5), 350);
+  assert.equal(runBudget(4), 480, "normal 4h cadence");
+  assert.equal(runBudget(10), 1200, "a 10h gap is made up in one run");
+  assert.equal(runBudget(3.5), 420);
   assert.equal(runBudget(0.2), STORE_RUN_MIN);
   assert.equal(runBudget(48), STORE_RUN_MAX, "capped to stay inside the job timeout");
   assert.equal(runBudget(null), STORE_RUN_MAX);
@@ -45,4 +45,14 @@ test("run size follows elapsed time, so dropped triggers don't lose throughput",
   assert.equal(6 * runBudget(4), 2 * runBudget(12));
   // The cap fits the time budget at the measured 2.3 s/SKU.
   assert.ok((STORE_RUN_MAX * 2.3) / 60 < 70);
+});
+
+test("at 120/h ordinary bottles cycle inside 3 days even with the allocated/limited head start", () => {
+  // Steady state: boosted (A/L/D) products are re-checked at age T-1 days, the
+  // rest at T; throughput = boosted/(T-1) + rest/T. Production 2026-09-29:
+  // 1,583 boosted of 5,415 in stock.
+  const perDay = 120 * 24 * (1 - 0.004);
+  let T = 1.5;
+  while (1583 / (T - 1) + (5415 - 1583) / T > perDay) T += 0.01;
+  assert.ok(T < 2.6, `ordinary cycle ${T.toFixed(2)} days`);
 });

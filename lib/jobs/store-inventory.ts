@@ -30,7 +30,7 @@ import { runBudget } from "./store-capacity";
  * so a short run only trims the rotation.
  *
  * Sizing (lib/jobs/store-capacity.ts, report.ts mode "freshness"): each run
- * checks ~100 SKUs per hour since the last success (runBudget; ~2,400/day at
+ * checks ~120 SKUs per hour since the last success (runBudget; ~2,900/day at
  * ~2.3 s per SKU), which cycles ~5.4k in-stock bottles in ~2.5 days
  * (ROTATION_TARGET_HOURS), with watched bottles re-checked every run.
  */

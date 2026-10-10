@@ -10,8 +10,8 @@ name: Store inventory scrape
 #   repo, so nothing here depends on any single trigger. The cron (every 2h)
 #   and other workflows finishing are chances to start; a start skips when a
 #   successful run began < 3.5h ago (STORE_MIN_GAP_HOURS, not for manual runs).
-# - Each run's size follows the time since the last success: ~100 SKUs/hour,
-#   100–1,500 SKUs (lib/jobs/store-capacity.ts runBudget), i.e. ~2,400 checks
+# - Each run's size follows the time since the last success: ~120 SKUs/hour,
+#   100–1,500 SKUs (lib/jobs/store-capacity.ts runBudget), i.e. ~2,900 checks
 #   a day at the 1.1 s DABS pacing however many starts GitHub delivers.
 # - The scrape stops cleanly at STORE_TIME_BUDGET_MINUTES (70; 1,500 SKUs ≈ 58
 #   min) under a 90-minute job timeout (slowest SKU ~5 min + digest).
