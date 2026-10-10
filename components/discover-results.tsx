@@ -1,5 +1,5 @@
 import { MapPin } from "lucide-react";
-import { BottleGlyph } from "@/components/bottle-glyph";
+import { BottlePhoto } from "@/components/bottle-photo";
 import { DiscoverLink } from "@/components/discover-link";
 import { RarityBadge } from "@/components/rarity-card";
 import { WatchStar } from "@/components/watch-star";
@@ -81,7 +81,7 @@ export function DiscoverRow({
   const hasStores = isFreshStoreCheck(item.storeCheckedAt);
   return (
     <li className={cn("flex gap-3", compact ? "py-3" : "py-4")}>
-      <BottleGlyph kind={productKind(item.category, item.sizeMl)} className="mt-0.5 h-12 w-9" />
+      <BottlePhoto csc={item.csc} kind={productKind(item.category, item.sizeMl)} className="mt-0.5 h-12 w-9" />
       <div className="min-w-0 flex-1 space-y-1.5">
         <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px]">
           {item.tier ? <RarityBadge tier={item.tier} /> : null}

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Photo tools run outside the app with their own sharp install.
+    "scripts/photos/**",
   ]),
 ]);
 

@@ -1,4 +1,5 @@
 import type { Sql } from "postgres";
+import photos from "../lib/bottle-photos.json";
 
 /**
  * `report.ts phototargets[:N]`: which bottles to photograph first, among
@@ -44,12 +45,20 @@ export async function photoTargets(sql: Sql, n = 300) {
   const [tot] = await sql<{ visitors: number; products: number }[]>`
     select count(distinct (visitor_id, csc))::int as visitors, count(distinct csc)::int as products
     from page_events where csc is not null and created_at > now() - interval '30 days'`;
+  const hasPhoto = (csc: string) => csc in photos.products;
   const cov = [25, 50, 100, 200, 300].filter((k) => k <= n).map((k) => {
-    const v = rows.slice(0, k).reduce((a, r) => a + r.views, 0);
-    return { top: k, product_page_visitors: v, share: tot.visitors ? +(v / tot.visitors).toFixed(3) : null };
+    const top = rows.slice(0, k);
+    const v = top.reduce((a, r) => a + r.views, 0);
+    return { top: k, product_page_visitors: v, share: tot.visitors ? +(v / tot.visitors).toFixed(3) : null,
+      with_photo: top.filter((r) => hasPhoto(r.csc)).length };
   });
+  const [viewed] = await sql<{ visitors: number }[]>`
+    select count(distinct (visitor_id, csc))::int as visitors from page_events
+    where csc = any(${Object.keys(photos.products)}) and created_at > now() - interval '30 days'`;
   show(`product-page visitors (30 days): ${tot.visitors} visitor-product pairs over ${tot.products} products; covered by the top N`, cov);
+  show(`photos: ${Object.keys(photos.files).length} files covering ${Object.keys(photos.products).length} products; product-page visitors (30 days) who saw one`,
+    [{ visitors: viewed.visitors, share: tot.visitors ? +(viewed.visitors / tot.visitors).toFixed(3) : null }]);
   show(`top ${rows.length} (${rows.filter((r) => r.interest).length} by interest, the rest by sales dollars)`, rows.map((r, i) => ({ rank: i + 1, csc: r.csc, name: r.name, size_ml: r.size_ml, category: r.category,
-    price: r.current_price == null ? null : Number(r.current_price), views: r.views, watches: r.watches, sold: r.sold, dollars: Math.round(r.dollars), special: r.special, interest: r.interest })));
+    price: r.current_price == null ? null : Number(r.current_price), views: r.views, watches: r.watches, sold: r.sold, dollars: Math.round(r.dollars), special: r.special, interest: r.interest, photo: hasPhoto(r.csc) })));
   return sql.end();
 }
