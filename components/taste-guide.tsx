@@ -82,6 +82,7 @@ export function TasteGuide({
   q,
   label = "Help me choose",
   defaultOpen = false,
+  quiet = false,
   className,
 }: {
   areas: string[];
@@ -90,6 +91,8 @@ export function TasteGuide({
   q?: string;
   label?: string;
   defaultOpen?: boolean;
+  /** A text link instead of a button, for places where search is the main action. */
+  quiet?: boolean;
   className?: string;
 }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -120,10 +123,14 @@ export function TasteGuide({
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex min-h-10 items-center gap-2 rounded-md border border-input px-3.5 text-[15px] hover:border-primary aria-expanded:border-primary"
+        className={
+          quiet
+            ? "inline-flex min-h-9 items-center gap-2 text-sm text-muted-foreground hover:text-foreground aria-expanded:text-foreground"
+            : "inline-flex min-h-10 items-center gap-2 rounded-md border border-input px-3.5 text-[15px] hover:border-primary aria-expanded:border-primary"
+        }
       >
         <SlidersHorizontal className="size-4 text-primary" aria-hidden />
-        {label}
+        {quiet ? <span className="underline decoration-border underline-offset-4">{label}</span> : label}
       </button>
       {open ? (
         <div id={id} ref={panel} className="space-y-4 rounded-lg border bg-card p-4 sm:p-5">
