@@ -21,6 +21,9 @@ export async function SiteFooter() {
             <Link prefetch={false} className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="/utah-101">
               Utah 101: how alcohol works here
             </Link>
+            <Link prefetch={false} className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="/drawings">
+              Drawing odds
+            </Link>
             <a className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="https://abs.utah.gov" rel="noopener">
               Utah DABS
             </a>

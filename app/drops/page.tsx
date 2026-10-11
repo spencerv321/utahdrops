@@ -99,7 +99,11 @@ export default async function DropsPage() {
         <a className="underline underline-offset-4" href="https://webapps2.abc.utah.gov/ProdApps/RareHighDemandProducts" rel="noopener">
           DABS&apos;s drawing
         </a>{" "}
-        instead. Source:{" "}
+        instead (
+        <Link prefetch={false} className="underline underline-offset-4" href="/drawings">
+          see the odds
+        </Link>
+        ). Source:{" "}
         <a className="underline underline-offset-4" href={DABS_ALLOCATED_URL} rel="noopener">
           DABS Allocated &amp; Rare
         </a>
