@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ARTICLES, UTAH_101_PATH, articlePath } from "@/lib/utah-101";
+import { CONTACT_EMAIL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Utah 101: How Alcohol Works in Utah",
@@ -104,7 +105,11 @@ export default function Utah101Hub() {
         <a href="https://abs.utah.gov" rel="noopener" className="underline underline-offset-4">
           DABS
         </a>{" "}
-        has the final word. Please drink responsibly.
+        has the final word. Corrections are welcome at{" "}
+        <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4">
+          {CONTACT_EMAIL}
+        </a>
+        . Please drink responsibly.
       </p>
     </div>
   );

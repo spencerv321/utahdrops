@@ -1,4 +1,6 @@
 export const SITE_NAME = "Utah Drops";
+/** Public contact address (corrections, questions). */
+export const CONTACT_EMAIL = "utahdrops@gmail.com";
 export const SITE_TAGLINE = "Find any bottle at Utah's state liquor stores";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
