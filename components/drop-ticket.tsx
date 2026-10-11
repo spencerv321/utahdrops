@@ -74,7 +74,7 @@ export async function DropTicket({
         {listPosted(listSize) ? (
           <Link prefetch={false}
             href="/drops"
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 text-[15px] font-semibold text-primary-foreground hover:opacity-90 sm:w-auto"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-primary px-4 text-[15px] font-semibold text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto"
           >
             See the list
             <ArrowRight className="size-4" aria-hidden />

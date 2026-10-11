@@ -79,9 +79,9 @@ export default async function HomePage({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_40%] opacity-40 lg:opacity-70"
+            className="object-cover object-[center_40%] opacity-40 lg:opacity-55"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-background from-15% via-background/80 via-45% to-background/10" />
+          <div className="absolute inset-0 bg-linear-to-r from-background from-15% via-background/80 via-45% to-background/50" />
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/30 via-50% to-background/40" />
         </div>
         <div className="space-y-3 lg:self-end">
@@ -91,21 +91,20 @@ export default async function HomePage({
             <em className="text-primary">Then find the store.</em>
           </h1>
           <p className="max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-            Stock and prices at every Utah state liquor store: spirits, wine and beer. Save a bottle and
-            we&apos;ll email you when it&apos;s back.
+            Stock and prices at every Utah state liquor store: spirits, wine and beer.
           </p>
         </div>
         <DropTicket signedIn={!!user} optedIn={optedIn} className="order-last lg:order-none lg:self-end" />
         <div className="space-y-3 lg:col-span-2">
           <SearchBox
-            examples
             areas={areas}
             area={area}
-            guide={<TasteGuide areas={guideAreas(areas, area)} initial={{ area: area?.label ?? null }} />}
+            guide={<TasteGuide quiet label="Not sure? Pick a wine by taste" areas={guideAreas(areas, area)} initial={{ area: area?.label ?? null }} />}
           />
           <Freshness />
         </div>
-        <nav aria-label="Browse quickly" className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:col-span-2">
+        <nav aria-labelledby="browse-title" className="-mx-4 space-y-2 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:col-span-2">
+          <p id="browse-title" className="kicker text-subtle-foreground">In stock statewide</p>
           <ul className="flex w-max gap-2 sm:w-auto sm:flex-wrap">
             {SHORTCUTS.map((s, i) => (
               <li key={s.label}>

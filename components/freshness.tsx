@@ -18,12 +18,12 @@ export async function Freshness({ className }: { className?: string }) {
         {stale ? (
           <span className="text-warning">Last DABS update {whenLabel(freshness)}. Counts may be out of date.</span>
         ) : (
-          <span>Stock &amp; prices from DABS, {whenLabel(freshness)}</span>
+          <span>Updated {whenLabel(freshness)} from DABS, Utah&apos;s liquor agency</span>
         )}
       </span>
-      <span aria-hidden>·</span>
+      <span aria-hidden className="hidden sm:inline">·</span>
       <a href="#about" className="underline decoration-border underline-offset-4 hover:text-foreground">
-        Independent, not DABS
+        Independent site
       </a>
     </p>
   );
