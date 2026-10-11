@@ -46,6 +46,9 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   differ), reviewed by eye, never stock; unsure = no photo (glyph). Product
   share cards use the PNG copy (`lib/og-bottle.ts`; keep it out of `lib/og.tsx`
   or every card function ships the PNGs).
+- Bottle notes: `scripts/notes/README.md`. Our words, every fact from a cited
+  source, no guessing; fill gaps only (DABS text that's missing, generic or a
+  size blurb).
 - Visitor area lives only in the `ud_area` cookie (`lib/area*.ts`; no localStorage copy); "near" = 10 mi. Product-page local claims: `lib/local-availability.ts`.
   Per-store stock refreshes in rotation, so every store count shows its check
   time. Claim rules live in `lib/store-freshness.ts`: negatives ("none near",

@@ -39,6 +39,7 @@ import {
   whenLabel,
 } from "@/lib/format";
 import { BottlePhoto } from "@/components/bottle-photo";
+import { bottleDescription } from "@/lib/bottle-notes";
 import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
 import { noneStatewideSince } from "@/lib/store-freshness";
 
@@ -129,13 +130,15 @@ export default async function ProductPage({ params, searchParams }: Props) {
   });
   const watched = watchedSet.has(csc);
 
+  const about = bottleDescription(csc, product.description);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: displayName(product.name),
     sku: product.csc,
     category: product.category ?? undefined,
-    description: product.description ?? undefined,
+    description: about?.text,
     url: `${SITE_URL}/product/${product.csc}`,
     ...(product.current_price
       ? {
@@ -317,14 +320,11 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
         {/* The long reading: what it is, how rare, and its history. */}
         <div className="space-y-10 lg:order-1">
-          {product.description ? (
-            <details className="group border-y">
-              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-[15px]">
-                About this bottle
-                <span aria-hidden className="text-muted-foreground transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="max-w-prose pb-4 text-[15px] leading-relaxed text-muted-foreground">{product.description}</p>
-            </details>
+          {about ? (
+            <section className="space-y-2" aria-labelledby="about-title">
+              <h2 id="about-title" className="kicker text-muted-foreground">About this bottle</h2>
+              <p className="max-w-prose text-[16px] leading-relaxed">{about.text}</p>
+            </section>
           ) : null}
 
           {rarity ? <RarityCard csc={csc} rarity={rarity} /> : null}
