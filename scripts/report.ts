@@ -401,6 +401,9 @@ async function main() {
     await sql.end();
     process.exit(ok ? 0 : 1);
   }
+  if (process.argv[2]?.startsWith("notetargets")) {
+    return (await import("./photo-targets")).noteTargets(sql, Number(process.argv[2].split(":")[1] ?? 300));
+  }
   if (process.argv[2]?.startsWith("phototargets")) {
     return (await import("./photo-targets")).photoTargets(sql, Number(process.argv[2].split(":")[1] ?? 300));
   }

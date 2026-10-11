@@ -1,5 +1,6 @@
 import type { Sql } from "postgres";
 import photos from "../lib/bottle-photos.json";
+import { GENERIC_DESCRIPTION_MIN } from "../lib/taste/profile";
 
 /**
  * `report.ts phototargets[:N]`: which bottles to photograph first, among
@@ -10,10 +11,13 @@ import photos from "../lib/bottle-photos.json";
  * (share of product-page visitors the top N would cover) and a JSON list for
  * the photo harvest. Product data and aggregate counts only.
  */
-export async function photoTargets(sql: Sql, n = 300) {
-  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
-  const rows = await sql<{ csc: string; name: string; size_ml: number | null; category: string | null; current_price: string | null;
-    views: number; watches: number; sold: number; dollars: number; special: boolean; interest: boolean }[]>`
+type Target = { csc: string; name: string; size_ml: number | null; category: string | null; current_price: string | null;
+  views: number; watches: number; sold: number; dollars: number; special: boolean; interest: boolean;
+  description: string | null; shared: number };
+
+/** Listed, non-keg products ranked by demand (see photoTargets). */
+async function rankTargets(sql: Sql, n: number) {
+  return sql<Target[]>`
     with views as (
       select csc, count(distinct visitor_id)::int as views
       from page_events where csc is not null and created_at > now() - interval '30 days' group by csc
@@ -27,7 +31,8 @@ export async function photoTargets(sql: Sql, n = 300) {
       union select csc from product_rarity where published and tier in ('rare', 'unicorn')
       union select csc from rarity_overrides where tier in ('rare', 'unicorn')
     ), base as (
-      select p.csc, p.name, p.size_ml, p.category, p.current_price,
+      select p.csc, p.name, p.size_ml, p.category, p.current_price, p.description,
+             (select count(*)::int from products d where d.description = p.description) as shared,
              coalesce(v.views, 0) as views, coalesce(w.watches, 0) as watches, coalesce(s.sold, 0) as sold, coalesce(s.dollars, 0) as dollars,
              sp.csc is not null as special
       from products p
@@ -41,7 +46,11 @@ export async function photoTargets(sql: Sql, n = 300) {
              case when watches > 0 or views >= 2 or special then views end desc nulls last,
              dollars desc, views desc, csc
     limit ${n}`;
+}
 
+export async function photoTargets(sql: Sql, n = 300) {
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  const rows = await rankTargets(sql, n);
   const [tot] = await sql<{ visitors: number; products: number }[]>`
     select count(distinct (visitor_id, csc))::int as visitors, count(distinct csc)::int as products
     from page_events where csc is not null and created_at > now() - interval '30 days'`;
@@ -60,5 +69,21 @@ export async function photoTargets(sql: Sql, n = 300) {
     [{ visitors: viewed.visitors, share: tot.visitors ? +(viewed.visitors / tot.visitors).toFixed(3) : null }]);
   show(`top ${rows.length} (${rows.filter((r) => r.interest).length} by interest, the rest by sales dollars)`, rows.map((r, i) => ({ rank: i + 1, csc: r.csc, name: r.name, size_ml: r.size_ml, category: r.category,
     price: r.current_price == null ? null : Number(r.current_price), views: r.views, watches: r.watches, sold: r.sold, dollars: Math.round(r.dollars), special: r.special, interest: r.interest, photo: hasPhoto(r.csc) })));
+  return sql.end();
+}
+
+/**
+ * `report.ts notetargets[:N]`: the same ranking, with each product's DABS
+ * listing text (none / generic = shared verbatim by 2+ products / own), for
+ * writing bottle notes. Product data only.
+ */
+export async function noteTargets(sql: Sql, n = 300) {
+  const rows = await rankTargets(sql, n);
+  const kind = (r: Target) => (!r.description ? "none" : r.shared >= GENERIC_DESCRIPTION_MIN ? "generic" : "own");
+  const count = (k: string) => rows.filter((r) => kind(r) === k).length;
+  console.log(`\n## DABS text among the top ${rows.length}: own ${count("own")}, generic ${count("generic")}, none ${count("none")}`);
+  console.log(`\n## top ${rows.length}`);
+  for (const [i, r] of rows.entries())
+    console.log(JSON.stringify({ rank: i + 1, csc: r.csc, name: r.name, size_ml: r.size_ml, category: r.category, dabs: kind(r), text: r.description }));
   return sql.end();
 }

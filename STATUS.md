@@ -60,6 +60,16 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 - Next: more batches only if `phototargets` shows traffic landing on bottles
   without one.
 
+## Bottle notes (About this bottle)
+- 96 written notes covering 150 products (sizes share a label), for the top-300
+  bottles whose DABS text was missing, generic, or only about bottle size;
+  153 labels already had usable DABS text and keep it. 4 skipped (sources thin
+  or conflicting: Canadian Club, Canadian Host, Lord Calvert, BuzzBallz
+  Strawberry Rita). Shown open on the product page and in JSON-LD.
+- Every fact is from cited pages (`data/bottle-note-sources.json`); annual
+  editions, store picks and vintages are flagged as varying. How:
+  `scripts/notes/README.md`; `report.yml` → `notetargets` lists candidates.
+
 ## Admin dashboard + sign-in fix (PRs #16–#18, live)
 - `/admin` is live for `ADMIN_EMAILS` (set in Vercel): live visitors, traffic,
   sources, top pages/bottles/searches, audience, accounts & alerts, job
