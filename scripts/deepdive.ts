@@ -359,5 +359,29 @@ export async function deepdive(sql: Sql) {
     select split_part(key, ':', 1) as kind, count(*)::int as windows, sum(count)::int as requests, max(count)::int as max_in_window
     from rate_limits where window_start >= now() - interval '30 days' group by 1 order by 3 desc`);
 
+  await q("database size and history growth by week", () => sql`
+    select pg_size_pretty(pg_database_size(current_database())) as db_size, pg_database_size(current_database()) as bytes`);
+  await q("history rows written per week", () => sql`
+    select 'store_inventory' as t, date_trunc('week', scraped_at)::date::text as week, count(*)::int as rows from store_inventory where scraped_at >= '2026-08-01' group by 2
+    union all select 'inventory_snapshots', date_trunc('week', scraped_at)::date::text, count(*)::int from inventory_snapshots where scraped_at >= '2026-08-01' group by 2
+    order by 1, 2`);
+  await q("allocated drops: store match rate", () => sql`
+    select count(*)::int as drops, count(store_id)::int as matched, count(distinct store_text)::int as distinct_addresses,
+           count(distinct store_text) filter (where store_id is null)::int as unmatched_addresses
+    from allocated_drops where drop_type = 'allocated'`);
+  await q("catalog lookups for zero-result and top queries", () => sql`
+    select csc, name, status, in_stock from products
+    where name ilike '%stagg%' or name ilike '%shenk%' or name ilike '%macallan 12%' or name ilike '%iichiko%' or name ilike '%cascahuin%' or name ilike '%reissdorf%'
+    order by in_stock desc, name limit 30`);
+  await q("watch intents (signed-out watch requests)", () => sql`
+    select count(*)::int as requests, count(applied_at)::int as applied, count(distinct email)::int as people from watch_intents`);
+  await q("restock feed: share that are special-order codes (since Sep 23)", () => sql`
+    select p.status = 'S' as special_order, count(*)::int as restocks from inventory_events e join products p on p.csc = e.csc
+    where e.event_type = 'restock' and e.created_at >= '2026-09-23' group by 1`);
+  await q("returning visitors (2+ days): what they do", () => sql`
+    with v as (select visitor_id from page_events where created_at >= ${since} group by 1 having count(distinct (created_at at time zone ${tz})::date) >= 2)
+    select case when path like '/product/%' then '/product/*' else path end as page, count(*)::int as views
+    from page_events where visitor_id in (select visitor_id from v) group by 1 order by 2 desc limit 10`);
+
   return sql.end();
 }
