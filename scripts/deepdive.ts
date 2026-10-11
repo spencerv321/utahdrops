@@ -64,6 +64,15 @@ export async function deepdive(sql: Sql) {
            count(*) filter (where s.at <= f.first_at + interval '30 minutes')::int as new_sessions,
            count(*) filter (where s.at > f.first_at + interval '30 minutes')::int as returning_sessions
     from s join f using (visitor_id) group by 1 order by 1`);
+  await q("return-visit cohorts: visitors by first-visit week, share back on a later day (within 7 / 14 days, ever)", () => sql`
+    with d as (select visitor_id, (created_at at time zone ${tz})::date as day from page_events where created_at >= ${since} group by 1, 2),
+         f as (select visitor_id, min(day) as first_day from d group by 1)
+    select date_trunc('week', f.first_day)::date::text as cohort_week, count(*)::int as visitors,
+           count(*) filter (where exists (select 1 from d where d.visitor_id = f.visitor_id and d.day > f.first_day and d.day <= f.first_day + 7))::int as back_within_7d,
+           count(*) filter (where exists (select 1 from d where d.visitor_id = f.visitor_id and d.day > f.first_day and d.day <= f.first_day + 14))::int as back_within_14d,
+           count(*) filter (where exists (select 1 from d where d.visitor_id = f.visitor_id and d.day > f.first_day))::int as back_ever,
+           (current_date - date_trunc('week', f.first_day)::date)::int as days_since_cohort_start
+    from f group by 1 order by 1`);
   await q("hour of day (Mountain): views, sessions", () => sql`
     select extract(hour from created_at at time zone ${tz})::int as hour, count(*)::int as views, count(distinct session_id)::int as sessions
     from page_events where created_at >= ${since} group by 1 order by 1`);
