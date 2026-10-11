@@ -37,6 +37,16 @@ const TERMS: { id: string; term: string; def: React.ReactNode }[] = [
     ),
   },
   {
+    id: "actual-physical-control",
+    term: "Actual physical control",
+    def: (
+      <>
+        The DUI law covers being in <Cite id="duiUtah">&ldquo;actual physical control&rdquo; of a vehicle</Cite>, not
+        only driving it. Sitting behind the wheel counts.
+      </>
+    ),
+  },
+  {
     id: "allocated",
     term: "Allocated",
     def: (
@@ -54,6 +64,16 @@ const TERMS: { id: string; term: string; def: React.ReactNode }[] = [
       <>
         In Utah law, <Cite id="dabsLicenseInfo">traditionally brewed beer at 5% ABV or less</Cite>. The only alcohol
         sold in grocery and convenience stores.
+      </>
+    ),
+  },
+  {
+    id: "binge-drinking",
+    term: "Binge drinking",
+    def: (
+      <>
+        Drinking that brings blood alcohol to .08 or higher, roughly{" "}
+        <Cite id="niaaaOverdose">five drinks for men or four for women in about two hours</Cite>.
       </>
     ),
   },
@@ -140,6 +160,16 @@ const TERMS: { id: string; term: string; def: React.ReactNode }[] = [
     ),
   },
   {
+    id: "homebrewing",
+    term: "Homebrewing",
+    def: (
+      <>
+        Making beer or wine at home for personal use. Legal in Utah, up to{" "}
+        <Cite id="homebrewStatute">100 gallons a year per household with one adult, 200 with two or more</Cite>.
+      </>
+    ),
+  },
+  {
     id: "intent-to-dine",
     term: "Intent to dine",
     def: (
@@ -180,6 +210,16 @@ const TERMS: { id: string; term: string; def: React.ReactNode }[] = [
     ),
   },
   {
+    id: "neat",
+    term: "Neat, up, on the rocks",
+    def: (
+      <>
+        <Cite id="wikiStraightUp">Neat</Cite>: a spirit on its own, no ice. On the rocks: over ice. Up: chilled with ice,
+        then strained into a glass without it.
+      </>
+    ),
+  },
+  {
     id: "off-premise",
     term: "Off-premise / on-premise",
     def: (
@@ -200,12 +240,40 @@ const TERMS: { id: string; term: string; def: React.ReactNode }[] = [
     ),
   },
   {
+    id: "pioneer-day",
+    term: "Pioneer Day",
+    def: (
+      <>
+        July 24, a Utah state holiday. <Cite id="dabsHolidays">State liquor stores are closed</Cite>.
+      </>
+    ),
+  },
+  {
+    id: "place-of-last-drink",
+    term: "Place of Last Drink",
+    def: (
+      <>
+        A Utah program where officers record{" "}
+        <Cite id="dabsLaws2024">where a driver they stop last had a drink</Cite>.
+      </>
+    ),
+  },
+  {
     id: "primary-liquor",
     term: "Primary and secondary liquor",
     def: (
       <>
         In a cocktail, the main spirit (up to 1.5 ounces) and any extra spirits added for flavor (up to{" "}
         <Cite id="dabsVisitors">2.5 ounces total</Cite>).
+      </>
+    ),
+  },
+  {
+    id: "proof",
+    term: "Proof",
+    def: (
+      <>
+        Spirits strength, <Cite id="cfrProof">twice the ABV</Cite>. 80 proof is 40% alcohol.
       </>
     ),
   },
@@ -232,12 +300,32 @@ const TERMS: { id: string; term: string; def: React.ReactNode }[] = [
     ),
   },
   {
+    id: "standard-drink",
+    term: "Standard drink",
+    def: (
+      <>
+        About <Cite id="niaaaStandardDrink">14 grams of pure alcohol</Cite>: 12 ounces of 5% beer, 5 ounces of 12% wine,
+        or 1.5 ounces of 40% spirits.
+      </>
+    ),
+  },
+  {
     id: "state-store",
     term: "State liquor store",
     def: (
       <>
         A liquor and wine store <Cite id="dabsFindStore">owned by the state and staffed by state employees</Cite>. Open
         Monday to Saturday, closed Sundays and state holidays.
+      </>
+    ),
+  },
+  {
+    id: "temporary-beer-permit",
+    term: "Temporary beer permit",
+    def: (
+      <>
+        What anyone needs to <Cite id="dabsFaq">sell beer at an event of up to 30 days</Cite>. See{" "}
+        <GuideLink slug="hosting-and-events" hash="selling-drinks">hosting &amp; events</GuideLink>.
       </>
     ),
   },

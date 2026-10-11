@@ -81,7 +81,9 @@ export function FactGrid({ items }: { items: { label: string; value: React.React
 
 /** Article page frame: breadcrumb, heading, body, sources, what to read next. */
 export function ArticleShell({ article, children }: { article: Utah101Article; children: React.ReactNode }) {
-  const next = ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 3);
+  // The next three guides in hub order, wrapping around.
+  const at = ARTICLES.findIndex((a) => a.slug === article.slug);
+  const next = [1, 2, 3].map((k) => ARTICLES[(at + k) % ARTICLES.length]);
   return (
     <article className="mx-auto max-w-3xl space-y-8 pt-2 sm:pt-6">
       <header className="space-y-3">

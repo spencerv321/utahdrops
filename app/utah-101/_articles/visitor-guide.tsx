@@ -86,7 +86,8 @@ export default function VisitorGuide() {
         No open alcohol in the passenger area of a car. An opened bottle is fine{" "}
         <Cite id="dabsFaq">in the trunk, out of reach of the driver and passengers</Cite>. Drinking in{" "}
         <Cite id="dabsFaq">public buildings, parks and stadiums</Cite> isn&apos;t allowed unless the place has a
-        license or event permit, and cities can add their own rules.
+        license or event permit, and cities can add their own rules. Boats, parks and hotels are covered in{" "}
+        <GuideLink slug="out-and-about">out and about</GuideLink>.
       </p>
 
       <h2 id="9-bringing-your-own">9. You can bring some with you</h2>
