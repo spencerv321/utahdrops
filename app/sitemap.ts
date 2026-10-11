@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { sql } from "@/lib/db";
 import { SITE_URL } from "@/lib/config";
+import { ARTICLES, UTAH_101_PATH, articlePath } from "@/lib/utah-101";
 
 // Rendered per request (not at build time, when there's no database). ~30k
 // URLs fits under the 50k-per-sitemap limit.
@@ -19,6 +20,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/discover`, changeFrequency: "hourly", priority: 0.8 },
     { url: `${SITE_URL}/drops`, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/whats-new`, changeFrequency: "hourly", priority: 0.8 },
+    { url: `${SITE_URL}${UTAH_101_PATH}`, changeFrequency: "monthly", priority: 0.8 },
+    ...ARTICLES.map((a) => ({
+      url: `${SITE_URL}${articlePath(a.slug)}`,
+      lastModified: new Date(a.checked + "T12:00:00Z"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
   return [
     ...pages,

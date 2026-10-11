@@ -7,6 +7,13 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 `/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
 (386 in-stock products at 0), as designed; the next pass was normal.
 
+## Utah 101 (this branch)
+- `/utah-101`: hub + 6 sourced guides (visitors, buying, bars & restaurants,
+  myths & quirks, rare bottles & drawings, glossary), sources checked
+  2026-10-11. Skips the age gate; in the sitemap, footer, home hero and the
+  desktop nav (lg+). Share cards per article. Next (phase 2): history
+  timeline, new to drinking, moving to Utah, hosting & events, out and about.
+
 ## Shipped (PRs #1–#5, all merged and deployed)
 - Recovery from the Aug–Sep outage: catalog timeout fixed, jobs moved into the
   Actions runner, workflows re-enabled + weekly keepalive, health check every 3h,

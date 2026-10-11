@@ -94,6 +94,10 @@ export default async function HomePage({
             Stock and prices at every Utah state liquor store: spirits, wine and beer. Save a bottle and
             we&apos;ll email you when it&apos;s back.
           </p>
+          <Link prefetch={false} href="/utah-101" className="inline-flex min-h-9 items-center gap-1 text-[15px] text-foreground underline decoration-primary/60 underline-offset-4 hover:decoration-primary">
+            New to Utah? How alcohol works here
+            <ArrowRight className="size-4 text-primary" aria-hidden />
+          </Link>
         </div>
         <DropTicket signedIn={!!user} optedIn={optedIn} className="order-last lg:order-none lg:self-end" />
         <div className="space-y-3 lg:col-span-2">
