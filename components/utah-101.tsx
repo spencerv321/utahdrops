@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ARTICLES, SOURCES, UTAH_101_PATH, articlePath, type SourceId, type Utah101Article } from "@/lib/utah-101";
+import { CONTACT_EMAIL } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
 /** "Oct 11, 2026" from an ISO date, in Utah time. */
@@ -137,7 +138,11 @@ function SourcesList({ article }: { article: Utah101Article }) {
         <a href="https://le.utah.gov/xcode/Title32B/32B.html" rel="noopener" className="underline underline-offset-4">
           Utah Code
         </a>{" "}
-        have the final word.
+        have the final word. Spot something out of date? Tell us at{" "}
+        <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4">
+          {CONTACT_EMAIL}
+        </a>
+        .
       </p>
       <ol className="list-decimal space-y-1.5 pl-5 text-sm text-muted-foreground marker:text-subtle-foreground">
         {article.sources.map((id) => {
