@@ -395,6 +395,15 @@ async function main() {
   if (process.argv[2] === "checks") return checks(sql);
   if (process.argv[2] === "discover") return discover(sql);
   if (process.argv[2] === "funnel") return funnel(sql);
+  if (process.argv[2] === "dropstores") {
+    // Allocated-drop addresses (DABS store addresses, public) and how each matches a store.
+    const show = (t: string, rows: unknown) => console.log(`\n## ${t}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+    show("drop addresses", await sql`
+      select store_text, county, count(*)::int as drops, min(store_id) as store_id, min(drop_date)::text as first, max(drop_date)::text as last
+      from allocated_drops where drop_type = 'allocated' group by 1, 2 order by 3 desc`);
+    show("stores", await sql`select id, name, address, city, is_club, lat is not null as has_geo from stores order by id`);
+    return sql.end();
+  }
   if (process.argv[2] === "deepdive") return (await import("./deepdive")).deepdive(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");

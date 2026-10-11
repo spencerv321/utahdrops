@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { sql } from "@/lib/db";
 import { currentDropDate, fetchAllocatedList, type AllocatedRow } from "@/lib/dabs/allocated";
 import { ScrapeShapeError } from "@/lib/dabs/client";
+import { matchDropStore, type StoreAddress } from "@/lib/dabs/drop-store";
 import { withRun } from "./run";
 
 /** No list at all for this long means the page (or our parser) changed. */
@@ -22,6 +23,8 @@ const MAX_DAYS_WITHOUT_LIST = 40;
 export async function runAllocatedJob() {
   return withRun("allocated", async () => {
     const rows = await fetchAllocatedList();
+    // Before the early returns below, so past drops get matched too.
+    const matched = await resolveDropStores();
     if (rows.length === 0) {
       const [last] = await sql<{ at: Date | null }[]>`
         select max(detected_at) as at from allocated_drops`;
@@ -31,7 +34,7 @@ export async function runAllocatedJob() {
           `no allocated list parsed for ${Math.floor(days)} days — check the page markup`
         );
       }
-      return { rows: 0, new_rows: 0, note: "page empty (between drops)" };
+      return { rows: 0, new_rows: 0, matched, note: "page empty (between drops)" };
     }
 
     const listHash = hashList(rows);
@@ -40,7 +43,7 @@ export async function runAllocatedJob() {
       where job = 'allocated' and ok = true and detail ? 'list_hash'
       order by started_at desc limit 1`;
     if (previous?.list_hash === listHash) {
-      return { rows: rows.length, new_rows: 0, list_hash: listHash, note: "list unchanged" };
+      return { rows: rows.length, new_rows: 0, matched, list_hash: listHash, note: "list unchanged" };
     }
 
     const dropDate = currentDropDate().toISOString().slice(0, 10);
@@ -63,15 +66,7 @@ export async function runAllocatedJob() {
       on conflict (drop_date, product_name, store_text) do nothing
       returning product_name`) as unknown as { product_name: string }[];
 
-    // Best-effort store resolution: exact match on the street-address part
-    await sql`
-      update allocated_drops d
-      set store_id = s.id
-      from stores s
-      where d.store_id is null
-        and d.store_text <> ''
-        and s.address is not null
-        and lower(split_part(d.store_text, ',', 1)) = lower(s.address)`;
+    const matchedNew = await resolveDropStores();
 
     // One event per newly-seen product (not per store row), and only for
     // drops that haven't happened yet.
@@ -91,10 +86,31 @@ export async function runAllocatedJob() {
       rows: rows.length,
       new_rows: inserted.length,
       new_products: newProducts.length,
+      matched: matched + matchedNew,
       list_hash: listHash,
       ...(newProducts.length > 0 && !upcoming ? { note: `drop ${dropDate} already passed — not announced` } : {}),
     };
   });
+}
+
+/**
+ * Ties drop rows to stores by address (lib/dabs/drop-store.ts). Only rows
+ * with no store yet; returns how many it matched.
+ */
+async function resolveDropStores(): Promise<number> {
+  const open = await sql<{ store_text: string }[]>`
+    select distinct store_text from allocated_drops where store_id is null and store_text <> ''`;
+  if (open.length === 0) return 0;
+  const stores = await sql<StoreAddress[]>`select id, address, city from stores`;
+  let n = 0;
+  for (const { store_text } of open) {
+    const id = matchDropStore(store_text, stores);
+    if (id == null) continue;
+    const res = await sql`
+      update allocated_drops set store_id = ${id} where store_id is null and store_text = ${store_text}`;
+    n += res.count;
+  }
+  return n;
 }
 
 function hashList(rows: AllocatedRow[]): string {
