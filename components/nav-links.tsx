@@ -11,7 +11,8 @@ const NAV: { href: string; label: string; wideOnly?: boolean }[] = [
   { href: "/search", label: "Search" },
   { href: "/discover", label: "Worth a look" },
   { href: "/drops", label: "Drops" },
-  { href: "/whats-new", label: "What's new" },
+  { href: "/this-week", label: "This week" },
+  { href: "/whats-new", label: "What's new", wideOnly: true },
   { href: "/watchlist", label: "Watchlist" },
   { href: "/utah-101", label: "Utah 101", wideOnly: true },
 ];
