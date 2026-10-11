@@ -206,4 +206,88 @@
     background-repeat: repeat-y;
     width: 1px;
   }
+
+  /*
+   * Long-form reading (Utah 101 guides): serif section heads, roomy body text,
+   * amber-underlined links. Boxes inside opt out with .not-prose.
+   */
+  .guide-prose {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .guide-prose > * + * {
+    margin-top: 1rem;
+  }
+  .guide-prose h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    line-height: 1.05;
+    margin-top: 2.75rem;
+    scroll-margin-top: 5rem;
+  }
+  .guide-prose h3 {
+    font-weight: 600;
+    font-size: 1.0625rem;
+    margin-top: 1.75rem;
+    scroll-margin-top: 5rem;
+  }
+  .guide-prose h2 + *,
+  .guide-prose h3 + * {
+    margin-top: 0.5rem;
+  }
+  .guide-prose :where(p, li):not(.not-prose *) {
+    color: color-mix(in oklab, var(--foreground) 88%, var(--muted-foreground));
+  }
+  .guide-prose :where(ul, ol):not(.not-prose, .not-prose *) {
+    padding-left: 1.25rem;
+  }
+  .guide-prose :where(ul):not(.not-prose, .not-prose *) {
+    list-style: disc;
+  }
+  .guide-prose :where(ol):not(.not-prose, .not-prose *) {
+    list-style: decimal;
+  }
+  .guide-prose :where(li):not(.not-prose *) + li {
+    margin-top: 0.4rem;
+  }
+  .guide-prose :where(li)::marker {
+    color: var(--primary);
+  }
+  .guide-prose :where(strong) {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+  .guide-prose :where(a):not(.not-prose *) {
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklab, var(--primary) 60%, transparent);
+    text-underline-offset: 4px;
+  }
+  .guide-prose :where(a:hover):not(.not-prose *) {
+    text-decoration-color: var(--primary);
+  }
+  .guide-prose :where(table) {
+    width: 100%;
+    font-size: 15px;
+    border-collapse: collapse;
+  }
+  .guide-prose :where(th, td) {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.6rem 0.75rem 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .guide-prose :where(th, td):last-child {
+    padding-right: 0;
+  }
+  .guide-prose :where(td) {
+    color: var(--foreground);
+  }
+  .guide-prose :where(th) {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--muted-foreground);
+  }
 }

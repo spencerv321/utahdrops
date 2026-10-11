@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { GlassMark } from "@/components/glass-mark";
 import { SITE_NAME } from "@/lib/config";
+import { UTAH_101_PATH } from "@/lib/utah-101";
 
 const COOKIE = "bf_age_ok";
 
 const subscribe = () => () => {};
 
 export function AgeGate() {
+  const pathname = usePathname();
   // Server snapshot = confirmed, so crawlers and SSR never render the gate.
   const confirmed = useSyncExternalStore(
     subscribe,
@@ -18,7 +21,9 @@ export function AgeGate() {
   );
   const [dismissed, setDismissed] = useState(false);
 
-  if (confirmed || dismissed) return null;
+  // Utah 101 is general education (laws, history, safety), readable by anyone.
+  const exempt = pathname === UTAH_101_PATH || pathname.startsWith(`${UTAH_101_PATH}/`);
+  if (confirmed || dismissed || exempt) return null;
 
   return (
     <div

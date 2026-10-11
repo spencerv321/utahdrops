@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DABS_ALLOCATED_URL, DABS_LOCATOR_URL, SITE_NAME } from "@/lib/config";
 import { EmailCapture } from "@/components/email-capture";
 import { Wordmark } from "@/components/wordmark";
@@ -17,6 +18,9 @@ export async function SiteFooter() {
             so call the store before you drive.
           </p>
           <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <Link prefetch={false} className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="/utah-101">
+              Utah 101: how alcohol works here
+            </Link>
             <a className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="https://abs.utah.gov" rel="noopener">
               Utah DABS
             </a>

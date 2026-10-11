@@ -5,12 +5,15 @@ import { usePathname } from "next/navigation";
 import { isActive } from "@/components/tab-bar";
 import { cn } from "@/lib/utils";
 
-const NAV = [
+// Utah 101 only fits beside the others from lg up; smaller screens reach it
+// from the home page and the footer.
+const NAV: { href: string; label: string; wideOnly?: boolean }[] = [
   { href: "/search", label: "Search" },
   { href: "/discover", label: "Worth a look" },
   { href: "/drops", label: "Drops" },
   { href: "/whats-new", label: "What's new" },
   { href: "/watchlist", label: "Watchlist" },
+  { href: "/utah-101", label: "Utah 101", wideOnly: true },
 ];
 
 /** Desktop header navigation. Phones use the bottom tab bar instead. */
@@ -27,6 +30,7 @@ export function NavLinks() {
             aria-current={active ? "page" : undefined}
             className={cn(
               "flex items-center border-b-2 pt-0.5 text-sm transition-colors",
+              item.wideOnly && "hidden lg:flex",
               active ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
             )}
           >

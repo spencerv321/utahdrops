@@ -209,6 +209,24 @@ no search click-through rate (clicks aren't tied to one impression).
 Baseline: `docs/production-baseline-2026-09-26.md`. Sign-in emails:
 `docs/auth-email-templates.md`.
 
+## Utah 101 (/utah-101)
+
+Plain-English guides to how alcohol works in Utah: a hub plus six articles
+(visitor cheat sheet, buying, bars & restaurants, myths & quirks, rare bottles,
+glossary). Not age-gated. Titles, dates and sources live in `lib/utah-101.ts`;
+article text is in `app/utah-101/_articles/`.
+
+- Same rule as bottle notes: every fact links to a source (`<Cite id=...>`),
+  no guessing. `tests/utah-101.test.ts` fails if an article cites a source it
+  doesn't list (or lists one it never cites), or links to a missing section.
+- Re-check every May: the legislature meets January to March and most changes
+  take effect in May. Re-read each article's sources (abs.utah.gov news has a
+  "changes to Utah alcohol laws" post most years), fix anything stale, and bump
+  `checked`. The drawing odds in `rare-bottles.tsx` are a dated snapshot.
+- le.utah.gov serves an incomplete TLS chain, so curl from the sandbox can't
+  read the Utah Code; use DABS pages (they accept the UtahDrops User-Agent) or
+  the versioned code PDFs linked from search results.
+
 ## Runbook: data stopped updating
 
 1. Check `https://utahdrops.com/api/health` to see which job is stale.
