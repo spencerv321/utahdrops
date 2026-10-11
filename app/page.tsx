@@ -138,10 +138,16 @@ export default async function HomePage({
               </h2>
               <p className="mt-1.5 text-sm text-muted-foreground">Restocks, new listings and price drops from recent DABS updates.</p>
             </div>
-            <Link prefetch={false} href="/whats-new" className="flex min-h-11 shrink-0 items-center gap-1 text-sm text-foreground hover:text-primary">
-              All changes
-              <ArrowRight className="size-4" aria-hidden />
-            </Link>
+            <div className="flex shrink-0 gap-4">
+              <Link prefetch={false} href="/this-week" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
+                This week
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+              <Link prefetch={false} href="/whats-new" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
+                All changes
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </div>
           </div>
           <HomeFeed events={feed} watched={watched} signedIn={!!user} area={area} nearby={nearby} />
         </section>

@@ -62,6 +62,7 @@ export function HomeFeed({
   empty = "Quiet stretch. Restocks, new listings and price drops show up here after each DABS update.",
   area,
   nearby,
+  byDay = true,
 }: {
   events: FeedEvent[];
   watched: Set<string>;
@@ -69,29 +70,35 @@ export function HomeFeed({
   empty?: string;
   area?: Area | null;
   nearby?: Map<string, Nearby>;
+  /** false: one list, the day on each row (for lists grouped by kind of change). */
+  byDay?: boolean;
 }) {
   if (events.length === 0) {
     return <p className="border-y py-8 text-center text-muted-foreground">{empty}</p>;
   }
 
   const days: { key: string; label: string; items: FeedEvent[] }[] = [];
-  for (const e of events) {
-    const key = dayKey(new Date(e.created_at));
-    const last = days[days.length - 1];
-    if (last?.key === key) last.items.push(e);
-    else days.push({ key, label: dayLabel(e.created_at), items: [e] });
-  }
+  if (!byDay) days.push({ key: "all", label: "", items: events });
+  else
+    for (const e of events) {
+      const key = dayKey(new Date(e.created_at));
+      const last = days[days.length - 1];
+      if (last?.key === key) last.items.push(e);
+      else days.push({ key, label: dayLabel(e.created_at), items: [e] });
+    }
 
   return (
     <div className="space-y-6">
       {days.map((day) => (
-        <section key={day.key} aria-label={day.label}>
-          <h3 className="kicker border-b pb-2 text-subtle-foreground">{day.label}</h3>
-          <ul className="divide-y">
+        <section key={day.key} aria-label={day.label || undefined}>
+          {byDay ? <h3 className="kicker border-b pb-2 text-subtle-foreground">{day.label}</h3> : null}
+          <ul className={cn("divide-y", !byDay && "border-y")}>
             {day.items.map((e) => {
               const name = e.csc ? productTitle(e.name ?? e.csc, e.size_ml) : "This month's allocated list";
               const c = change(e);
-              const meta = [sizeLabel(e.size_ml), categoryLabel(e.category)].filter(Boolean).join(" · ");
+              const meta = [byDay ? null : dayLabel(e.created_at), sizeLabel(e.size_ml), categoryLabel(e.category)]
+                .filter(Boolean)
+                .join(" · ");
               return (
                 <li key={e.id} className="flex items-center gap-3 py-3">
                   <Link prefetch={false}
