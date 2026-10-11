@@ -26,9 +26,15 @@ const START = [
   },
   {
     who: "Just moved here",
-    line: "Where to buy what, when stores are open, and why the state runs them.",
-    slug: "buying-alcohol",
-    cta: "How buying works",
+    line: "Your bottle collection, wine clubs, and how locals shop the state stores.",
+    slug: "moving-to-utah",
+    cta: "Moving to Utah",
+  },
+  {
+    who: "New to drinking",
+    line: "What's in a drink, how to order one, and how to stay safe. No judgment either way.",
+    slug: "new-to-drinking",
+    cta: "A friendly start",
   },
   {
     who: "Heard the stories",
@@ -49,7 +55,7 @@ export default function Utah101Hub() {
         <p className="max-w-prose text-[17px] leading-relaxed text-muted-foreground">
           The state runs the liquor stores, the grocery store sells beer but not wine, and the restaurant wants to know
           if you&apos;re eating. None of it is hard once someone explains it. Plain-English guides for visitors,
-          newcomers and anyone new to all of this, with every fact sourced.
+          newcomers, hosts and anyone new to all of this, with every fact sourced.
         </p>
       </header>
 
@@ -57,7 +63,7 @@ export default function Utah101Hub() {
         <h2 id="start-title" className="kicker text-muted-foreground">
           Start here
         </h2>
-        <ul className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {START.map((s) => (
             <li key={s.slug}>
               <Link

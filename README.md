@@ -211,9 +211,10 @@ Baseline: `docs/production-baseline-2026-09-26.md`. Sign-in emails:
 
 ## Utah 101 (/utah-101)
 
-Plain-English guides to how alcohol works in Utah: a hub plus six articles
-(visitor cheat sheet, buying, bars & restaurants, myths & quirks, rare bottles,
-glossary). Not age-gated. Titles, dates and sources live in `lib/utah-101.ts`;
+Plain-English guides to how alcohol works in Utah: a hub plus eleven articles
+(visitor cheat sheet, buying, bars & restaurants, out and about, new to
+drinking, moving to Utah, hosting & events, myths & quirks, rare bottles,
+history timeline, glossary). Not age-gated. Titles, dates and sources live in `lib/utah-101.ts`;
 article text is in `app/utah-101/_articles/`.
 
 - Same rule as bottle notes: every fact links to a source (`<Cite id=...>`),

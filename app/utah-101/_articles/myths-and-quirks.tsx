@@ -139,7 +139,8 @@ export default function MythsAndQuirks() {
         <Cite id="slmagHistory">1.75-ounce mini bottles from 1969</Cite> until{" "}
         <Cite id="slmagHistory">metered pours replaced them in 1990</Cite>. The 2002 Winter Olympics{" "}
         <Cite id="slmagHistory">loosened enforcement</Cite>, and in 2006 High West in Park City became{" "}
-        <Cite id="slmagHistory">Utah&apos;s first legal whiskey distillery since 1870</Cite>.
+        <Cite id="slmagHistory">Utah&apos;s first legal whiskey distillery since 1870</Cite>. The whole story, year by
+        year, is in <GuideLink slug="history">a short history</GuideLink>.
       </p>
 
       <Callout title="Laws change here a lot">
