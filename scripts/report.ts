@@ -404,6 +404,9 @@ async function main() {
     show("stores", await sql`select id, name, address, city, is_club, lat is not null as has_geo from stores order by id`);
     return sql.end();
   }
+  if (process.argv[2]?.startsWith("makers")) {
+    return (await import("./makers-check")).makersReport(sql, process.argv[2].split(":")[1]);
+  }
   if (process.argv[2] === "deepdive") return (await import("./deepdive")).deepdive(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");

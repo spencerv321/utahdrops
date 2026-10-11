@@ -42,6 +42,7 @@ import { BottlePhoto } from "@/components/bottle-photo";
 import { bottleDescription } from "@/lib/bottle-notes";
 import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
 import { noneStatewideSince } from "@/lib/store-freshness";
+import { makerForProduct, makerPath } from "@/lib/makers";
 
 export const dynamic = "force-dynamic";
 
@@ -92,6 +93,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
       : [];
 
   const name = productTitle(product.name, product.size_ml);
+  const maker = makerForProduct(product);
   const unit = { one: unitWord(product.category, product.size_ml, 1), many: unitWord(product.category, product.size_ml, 2) };
   const storeAsOf = stores.reduce<Date | null>(
     (latest, s) => (!latest || s.scraped_at > latest ? s.scraped_at : latest),
@@ -196,6 +198,14 @@ export default async function ProductPage({ params, searchParams }: Props) {
             <p className="text-[15px] text-muted-foreground">
               {[sizeLabel(product.size_ml), note].filter(Boolean).join(" · ")}
             </p>
+            {maker ? (
+              <p className="text-[15px]">
+                Made in Utah by{" "}
+                <Link prefetch={false} href={makerPath(maker.slug)} className="underline decoration-primary/60 underline-offset-4 hover:decoration-primary">
+                  {maker.name}
+                </Link>
+              </p>
+            ) : null}
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 pt-1">
               <p className="text-3xl font-medium tabular-nums">{formatPrice(product.current_price)}</p>
               {product.is_spa ? <span className="text-sm font-medium text-price-drop">On sale</span> : null}

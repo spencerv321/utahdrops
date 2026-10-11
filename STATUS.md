@@ -7,6 +7,21 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 `/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
 (386 in-stock products at 0), as designed; the next pass was normal.
 
+## Utah makers (/makers, Phase 1, this branch)
+- 77 maker pages for DABS's 83 Proudly Utah listings, sourced 2026-10-11 from
+  maker sites, local press (Tribune, KSL, Standard-Examiner, St. George News,
+  Utah Beer News, SLUG, KUER/UPR, VinePair) and reader polls (City Weekly Best
+  of Utah 2025, City Cast). Thin pages say what we couldn't confirm. Reddit
+  blocked scripted reads, so no Reddit citations yet.
+- Bottles: 40 makers by DABS vendor code, the rest by reviewed name prefixes
+  (false matches removed: Proper No. Twelve, Fisher Vineyards, Alpine Beer Co.).
+  Needs `migrate.yml` (products.vendor/vendor_code) and then `cron.yml` →
+  `xlsx` in production before vendor matches appear; check `report.yml` →
+  `makers`.
+- Owner notes: none yet (`data/makers.md` shows how to add one).
+- Phase 2 (bars/taverns): blocked on exporting the DABS Licensee List
+  (`docs/licensee-list.md`); owner to check the report's download menu.
+
 ## Utah 101 (PRs #49, #50, phase 2 on this branch)
 - `/utah-101`: hub + 11 sourced guides. Phase 1 (live): visitors, buying,
   bars & restaurants, myths & quirks, rare bottles & drawings, glossary.

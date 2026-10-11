@@ -228,6 +228,20 @@ article text is in `app/utah-101/_articles/`.
   read the Utah Code; use DABS pages (they accept the UtahDrops User-Agent) or
   the versioned code PDFs linked from search results.
 
+## Utah makers (/makers)
+
+Every brewery, distillery, winery and cidery on DABS's Proudly Utah list (83
+listings, 77 pages), grouped by region: what they make, visiting, bottles to
+go, what locals say (local press and reader polls, summarized), owner notes,
+and their bottles in state stores with the area picker's "near you" counts.
+Data and rules: `data/makers.json`, `data/makers.md`; code `lib/makers.ts`,
+`lib/maker-products.ts`. Every claim cites a source (`tests/makers.test.ts`).
+Bottles link by DABS vendor code (`products.vendor_code`, from the monthly
+product list via the `xlsx` job) or reviewed name prefixes; product pages
+show "Made in Utah by …". Check matches with `report.yml` → `makers[:slug]`.
+Phase 2 (bars and taverns) depends on the DABS Licensee List:
+`docs/licensee-list.md`.
+
 ## Runbook: data stopped updating
 
 1. Check `https://utahdrops.com/api/health` to see which job is stale.
