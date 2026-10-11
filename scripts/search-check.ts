@@ -55,6 +55,11 @@ export const CASES: Case[] = [
   // Beer
   { q: "modelo negra", top: "989012" },
   { q: "lagunitas ipa", includes: ["919658", "917389"] },
+  // Misspellings seen as zero-result searches (aliases, 2026-10-11)
+  { q: "macallen double cask 12", includes: ["005555"] },
+  { q: "mcallen", includes: ["005555"], within: 40 },
+  { q: "glendronaugh 15", includes: ["005783"] },
+  { q: "iichika", includes: ["065178"] },
 ];
 
 export async function runSearchCheck(): Promise<boolean> {

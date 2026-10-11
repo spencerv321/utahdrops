@@ -25,11 +25,23 @@ const TABS = [
 export default async function WhatsNewPage({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: string }>;
+  searchParams: Promise<{ type?: string; special?: string }>;
 }) {
-  const { type } = await searchParams;
+  const { type, special } = await searchParams;
   const active = TABS.find((t) => t.key === (type ?? ""))?.key ?? "";
-  const [events, user] = await Promise.all([getEvents(active || undefined), getCurrentUser()]);
+  const withSpecial = special === "1";
+  const tabHref = (key: string) => {
+    const p = new URLSearchParams();
+    if (key) p.set("type", key);
+    if (withSpecial) p.set("special", "1");
+    const q = p.toString();
+    return q ? `/whats-new?${q}` : "/whats-new";
+  };
+  const toggle = new URLSearchParams();
+  if (active) toggle.set("type", active);
+  if (!withSpecial) toggle.set("special", "1");
+  const toggleHref = toggle.toString() ? `/whats-new?${toggle.toString()}` : "/whats-new";
+  const [events, user] = await Promise.all([getEvents(active || undefined, 100, withSpecial), getCurrentUser()]);
   const watched = await getWatchedSet(
     user?.id,
     events.map((e) => e.csc).filter((c): c is string => !!c)
@@ -48,7 +60,7 @@ export default async function WhatsNewPage({
         {TABS.map((tab) => (
           <Link prefetch={false}
             key={tab.key}
-            href={tab.key ? `/whats-new?type=${tab.key}` : "/whats-new"}
+            href={tabHref(tab.key)}
             aria-current={active === tab.key ? "page" : undefined}
             className={cn(
               "inline-flex h-10 shrink-0 items-center rounded-md border px-3.5 text-sm transition-colors",
@@ -59,6 +71,15 @@ export default async function WhatsNewPage({
           </Link>
         ))}
       </nav>
+
+      <p className="text-sm text-muted-foreground">
+        {withSpecial
+          ? "Showing special orders too. Those are usually a customer's order arriving and rarely stay on a shelf. "
+          : "Special orders are hidden: they're usually a customer's order arriving, not shelf stock. "}
+        <Link prefetch={false} href={toggleHref} className="underline underline-offset-2 hover:text-foreground">
+          {withSpecial ? "Hide special orders" : "Show special orders"}
+        </Link>
+      </p>
 
       <HomeFeed
         events={events}

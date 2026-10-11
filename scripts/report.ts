@@ -395,6 +395,7 @@ async function main() {
   if (process.argv[2] === "checks") return checks(sql);
   if (process.argv[2] === "discover") return discover(sql);
   if (process.argv[2] === "funnel") return funnel(sql);
+  if (process.argv[2] === "deepdive") return (await import("./deepdive")).deepdive(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");
     const ok = await runSearchCheck();

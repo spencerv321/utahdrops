@@ -212,13 +212,22 @@ export interface EventRow {
   in_stock: boolean | null;
 }
 
-export async function getEvents(type?: string, limit = 100): Promise<FeedEvent[]> {
+/**
+ * What's new feed. Special orders are left out unless asked for: they are
+ * most restocks (58% since Sep 23) and usually a customer's order arriving,
+ * gone again within a day, so they bury the shelf restocks. Watch alerts are
+ * unaffected (lib/jobs/digest.ts).
+ */
+export async function getEvents(type?: string, limit = 100, includeSpecial = false): Promise<FeedEvent[]> {
   return (await sql`
     select e.id, e.csc, e.event_type, e.detail, e.created_at,
            p.name, p.category, p.status, p.current_price::text, p.in_stock, p.size_ml, p.store_qty
     from inventory_events e
     left join products p using (csc)
     ${type ? sql`where e.event_type = ${type}` : sql`where e.event_type <> 'store_restock'`}
+    ${includeSpecial
+      ? sql``
+      : sql`and coalesce(p.status, '') not in ('S', 'N') and coalesce(p.category, '') not like 'SPECIAL ORDERS%'`}
     order by e.created_at desc
     limit ${limit}`) as unknown as FeedEvent[];
 }

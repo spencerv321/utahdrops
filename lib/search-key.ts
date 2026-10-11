@@ -50,6 +50,13 @@ export const SEARCH_ALIASES: Record<string, string> = {
   btch: "batch",
   // Brand spellings: DABS lists the standard bottle as "BLANTON", people type "Blanton's"
   blantons: "blanton",
+  // Misspellings behind zero-result searches in production (2026-10-11)
+  macallen: "macallan",
+  mcallen: "macallan",
+  glendronaugh: "glendronach",
+  meszcal: "mezcal",
+  iichika: "iichiko",
+  franciscorta: "franciacorta",
 };
 
 /** Normalized search text for a product name or a query. Mirror of SQL public.search_key(). */
