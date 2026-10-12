@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { C, Kicker, OgCard, OG_CONTENT_TYPE, OG_SIZE, ogAssets } from "@/lib/og";
 
-export const alt = "Worth a look: scarce bottles, returns and price drops at Utah's state liquor stores, on Utah Drops";
+export const alt = "Hard to find: scarce bottles, returns and price drops at Utah's state liquor stores, on Utah Drops";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
@@ -10,7 +10,7 @@ export default async function Image() {
   return new ImageResponse(
     (
       <OgCard background={bg} footer="utahdrops.com · Independent, not DABS">
-        <Kicker>Worth a look</Kicker>
+        <Kicker>At Utah&apos;s liquor stores</Kicker>
         <div style={{ display: "flex", flexDirection: "column", fontFamily: "Serif", fontSize: 100, lineHeight: 1 }}>
           <div style={{ display: "flex" }}>Hard to find,</div>
           <div style={{ display: "flex", fontStyle: "italic", color: C.amber }}>and in stores now.</div>

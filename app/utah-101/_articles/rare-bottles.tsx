@@ -152,7 +152,7 @@ export default function RareBottles() {
         Hard-to-find bottles that aren&apos;t allocated or in a drawing still turn up on regular shelves. That&apos;s
         what Utah Drops is for:{" "}
         <Link prefetch={false} href="/discover">
-          Worth a look
+          Hard to find
         </Link>{" "}
         shows scarce bottles that are in stores now, and a{" "}
         <Link prefetch={false} href="/watchlist">

@@ -94,10 +94,13 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
 - Signed-in watch line: `lib/watch-summary.ts`. Same claim rules as above:
   local part only when a store check found the bottle and no newer statewide
   count disproves it; never "none near". Errors fall back to the pitch.
+- Menu (Oct 12): Search · Hard to find · Allocated (/drops) · This week ·
+  Watchlist · Utah 101. URLs unchanged. /whats-new is the full log, linked
+  from This week and the home feed, not the menu.
 - Taste picks are a wine-only beta with little use (STATUS.md); don't expand
   them without new `report.yml` → `taste` numbers.
 
-## Worth a look (/discover)
+## Hard to find (/discover; called "Worth a look" before Oct 12, still "discover" in code)
 - Discovery rules, not rarity: thresholds live only in `DISCOVER`
   (`lib/discover-rules.ts`). Never loosen one to fill the page; review real
   candidates with `report.yml` → `discover`. Nearby claims need a successful

@@ -18,8 +18,9 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   bottles are in stock · 3 at stores near Riverton, checked 2h ago"
   (`lib/watch-summary.ts`, positive local claims only, never "none near").
   The homepage drop ticket explains allocated once the list is out.
-- Open: the nav names "Worth a look" / "Drops" / "What's new" read alike to
-  newcomers; owner to pick names (touches titles and links site-wide).
+- Menu renamed 2026-10-12 (owner's pick): "Worth a look" → "Hard to find",
+  "Drops" → "Allocated" (desktop and phone tab bar), "What's new" out of the
+  menu (This week links to it). URLs unchanged.
 
 ## Utah 101 (PRs #49, #50, phase 2 on this branch)
 - `/utah-101`: hub + 11 sourced guides. Phase 1 (live): visitors, buying,
@@ -167,9 +168,9 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   on target (8 = DABS 500s); in-stock checked <1d 1,157 · 1–3d 253 · never
   2,168 · >7d 1,833.
 
-## Worth a look (/discover)
-- Three views (rules in README → Worth a look, thresholds in `lib/discover-rules.ts`),
-  homepage preview of up to 3, "Worth a look" in the desktop nav, share card.
+## Hard to find (/discover, formerly "Worth a look")
+- Three views (rules in README → Hard to find, thresholds in `lib/discover-rules.ts`),
+  homepage preview of up to 3, "Hard to find" in the desktop nav, share card.
 - First production review (2026-09-24, `report.yml` → `discover`): Scarce 10
   bottles (all rated via allocated drops, e.g. Tears of Llorona, Old Forester
   Single Barrel Rye Barrel Proof); nearby-confirmed within 24h: 2 near Salt

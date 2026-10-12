@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { CalendarDays, House, Search, Star, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** The four jobs, one tab each. What's New lives on Home (and the desktop nav). */
+/** The four jobs, one tab each. Everything else is reached from Home. */
 const TABS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/", label: "Home", icon: House },
   { href: "/search", label: "Search", icon: Search },
-  { href: "/drops", label: "Drops", icon: CalendarDays },
+  { href: "/drops", label: "Allocated", icon: CalendarDays },
   { href: "/watchlist", label: "Watchlist", icon: Star },
 ];
 

@@ -460,7 +460,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
         </div>
       </Section>
 
-      <Section id="discovery" title="Worth a look">
+      <Section id="discovery" title="Hard to find (/discover)">
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <Stat label="Unique visitors to /discover" value={num(dv.visitors)} hint={`${num(dv.homeVisitors)} saw the home page (preview shows when something qualifies)`} />
           <Stat label="Product click-through" value={pct(dv.clickers, dv.visitors)} hint={`${num(dv.clickers)} visitors clicked a bottle`} />

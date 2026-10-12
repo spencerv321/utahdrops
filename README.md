@@ -128,7 +128,7 @@ latest check contradicts) and dates every line. `report.yml` → `freshness`
 shows capacity, watched-bottle freshness, overdue and failing checks, and
 baseline coverage.
 
-**Worth a look** (`/discover`, preview on the homepage): three discovery
+**Hard to find** (`/discover`, formerly "Worth a look", preview on the homepage): three discovery
 views with rules in `lib/discover-rules.ts` (all thresholds in `DISCOVER`) and
 SQL in `lib/discover.ts`. Every result is in stock by a catalog pass < 24h old
 and sold at ordinary retail (no special orders, delisted products or anything
