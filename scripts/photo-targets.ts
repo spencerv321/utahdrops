@@ -87,3 +87,53 @@ export async function noteTargets(sql: Sql, n = 300) {
     console.log(JSON.stringify({ rank: i + 1, csc: r.csc, name: r.name, size_ml: r.size_ml, category: r.category, dabs: kind(r), text: r.description }));
   return sql.end();
 }
+
+/**
+ * `report.ts photosurfaced`: bottles the public pages put in front of people
+ * right now, chosen by rules rather than demand (so phototargets misses
+ * many): every /discover candidate (all three views, statewide), the home
+ * "Just happened" pool over 30 days, the latest 100 What's new rows, and
+ * allocated drops from the last 90 days. Prints photo coverage per surface
+ * and a JSON list of the ones without a photo for the harvest. Product data only.
+ */
+export async function photoSurfaced(sql: Sql) {
+  const { getDiscoverCandidates } = await import("../lib/discover");
+  const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+  const surfaces: Record<string, string[]> = {};
+  for (const view of ["scarce", "back", "price"] as const)
+    surfaces[`discover:${view}`] = (await getDiscoverCandidates(view, null)).map((i) => i.csc);
+  surfaces.home_feed_30d = (await sql<{ csc: string }[]>`
+    select distinct e.csc from inventory_events e join products p using (csc)
+    where e.created_at > now() - interval '30 days'
+      and e.event_type in ('restock', 'new_product', 'price_change', 'status_change')
+      and p.delisted_at is null and coalesce(p.status, '') not in ('S', 'N', 'X')
+      and coalesce(p.category, '') not like 'SPECIAL ORDERS%'
+      and coalesce(p.current_price, 0) >= 20 and coalesce(p.size_ml, 750) >= 375
+      and p.search_name !~ '(\\m\\d+ ?pk\\M|variety|\\mrtd\\M|\\mcans?\\M|seltzer)'
+      and (e.event_type <> 'price_change' or (e.detail->>'new')::numeric <= (e.detail->>'old')::numeric * 0.95)
+      and (e.event_type <> 'status_change' or e.detail->>'new' in ('D', 'A', 'L'))
+      and (e.event_type <> 'restock' or p.in_stock)`).map((r) => r.csc);
+  surfaces.whats_new_100 = (await sql<{ csc: string }[]>`
+    select e.csc from inventory_events e left join products p using (csc)
+    where e.event_type <> 'store_restock'
+      and coalesce(p.status, '') not in ('S', 'N') and coalesce(p.category, '') not like 'SPECIAL ORDERS%'
+    order by e.created_at desc limit 100`).map((r) => r.csc);
+  surfaces.drops_90d = (await sql<{ csc: string }[]>`
+    select distinct csc from allocated_drops where csc is not null and drop_date > now() - interval '90 days'`).map((r) => r.csc);
+
+  const hasPhoto = (csc: string) => csc in photos.products;
+  show("photo coverage by surface", Object.entries(surfaces).map(([surface, cscs]) => {
+    const u = [...new Set(cscs)];
+    return { surface, products: u.length, with_photo: u.filter(hasPhoto).length };
+  }));
+  const where = new Map<string, string[]>();
+  for (const [s, cscs] of Object.entries(surfaces)) for (const c of cscs) if (!hasPhoto(c)) where.set(c, [...(where.get(c) ?? []), s]);
+  const rows = await sql<{ csc: string; name: string; size_ml: number | null; category: string | null; current_price: string | null; in_stock: boolean }[]>`
+    select csc, name, size_ml, category, current_price, in_stock from products where csc = any(${[...where.keys()]}) and delisted_at is null`;
+  // Discover first (the homepage preview), then the more surfaces the better, then in stock.
+  const score = (c: string) => (where.get(c)!.some((s) => s.startsWith("discover")) ? 10 : 0) + where.get(c)!.length;
+  rows.sort((a, b) => score(b.csc) - score(a.csc) || Number(b.in_stock) - Number(a.in_stock) || a.csc.localeCompare(b.csc));
+  show(`without a photo: ${rows.length}`, rows.map((r, i) => ({ rank: i + 1, csc: r.csc, name: r.name, size_ml: r.size_ml, category: r.category,
+    price: r.current_price == null ? null : Number(r.current_price), in_stock: r.in_stock, surfaces: where.get(r.csc) })));
+  return sql.end();
+}
