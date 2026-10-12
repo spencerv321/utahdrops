@@ -93,24 +93,25 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   backgrounds in `assets/`), and "near you first" search ordering when an area
   is picked (default sort only; no area = unchanged "in stock first").
 
-## Product photos (top 300 covered)
-- 232 verified photos covering 426 products (other sizes share a label photo,
-  and a few "PET"/small-size listings reuse their bottle's photo), for the top
-  300 by `report.yml` → `phototargets` (interest first: watched, 2+ visitors,
-  drawings/rare; then DABS sales dollars). 10 of the 300 left without one (no
-  confident match: e.g. Four Roses 2026 LE, Seagram's VO, Natty Daddy 12oz).
-  Shown on product pages, search rows, the feed and /discover via
+## Product photos (701 photos, 957 products)
+- Oct 12 batch (this branch): 469 new photos for the bottles the public pages
+  surface without one (`report.yml` → `photosurfaced`: homepage feed pool,
+  /discover, What's new, drops). 472 of those 516 now have a photo; 44 have no
+  confident match and keep the glyph (wrong expression only, lifestyle shots,
+  or ambiguous names like "Outlaw Bourbon", Scion cider series, Kiitos Ice).
+- Earlier: the top 300 by `phototargets` (interest first: watched, 2+
+  visitors, drawings/rare; then DABS sales dollars).
+- Shown on product pages, search rows, the feed and /discover via
   `components/bottle-photo.tsx`; glyph otherwise.
 - Rule: right label; size and vintage/edition may differ. Never a different
   expression, never generic stock. Sources in `data/bottle-photo-sources.json`.
 - How: `scripts/photos/README.md` (Yahoo Images from the cloud sandbox, contact
   sheets reviewed by Claude, cut out onto the dark theme; clear/white bottles
-  and wine boxes need a small `step`). Bing serves decoy results to scripts
-  (why the Sept pilot got 1/28); DuckDuckGo throttles.
+  and wine boxes need a small `step`). Bing serves decoy results to scripts;
+  DuckDuckGo throttles.
 - Product share cards show the bottle on the right (palette PNG copies in
-  `assets/og/bottles/`, 6.7 MB, shipped only with the product routes).
-- Next: more batches only if `phototargets` shows traffic landing on bottles
-  without one.
+  `assets/og/bottles/`, 18 MB, shipped only with the product routes).
+- Next: rerun `photosurfaced` after new products land; it lists only the gaps.
 
 ## Bottle notes (About this bottle)
 - 96 written notes covering 150 products (sizes share a label), for the top-300
