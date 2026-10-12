@@ -114,6 +114,13 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   copied reviews. Edit per `data/makers.md`; run `tests/makers.test.ts` and
   `scripts/makers-check.ts` after changing catalog matchers.
 
+## Bars & taverns (/bars)
+- From DABS's Licensee List via `licensees.yml` (weekly, headless Chromium
+  reading the report's own data response; `docs/licensee-list.md`). Keep the
+  `MIN_LICENSEES` guard. A license means the place may serve, not that it's
+  open or good; no ratings. House rules per type live in `BAR_GROUPS`
+  (`lib/bars.ts`) as cited claims; restaurants stay out.
+
 ## Data gotchas
 - DABS sometimes returns bogus zero quantities; the catalog job rejects passes
   where too many in-stock products drop to 0. Don't remove that guard.

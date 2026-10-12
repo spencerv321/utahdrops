@@ -24,6 +24,9 @@ export async function SiteFooter() {
             <Link prefetch={false} className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="/makers">
               Utah makers
             </Link>
+            <Link prefetch={false} className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="/bars">
+              Bars &amp; taverns
+            </Link>
             <Link prefetch={false} className="min-h-9 underline decoration-border underline-offset-4 hover:decoration-primary" href="/drawings">
               Drawing odds
             </Link>

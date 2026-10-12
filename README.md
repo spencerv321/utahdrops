@@ -57,6 +57,7 @@ Postgres with the catalog loaded, see CLAUDE.md; never sends email).
 | `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | cron every 2h + after catalog/health/cron runs; runs when the last success is ≥ 3.5h old, ~120 SKUs per hour since then |
 | `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
 | `sales` | `.github/workflows/sales.yml` (in the runner) | Mondays 16:40 |
+| `licensees` | `.github/workflows/licensees.yml` (in the runner, headless Chromium) | Mondays 09:17 |
 | `rarity`, then `taste-profiles` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
 
 `sales` imports DABS's monthly Sales Analysis reports
@@ -239,8 +240,20 @@ Data and rules: `data/makers.json`, `data/makers.md`; code `lib/makers.ts`,
 Bottles link by DABS vendor code (`products.vendor_code`, from the monthly
 product list via the `xlsx` job) or reviewed name prefixes; product pages
 show "Made in Utah by …". Check matches with `report.yml` → `makers[:slug]`.
-Phase 2 (bars and taverns) depends on the DABS Licensee List:
-`docs/licensee-list.md`.
+
+## Bars & taverns (/bars)
+
+Every bar, tavern, beer-only venue and airport lounge on DABS's Licensee List
+(a Looker Studio report with no download button). `licensees.yml` opens the
+report in headless Chromium weekly and reads the page's own data response
+(`scripts/licensees.ts`; parsing in `lib/licensees.ts`, storage in
+`lib/jobs/licensees.ts` → table `licensees`). It refuses pulls under 3,000
+rows; licenses that drop off get `removed_at`. Run it locally with
+`--save FILE` (CSV only) or load a saved CSV with `--csv FILE`; a dated
+snapshot lives in `data/licensees/`. House rules per license type (21+, food,
+beer only, hours) are cited claims in `lib/bars.ts` (`tests/bars.test.ts`).
+Restaurants are left out (food required). Rows at a maker's listed address
+link to its /makers page. Details: `docs/licensee-list.md`.
 
 ## Runbook: data stopped updating
 

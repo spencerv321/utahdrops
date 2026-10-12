@@ -1,13 +1,22 @@
 # Utah Drops — status
 
-_Last updated: 2026-10-11 (homepage PRs #48, #55; earlier: PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
+_Last updated: 2026-10-12 (/bars, /makers PR #58; homepage PRs #48, #55; earlier: PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
 
 **Production is healthy (checked 2026-10-10).** Statewide stock refreshes 3×/day,
 store-by-store several times a day; all scheduled workflows are enabled and green;
 `/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
 (386 in-stock products at 0), as designed; the next pass was normal.
 
-## Utah makers (/makers, Phase 1, this branch)
+## Bars & taverns (/bars, Phase 2, this branch)
+- 612 licenses from the DABS Licensee List pulled 2026-10-12 (4,543 rows in
+  all): bars 419, taverns 7, beer-only venues 170, airport lounges 16.
+- Needs `migrate.yml` (table `licensees`) and then `licensees.yml` in
+  production; until the first pull the page shows an empty list.
+- Licensed makers not on Proudly Utah (so no /makers page yet): Thieves Guild,
+  Black Feather Whiskey, Kid Curry, Blue Hills Brewery, Mount Naomi Winery,
+  Salt Lake Brewing Co, Summum. Candidates to add.
+
+## Utah makers (/makers, Phase 1, PR #58, live 2026-10-11)
 - 77 maker pages for DABS's 83 Proudly Utah listings, sourced 2026-10-11 from
   maker sites, local press (Tribune, KSL, Standard-Examiner, St. George News,
   Utah Beer News, SLUG, KUER/UPR, VinePair) and reader polls (City Weekly Best
@@ -19,8 +28,6 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   `xlsx` in production before vendor matches appear; check `report.yml` →
   `makers`.
 - Owner notes: none yet (`data/makers.md` shows how to add one).
-- Phase 2 (bars/taverns): blocked on exporting the DABS Licensee List
-  (`docs/licensee-list.md`); owner to check the report's download menu.
 
 ## Homepage (PRs #48, #55, live 2026-10-11)
 - Design review 2026-10-11: the hero had ~20 clickables before any bottle.
