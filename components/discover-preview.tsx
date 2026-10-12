@@ -24,7 +24,7 @@ export function DiscoverPreview({
       <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
         <div>
           <h2 id="discover-title" className="font-display text-[2rem] leading-none sm:text-4xl">
-            Worth a look
+            Hard to find
           </h2>
           <p className="mt-1.5 text-sm text-muted-foreground">
             Hard to find, back after a while, or cheaper, and reported in stores now.

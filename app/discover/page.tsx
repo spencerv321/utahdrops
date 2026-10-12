@@ -26,7 +26,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   // One indexable page; area / nearby / "show more" variants point back to it.
   const variant = Boolean(sp.area || sp.near || sp.n);
   return {
-    title: "Worth a look",
+    title: "Hard to find",
     description: DESCRIPTION,
     alternates: { canonical: "/discover" },
     ...(variant ? { robots: { index: false, follow: true } } : {}),
@@ -77,14 +77,13 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
     <div className="space-y-6 pt-2 sm:pt-6">
       <header className="flex items-start justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="text-5xl leading-none sm:text-6xl">Worth a look</h1>
+          <h1 className="text-5xl leading-none sm:text-6xl">Hard to find</h1>
           <p className="max-w-2xl text-muted-foreground">
-            Bottles you might not have been searching for: hard to find, just back, or noticeably cheaper, and reported
-            in stores now. Our rating is about how hard a bottle is to find, not how good it is.
+            Scarce bottles, plus ones just back after a while or noticeably cheaper, all reported in stores now. Our rating is about how hard a bottle is to find, not how good it is.
           </p>
         </div>
         <ShareButton
-          title="Worth a look on Utah Drops"
+          title="Hard to find, on Utah Drops"
           className="-mr-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
         />
       </header>
