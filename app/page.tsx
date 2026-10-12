@@ -19,6 +19,8 @@ import { mixPreview } from "@/lib/discover-rules";
 import { DiscoverPreview } from "@/components/discover-preview";
 import { WatchStatus } from "@/components/watch-status";
 import { watchSummary } from "@/lib/watch-summary";
+import { MAKERS, MAKERS_PATH } from "@/lib/makers";
+import { BARS_PATH } from "@/lib/bars";
 
 export const dynamic = "force-dynamic";
 
@@ -149,6 +151,8 @@ export default async function HomePage({
 
       {picks.length > 0 ? <DiscoverPreview picks={picks} area={area} watched={watched} signedIn={!!user} /> : null}
 
+      <MoreUtah />
+
       <div className={user ? "max-w-3xl" : "grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14"}>
         <section className="space-y-4" aria-labelledby="feed-title">
           <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
@@ -188,6 +192,45 @@ export default async function HomePage({
         ) : null}
       </div>
     </div>
+  );
+}
+
+// Utah guides beyond the state-store shelf. Outlined cards only: the hero's
+// "Find bottles" stays the one filled button.
+const MORE_UTAH = [
+  {
+    href: MAKERS_PATH,
+    title: "Utah makers",
+    text: `${MAKERS.length} local breweries, distilleries, wineries and cideries, and their bottles in state stores.`,
+  },
+  { href: BARS_PATH, title: "Bars & taverns", text: "Every licensed bar, tavern and beer venue, and the rules each license sets." },
+  { href: "/utah-101", title: "Utah 101", text: "How buying and drinking alcohol works here, in plain English." },
+];
+
+function MoreUtah() {
+  return (
+    <nav aria-labelledby="more-utah-title" className="space-y-3">
+      <h2 id="more-utah-title" className="kicker text-subtle-foreground">
+        More Utah
+      </h2>
+      <ul className="grid gap-2 sm:grid-cols-3">
+        {MORE_UTAH.map((c) => (
+          <li key={c.href}>
+            <Link
+              prefetch={false}
+              href={c.href}
+              className="group flex h-full flex-col gap-1 rounded-md border border-input px-4 py-3 hover:border-primary"
+            >
+              <span className="flex items-center gap-1.5 font-display text-2xl leading-none">
+                {c.title}
+                <ArrowRight className="size-4 text-subtle-foreground group-hover:text-primary" aria-hidden />
+              </span>
+              <span className="text-sm leading-snug text-muted-foreground">{c.text}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
 
