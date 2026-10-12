@@ -91,6 +91,8 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
 - One filled amber button in the hero ("Find bottles"); keep others outlined
   or as links. Don't bring back a second row of example searches.
 - Chip counts are statewide (`products.in_stock`) and say so.
+- "More Utah" row (makers, bars, Utah 101) sits below "Worth a look":
+  outlined cards only, one row; it's the home page's way into the guides.
 - Signed-in watch line: `lib/watch-summary.ts`. Same claim rules as above:
   local part only when a store check found the bottle and no newer statewide
   count disproves it; never "none near". Errors fall back to the pitch.

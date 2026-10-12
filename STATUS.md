@@ -12,7 +12,7 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   taverns 7, beer-only venues 170, airport lounges 16. `licensees.yml` pulls
   weekly (Mondays); first production pull 2026-10-12.
 
-## Licensed makers not on Proudly Utah (this branch)
+## Licensed makers not on Proudly Utah (PR #61, live 2026-10-12)
 - 7 pages from the license list: Thieves Guild Cidery, Summum (sacramental
   wine, not sold), Kid Curry, Black Feather Whiskey, Blue Hills Brewery
   (license only; no website or press found), Mt. Naomi Winery, Salt Lake
