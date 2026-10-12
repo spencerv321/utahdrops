@@ -417,6 +417,7 @@ async function main() {
   if (process.argv[2]?.startsWith("notetargets")) {
     return (await import("./photo-targets")).noteTargets(sql, Number(process.argv[2].split(":")[1] ?? 300));
   }
+  if (process.argv[2] === "photosurfaced") return (await import("./photo-targets")).photoSurfaced(sql);
   if (process.argv[2]?.startsWith("phototargets")) {
     return (await import("./photo-targets")).photoTargets(sql, Number(process.argv[2].split(":")[1] ?? 300));
   }

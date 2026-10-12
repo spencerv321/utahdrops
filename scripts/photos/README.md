@@ -12,14 +12,17 @@ never OK. No generic stock photos. When unsure, leave the bottle without one.
 
 ## Adding a batch (run in the cloud sandbox, not in Actions)
 
-1. `report.yml` with `phototargets:300` → save the `top N` JSON rows as `targets.json`.
+1. `report.yml` with `phototargets:300` (by demand) or `photosurfaced` (every bottle
+   the homepage feed, /discover, What's new and drops show without a photo) →
+   save the JSON rows as `targets.json`.
 2. In a scratch directory: `npm i sharp`, copy these scripts in, and export the
    catalog (`catalog.json`: `[{csc, name, size_ml}]`, listed products) so other
    sizes of a label get the same photo.
 3. `node harvest.mjs targets.json <start> <count>`: searches Yahoo Images
    (DuckDuckGo fallback, paced), downloads up to 6 candidates per label, and
    writes contact sheets to `out/sheets/`. Resumable. Bing serves decoy
-   results to scripts; don't use it.
+   results to scripts; don't use it. A long run outlives a 30-minute background
+   limit; rerun the same command and it resumes.
 4. Review every sheet and write `picks.json`: `{ "<csc>": index | [index, note]
    | [index, note, threshold, mode, step] | {"same": "<csc>"} | null }`
    (`same` reuses another product's photo, e.g. a "PET" listing). Prefer plain
