@@ -93,12 +93,13 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   backgrounds in `assets/`), and "near you first" search ordering when an area
   is picked (default sort only; no area = unchanged "in stock first").
 
-## Product photos (701 photos, 957 products)
-- Oct 12 batch (this branch): 469 new photos for the bottles the public pages
+## Product photos (712 photos, 968 products)
+- Oct 12 batch (PR #63): 480 new photos for the bottles the public pages
   surface without one (`report.yml` → `photosurfaced`: homepage feed pool,
-  /discover, What's new, drops). 472 of those 516 now have a photo; 44 have no
-  confident match and keep the glyph (wrong expression only, lifestyle shots,
-  or ambiguous names like "Outlaw Bourbon", Scion cider series, Kiitos Ice).
+  /discover, What's new, drops). 483 of those 516 now have a photo after a
+  second pass with hand-written searches; 33 keep the glyph (only other
+  expressions or lifestyle shots found, or ambiguous names like "Outlaw
+  Bourbon", "Belvedere Organic 6", Scion cider series, Kiitos Ice).
 - Earlier: the top 300 by `phototargets` (interest first: watched, 2+
   visitors, drawings/rare; then DABS sales dollars).
 - Shown on product pages, search rows, the feed and /discover via
