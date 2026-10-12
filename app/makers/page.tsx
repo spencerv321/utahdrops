@@ -43,6 +43,7 @@ export default async function MakersIndex({ searchParams }: Props) {
   const counts = await getMakerShelfCounts().catch(() => new Map<string, number>());
   const shown = MAKERS.filter((m) => !kind || m.kinds.includes(kind));
   const listings = MAKERS.flatMap((m) => m.dabs);
+  const licensedOnly = MAKERS.filter((m) => m.dabs.length === 0).length;
 
   return (
     <div className="space-y-12 pt-2 sm:pt-6">
@@ -56,8 +57,9 @@ export default async function MakersIndex({ searchParams }: Props) {
           <a href={MAKER_SOURCES.dabsProudlyUtah.url} rel="noopener" className="underline underline-offset-4">
             Proudly Utah
           </a>{" "}
-          list: what they make, whether you can visit, whether they sell bottles to go, what locals say, and which of
-          their bottles are on state store shelves near you. Every fact is sourced.
+          list, plus licensed makers that list leaves out: what they make, whether you can visit, whether they sell
+          bottles to go, what locals say, and which of their bottles are on state store shelves near you. Every fact
+          is sourced.
         </p>
       </header>
 
@@ -113,7 +115,11 @@ export default async function MakersIndex({ searchParams }: Props) {
 
       <p className="max-w-3xl text-sm text-subtle-foreground">
         DABS lists {listings.length} makers ({KIND_ORDER.map((k) => `${listings.filter((d) => d.kind === k).length} ${KIND_LABEL[k].many.toLowerCase()}`).join(", ")}
-        ); a few are one business listed twice, so they share a page here. Sources read {checkedLabel(MAKERS_CHECKED)}.
+        ) on Proudly Utah; a few are one business listed twice, so they share a page here.
+        {licensedOnly > 0
+          ? ` ${licensedOnly} more hold a DABS manufacturing license but aren't on that list; we found them in DABS's license list.`
+          : ""}{" "}
+        Sources read {checkedLabel(MAKERS_CHECKED)}.
         &ldquo;Bottles in state stores&rdquo; counts listings on a store shelf statewide at the latest catalog check.
         Utah Drops is independent and isn&apos;t affiliated with DABS or any maker. Corrections are welcome at{" "}
         <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4">
