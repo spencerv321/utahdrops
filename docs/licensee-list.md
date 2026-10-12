@@ -9,6 +9,20 @@ licenses" to a Looker Studio report
 The "Event Permit List" next to it is a second report (short link
 `lookerstudio.google.com/s/lASosMiwc0E`).
 
+**Update 2026-10-12: fetched.** A headless Chromium routed through the
+sandbox proxy (`proxy: { server: process.env.HTTPS_PROXY }` in Playwright;
+the browser's NSS store already trusts the proxy CA) opens the report like
+any viewer. The page's own `batchedDataV2` response carries the whole table
+(4,543 rows, `tableDataset.column[]` with `nullIndex` gaps), so no paging or
+login is needed. Saved as `data/licensees/dabs-licensees-2026-10-12.csv`:
+license_number, category, type, business_name, address, county,
+original_issue_date, conditional_approval, new_this_month. The report says it
+updates daily; a GitHub Actions job could re-pull it weekly (no proxy needed
+there). It relies on Looker's response format, so a job should fail loudly
+if the column count or row total looks wrong.
+
+Earlier notes (before the fetch worked):
+
 **What we found.**
 - The report is client-rendered; its HTML has no rows, and the DABS page has
   no CSV/XLSX link. (We didn't find a copy on Utah's open-data portal, but
