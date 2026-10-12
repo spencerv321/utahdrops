@@ -108,6 +108,12 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   written only when a watch is actually added (signed-in toggle or verified
   intent), never on the Watch tap. Headless browsers are dropped as bots.
 
+## Utah makers (/makers)
+- Same sourcing rules as Utah 101: every claim in `data/makers.json` cites a
+  source; no guessing; "what locals say" is summarized press/polls, never
+  copied reviews. Edit per `data/makers.md`; run `tests/makers.test.ts` and
+  `scripts/makers-check.ts` after changing catalog matchers.
+
 ## Data gotchas
 - DABS sometimes returns bogus zero quantities; the catalog job rejects passes
   where too many in-stock products drop to 0. Don't remove that guard.

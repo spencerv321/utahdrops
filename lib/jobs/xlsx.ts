@@ -4,7 +4,7 @@ import { withRun } from "./run";
 
 /**
  * Monthly product-list ingest. Seeds/refreshes catalog facts the locator API
- * doesn't return (size, class codes, SPA flag). Never touches quantities —
+ * doesn't return (size, class codes, SPA flag, vendor). Never touches quantities —
  * the catalog scrape owns those.
  */
 export async function runXlsxJob(url?: string) {
@@ -21,16 +21,21 @@ export async function runXlsxJob(url?: string) {
         status: r.status,
         is_spa: r.isSpa,
         current_price: r.price,
+        vendor: r.vendor,
+        vendor_code: r.vendorCode,
       }));
       await sql`
         insert into products ${sql(
           chunk,
-          "csc", "name", "category", "subcategory", "size_ml", "status", "is_spa", "current_price"
+          "csc", "name", "category", "subcategory", "size_ml", "status", "is_spa", "current_price",
+          "vendor", "vendor_code"
         )}
         on conflict (csc) do update set
           subcategory = coalesce(excluded.subcategory, products.subcategory),
           size_ml = coalesce(excluded.size_ml, products.size_ml),
           is_spa = excluded.is_spa,
+          vendor = coalesce(excluded.vendor, products.vendor),
+          vendor_code = coalesce(excluded.vendor_code, products.vendor_code),
           last_seen = now()`;
     }
 

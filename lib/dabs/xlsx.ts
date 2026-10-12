@@ -12,6 +12,22 @@ export interface XlsxProduct {
   subcategory: string | null;
   isSpa: boolean;
   price: number | null;
+  /** DABS vendor as listed ("EPIC BREWING COMPANY, LLC (001788)"). */
+  vendor: string | null;
+  /** See vendorCode(). */
+  vendorCode: string | null;
+}
+
+/**
+ * The "Vendor Cd" column as a stable key: digits only, no leading zeros, so
+ * "001788" and "VC0000200479" become "1788" and "200479". Falls back to a
+ * code in the vendor name's parentheses ("... (001788)").
+ */
+export function vendorCode(code: unknown, name?: unknown): string | null {
+  const fromCode = String(code ?? "").replace(/\D/g, "").replace(/^0+/, "");
+  if (fromCode) return fromCode;
+  const m = String(name ?? "").match(/\((\d+)\)\s*$/);
+  return m ? m[1].replace(/^0+/, "") || null : null;
 }
 
 /** Discover the current monthly product-list XLSX link rather than guessing the URL. */
@@ -71,6 +87,8 @@ export function parseProductListXlsx(buf: Buffer): XlsxProduct[] {
   const classIdx = idx(/CLASS|SUB/);
   const spaIdx = idx(/SPA/);
   const priceIdx = idx(/PRICE|RETAIL/);
+  const vendorIdx = idx(/^VENDOR\s*(NAME)?$/);
+  const vendorCdIdx = idx(/^VENDOR\s*(CD|CODE|NO|#)/);
 
   const out: XlsxProduct[] = [];
   for (const row of grid.slice(headerRowIdx + 1)) {
@@ -97,6 +115,8 @@ export function parseProductListXlsx(buf: Buffer): XlsxProduct[] {
       subcategory: classIdx >= 0 ? cleanName(String(row[classIdx] ?? "")) || null : null,
       isSpa: spaIdx >= 0 ? /Y|TRUE|X|1/.test(String(row[spaIdx] ?? "").toUpperCase()) : false,
       price: Number.isFinite(price) ? price : null,
+      vendor: vendorIdx >= 0 ? cleanName(String(row[vendorIdx] ?? "")) || null : null,
+      vendorCode: vendorCode(vendorCdIdx >= 0 ? row[vendorCdIdx] : null, vendorIdx >= 0 ? row[vendorIdx] : null),
     });
   }
   if (out.length < 1000) {

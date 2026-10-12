@@ -107,6 +107,14 @@ export default function MovingToUtah() {
       <p className="text-sm text-muted-foreground">
         Source: <Cite id="dabsProudlyUtah">DABS, We Are Proudly Utah</Cite>, counted October 2026.
       </p>
+      <p>
+        Our{" "}
+        <Link prefetch={false} href="/makers" className="underline decoration-primary/60 underline-offset-4 hover:decoration-primary">
+          Utah makers directory
+        </Link>{" "}
+        has a page for each of them: what they make, whether you can visit, and which of their bottles are in state
+        stores near you.
+      </p>
 
       <h2 id="homebrewing">Homebrewing and home winemaking</h2>
       <p>

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { sql } from "@/lib/db";
 import { SITE_URL } from "@/lib/config";
 import { ARTICLES, UTAH_101_PATH, articlePath } from "@/lib/utah-101";
+import { MAKERS, MAKERS_CHECKED, MAKERS_PATH, makerPath } from "@/lib/makers";
 
 // Rendered per request (not at build time, when there's no database). ~30k
 // URLs fits under the 50k-per-sitemap limit.
@@ -27,6 +28,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}${articlePath(a.slug)}`,
       lastModified: new Date(a.checked + "T12:00:00Z"),
       changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    { url: `${SITE_URL}${MAKERS_PATH}`, changeFrequency: "daily", priority: 0.8 },
+    ...MAKERS.map((m) => ({
+      url: `${SITE_URL}${makerPath(m.slug)}`,
+      lastModified: new Date(MAKERS_CHECKED + "T12:00:00Z"),
+      changeFrequency: "weekly" as const,
       priority: 0.7,
     })),
   ];

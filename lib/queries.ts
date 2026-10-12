@@ -149,9 +149,10 @@ export const getProduct = cache(async (csc: string) => {
     select csc, name, category, subcategory, status, size_ml, is_spa, description,
            current_price::text, warehouse_qty, store_qty, on_order_qty, in_stock,
            price_percentile_in_category::float8 as price_percentile,
-           first_seen, last_seen, last_store_scrape, delisted_at
+           first_seen, last_seen, last_store_scrape, delisted_at, vendor_code
     from products where csc = ${csc}`) as unknown as (ProductRow & {
     delisted_at: Date | null;
+    vendor_code: string | null;
     subcategory: string | null;
     description: string | null;
     price_percentile: number | null;

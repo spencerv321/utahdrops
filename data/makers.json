@@ -1,0 +1,6074 @@
+{
+ "checked": "2026-10-11",
+ "makers": [
+  {
+   "slug": "2-row-brewing",
+   "name": "2 Row Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "2 Row Brewing",
+     "kind": "brewery",
+     "address": "73 W 7200 S, Midvale, UT 84047"
+    }
+   ],
+   "website": "https://www.2rowbrewing.com/",
+   "places": [
+    {
+     "name": "Taproom and beer store",
+     "address": "73 W 7200 S",
+     "city": "Midvale"
+    }
+   ],
+   "summary": {
+    "t": "A family-owned Midvale brewery that grew from a home-brew kit into a big 21+ taproom with its own beer store.",
+    "s": [
+     "story",
+     "trib2024"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Brian Coleman started home brewing in 2010; he and DeDe Coleman run the brewery, which now brews more than 50 beers a year.",
+     "s": [
+      "story",
+      "beers"
+     ]
+    },
+    {
+     "t": "Its beer is also sold in state liquor stores and poured at some bars and restaurants.",
+     "s": [
+      "trib2024"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The taproom at 73 W 7200 S opened in November 2023 in a former ax-throwing range: a full bar, a kitchen, a stage, pool tables and indoor cornhole courts, with the brewhouse in view.",
+     "s": [
+      "trib2024"
+     ]
+    },
+    {
+     "t": "It is 21 and over.",
+     "s": [
+      "trib2024",
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Every beer is sold cold from the on-site beer store, including high-point cans and growler fills, seven days a week.",
+     "s": [
+      "beers"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers placed its Huckleberry Sour Ale second for best sour beer in 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    },
+    {
+     "t": "A City Cast Salt Lake reader called it arguably the best brewery in the state and good value, writing before the taproom opened.",
+     "s": [
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "2 ROW "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "2 Row Brewing (home page and FAQ)",
+     "publisher": "2 Row Brewing",
+     "url": "https://www.2rowbrewing.com/"
+    },
+    "story": {
+     "title": "Our story",
+     "publisher": "2 Row Brewing",
+     "url": "https://www.2rowbrewing.com/our-story"
+    },
+    "beers": {
+     "title": "Beers",
+     "publisher": "2 Row Brewing",
+     "url": "https://www.2rowbrewing.com/beers"
+    },
+    "trib2024": {
+     "title": "2 Row Brewing brings a 'brewery experience' and regulation-size cornhole courts to Midvale",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2024/02/02/2-row-brewing-brings-brewery/",
+     "date": "February 2, 2024"
+    }
+   }
+  },
+  {
+   "slug": "alpine-distilling",
+   "name": "Alpine Distilling",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Alpine Distilling",
+     "kind": "distillery",
+     "address": "364 Main St, Park City, UT 84060"
+    }
+   ],
+   "website": "https://www.alpinedistilling.com/",
+   "places": [
+    {
+     "name": "Main Street bar and package agency",
+     "address": "364 Main St.",
+     "city": "Park City"
+    },
+    {
+     "name": "Distillery and package agency",
+     "address": "7132 Silver Creek Rd.",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "Park City gin specialists, with a Main Street lounge and award-winning botanical spirits.",
+    "s": [
+     "slm2025",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Run by Rob and Sara Sergent since 2016; Sara Sergent was inducted into the London Gin Guild, and its Elevated Gin won a Gin of the Year gold in London.",
+     "s": [
+      "slm2025"
+     ]
+    },
+    {
+     "t": "Says it is the only U.S. maker whose whole botanical lineup is vapor-extracted; it also makes whiskey, vodka and liqueurs.",
+     "s": [
+      "home",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Main Street lounge serves cocktails and local pies and offers guided tastings and custom gin-making; both locations are 21+.",
+     "s": [
+      "visit",
+      "slm2025"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Both the Main Street lounge and the Silver Creek distillery have a package agency selling its bottles.",
+     "s": [
+      "visit",
+      "contact"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200063"
+    ],
+    "prefixes": [
+     "ALPINE "
+    ],
+    "exclude": [
+     "950329",
+     "950330"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Alpine Distilling (home page)",
+     "publisher": "Alpine Distilling",
+     "url": "https://www.alpinedistilling.com/"
+    },
+    "visit": {
+     "title": "Visit",
+     "publisher": "Alpine Distilling",
+     "url": "https://www.alpinedistilling.com/visit"
+    },
+    "contact": {
+     "title": "Contact",
+     "publisher": "Alpine Distilling",
+     "url": "https://www.alpinedistilling.com/contact"
+    }
+   }
+  },
+  {
+   "slug": "beehive-distilling",
+   "name": "Beehive Distilling",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Beehive Distilling",
+     "kind": "distillery",
+     "address": "2245 S West Temple, Salt Lake City, UT 84106"
+    }
+   ],
+   "website": "https://www.beehivedistilling.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "2245 S West Temple",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "The Salt Lake distillery behind Jack Rabbit Gin, started by three friends in 2013.",
+    "s": [
+     "story",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Three friends started distilling in 2013; the lineup includes Jack Rabbit Gin, barrel-aged gins, vodka, rum, rye and a four-year bourbon grown, distilled and aged in Utah.",
+     "s": [
+      "story",
+      "home"
+     ]
+    },
+    {
+     "t": "Salt Lake Magazine credits it as the first Utah distiller to make canned cocktails, such as a mule and a gin rickey.",
+     "s": [
+      "slm2025"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "It closed its bar in 2024 but kept distilling.",
+     "s": [
+      "slm2025"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Some bottles, like the four-year bourbon, are sold at the distillery; most of the range is in Utah state liquor stores.",
+     "s": [
+      "home",
+      "find"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted Jack Rabbit Gin the best local gin of 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2150"
+    ],
+    "prefixes": [
+     "BEEHIVE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Beehive Distilling (home page)",
+     "publisher": "Beehive Distilling",
+     "url": "https://www.beehivedistilling.com/"
+    },
+    "story": {
+     "title": "Our story",
+     "publisher": "Beehive Distilling",
+     "url": "https://www.beehivedistilling.com/our-story-1"
+    },
+    "find": {
+     "title": "Find us",
+     "publisher": "Beehive Distilling",
+     "url": "https://www.beehivedistilling.com/find-us"
+    }
+   }
+  },
+  {
+   "slug": "bewilder-brewing",
+   "name": "Bewilder Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Bewilder Brewing Co.",
+     "kind": "brewery",
+     "address": "445 S 400 W, Salt Lake City, UT 84047"
+    }
+   ],
+   "website": "https://bewilderbrewing.com/",
+   "places": [
+    {
+     "name": "Brewpub",
+     "address": "445 S 400 W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A downtown Salt Lake brewpub from two home-brew shop owners, built around British pub beers, German lagers and house-made sausages.",
+    "s": [
+     "ksl2019",
+     "faq"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded by Cody McKendrick and Ross Metzger, who also owned Salt City Brew Supply; it opened in December 2019 planning traditional British pub beers and German lagers plus fruited and experimental taps.",
+     "s": [
+      "ksl2019"
+     ]
+    },
+    {
+     "t": "Says it is Independent and Craft Malt Certified, with part of its malt grown regionally and malted locally.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Licensed as a bar, so it is 21+ with ID scanned at the door; no dogs, including on the patio (licensed service dogs excepted).",
+     "s": [
+      "faq"
+     ]
+    },
+    {
+     "t": "A small kitchen focuses on handmade sausages and sandwiches; there are dart boards, and no scheduled tours, though staff may show you the brewhouse if someone is free.",
+     "s": [
+      "faq"
+     ]
+    },
+    {
+     "t": "Parties of seven or more should call ahead.",
+     "s": [
+      "faq"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Cans, crowlers and growlers to go.",
+     "s": [
+      "faq"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted its Big Crispy West Coast Pilsner the best lager or pilsner of 2025 and put its ESB second for best ale.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200479"
+    ],
+    "prefixes": [
+     "BEWILDER "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Bewilder Brewing (home page)",
+     "publisher": "Bewilder Brewing Co.",
+     "url": "https://bewilderbrewing.com/"
+    },
+    "faq": {
+     "title": "FAQ",
+     "publisher": "Bewilder Brewing Co.",
+     "url": "https://bewilderbrewing.com/pages/faq"
+    },
+    "ksl2019": {
+     "title": "At Bewilder, home-brew entrepreneurs bring passion for beer to downtown digs",
+     "publisher": "KSL.com",
+     "url": "https://www.ksl.com/article/news/utah/at-bewilder-home-brew-entrepreneurs-bring-passion-for-beer-to-downtown-digs/46694076",
+     "date": "December 21, 2019"
+    }
+   }
+  },
+  {
+   "slug": "bohemian-brewery",
+   "name": "Bohemian Brewery & Grille",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Bohemian Brewery & Grille",
+     "kind": "brewery",
+     "address": "94 E 7200 S, Midvale, UT 84047"
+    }
+   ],
+   "website": "http://www.bohemianbrewery.com/",
+   "places": [
+    {
+     "name": "Brewery and grille",
+     "address": "94 E 7200 S",
+     "city": "Midvale"
+    }
+   ],
+   "summary": {
+    "t": "A Midvale restaurant-brewery opened by Czech immigrants in 2001, known for Central European lagers and food like bratwurst, pierogies and goulash.",
+    "s": [
+     "trib2018"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Joe and Helen Petras opened it in 2001 to bring the food and beer of their native Czechoslovakia to Utah; Joe chose to brew lagers, which take longer to make than ales.",
+     "s": [
+      "trib2018"
+     ]
+    },
+    {
+     "t": "Since 2018 it has been owned by the group behind Porcupine Pub and Grille, The Dodo and the Rio Grande Cafe, who said they would keep the restaurant and the Czech beers.",
+     "s": [
+      "trib2018"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A full restaurant: the menu the Tribune singled out includes bratwurst, pierogies and goulash.",
+     "s": [
+      "trib2018"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers placed its Czech Pilsner second for best lager in 2025, and the brewery third for best brewery food and second for best German restaurant.",
+     "s": [
+      "cw25Libations",
+      "cw25Nightlife"
+     ]
+    },
+    {
+     "t": "A City Cast Salt Lake reader said it makes the best beer in Utah and praised the food.",
+     "s": [
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "BOHEMIAN "
+    ]
+   },
+   "sources": {
+    "trib2018": {
+     "title": "Midvale's Bohemian Brewery, famous for Czech beer and brats, gets new owners",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://sltrib.com/news/2018/07/26/midvales-bohemian-brewery",
+     "date": "July 26, 2018"
+    }
+   }
+  },
+  {
+   "slug": "bold-and-delaney-winery",
+   "name": "Bold & Delaney Winery",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Bold & Delaney Winery",
+     "kind": "winery",
+     "address": "1315 N Horsemans Park Dr., Dammeron Valley, UT 84783"
+    }
+   ],
+   "website": "https://boldanddelaneywinery.com/",
+   "places": [
+    {
+     "name": "Winery and tasting room",
+     "address": "1315 N Horsemans Park Dr.",
+     "city": "Dammeron Valley"
+    }
+   ],
+   "summary": {
+    "t": "An estate winery north of St. George, making wine from its own Dammeron Valley vineyard.",
+    "s": [
+     "sgn2019"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Vineyard owner Mark Bold partnered with John Delaney, a sommelier and part-owner of St. George's Painted Pony, to found the winery; in 2019 the 12-acre vineyard had about 9,000 vines of 11 varieties.",
+     "s": [
+      "sgn2019"
+     ]
+    },
+    {
+     "t": "DABS lists wines including Viognier, Verdejo, Malvasia, Grenache, Tempranillo, Petite Syrah and an estate Pinot Noir.",
+     "s": [
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200461"
+    ],
+    "prefixes": [
+     "BOLD & DELANEY",
+     "BOLD&DELANEY"
+    ]
+   },
+   "sources": {
+    "sgn2019": {
+     "title": "Bold and Delaney Winery and tasting room to open at Dammeron Valley Vineyards",
+     "publisher": "St. George News",
+     "url": "https://www.stgeorgeutah.com/news/local/bold-and-delaney-winery-and-tasting-room-to-open-at-dammeron-valley-vineyards/article_d04efd42-1153-5ebd-ba26-775a6cf43196.html",
+     "date": "August 2019"
+    }
+   }
+  },
+  {
+   "slug": "bonneville-brewery",
+   "name": "Bonneville Brewery",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Bonneville Brewing",
+     "kind": "brewery",
+     "address": "1641 N Main St., Tooele, UT 84074"
+    }
+   ],
+   "website": "https://bonnevillebrewery.com/",
+   "places": [
+    {
+     "name": "Restaurant and pub",
+     "address": "1641 N Main St.",
+     "city": "Tooele"
+    }
+   ],
+   "summary": {
+    "t": "A Tooele restaurant and brewery making classic ales and lagers since 2012, with motorsports names and a view toward the Great Salt Lake.",
+    "s": [
+     "home",
+     "process"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Brewing since 2012 in small batches of about 300 gallons, with most malt from a small maltster in Idaho Falls.",
+     "s": [
+      "process"
+     ]
+    },
+    {
+     "t": "The lineup leans on classic styles: an amber, an Irish-style red, a nitro dry Irish stout, a wheat ale and seasonals, plus house sodas.",
+     "s": [
+      "beers",
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Restaurant and Pub at 1641 N Main St. serves pub food and mixed drinks alongside the beer.",
+     "s": [
+      "locations",
+      "home"
+     ]
+    },
+    {
+     "t": "Its beer is also poured at every Pins & Ales bowling center (Tooele, West Valley, Draper and West Jordan).",
+     "s": [
+      "locations"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly named it the best exurban brewery of 2025, for its patio with the Great Salt Lake on the horizon.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "BONNEVILLE BR"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Bonneville Brewery (home page)",
+     "publisher": "Bonneville Brewery",
+     "url": "https://bonnevillebrewery.com/"
+    },
+    "beers": {
+     "title": "Craft beers",
+     "publisher": "Bonneville Brewery",
+     "url": "https://bonnevillebrewery.com/craft-beers/"
+    },
+    "process": {
+     "title": "Our process",
+     "publisher": "Bonneville Brewery",
+     "url": "https://bonnevillebrewery.com/our-process/"
+    },
+    "locations": {
+     "title": "Locations",
+     "publisher": "Bonneville Brewery",
+     "url": "https://bonnevillebrewery.com/locations/"
+    }
+   }
+  },
+  {
+   "slug": "cerveza-zolupez",
+   "name": "Cerveza Zólupez Beer Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Cerveza Zolupez Beer Co.",
+     "kind": "brewery",
+     "address": "205 W 29th St., Ogden, UT 84401"
+    }
+   ],
+   "website": "https://zolupez.com/",
+   "places": [
+    {
+     "name": "Brewery",
+     "address": "205 W 29th St. #2",
+     "city": "Ogden"
+    }
+   ],
+   "summary": {
+    "t": "A Latino-owned Ogden brewery making Mexican-style cerveza artesanal, founded by Javier Chávez Jr.",
+    "s": [
+     "home",
+     "ubn2020"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Describes itself as a Latino-owned craft brewery dedicated to Mexican-style craft beer.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "Founder and brewer Javier Chávez Jr. grew up in Ogden in a family restaurant business; in 2020 he brewed a Mexican-style lager with Cerveza Cabrito in Monterrey, Mexico.",
+     "s": [
+      "ubn2020"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "ZOLUPEZ "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Cerveza Zólupez (home page)",
+     "publisher": "Cerveza Zólupez Beer Co.",
+     "url": "https://zolupez.com/"
+    },
+    "ubn2020": {
+     "title": "Zólupez Beer Company honors Mexican culture, traditions",
+     "publisher": "Utah Beer News",
+     "url": "https://utahbeernews.com/zolupez-beer-company/",
+     "date": "June 29, 2020"
+    }
+   }
+  },
+  {
+   "slug": "chanela-vineyards",
+   "name": "Chanela Vineyards",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Chanela Farms Winery",
+     "kind": "winery",
+     "address": "4391 S Enterprise Dr., St. George, UT 84790"
+    }
+   ],
+   "website": "https://chanelavineyards.com/",
+   "places": [
+    {
+     "name": "Winery (at St. George Beverage Co.)",
+     "address": "4391 S Enterprise Dr.",
+     "city": "St. George"
+    }
+   ],
+   "summary": {
+    "t": "A St. George winery growing grapes on the slopes of Pine Valley Mountain, poured at Silver Reef.",
+    "s": [
+     "home",
+     "sgbevAbout"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Makes small lots from grapes grown at a vineyard on Pine Valley Mountain; DABS lists its Terra 5047 wines, including a Super Tuscan-style blend, Cabernet Sauvignon and rosé.",
+     "s": [
+      "home",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Its wines are poured at the St. George Beverage Co. / Silver Reef restaurant, which shares its DABS address.",
+     "s": [
+      "sgbevAbout",
+      "dabsProudlyUtah"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200456"
+    ],
+    "prefixes": [
+     "CHANELA "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Chanela Vineyards (home page)",
+     "publisher": "Chanela Vineyards",
+     "url": "https://chanelavineyards.com/"
+    },
+    "sgbevAbout": {
+     "title": "About us",
+     "publisher": "St. George Beverage Co.",
+     "url": "https://sgbev.com/about-us/"
+    }
+   }
+  },
+  {
+   "slug": "chappell-brewing",
+   "name": "Chappell Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Chappell Brewing",
+     "kind": "brewery",
+     "address": "2285 S Main St, South Salt Lake, UT 84115"
+    }
+   ],
+   "website": "https://chappell.beer/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "2285 S Main St",
+     "city": "South Salt Lake"
+    }
+   ],
+   "summary": {
+    "t": "A small South Salt Lake taproom brewing modern American-style ales.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Brews what it calls boldly crafted, modern American-style ales.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The taproom on South Main is pitched as a cozy third space; call ahead for group events.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A small retail corner sells canned beer to go.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201343"
+    ],
+    "prefixes": [
+     "CHAPPELL BREWING"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Chappell Brewing (home page)",
+     "publisher": "Chappell Brewing",
+     "url": "https://chappell.beer/"
+    }
+   }
+  },
+  {
+   "slug": "clear-water-distilling",
+   "name": "Clear Water Distilling Co.",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Clear Water Distilling",
+     "kind": "distillery",
+     "address": "564 W 700 S, Ste. 401, Pleasant Grove, UT 84062"
+    }
+   ],
+   "website": "https://www.clearwaterdistilling.com/",
+   "places": [
+    {
+     "name": "Distillery and tasting room",
+     "address": "564 W 700 S, Suite 401",
+     "city": "Pleasant Grove"
+    }
+   ],
+   "summary": {
+    "t": "Utah County's first legal distillery, known for small, unusual batch spirits.",
+    "s": [
+     "trib2020",
+     "slm2025"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Matt and Stephanie Eau Claire opened it in March 2020; early releases were Lorenz, a cinnamon-twist rum, and Josephine, an unaged fruit brandy distilled with rum.",
+     "s": [
+      "trib2020",
+      "slm2025"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The tasting room hosts regular tastings and cigar pairings from a walk-in humidor.",
+     "s": [
+      "slm2025"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "When it opened, the distillery was the only place in Utah to buy its bottles; several are now on state store shelves.",
+     "s": [
+      "trib2020",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers placed it third for best distillery tour in 2025, with its vodka second, Sophie's Gin third and Lorenz third in their categories.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200442"
+    ],
+    "prefixes": [
+     "CLEAR WATER "
+    ]
+   },
+   "sources": {
+    "trib2020": {
+     "title": "Utah County's first distillery takes the unconventional route",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://sltrib.com/artsliving/food/2020/09/20/utah-countys-first",
+     "date": "September 20, 2020"
+    }
+   }
+  },
+  {
+   "slug": "dendric-estate",
+   "name": "Dendric Estate",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Dendric Estate Cidery",
+     "kind": "cidery",
+     "address": "2617 UT-32 Kamas, UT 84036"
+    }
+   ],
+   "website": "https://www.dendricestate.com/",
+   "places": [
+    {
+     "name": "Cidery and orchard",
+     "address": "2617 UT-32",
+     "city": "Kamas"
+    }
+   ],
+   "summary": {
+    "t": "A Kamas cidery, opened in 2025, making bone-dry mountain ciders from cider-apple varieties.",
+    "s": [
+     "about",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Brendan and Carly Coyle opened it in 2025; their orchard sits at 6,440 feet.",
+     "s": [
+      "about",
+      "home"
+     ]
+    },
+    {
+     "t": "All its ciders are dry with zero residual sugar; the flagship Dry Cut '24 blends 15 apple varieties from three partner orchards in the Mountain West.",
+     "s": [
+      "home",
+      "ciders"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201395"
+    ],
+    "prefixes": [
+     "DENDRIC ESTATE"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Dendric Estate (home page)",
+     "publisher": "Dendric Estate",
+     "url": "https://www.dendricestate.com/"
+    },
+    "about": {
+     "title": "About",
+     "publisher": "Dendric Estate",
+     "url": "https://www.dendricestate.com/about"
+    },
+    "ciders": {
+     "title": "Ciders",
+     "publisher": "Dendric Estate",
+     "url": "https://www.dendricestate.com/ciders"
+    }
+   }
+  },
+  {
+   "slug": "dented-brick-distillery",
+   "name": "Dented Brick Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Dented Brick Distillery",
+     "kind": "distillery",
+     "address": "3100 S Washington St., South Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://dentedbrick.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "3100 S Washington St.",
+     "city": "South Salt Lake"
+    }
+   ],
+   "summary": {
+    "t": "A South Salt Lake distillery built on an artesian well, making whiskey, vodka, gin and rum.",
+    "s": [
+     "about",
+     "slm2025"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Its spirits are made with water from an artesian well on land once owned by Hugh Moon, an early Utah distiller.",
+     "s": [
+      "about"
+     ]
+    },
+    {
+     "t": "The range covers vodka, gin, rum and a line of straight rye whiskeys, some sold only at the distillery.",
+     "s": [
+      "spirits"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tours with a five-spirit tasting, or a tasting only, by reservation; it also offers a whiskey program where you buy and follow your own barrel.",
+     "s": [
+      "tours",
+      "slm2025"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Several cask-finished ryes are sold only at the distillery.",
+     "s": [
+      "spirits"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers placed Dented Brick Premium Rum second for best local rum in 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2343"
+    ],
+    "prefixes": [
+     "DENTED BRICK "
+    ]
+   },
+   "sources": {
+    "about": {
+     "title": "About",
+     "publisher": "Dented Brick Distillery",
+     "url": "https://dentedbrick.com/about/"
+    },
+    "spirits": {
+     "title": "Spirits",
+     "publisher": "Dented Brick Distillery",
+     "url": "https://dentedbrick.com/spirits/"
+    },
+    "tours": {
+     "title": "Tours & tastings",
+     "publisher": "Dented Brick Distillery",
+     "url": "https://dentedbrick.com/tours-tastings/"
+    }
+   }
+  },
+  {
+   "slug": "desert-edge-brewery",
+   "name": "Desert Edge Brewery",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Desert Edge Brewery",
+     "kind": "brewery",
+     "address": "273 Trolley Square, Salt Lake City, UT 84102"
+    }
+   ],
+   "website": "https://desertedgebrewery.com/",
+   "places": [
+    {
+     "name": "The Pub at Trolley Square",
+     "address": "273 Trolley Square",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "The brewpub at Trolley Square, brewing since 1995, with a full menu and a beer store.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Began brewing in 1995 and says its Happy Valley Hefeweizen won Utah's first Great American Beer Festival gold medal.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "Leans a little hoppier than most: the canned lineup runs from a Mexican-style lager and hefeweizen to West Coast and hazy IPAs.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A full-service pub with lunch and dinner menus and Sunday brunch, including kids' dishes; enter through the mall entrance.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A beer store at the pub sells cold beer to go seven days a week.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "DESERT EDGE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Desert Edge Brewery (home, menus and beer store)",
+     "publisher": "Desert Edge Brewery",
+     "url": "https://desertedgebrewery.com/"
+    }
+   }
+  },
+  {
+   "slug": "distillery-36",
+   "name": "Distillery 36",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Distillery 36",
+     "kind": "distillery",
+     "address": "2374 S Redwood Rd., Salt Lake City, UT 84119"
+    }
+   ],
+   "website": "",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "2374 S Redwood Rd.",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "The small, self-financed maker of Brigham Rum, named for Utah's deciding vote to end Prohibition.",
+    "s": [
+     "vu2021"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Owned and run by Creed Law, Jensen Dobbs and Jon Gregersen, who built their own still; its award-winning Brigham Rum is made from sugar cane.",
+     "s": [
+      "vu2021"
+     ]
+    },
+    {
+     "t": "The name honors Utah as the 36th state to ratify the 21st Amendment, the vote that repealed Prohibition in December 1933.",
+     "s": [
+      "vu2021"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2333"
+    ],
+    "prefixes": [
+     "DISTILLERY 36",
+     "BRIGHAM "
+    ]
+   },
+   "sources": {
+    "vu2021": {
+     "title": "Utah's rum underdogs: Distillery 36",
+     "publisher": "Visit Utah",
+     "url": "https://www.visitutah.com/Articles/Utahs-Rum-Underdogs",
+     "date": "2021"
+    }
+   }
+  },
+  {
+   "slug": "eight-settlers-distillery",
+   "name": "Eight Settlers Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Eight Settlers Distillery",
+     "kind": "distillery",
+     "address": "7321 S Canyon Centre Pkwy., Cottonwood Heights, UT 84121"
+    }
+   ],
+   "website": "https://www.eightsettlersdistillery.com/",
+   "places": [
+    {
+     "name": "Distillery and restaurant",
+     "address": "7321 S Canyon Centre Pkwy.",
+     "city": "Cottonwood Heights"
+    },
+    {
+     "name": "Eight Settlers Lounge",
+     "address": "Exchange Place",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A distillery with a full restaurant in Cottonwood Heights and a 21+ lounge downtown.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Spirits include Devil's Gate Bourbon, Ragtown American Whiskey and Green Ditch Gin; it says the whiskey and bourbon it distilled from scratch will be ready in 2027, and compares its current bottlings to dishes built in-house from bought ingredients.",
+     "s": [
+      "about",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Cottonwood Heights restaurant has a restaurant license, so the main dining room is family-friendly; the upstairs lounge and the downtown lounge are 21+.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Sealed bottles are sold on site under its distillery retail license, including Sundays and holidays.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers ranked it second-best restaurant in Salt Lake County for 2025 and third for restaurant views.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200485"
+    ],
+    "prefixes": [
+     "8 SETTLERS "
+    ]
+   },
+   "sources": {
+    "about": {
+     "title": "About and FAQ",
+     "publisher": "Eight Settlers Distillery",
+     "url": "https://www.eightsettlersdistillery.com/about"
+    }
+   }
+  },
+  {
+   "slug": "epic-brewing",
+   "name": "Epic Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Epic Brewing Co.",
+     "kind": "brewery",
+     "address": "825 S State St., Salt Lake City, UT 84111"
+    }
+   ],
+   "website": "https://www.epicbrewing.com/",
+   "places": [
+    {
+     "name": "Brewery and tasting room",
+     "address": "825 S State St.",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "The Salt Lake brewery that bet on strong beer first, best known for its barrel-aged Big Bad Baptist imperial stout.",
+    "s": [
+     "saga",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened in 2009 as Utah's first brewery since Prohibition to brew only high-alcohol beer, back when Utah capped grocery and draft beer at 4%.",
+     "s": [
+      "saga"
+     ]
+    },
+    {
+     "t": "Known for the Big Bad Baptist barrel-aged imperial stout series, released in a new version each year; the range runs from Los Locos Mexican-style lager to IPAs and strong Belgian-style ales.",
+     "s": [
+      "home",
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The tasting room pours 2-ounce samples of every beer in its fridge, which usually holds 50 or more beers.",
+     "s": [
+      "home",
+      "saga"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "After tasting you can buy beer to take home, including six-packs.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers placed Big Bad Baptist third for best stout in 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1788"
+    ],
+    "prefixes": [
+     "EPIC "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Epic Brewing (home page)",
+     "publisher": "Epic Brewing Co.",
+     "url": "https://www.epicbrewing.com/"
+    },
+    "beers": {
+     "title": "The beer",
+     "publisher": "Epic Brewing Co.",
+     "url": "https://www.epicbrewing.com/the-beer"
+    },
+    "saga": {
+     "title": "Our saga",
+     "publisher": "Epic Brewing Co.",
+     "url": "https://www.epicbrewing.com/oursaga"
+    }
+   }
+  },
+  {
+   "slug": "etta-place-cider",
+   "name": "Etta Place Cider",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Etta Place Cider",
+     "kind": "cidery",
+     "address": "700 W SR 24, Torrey, UT 84775"
+    }
+   ],
+   "website": "https://www.ettaplacecider.com/",
+   "places": [
+    {
+     "name": "Cidery, taproom and bottle shop",
+     "address": "700 W Main St.",
+     "city": "Torrey"
+    }
+   ],
+   "summary": {
+    "t": "Utah's first orchard-based cidery, in Torrey near Capitol Reef, making ciders and session meads.",
+    "s": [
+     "taproom"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Grows fruit in its Torrey orchards (including high-tannin cider apples like Kingston Black and Dabinett) and buys from local farmers; it also makes session meads.",
+     "s": [
+      "taproom",
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The taproom pours flights of cider and mead; tours of the production space run 30 to 60 minutes and can be booked.",
+     "s": [
+      "taproom"
+     ]
+    },
+    {
+     "t": "It is licensed as a bar, so it is 21+ only; dogs are allowed on the patio but not inside.",
+     "s": [
+      "taproom"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A bottle shop at the taproom.",
+     "s": [
+      "taproom"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200473"
+    ],
+    "prefixes": [
+     "ETTA PLACE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Etta Place Cidery & Taproom (home page)",
+     "publisher": "Etta Place Cider",
+     "url": "https://www.ettaplacecider.com/"
+    },
+    "taproom": {
+     "title": "Taproom (with FAQ)",
+     "publisher": "Etta Place Cider",
+     "url": "https://www.ettaplacecider.com/taproom/"
+    }
+   }
+  },
+  {
+   "slug": "fisher-brewing",
+   "name": "Fisher Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Fisher Brewing Co.",
+     "kind": "brewery",
+     "address": "320 W 800 S, Salt Lake City, UT 84101"
+    }
+   ],
+   "website": "https://fisherbrewing.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "320 W 800 S",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A revived 1884 Salt Lake brand, now an employee-owned Granary District taproom with ever-rotating ales and lagers.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Fisher was founded in 1884 as one of Utah's first breweries and has returned as an employee-owned craft brewery.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "Pours small-batch ales and lagers that rotate constantly.",
+     "s": [
+      "home",
+      "tap"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The taproom has a dog-friendly patio and food trucks on a weekly schedule; it is open seven days a week.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Fresh beer to go from the taproom.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best brewery of 2025, and second for best dog-friendly bar patio, beer selection and can art.",
+     "s": [
+      "cw25Nightlife",
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200188"
+    ],
+    "prefixes": [
+     "FISHER BREWING"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Fisher Brewing (home page)",
+     "publisher": "Fisher Brewing Co.",
+     "url": "https://fisherbrewing.com/"
+    },
+    "tap": {
+     "title": "On tap",
+     "publisher": "Fisher Brewing Co.",
+     "url": "https://fisherbrewing.com/pages/beer-on-tap"
+    }
+   }
+  },
+  {
+   "slug": "grid-city-beer-works",
+   "name": "Grid City Beer Works",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Grid City Beer Works",
+     "kind": "brewery",
+     "address": "333 W 2100 S, Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://gridcitybeerworks.com/",
+   "places": [
+    {
+     "name": "Brewery and restaurant",
+     "address": "333 W 2100 S",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A brewery and restaurant in a former bank on 2100 South, known for beer, wine-hybrid seltzers and a vegan-friendly menu.",
+    "s": [
+     "ubn2020",
+     "cw25Libations"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened in April 2020 in a building that had been a bank and then a tile store; founders Drew Reynolds, Justin Belliveau and brewer Jeremy Gross started planning it in 2014.",
+     "s": [
+      "ubn2020"
+     ]
+    },
+    {
+     "t": "Besides beer it makes seltzers built on white and red grape juice, including a high-point aperitif seltzer.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The menu was planned to be vegan-friendly; readers also point to its rooftop patio.",
+     "s": [
+      "ubn2020",
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best hard seltzer of 2025 and placed Grid City Pilsner third for best lager.",
+     "s": [
+      "cw25Libations"
+     ]
+    },
+    {
+     "t": "A City Cast Salt Lake reader recommended it for groups with mixed tastes, citing the seltzers and the rooftop.",
+     "s": [
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "GRID CITY "
+    ]
+   },
+   "sources": {
+    "ubn2020": {
+     "title": "Grid City Beer Works: where innovation and tradition meet",
+     "publisher": "Utah Beer News",
+     "url": "https://utahbeernews.com/grid-city-beer-works/",
+     "date": "May 11, 2020"
+    }
+   }
+  },
+  {
+   "slug": "heber-valley-brewing",
+   "name": "Heber Valley Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Heber Valley Brewing Co.",
+     "kind": "brewery",
+     "address": "501 N Main St., Heber City, UT 84032"
+    }
+   ],
+   "website": "https://www.hebervalleybrewing.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "501 N Main St.",
+     "city": "Heber City"
+    }
+   ],
+   "summary": {
+    "t": "A small Heber City taproom with a constantly changing tap list and occasional high-point can releases.",
+    "s": [
+     "beers"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Taps change constantly, so it suggests calling ahead; the list has included a German-inspired lager and an annual imperial stout aged in High West whiskey barrels.",
+     "s": [
+      "beers"
+     ]
+    },
+    {
+     "t": "When it has spare fermentation space it cans small runs of high-point (over 5%) beers, announced on social media.",
+     "s": [
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Drink in the small taproom on Main Street.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Beer to go from the taproom.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "HEBER VALLEY "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Heber Valley Brewing (home page)",
+     "publisher": "Heber Valley Brewing Co.",
+     "url": "https://www.hebervalleybrewing.com/"
+    },
+    "beers": {
+     "title": "The beers",
+     "publisher": "Heber Valley Brewing Co.",
+     "url": "https://www.hebervalleybrewing.com/the-beers"
+    }
+   }
+  },
+  {
+   "slug": "helper-beer",
+   "name": "Helper Beer",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Helper Beer",
+     "kind": "brewery",
+     "address": "159 N Main St., Helper, UT 84526"
+    }
+   ],
+   "website": "https://www.helperbeer.com/",
+   "places": [
+    {
+     "name": "Brewery and pizza",
+     "address": "159 N Main St.",
+     "city": "Helper"
+    }
+   ],
+   "summary": {
+    "t": "Carbon County's own brewery, with pizza, on Helper's Main Street.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Amy and Jaron Anderson moved to Helper in 2018 and opened the brewery in April 2023, part of the town's revival.",
+     "s": [
+      "kuer2023"
+     ]
+    },
+    {
+     "t": "Jaron Anderson trained under Kevin Templin of Templin Family Brewing.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A brewery with a pizza kitchen.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201116"
+    ],
+    "prefixes": [
+     "HELPER BEER "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Helper Beer (home page)",
+     "publisher": "Helper Beer",
+     "url": "https://www.helperbeer.com/"
+    },
+    "about": {
+     "title": "About",
+     "publisher": "Helper Beer",
+     "url": "https://www.helperbeer.com/about-3"
+    },
+    "kuer2023": {
+     "title": "Helper wants to be more than a pit stop. A new brewery could help",
+     "publisher": "KUER",
+     "url": "https://www.kuer.org/arts-culture-entertainment/2023-05-05/helper-wants-to-be-more-than-a-pit-stop-a-new-brewery-could-help",
+     "date": "May 5, 2023"
+    }
+   }
+  },
+  {
+   "slug": "high-west-distillery",
+   "name": "High West Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "High West Distillery",
+     "kind": "distillery",
+     "address": "locations in Park City and Wanship"
+    }
+   ],
+   "website": "https://highwest.com/",
+   "places": [
+    {
+     "name": "High West Saloon",
+     "address": "703 Park Ave.",
+     "city": "Park City"
+    },
+    {
+     "name": "Distillery at Blue Sky",
+     "address": "27649 Old Lincoln Hwy.",
+     "city": "Wanship"
+    }
+   ],
+   "summary": {
+    "t": "Utah's first legal distillery since 1870, best known for blended whiskeys like Rendezvous Rye and American Prairie Bourbon.",
+    "s": [
+     "home",
+     "slm2025"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded in 2006 by David and Jane Perkins with a 250-gallon still and a saloon in a historic Park City livery stable.",
+     "s": [
+      "about"
+     ]
+    },
+    {
+     "t": "Known for blended American whiskeys; DABS lists its bottles under Constellation Brands as the vendor.",
+     "s": [
+      "slm2025",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tours of the Wanship distillery run Wednesday to Sunday; reservations are strongly recommended and guests take a shuttle from the lower lot.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "The Saloon on Park Avenue is a restaurant and bar in Old Town Park City.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best distillery of 2025 and the best restaurant view in Park City, and ranked it second-best Park City bar and distillery tour.",
+     "s": [
+      "cw25Libations",
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "HIGH WEST "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "High West Whiskey (home and tours)",
+     "publisher": "High West Distillery",
+     "url": "https://highwest.com/"
+    },
+    "about": {
+     "title": "About us",
+     "publisher": "High West Distillery",
+     "url": "https://highwest.com/pages/about-us"
+    }
+   }
+  },
+  {
+   "slug": "hobbled-dog-cidery",
+   "name": "Hobbled Dog Cidery",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Hobbled Dog Cidery",
+     "kind": "cidery",
+     "address": "918 W 700 N, Ste. 110, Logan, Utah 84321"
+    }
+   ],
+   "website": "https://hobbleddogcider.com/",
+   "places": [
+    {
+     "name": "Cidery",
+     "address": "918 W 700 N, Suite 110",
+     "city": "Logan"
+    }
+   ],
+   "summary": {
+    "t": "A Logan cidery named for its owners' rescue dogs, using apples from their own Cache Valley orchard.",
+    "s": [
+     "home",
+     "story"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Ben and Lori began fermenting at home in 2002 and bought a 10-acre farm in Paradise, Utah, in 2014 to grow their own cider apples.",
+     "s": [
+      "story"
+     ]
+    },
+    {
+     "t": "Makes ciders from more than a dozen apple varieties, some from that farm.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tasting flights at the Logan cidery; 21+ only.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Bottles to take home from the cidery.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "HOBBLED DOG "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Hobbled Dog Cidery (home page)",
+     "publisher": "Hobbled Dog Cidery",
+     "url": "https://hobbleddogcider.com/"
+    },
+    "story": {
+     "title": "Our story",
+     "publisher": "Hobbled Dog Cidery",
+     "url": "https://hobbleddogcider.com/our-story"
+    }
+   }
+  },
+  {
+   "slug": "holystone-distilling",
+   "name": "Holystone Distilling",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Holystone Distilling",
+     "kind": "distillery",
+     "address": "207 W 4860 S, Murray, UT 84107"
+    }
+   ],
+   "website": "https://holystonedistilling.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "207 W 4860 S",
+     "city": "Murray"
+    }
+   ],
+   "summary": {
+    "t": "A Murray distillery with a nautical theme, making navy-strength gin, absinthe, shochu and vodka.",
+    "s": [
+     "slug2017",
+     "dabsProductList"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Co-owned by Barbie Busch DeShazo, Michael DeShazo and head distiller Ethan Miller, who previously blended at High West and was head distiller at Dented Brick.",
+     "s": [
+      "slug2017"
+     ]
+    },
+    {
+     "t": "DABS lists its Bosun's Navy Gin, Cerulea Gin, Apparition Absinthe, Tsunami Shochu and Perla Vodka.",
+     "s": [
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200322"
+    ],
+    "prefixes": [
+     "HOLYSTONE "
+    ]
+   },
+   "sources": {
+    "slug2017": {
+     "title": "Holystone Distilling",
+     "publisher": "SLUG Magazine",
+     "url": "https://www.slugmag.com/arts/art/interviews-features/holystone-distilling/",
+     "date": "November 10, 2017"
+    }
+   }
+  },
+  {
+   "slug": "home-range-brewing",
+   "name": "Home Range Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Home Range Beer",
+     "kind": "brewery",
+     "address": "186 N Main St., Logan, UT 84321"
+    }
+   ],
+   "website": "https://www.homerangebeer.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "186 N Main St.",
+     "city": "Logan"
+    }
+   ],
+   "summary": {
+    "t": "A downtown Logan taproom in a 1903 building, brewing small rotating batches with Cache Valley grain.",
+    "s": [
+     "trib2025",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Co-owners Chris Sisneros-Kidd (brewer) and Cullen Williams opened in May 2025; the brewery uses malted grain grown in Cache Valley.",
+     "s": [
+      "trib2025"
+     ]
+    },
+    {
+     "t": "A small on-site brewhouse keeps a rotating list of new styles and classics.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A tavern-style room in the historic building, restored with its original floors and neon sign.",
+     "s": [
+      "trib2025",
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "To-go packs from the beer fridge, or 32-ounce crowlers filled from the tap.",
+     "s": [
+      "menu"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "HOME RANGE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Home Range Brewing (home page)",
+     "publisher": "Home Range Brewing",
+     "url": "https://www.homerangebeer.com/"
+    },
+    "menu": {
+     "title": "Menu",
+     "publisher": "Home Range Brewing",
+     "url": "https://www.homerangebeer.com/menu"
+    },
+    "trib2025": {
+     "title": "Home Range Brewing opens in downtown Logan",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://sltrib.com/artsliving/food/2025/05/22/home-range-brewing-opens-downtown",
+     "date": "May 22, 2025"
+    }
+   }
+  },
+  {
+   "slug": "hopkins-brewing",
+   "name": "Hopkins Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Hopkins Brewing",
+     "kind": "brewery",
+     "address": "1048 E 2100 S, Salt Lake City, UT 84106"
+    }
+   ],
+   "website": "https://www.hopkinsbrewingcompany.com/",
+   "places": [
+    {
+     "name": "Brewpub",
+     "address": "1048 E 2100 S",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Sugar House brewpub started by a neighborhood native, with a rotating tap list and a full food menu.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened in 2018 by Sugar House native Chad Hopkins; the house beers rotate and the menu leans on local ingredients.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "Recent taps include an annual pumpkin-pie chocolate stout and lagers made with locally malted grain.",
+     "s": [
+      "menus"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Licensed as a bar, so it is 21+ and you don't have to order food; there is live music and a brunch menu.",
+     "s": [
+      "home",
+      "menus"
+     ]
+    },
+    {
+     "t": "Also pours local spirits, ciders, coffee and kombucha.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers placed it third for best brewpub in 2025.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "HOPKINS "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Hopkins Brewing Company (home and about)",
+     "publisher": "Hopkins Brewing Co.",
+     "url": "https://www.hopkinsbrewingcompany.com/"
+    },
+    "menus": {
+     "title": "Menus",
+     "publisher": "Hopkins Brewing Co.",
+     "url": "https://www.hopkinsbrewingcompany.com/menus/"
+    }
+   }
+  },
+  {
+   "slug": "ig-winery",
+   "name": "IG Winery",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "IG Winery & Tasting Room",
+     "kind": "winery",
+     "address": "59 W Center St., Cedar City, UT 84720"
+    }
+   ],
+   "website": "https://igwinery.com/",
+   "places": [
+    {
+     "name": "Tasting room",
+     "address": "59 W Center St.",
+     "city": "Cedar City"
+    }
+   ],
+   "summary": {
+    "t": "A downtown Cedar City winery and tasting room, near the Utah Shakespeare Festival.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Owner and winemaker Doug McCombs opened Iron Gate Winery in 2012; wines are made and blended in Cedar City from grapes grown in California, Oregon, Washington and Utah.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "White, red, mixed and reserve tasting flights with no reservation needed, plus a by-appointment barrel-room tasting; it also serves cocktails.",
+     "s": [
+      "menu",
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1969"
+    ],
+    "prefixes": [
+     "IG ",
+     "IRON GATE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "I/G Winery (home page)",
+     "publisher": "IG Winery",
+     "url": "https://igwinery.com/"
+    },
+    "menu": {
+     "title": "Tasting menu",
+     "publisher": "IG Winery",
+     "url": "https://igwinery.com/menu/"
+    }
+   }
+  },
+  {
+   "slug": "kiitos-brewing",
+   "name": "Kiitos Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Kiitos Brewing",
+     "kind": "brewery",
+     "address": "608 W 700 S, Salt Lake City, UT 84104"
+    }
+   ],
+   "website": "https://kiitosbrewing.com/",
+   "places": [
+    {
+     "name": "Tavern and can shop",
+     "address": "608 W 700 S",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Granary District brewery known for its sours and cream ale, with a tavern, a can shop and pinball.",
+    "s": [
+     "home",
+     "cw25Libations"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Owned by Andrew Dasenbrock; the beer list includes sours, among them a gluten-free grapefruit cherry sour.",
+     "s": [
+      "trib2024",
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The tavern is open seven days a week, with warehouse seating and cornhole on Friday and Saturday nights.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "Readers point to the pinball machines in the Granary District room.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A can shop sells beer to go seven days a week.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted its Coffee Cream Ale the best ale and its Blackberry Sour the best sour beer of 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "KIITOS "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Kiitos Brewing (home page)",
+     "publisher": "Kiitos Brewing",
+     "url": "https://kiitosbrewing.com/"
+    },
+    "trib2024": {
+     "title": "A popular Utah brewery is preparing to open a second location in Sugar House",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://sltrib.com/artsliving/food/2024/07/03/popular-utah-brewery-is-preparing",
+     "date": "July 3, 2024"
+    }
+   }
+  },
+  {
+   "slug": "la-caille-winery",
+   "name": "La Caille Vineyard & Winery",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "La Caille Vineyard & Winery",
+     "kind": "winery",
+     "address": "9565 Wasatch Blvd., Sandy, UT 84092"
+    }
+   ],
+   "website": "https://www.lacaille.com/vineyard-and-winery/",
+   "places": [
+    {
+     "name": "Restaurant and winery",
+     "address": "9565 Wasatch Blvd.",
+     "city": "Sandy"
+    }
+   ],
+   "summary": {
+    "t": "The French restaurant at the mouth of Little Cottonwood Canyon, with its own vineyard and estate wines.",
+    "s": [
+     "winery",
+     "cw25Nightlife"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Makes Château La Caille estate wines from its own vineyard, plus wines from grapes sourced in California and Washington.",
+     "s": [
+      "winery"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Wine and cheese pairings (five wines with Caputo's cheeses) on Fridays, by reservation.",
+     "s": [
+      "winery"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Château La Caille wine is sold only at the winery and restaurant.",
+     "s": [
+      "winery"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly named La Caille Utah's best French restaurant of 2025.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "LA CAILLE "
+    ]
+   },
+   "sources": {
+    "winery": {
+     "title": "Vineyard & winery",
+     "publisher": "La Caille",
+     "url": "https://www.lacaille.com/vineyard-and-winery/"
+    }
+   }
+  },
+  {
+   "slug": "level-crossing-brewing",
+   "name": "Level Crossing Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Level Crossing Brewing Co.",
+     "kind": "brewery",
+     "address": "2496 S West Temple St., South Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://levelcrossingbrewing.com/",
+   "places": [
+    {
+     "name": "Original brewery",
+     "address": "2496 S West Temple St.",
+     "city": "South Salt Lake"
+    },
+    {
+     "name": "Post District taproom",
+     "address": "550 S 300 W, Suite 100",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A South Salt Lake brewery with wood-fired pizza, best known for hazy IPAs and lagers, now with a second downtown taproom.",
+    "s": [
+     "locations",
+     "beers"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Owner Mark Medura began as a home brewer; the brewery made its first beers in 2018 near the South Salt Lake water tower.",
+     "s": [
+      "home",
+      "locations"
+     ]
+    },
+    {
+     "t": "Year-round cans run from a Belgian-style blonde to hazy pale ales, with an annual limited Red Feather series.",
+     "s": [
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "At the original brewery you can tour the brewhouse, eat wood-fired pizza and hear live music on the patio; guests must be 21+ with ID.",
+     "s": [
+      "locations"
+     ]
+    },
+    {
+     "t": "The newer Post District taproom downtown has a bigger pizza oven and a patio.",
+     "s": [
+      "locations"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Both locations have a store for beer to go.",
+     "s": [
+      "locations"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best brewpub of 2025, second for brewery food and third for beer selection.",
+     "s": [
+      "cw25Nightlife",
+      "cw25Libations"
+     ]
+    },
+    {
+     "t": "A City Cast Salt Lake reader called it the top brewery in the city, singling out the Suss It Out IPA and the pizza.",
+     "s": [
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200347"
+    ],
+    "prefixes": [
+     "LEVEL CROSSING "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Level Crossing Brewing (home and story)",
+     "publisher": "Level Crossing Brewing Co.",
+     "url": "https://levelcrossingbrewing.com/"
+    },
+    "locations": {
+     "title": "Locations",
+     "publisher": "Level Crossing Brewing Co.",
+     "url": "https://levelcrossingbrewing.com/locations/"
+    },
+    "beers": {
+     "title": "Beers",
+     "publisher": "Level Crossing Brewing Co.",
+     "url": "https://levelcrossingbrewing.com/beers/"
+    }
+   }
+  },
+  {
+   "slug": "moab-brewery",
+   "name": "Moab Brewery & Moab Distillery",
+   "kinds": [
+    "brewery",
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Moab Brewery",
+     "kind": "brewery",
+     "address": "686 S Main St., Moab, UT 84532"
+    },
+    {
+     "listedAs": "Moab Distillery",
+     "kind": "distillery",
+     "address": "686 S Main St., Moab, UT 84532"
+    }
+   ],
+   "website": "https://www.themoabbrewery.com/",
+   "places": [
+    {
+     "name": "Restaurant, brewery and package agency",
+     "address": "686 S Main St.",
+     "city": "Moab"
+    }
+   ],
+   "summary": {
+    "t": "Moab's brewpub since 1996, which also distills vodka, gin and single-malt whiskey and sells them from its own package agency.",
+    "s": [
+     "home",
+     "spirits"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded in 1996; beers range from an American lager and a pilsner to IPAs and an oatmeal stout, and several have won medals, including a 2014 Great American Beer Festival bronze.",
+     "s": [
+      "home",
+      "beers"
+     ]
+    },
+    {
+     "t": "The distillery makes Class 5 Vodka, Spot On and Tight Squeeze gins and Canyonlands Confluence single-malt whiskey, and imports Rayo agave spirits from Mexico under its own label.",
+     "s": [
+      "spirits"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A big scratch-kitchen restaurant aimed at people coming off the trails and rivers, open daily.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Its package agency sells bottles to go daily, including Sundays and most holidays, when state stores are closed.",
+     "s": [
+      "spirits",
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1677"
+    ],
+    "prefixes": [
+     "MOAB BRWRY",
+     "MOAB DISTILL",
+     "MOAB CANYONLANDS",
+     "MOAB FMU",
+     "MOAB HAZY",
+     "MOAB THE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "The Moab Brewery (home page)",
+     "publisher": "The Moab Brewery",
+     "url": "https://www.themoabbrewery.com/"
+    },
+    "beers": {
+     "title": "Beers",
+     "publisher": "The Moab Brewery",
+     "url": "https://www.themoabbrewery.com/beers/"
+    },
+    "spirits": {
+     "title": "Moab Distillery spirits",
+     "publisher": "The Moab Brewery",
+     "url": "https://www.themoabbrewery.com/spirits/"
+    }
+   }
+  },
+  {
+   "slug": "mountain-meadery",
+   "name": "Mountain Meadery",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Mountain Meadery",
+     "kind": "cidery",
+     "address": "822 E Main St., Ste B, Grantsville, UT 84029"
+    }
+   ],
+   "website": "https://mountainmeadery.us/",
+   "places": [
+    {
+     "name": "Meadery",
+     "address": "822 E Main St., Suite B",
+     "city": "Grantsville"
+    }
+   ],
+   "summary": {
+    "t": "A veteran-owned meadery in Grantsville, one of the few in Utah.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Makes meads (honey wine), including a cold brew coffee mead made with a veteran-owned local company.",
+     "s": [
+      "about",
+      "products"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Offers tastings and special events.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Utah buyers pick up at the meadery or special-order through DABS for delivery to a state store.",
+     "s": [
+      "products"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {},
+   "sources": {
+    "about": {
+     "title": "About us",
+     "publisher": "Mountain Meadery",
+     "url": "https://mountainmeadery.us/about-us"
+    },
+    "products": {
+     "title": "Products",
+     "publisher": "Mountain Meadery",
+     "url": "https://mountainmeadery.us/products"
+    }
+   }
+  },
+  {
+   "slug": "mountain-west-cider",
+   "name": "Mountain West Hard Cider Co.",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Mountain West Hard Cider Co.",
+     "kind": "cidery",
+     "address": "425 N 400 W, Salt Lake City, UT 84103"
+    }
+   ],
+   "website": "https://mountainwestcider.com/",
+   "places": [
+    {
+     "name": "Cidery",
+     "address": "425 N 400 W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "Utah's original craft cidery, making dry ciders and perry in Salt Lake City.",
+    "s": [
+     "home",
+     "cw25Libations"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Calls itself Utah's original craft cidery; the range includes an English-style dry cider, a dry-hopped cider, fruit ciders and an imperial perry.",
+     "s": [
+      "home",
+      "ciders"
+     ]
+    },
+    {
+     "t": "City Weekly notes six year-round cans and seasonals such as a winter wassail cider.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best hard cider of 2025 and ranked it second-best cidery.",
+     "s": [
+      "cw25Libations",
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2329"
+    ],
+    "prefixes": [
+     "MTN WEST ",
+     "MOUNTAIN WEST "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Mountain West Hard Cider (home page)",
+     "publisher": "Mountain West Cider Co.",
+     "url": "https://mountainwestcider.com/"
+    },
+    "ciders": {
+     "title": "Ciders",
+     "publisher": "Mountain West Cider Co.",
+     "url": "https://mountainwestcider.com/ciders"
+    }
+   }
+  },
+  {
+   "slug": "new-world-distillery",
+   "name": "New World Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "New World Distillery",
+     "kind": "distillery",
+     "address": "4795 E 2600 N, Eden, UT 84310"
+    }
+   ],
+   "website": "http://www.newworlddistillery.com/",
+   "places": [
+    {
+     "name": "Distillery and tasting room",
+     "address": "4795 E 2600 N",
+     "city": "Eden"
+    }
+   ],
+   "summary": {
+    "t": "An Ogden Valley distillery near the ski resorts, making Utah's only locally made agave spirits.",
+    "s": [
+     "home",
+     "tours"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded in December 2016 by Chris Cross, a former Navy pilot, and Ashley Cross.",
+     "s": [
+      "story"
+     ]
+    },
+    {
+     "t": "Distills spirits from blue agave (including a vodka), Oomaw Gin, a tart-cherry liqueur, apple brandy and a bourbon fermented and aged on site.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A 90-minute tour led by the founder, and tastings; ID required. Ski boots are welcome.",
+     "s": [
+      "home",
+      "tours"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Bottles are sold at the distillery, and some (a barrel-rested gin and the bourbon) only there.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200036"
+    ],
+    "prefixes": [
+     "NEW WORLD "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "New World Distillery (home page)",
+     "publisher": "New World Distillery",
+     "url": "https://www.newworlddistillery.com/"
+    },
+    "story": {
+     "title": "Our story",
+     "publisher": "New World Distillery",
+     "url": "https://www.newworlddistillery.com/our-story"
+    },
+    "tours": {
+     "title": "Tours",
+     "publisher": "New World Distillery",
+     "url": "https://www.newworlddistillery.com/tours"
+    }
+   }
+  },
+  {
+   "slug": "offset-bier",
+   "name": "Offset Bier",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Offset Brewing",
+     "kind": "brewery",
+     "address": "1755 Bonanza Dr. Unit C, Park City, UT 84060"
+    }
+   ],
+   "website": "https://offsetbier.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "4175 N Forestdale Dr., Unit 104",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "A Park City brewery known for low-alcohol hoppy beers that have won Great American Beer Festival gold.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founder Conor Brown specializes in low-ABV hoppy beers; Offset lists three Great American Beer Festival gold medals, two of them for session IPAs.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "21+ only (no babies either), but well-behaved dogs are welcome; snacks include local Bavarian-style pretzels and tinned fish, and you can bring your own food.",
+     "s": [
+      "faq"
+     ]
+    },
+    {
+     "t": "Its website lists the Forestdale Drive address; DABS still lists an older Bonanza Drive address.",
+     "s": [
+      "home",
+      "dabsProudlyUtah"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Cans to go.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "A City Cast Salt Lake reader said its beer rivals favorite breweries around the country.",
+     "s": [
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "OFFSET "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Offset Bier (home page)",
+     "publisher": "Offset Bier",
+     "url": "https://offsetbier.com/"
+    },
+    "about": {
+     "title": "About",
+     "publisher": "Offset Bier",
+     "url": "https://offsetbier.com/about"
+    },
+    "faq": {
+     "title": "FAQs",
+     "publisher": "Offset Bier",
+     "url": "https://offsetbier.com/faqs"
+    }
+   }
+  },
+  {
+   "slug": "ogden-beer-company",
+   "name": "Ogden Beer Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Ogden Beer Company",
+     "kind": "brewery",
+     "address": "358 Park Blvd., Ogden UT, 84401"
+    },
+    {
+     "listedAs": "Becker's Premium Lager",
+     "kind": "brewery",
+     "address": "358 Park Blvd., Ogden UT, 84401"
+    }
+   ],
+   "website": "https://ogdenbeercompany.com/",
+   "places": [
+    {
+     "name": "Brewpub",
+     "address": "358 Park Blvd.",
+     "city": "Ogden"
+    }
+   ],
+   "summary": {
+    "t": "An Ogden brewpub by the Ogden River with American food, Mexican-style lagers and a riverside patio.",
+    "s": [
+     "about",
+     "drinks"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened at the start of 2023 in the former Ogden River Brewing space, run by Lane Montoya and Brian Zinsmann of Wimpy and Fritz with brewer Jacquie King, formerly of Roosters.",
+     "s": [
+      "se2023"
+     ]
+    },
+    {
+     "t": "The tap list leans on lagers, including a Mexican lager it says won World Beer Cup gold in 2026, plus a tangerine wheat ale and IPAs.",
+     "s": [
+      "drinks"
+     ]
+    },
+    {
+     "t": "DABS also lists Becker's Premium Lager at this address and links it to Ogden Beer Co.'s website.",
+     "s": [
+      "dabsProudlyUtah"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A full restaurant with burgers, sandwiches and cocktails; the riverside patio welcomes kids and dogs, and the upstairs patio is 21+.",
+     "s": [
+      "about",
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Growler and crowler fills of any beer on tap, plus cans to go.",
+     "s": [
+      "drinks"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "OGDEN BEER "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Ogden Beer Company (home page)",
+     "publisher": "Ogden Beer Co.",
+     "url": "https://ogdenbeercompany.com/"
+    },
+    "about": {
+     "title": "About",
+     "publisher": "Ogden Beer Co.",
+     "url": "https://ogdenbeercompany.com/about"
+    },
+    "drinks": {
+     "title": "Drink menu",
+     "publisher": "Ogden Beer Co.",
+     "url": "https://ogdenbeercompany.com/drink-menu"
+    },
+    "se2023": {
+     "title": "Ogden Beer Co. launches, takes over ex-Ogden River Brewing space",
+     "publisher": "Standard-Examiner",
+     "url": "https://www.standard.net/news/business/2023/jan/14/ogden-beer-co-launches-takes-over-ex-ogden-river-brewing-space/",
+     "date": "January 14, 2023"
+    }
+   }
+  },
+  {
+   "slug": "ogdens-own-distillery",
+   "name": "Ogden's Own Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Ogdens Own Distillery",
+     "kind": "distillery",
+     "address": "615 W Stockman Way, Ogden, UT 84401"
+    }
+   ],
+   "website": "https://www.ogdensown.com/",
+   "places": [
+    {
+     "name": "Distillery, store and Side Bar",
+     "address": "615 W Stockman Way",
+     "city": "Ogden"
+    }
+   ],
+   "summary": {
+    "t": "The Ogden distillery behind Five Wives Vodka and Porter's Fire, with a store and cocktail bar on site.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Established in 2009; makes Five Wives Vodka (gluten-free corn spirit with Utah mountain spring water), Porter's flavored whiskeys, Madam Pattirini Gin, Underground Herbal Spirit and canned cocktails.",
+     "s": [
+      "home",
+      "shop"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The 32,000-square-foot distillery has an outdoor amphitheater and Side Bar, a craft cocktail bar.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A retail store at the distillery.",
+     "s": [
+      "home",
+      "shop"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers gave it the best liquor selection of any Utah distillery in 2025 and voted Five Wives the best local vodka.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1707"
+    ],
+    "prefixes": [
+     "FIVE WIVES ",
+     "PORTER'S ",
+     "UNDERGROUND HERBAL",
+     "MADAM PATTIRINI"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Ogden's Own Distillery (home page)",
+     "publisher": "Ogden's Own Distillery",
+     "url": "https://www.ogdensown.com/"
+    },
+    "shop": {
+     "title": "Shop",
+     "publisher": "Ogden's Own Distillery",
+     "url": "https://www.ogdensown.com/shop/"
+    }
+   }
+  },
+  {
+   "slug": "old-town-cellars",
+   "name": "Old Town Cellars",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Old Town Cellars",
+     "kind": "winery",
+     "address": "408 Main St., Park City, UT 84060"
+    }
+   ],
+   "website": "https://www.otcwines.com/",
+   "places": [
+    {
+     "name": "Winery lounge",
+     "address": "408 Main St.",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "Park City's Main Street winery, billing itself as the official wine of après.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Blends limited in-house wines from West Coast grapes, from a Pinot Noir and Chardonnay to red and white blends and rosé.",
+     "s": [
+      "menu",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A tasting lounge in a 19th-century silver-mining building on Main Street, with private tastings and a list that adds other wines, local beer and spirits.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Bottles to go seven days a week, including Sundays and federal holidays.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2377"
+    ],
+    "prefixes": [
+     "OLD TOWN CELLARS"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Old Town Cellars (home page)",
+     "publisher": "Old Town Cellars",
+     "url": "https://www.otcwines.com/"
+    },
+    "menu": {
+     "title": "Menu",
+     "publisher": "Old Town Cellars",
+     "url": "https://www.otcwines.com/menu"
+    }
+   }
+  },
+  {
+   "slug": "outlaw-distillery",
+   "name": "Outlaw Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Outlaw Distillery",
+     "kind": "distillery",
+     "address": "552 W 8360 S, Midvale, UT 84070"
+    }
+   ],
+   "website": "https://outlawdistillery.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "552 W 8360 S",
+     "city": "Midvale"
+    }
+   ],
+   "summary": {
+    "t": "A Midvale grain-to-glass distillery founded by a diesel mechanic, now with a second site in Arizona.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded in January 2015 in a 2,500-square-foot Midvale space; Tyler Halstead bought it in October 2020, and in 2025 it bought an Arizona distillery.",
+     "s": [
+      "about"
+     ]
+    },
+    {
+     "t": "Makes bourbons, a honey bourbon and rums from local grain.",
+     "s": [
+      "about",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tours of the Utah distillery can be booked online.",
+     "s": [
+      "tour"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2277"
+    ],
+    "prefixes": [
+     "OUTLAW "
+    ]
+   },
+   "sources": {
+    "about": {
+     "title": "About",
+     "publisher": "Outlaw Distillery",
+     "url": "https://outlawdistillery.com/about/"
+    },
+    "tour": {
+     "title": "Book a tour (Utah)",
+     "publisher": "Outlaw Distillery",
+     "url": "https://outlawdistillery.com/book-a-tour-ut/"
+    }
+   }
+  },
+  {
+   "slug": "park-city-brewing",
+   "name": "Park City Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Park City Brewing",
+     "kind": "brewery",
+     "address": "1764 Uinta Way Ste. C1, Park City, UT 84098"
+    }
+   ],
+   "website": "https://parkcitybrewing.com/",
+   "places": [
+    {
+     "name": "Brewpub",
+     "address": "1764 Uinta Way, Suite C1",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "A Park City brewery founded in 2013 and relaunched by locals with a new brewpub.",
+    "s": [
+     "about",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded in 2013 and brought back by a local group; brewmaster Troy Higgins makes a core lineup plus weekly rotating and small seasonal batches.",
+     "s": [
+      "about",
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Seasonal small batches are poured at the brewpub for dine-in.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Carryout from the brewpub, including high-point beers canned on site.",
+     "s": [
+      "about",
+      "beers"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "PARK CITY BREWING",
+     "PARK CITY CHOC"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Park City Brewing (home page)",
+     "publisher": "Park City Brewing",
+     "url": "https://parkcitybrewing.com/"
+    },
+    "about": {
+     "title": "About us",
+     "publisher": "Park City Brewing",
+     "url": "https://parkcitybrewing.com/about-us/"
+    },
+    "beers": {
+     "title": "Beers",
+     "publisher": "Park City Brewing",
+     "url": "https://parkcitybrewing.com/beers/"
+    }
+   }
+  },
+  {
+   "slug": "policy-kings-brewery",
+   "name": "Policy Kings Brewery",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Policy King's Brewery",
+     "kind": "brewery",
+     "address": "223 N 100 W, Cedar City, UT 84721"
+    }
+   ],
+   "website": "https://policykingsbrewery.com",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "223 N 100 W",
+     "city": "Cedar City"
+    }
+   ],
+   "summary": {
+    "t": "Cedar City's first brewery and Utah's first Black-owned brewery, run by Dre and Sara Ridgel.",
+    "s": [
+     "sgn2019"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened its taproom on November 2, 2018, as Cedar City's only brewery and the first Black-owned brewery in Utah.",
+     "s": [
+      "sgn2019"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "POLICY KINGS "
+    ]
+   },
+   "sources": {
+    "sgn2019": {
+     "title": "Policy Kings Brewery working to build Southern Utah beer community as 1-year anniversary approaches",
+     "publisher": "St. George News",
+     "url": "https://www.stgeorgeutah.com/news/archive/2019/10/29/rmw-policy-kings-brewery-working-to-build-southern-utah-beer-community-as-1-year-anniversary-approaches",
+     "date": "October 29, 2019"
+    }
+   }
+  },
+  {
+   "slug": "prodigy-brewing",
+   "name": "Prodigy Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Prodigy Brewing",
+     "kind": "brewery",
+     "address": "25 W Center St., Logan, UT 84321"
+    }
+   ],
+   "website": "https://prodigy-brewing.com/",
+   "places": [
+    {
+     "name": "Brewpub",
+     "address": "25 W Center St.",
+     "city": "Logan"
+    }
+   ],
+   "summary": {
+    "t": "Cache Valley's first brewpub, and a family-friendly one, in a 122-year-old downtown Logan building.",
+    "s": [
+     "upr2022",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened in July 2022 as the first brewpub in Cache Valley; beers range from hazy pale ales and fruited sours to a dark session lager and imperial stouts.",
+     "s": [
+      "upr2022",
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Family-friendly, with a kids' menu, cocktails and mocktails alongside the beer.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201019"
+    ],
+    "prefixes": [
+     "PRODIGY BREWING"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Prodigy Brewing (home page)",
+     "publisher": "Prodigy Brewing Co.",
+     "url": "https://prodigy-brewing.com/"
+    },
+    "beers": {
+     "title": "Beers",
+     "publisher": "Prodigy Brewing Co.",
+     "url": "https://prodigy-brewing.com/beer/"
+    },
+    "upr2022": {
+     "title": "Downtown draw: Cache Valley's first ever brewpub opens to the public",
+     "publisher": "Utah Public Radio / The Herald Journal",
+     "url": "https://www.upr.org/utah-news/2022-07-19/downtown-draw-cache-valleys-first-ever-brewpub-opens-to-the-public",
+     "date": "July 19, 2022"
+    }
+   }
+  },
+  {
+   "slug": "proper-brewing",
+   "name": "Proper Brewing Co. & Avenues Proper",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Proper Brewing Co.",
+     "kind": "brewery",
+     "address": "857 S Main St., Salt Lake City, UT 84111"
+    },
+    {
+     "listedAs": "Avenues Proper",
+     "kind": "brewery",
+     "address": "376 8th Ave., Salt Lake City, UT 84103"
+    }
+   ],
+   "website": "https://www.properbrewingco.com/",
+   "places": [
+    {
+     "name": "Proper Brewing",
+     "address": "857 S Main St.",
+     "city": "Salt Lake City"
+    },
+    {
+     "name": "Avenues Proper",
+     "address": "376 8th Ave.",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Salt Lake brewing company that started in 2013 as Avenues Proper, then the state's smallest commercial brewery, and grew onto Main Street.",
+    "s": [
+     "ubn2019"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Avenues Proper opened in 2013, co-owned by brewer Rio Connelly, his brother Liam and Andrew Tendick; a production brewery and Proper Burger followed on Main Street, and it began canning in 2019.",
+     "s": [
+      "ubn2019"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers picked SLC Pils for best brewery can art in 2025 and put Yacht Rock Juice Box third for best IPA.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "PROPER BREWING"
+    ]
+   },
+   "sources": {
+    "ubn2019": {
+     "title": "Proper Brewing Co.: an empire in the making",
+     "publisher": "Utah Beer News",
+     "url": "https://utahbeernews.com/proper-brewing/",
+     "date": "July 9, 2019"
+    }
+   }
+  },
+  {
+   "slug": "proverbial-spirits",
+   "name": "Proverbial Spirits",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Proverbial Spirits",
+     "kind": "distillery",
+     "address": "4175 Forestdale Dr., Unit 102, Park City, UT 84098"
+    }
+   ],
+   "website": "http://www.proverbialspirits.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "4175 Forestdale Dr., Unit 102",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "A Park City distillery, open since 2022, making vodka, rum and gin from scratch.",
+    "s": [
+     "slm2025",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Owners Steven Currie, Rudy Lehfeldt-Ehlinger and Michael Kunde launched in early 2022; its No Rest for the Wicked gin won silver at the 2023 Bartender Spirits Awards.",
+     "s": [
+      "slm2025"
+     ]
+    },
+    {
+     "t": "Also makes Loose Lips Sink Ships rum, Never Say Never vodka and canned cocktails.",
+     "s": [
+      "home",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200644"
+    ],
+    "prefixes": [
+     "PROVERBIAL"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Proverbial Spirits (home page)",
+     "publisher": "Proverbial Spirits",
+     "url": "https://www.proverbialspirits.com/"
+    }
+   }
+  },
+  {
+   "slug": "purple-sky-winery",
+   "name": "Purple Sky Winery",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Purple Sky Winery",
+     "kind": "winery",
+     "address": "2847 N. Parkland Blvd., Pleasant View, UT 84404"
+    }
+   ],
+   "website": "https://purpleskywinery.com/",
+   "places": [
+    {
+     "name": "Winery, tasting room and restaurant",
+     "address": "2847 N Parkland Blvd.",
+     "city": "Pleasant View"
+    }
+   ],
+   "summary": {
+    "t": "A big northern Utah estate winery with a restaurant, growing 16 grape varieties in Pleasant View.",
+    "s": [
+     "winery"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Says it is Utah's only 200-acre winery, with 16 varieties; its Estate line uses Utah-grown French-American hybrid grapes, and every wine is made at the Pleasant View winery.",
+     "s": [
+      "winery"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "All ages are welcome in the tasting room and restaurant (21+ at the bar); tastings come with food, as Utah law requires, usually a charcuterie board.",
+     "s": [
+      "winery"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A package agency at the winery sells every wine to go; two are also in state liquor stores.",
+     "s": [
+      "winery"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers ranked it third-best new restaurant in Ogden for 2025, and its chef second-best in Ogden.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201366"
+    ],
+    "prefixes": [
+     "PURPLE SKY "
+    ]
+   },
+   "sources": {
+    "winery": {
+     "title": "The winery (with FAQ)",
+     "publisher": "Purple Sky Winery",
+     "url": "https://purpleskywinery.com/winery/home/"
+    }
+   }
+  },
+  {
+   "slug": "red-rock-brewing",
+   "name": "Red Rock Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Red Rock Brewery",
+     "kind": "brewery",
+     "address": "locations in SLC, Murray and Park City"
+    }
+   ],
+   "website": "https://redrockbrewing.com/",
+   "places": [
+    {
+     "name": "Downtown brewpub",
+     "address": "254 S 200 W",
+     "city": "Salt Lake City"
+    },
+    {
+     "name": "Fashion Place",
+     "address": "6227 S State St.",
+     "city": "Murray"
+    },
+    {
+     "name": "Kimball Junction",
+     "address": "1640 W Redstone Center",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "Salt Lake's long-running brewpub, open since 1994, with three family-friendly restaurants and beer stores.",
+    "s": [
+     "home",
+     "locations"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened downtown on March 14, 1994; it says its beers have won more than 100 awards and it added a production brewery in 2011.",
+     "s": [
+      "home"
+     ]
+    },
+    {
+     "t": "More than 30 core, seasonal and special-release beers, including the Elephino double IPA and Marvella Belgian tripel.",
+     "s": [
+      "home",
+      "locations"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "All three restaurants are family-friendly with a kids' menu, wood-fired pizza and weekend brunch.",
+     "s": [
+      "locations"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Each location has a beer store with 20-plus Red Rock beers; its beer is also in state liquor stores and some grocery stores.",
+     "s": [
+      "locations",
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers ranked Red Rock's downtown brewpub third for best brewery of 2025.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1809"
+    ],
+    "prefixes": [
+     "RED ROCK "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Red Rock Brewing (home page and history)",
+     "publisher": "Red Rock Brewing",
+     "url": "https://redrockbrewing.com/"
+    },
+    "locations": {
+     "title": "Locations",
+     "publisher": "Red Rock Brewing",
+     "url": "https://redrockbrewing.com/locations/"
+    }
+   }
+  },
+  {
+   "slug": "roha-brewing-project",
+   "name": "RoHa Brewing Project",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "RoHa Brewing Project",
+     "kind": "brewery",
+     "address": "30 E Kensington Ave., Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://rohabrewing.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "30 E Kensington Ave.",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A side-street taproom south of downtown with 12 rotating beers, food trucks, bands and comedy.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened April 21, 2017; co-founder Chris Haas came to Utah in 1996 and brewed at Squatters and Desert Edge before RoHa.",
+     "s": [
+      "ubn2020"
+     ]
+    },
+    {
+     "t": "Twelve rotating beers: IPAs, lagers, sours, seltzers and seasonals.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The taproom hosts bands, comedians and food trucks, and also pours cocktails, wine, cider and non-alcoholic drinks.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "High-point cans and packaged beer to go.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers placed it third for best hard seltzer in 2025 and its False Prophet Hazy IPA third for can art.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "ROHA "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "RoHa Brewing Project (home page)",
+     "publisher": "RoHa Brewing Project",
+     "url": "https://rohabrewing.com/"
+    },
+    "ubn2020": {
+     "title": "RoHa Brewing Project: striking the right balance",
+     "publisher": "Utah Beer News",
+     "url": "https://utahbeernews.com/roha-brewing-project/",
+     "date": "February 5, 2020"
+    }
+   }
+  },
+  {
+   "slug": "roosters-brewing",
+   "name": "Roosters Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Roosters Brewing Co.",
+     "kind": "brewery",
+     "address": "locations in Ogden and Layton"
+    }
+   ],
+   "website": "https://www.roostersbrewingco.com",
+   "places": [
+    {
+     "name": "Roosters on 25th Street",
+     "address": "Historic 25th Street",
+     "city": "Ogden"
+    },
+    {
+     "name": "Roosters Layton",
+     "address": "",
+     "city": "Layton"
+    },
+    {
+     "name": "B Street brewery and taproom",
+     "address": "B Avenue",
+     "city": "Ogden"
+    }
+   ],
+   "summary": {
+    "t": "Ogden's 30-year-old brewpub family, credited with helping revive Historic 25th Street.",
+    "s": [
+     "cc2025"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Kym and Pete Buttschardt opened Roosters in 1995 in a 119-year-old building on Ogden's 25th Street; the group now also runs a Layton pub, an airport location and the B Street production brewery and taproom.",
+     "s": [
+      "cc2025"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Restaurants on 25th Street and in Layton, plus a taproom at the B Street brewery on B Avenue.",
+     "s": [
+      "cc2025"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "ROOSTERS "
+    ]
+   },
+   "sources": {
+    "cc2025": {
+     "title": "Roosters celebrates 30 years in business",
+     "publisher": "Chew and Chat (Valerie Phillips, former Standard-Examiner food editor)",
+     "url": "https://chewandchat.com/2025/05/roosters-celebrates-30-years-in-business.html",
+     "date": "May 24, 2025"
+    }
+   }
+  },
+  {
+   "slug": "rpm-brewery-garage-grill",
+   "name": "RPM Brewery / Garage Grill",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "RPM Brewery/ Garage Grill",
+     "kind": "brewery",
+     "address": "locations in Draper and Herriman"
+    }
+   ],
+   "website": "http://www.thegaragegrill.com",
+   "places": [
+    {
+     "name": "Garage Grill Draper",
+     "address": "1122 Draper Parkway",
+     "city": "Draper"
+    },
+    {
+     "name": "Garage Grill Herriman",
+     "address": "12547 Herriman Autorow",
+     "city": "Herriman"
+    }
+   ],
+   "summary": {
+    "t": "A car-themed restaurant in Draper and Herriman; Salt Flats Brewing says its beer has its roots there.",
+    "s": [
+     "home",
+     "saltflatsAbout"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Salt Flats Brewing describes the Garage Grill as where its beers started.",
+     "s": [
+      "saltflatsAbout"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Lunch, dinner and weekend brunch with burgers and sushi, among cars that rotate quarterly.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {},
+   "sources": {
+    "home": {
+     "title": "The Garage Grill (home and locations)",
+     "publisher": "The Garage Grill",
+     "url": "http://www.thegaragegrill.com"
+    },
+    "saltflatsAbout": {
+     "title": "About us",
+     "publisher": "Salt Flats Brewing Co.",
+     "url": "https://saltflatsbeer.com/about-us"
+    }
+   }
+  },
+  {
+   "slug": "salt-city-vodka",
+   "name": "Salt City Vodka",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Salt City Vodka",
+     "kind": "distillery",
+     "address": "6864 S 300 W, Midvale UT, 84047"
+    }
+   ],
+   "website": "https://www.facebook.com/SaltCityVodka/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "6864 S 300 W",
+     "city": "Midvale"
+    }
+   ],
+   "summary": {
+    "t": "A Utah vodka brand from two lifelong friends, now also making gin, flavored vodkas and an espresso liqueur.",
+    "s": [
+     "ub2016",
+     "dabsProductList"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Started by Utah natives Jesse Farrer and Aaron Ilott, who chose spirits because Utah had plenty of breweries and almost no distilleries; licensing took about five years.",
+     "s": [
+      "ub2016"
+     ]
+    },
+    {
+     "t": "DABS lists its vodkas, Lakeside Gin and espresso liqueur under the vendor Elevation Distilling.",
+     "s": [
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2189"
+    ],
+    "prefixes": [
+     "SALT CITY "
+    ]
+   },
+   "sources": {
+    "ub2016": {
+     "title": "Local distilleries thrive in Beehive State",
+     "publisher": "Utah Business",
+     "url": "https://www.utahbusiness.com/archive/2016/04/28/local-distilleries-thrive-in-beehive-state/",
+     "date": "April 28, 2016"
+    }
+   }
+  },
+  {
+   "slug": "salt-flats",
+   "name": "Salt Flats Brewing & Salt Flats Spirits",
+   "kinds": [
+    "brewery",
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Salt Flats Brewery",
+     "kind": "brewery",
+     "address": "2020 Industrial Cir. Salt Lake City, UT 84104"
+    },
+    {
+     "listedAs": "Salt Flats Spirits",
+     "kind": "distillery",
+     "address": "2020 W Industrial Cir., Unit B, Salt Lake City, UT 84104"
+    }
+   ],
+   "website": "https://saltflatsbeer.com/",
+   "places": [
+    {
+     "name": "Brewery and distillery",
+     "address": "2020 W Industrial Circle",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A racing-themed brewery and distillery in a former race-car shop on Salt Lake's west side.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "The building was a professional race facility, and every brand name nods to the owners' motorsports background.",
+     "s": [
+      "about"
+     ]
+    },
+    {
+     "t": "Beers range from Flat Out Hefeweizen and Lowrider Chocolate Milk Stout to the Slipstream double IPA; DABS lists the company's vodka, gin, bourbon and canned cocktails under the same vendor.",
+     "s": [
+      "about",
+      "beers",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200244"
+    ],
+    "prefixes": [
+     "SALT FLATS "
+    ]
+   },
+   "sources": {
+    "about": {
+     "title": "About us",
+     "publisher": "Salt Flats Brewing Co.",
+     "url": "https://saltflatsbeer.com/about-us"
+    },
+    "beers": {
+     "title": "Our beers",
+     "publisher": "Salt Flats Brewing Co.",
+     "url": "https://saltflatsbeer.com/ourbeers"
+    }
+   }
+  },
+  {
+   "slug": "saltfire-brewing",
+   "name": "SaltFire Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Saltfire Brewing Co.",
+     "kind": "brewery",
+     "address": "2199 S West Temple, South Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://www.saltfirebrewing.com/",
+   "places": [
+    {
+     "name": "Tavern and bottle shop",
+     "address": "2199 S West Temple",
+     "city": "South Salt Lake"
+    }
+   ],
+   "summary": {
+    "t": "A small-batch, experimental South Salt Lake brewery with a tavern and bottle shop.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded by owner Ryan Miller; it opened in May 2018 selling high-point bottled beer to go before adding a taproom.",
+     "s": [
+      "home",
+      "ubn2018"
+     ]
+    },
+    {
+     "t": "Calls itself experimental, with a constantly changing bottle and tap list.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tavern and tasting room at the brewery.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "The bottle shop sells beer to go.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted its Dirty Chai Stout the best stout of 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "SALTFIRE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "SaltFire Brewing (home page)",
+     "publisher": "SaltFire Brewing Co.",
+     "url": "https://www.saltfirebrewing.com/"
+    },
+    "ubn2018": {
+     "title": "Beer in Utah: SaltFire grand opening, Fisher beer garden",
+     "publisher": "Utah Beer News",
+     "url": "https://utahbeernews.com/saltfire-grand-opening-fisher-beer-garden/",
+     "date": "May 20, 2018"
+    }
+   }
+  },
+  {
+   "slug": "scion-cider",
+   "name": "Scion Cider",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Scion Cider",
+     "kind": "cidery",
+     "address": "916 Jefferson St. W, Salt Lake City, UT 84101"
+    }
+   ],
+   "website": "https://www.scionciderbar.com/",
+   "places": [
+    {
+     "name": "Cider bar",
+     "address": "916 Jefferson St. W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Salt Lake cider bar with a rotating draft list from Utah and around the world.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Pours ciders from 4% to 12% ABV on draft plus bottles and cans, alongside apple spirits, wine and beer.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Licensed as a bar, so it is strictly 21+ and checks every visitor's ID; outside food is welcome and the patio is dog-friendly. Snacks include cheese, charcuterie and tinned fish.",
+     "s": [
+      "home",
+      "id"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers placed Scion third for best cidery in 2025.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "SCION CIDER"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "About Scion Cider",
+     "publisher": "Scion Cider Bar",
+     "url": "https://www.scionciderbar.com/"
+    },
+    "id": {
+     "title": "Utah ID requirements",
+     "publisher": "Scion Cider Bar",
+     "url": "https://www.scionciderbar.com/utah-id-requirements-scion-cider-bar/"
+    }
+   }
+  },
+  {
+   "slug": "second-summit-cider",
+   "name": "Second Summit Hard Cider Co.",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Second Summit Hard Cider",
+     "kind": "cidery",
+     "address": "4010 S Main St., Salt Lake City UT, 84107"
+    }
+   ],
+   "website": "https://secondsummitcider.com/",
+   "places": [
+    {
+     "name": "Taproom and cidery",
+     "address": "4010 S Main St.",
+     "city": "Millcreek"
+    }
+   ],
+   "summary": {
+    "t": "A women-owned Millcreek cidery with a taproom and four covered pickleball courts.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Makes all its cider in house at the Millcreek taproom, led by head cider maker Brandon Baldridge; flavors include a ginger sumac cider.",
+     "s": [
+      "cider",
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The patio has four covered, lighted pickleball courts you can rent by the hour; it is near the Meadowbrook TRAX station.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best cidery of 2025 and second for best hard cider.",
+     "s": [
+      "cw25Nightlife",
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201106"
+    ],
+    "prefixes": [
+     "SECOND SUMMIT "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Second Summit Cider Co. (home page)",
+     "publisher": "Second Summit Hard Cider Co.",
+     "url": "https://secondsummitcider.com/"
+    },
+    "cider": {
+     "title": "Our cider",
+     "publisher": "Second Summit Hard Cider Co.",
+     "url": "https://secondsummitcider.com/our-cider"
+    }
+   }
+  },
+  {
+   "slug": "shades-brewing",
+   "name": "Shades Brewing",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Shades Brewing",
+     "kind": "brewery",
+     "address": "locations in Salt Lake City and South Salt Lake City"
+    }
+   ],
+   "website": "https://www.shadesbrewing.beer/",
+   "places": [
+    {
+     "name": "Brewpub (Ballpark)",
+     "address": "1405 S 300 W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "The kveik-yeast specialists, now in a big Ballpark brewpub with 50 taps and a full kitchen.",
+    "s": [
+     "trib2025",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Started in Park City in 2010 as Shades of Pale, a production brewery, and moved to South Salt Lake around 2014.",
+     "s": [
+      "trib2025"
+     ]
+    },
+    {
+     "t": "Known for its Kveik series of sours and fruited beers made with a farmhouse yeast culture; its golden sour lists Great American Beer Festival gold (2018) and bronze (2021).",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Ballpark brewpub at 1405 S 300 W opened April 4, 2025, with 50 taps, cocktails and mocktails, and a full kitchen.",
+     "s": [
+      "trib2025"
+     ]
+    },
+    {
+     "t": "In 2025 the owners said the production brewery would move to Evanston, Wyoming.",
+     "s": [
+      "trib2025"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Cans and select packaged beer to go.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers placed its Kveik Piña Colada third for best sour beer in 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "SHADES "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Shades Brewing (home, beers and FAQ)",
+     "publisher": "Shades Brewing",
+     "url": "https://www.shadesbrewing.beer/"
+    },
+    "trib2025": {
+     "title": "Take a look inside Shades Brewing's long-delayed new location on 300 West",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://sltrib.com/artsliving/food/2025/04/17/utah-eats-going-inside-new-shades",
+     "date": "April 17, 2025"
+    }
+   }
+  },
+  {
+   "slug": "simplicity-spirits",
+   "name": "Simplicity Spirits Co.",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Simplicity Cocktails",
+     "kind": "distillery",
+     "address": "335 W 1830 S, Ste. C, Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://www.drinksimplicity.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "335 W 1830 S, Suite C",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Salt Lake maker of ready-to-drink canned cocktails, gins, potato vodka and bourbon.",
+    "s": [
+     "home",
+     "spirits"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Focuses on ready-to-drink cocktails in resealable cans, plus five gins, a potato vodka and a bourbon in bottles and cans.",
+     "s": [
+      "home",
+      "spirits"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Runs a gin school and cocktail classes.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "SIMPLICITY "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Simplicity Spirits Co. (home page)",
+     "publisher": "Simplicity Spirits Co.",
+     "url": "https://www.drinksimplicity.com/"
+    },
+    "spirits": {
+     "title": "Spirits",
+     "publisher": "Simplicity Spirits Co.",
+     "url": "https://www.drinksimplicity.com/spirits"
+    }
+   }
+  },
+  {
+   "slug": "slide-ridge",
+   "name": "Slide Ridge",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Slide Ridge Winery",
+     "kind": "winery",
+     "address": "474 E 250 S, Box 66, Mendon, UT 84325"
+    }
+   ],
+   "website": "https://slideridge.com/",
+   "places": [
+    {
+     "name": "Apiary",
+     "address": "474 E 250 S",
+     "city": "Mendon"
+    }
+   ],
+   "summary": {
+    "t": "A family beekeeping operation in Mendon that makes mead and honey wine vinegar.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "A family-owned beekeeper in Mendon since 2011, tending more than 3,000 hives across northern Utah; it makes raw honey, honey wine vinegar and award-winning mead.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1955"
+    ],
+    "prefixes": [
+     "SLIDE RIDGE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Slide Ridge (home page)",
+     "publisher": "Slide Ridge",
+     "url": "https://slideridge.com/"
+    }
+   }
+  },
+  {
+   "slug": "spanish-valley-winery",
+   "name": "Spanish Valley Vineyards & Winery (Moab Winery)",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Spanish Valley Winery",
+     "kind": "winery",
+     "address": "4710 S. Zimmerman Lane, Moab, UT 84532"
+    }
+   ],
+   "website": "https://www.moabwinery.com/",
+   "places": [
+    {
+     "name": "Winery and tasting room",
+     "address": "4710 S Zimmerman Lane",
+     "city": "Moab"
+    }
+   ],
+   "summary": {
+    "t": "Moab's only winery, family-run and estate-grown in Spanish Valley since 1979.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Family-operated and estate-grown since 1979; wines include Rieslings, Gewürztraminer, Cabernet and a cherry wine.",
+     "s": [
+      "home",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Guided tastings and walk-ins daily except Mondays; it also hosts concerts and offers vineyard stays.",
+     "s": [
+      "home",
+      "tastings"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1052"
+    ],
+    "prefixes": [
+     "SPANISH VALLEY "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Moab Winery (home page)",
+     "publisher": "Spanish Valley Vineyards & Winery",
+     "url": "https://www.moabwinery.com/"
+    },
+    "tastings": {
+     "title": "Tastings",
+     "publisher": "Spanish Valley Vineyards & Winery",
+     "url": "https://www.moabwinery.com/tastings"
+    }
+   }
+  },
+  {
+   "slug": "spirits-of-the-wasatch",
+   "name": "Spirits of the Wasatch",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Spirits of the Wasatch",
+     "kind": "distillery",
+     "address": "3697 W 1987 S, Salt Lake City, UT 84104"
+    }
+   ],
+   "website": "https://wasatch.co/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "3697 W 1987 S",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A west-side Salt Lake distillery known for its tours and Perky Cowgirl coffee liqueur.",
+    "s": [
+     "cw25Libations"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Mills, ferments, distills, ages and bottles everything at the distillery, using regional grain and locally roasted coffee.",
+     "s": [
+      "products",
+      "home"
+     ]
+    },
+    {
+     "t": "Makes whiskeys including an Amburana-finished bourbon, High Mountain Desert Gin, Patriots Creed Vodka and Perky Cowgirl Coffee Liqueur.",
+     "s": [
+      "products",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tours include tastings; City Weekly says you get time with the owner.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best distillery tour of 2025, Perky Cowgirl the best local spirit overall, and the distillery second-best in the state.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "201149"
+    ],
+    "prefixes": [
+     "SOTW "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Spirits of the Wasatch (home page)",
+     "publisher": "Spirits of the Wasatch",
+     "url": "https://wasatch.co/pages/home/index.html"
+    },
+    "products": {
+     "title": "Products",
+     "publisher": "Spirits of the Wasatch",
+     "url": "https://wasatch.co/pages/products/products.html"
+    }
+   }
+  },
+  {
+   "slug": "squatters",
+   "name": "Squatters Craft Beers",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Squatters Pub Brewery",
+     "kind": "brewery",
+     "address": "1763 S 300 W, Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://utahbeers.com/",
+   "places": [
+    {
+     "name": "Utah Brewers Cooperative brewery",
+     "address": "1763 S 300 W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "Salt Lake City's first brewpub, opened in 1989, and one of Utah's oldest craft beer brands.",
+    "s": [
+     "story"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded in 1989 by Jeff Polychronis and Peter Cole as Salt Lake City's first brewpub; since 2002 its beer has been brewed with Wasatch's at the Utah Brewers Cooperative.",
+     "s": [
+      "story"
+     ]
+    },
+    {
+     "t": "Long-running beers include Full Suspension Pale Ale and the Hop Rising double IPAs.",
+     "s": [
+      "story",
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Squatters restaurants and brewpubs are run by a separate company, Salt Lake Brewing Co.; contact them for reservations.",
+     "s": [
+      "story"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted Squatters Pub the best brewery food of 2025 and second-best brewpub.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "SQUATTERS "
+    ]
+   },
+   "sources": {
+    "story": {
+     "title": "The story",
+     "publisher": "Utah Brewers Cooperative (Squatters and Wasatch)",
+     "url": "https://utahbeers.com/the-story/"
+    },
+    "beers": {
+     "title": "Beers",
+     "publisher": "Utah Brewers Cooperative",
+     "url": "https://utahbeers.com/beers/"
+    }
+   }
+  },
+  {
+   "slug": "silver-reef-brewing",
+   "name": "St. George Beverage Co. / Silver Reef Brewing",
+   "kinds": [
+    "brewery",
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "St. George's Beverage/Silver Reef Brewing",
+     "kind": "brewery",
+     "address": "4391 Enterprise Dr., St. George, UT 84790"
+    },
+    {
+     "listedAs": "St George Beverage Co./Silver Reef Brewing",
+     "kind": "distillery",
+     "address": "4391 Enterprise Dr., St. George, UT 84790"
+    }
+   ],
+   "website": "https://sgbev.com/",
+   "places": [
+    {
+     "name": "Brewery, restaurant and retail store",
+     "address": "4391 Enterprise Dr.",
+     "city": "St. George"
+    }
+   ],
+   "summary": {
+    "t": "Southern Utah's largest craft brewery, which also distills spirits and runs a restaurant in St. George.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Started in 2018; it now makes beer, small-batch spirits (bourbon, rum, vodka and brandy), root beer and holiday nog, and pours wines from Chanela Vineyards.",
+     "s": [
+      "about",
+      "spirits"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A restaurant serving lunch and dinner; kid-friendly, with a dog-friendly patio and no reservations.",
+     "s": [
+      "about",
+      "faq"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "An on-site retail store sells its canned beer and its spirits.",
+     "s": [
+      "home",
+      "spirits"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200270"
+    ],
+    "prefixes": [
+     "SILVER REEF "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "St George Beverage Company (home page)",
+     "publisher": "St. George Beverage Co.",
+     "url": "https://sgbev.com/"
+    },
+    "about": {
+     "title": "About us",
+     "publisher": "St. George Beverage Co.",
+     "url": "https://sgbev.com/about-us/"
+    },
+    "spirits": {
+     "title": "Spirits",
+     "publisher": "St. George Beverage Co.",
+     "url": "https://sgbev.com/spirits-2/"
+    },
+    "faq": {
+     "title": "FAQ",
+     "publisher": "St. George Beverage Co.",
+     "url": "https://sgbev.com/faq/"
+    }
+   }
+  },
+  {
+   "slug": "strap-tank-brewery",
+   "name": "Strap Tank Brewery",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Strap Tank Brewery",
+     "kind": "brewery",
+     "address": "locations in Springville and Lehi"
+    }
+   ],
+   "website": "https://www.straptankbrewery.com/",
+   "places": [
+    {
+     "name": "Strap Tank Springville",
+     "address": "",
+     "city": "Springville"
+    },
+    {
+     "name": "Strap Tank Lehi",
+     "address": "",
+     "city": "Lehi"
+    }
+   ],
+   "summary": {
+    "t": "Utah County's motorcycle-themed brewpubs, family-friendly and food-first.",
+    "s": [
+     "trib2025",
+     "cw25Nightlife"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Rick Salisbury opened the first Strap Tank in Springville in 2016, next to his Legends Motorcycle Museum, and a larger one in Lehi in 2019; it is named for his 1907 Strap Tank Harley-Davidson.",
+     "s": [
+      "trib2025"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Full restaurants with pub food; City Weekly describes them as family-friendly, with non-alcoholic drinks too.",
+     "s": [
+      "cw25Nightlife",
+      "trib2025"
+     ]
+    },
+    {
+     "t": "A St. George location was under construction in late 2024.",
+     "s": [
+      "trib2025"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers voted it the best bar in Utah County for 2025 and second-best Utah County restaurant.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "STRAP TANK "
+    ]
+   },
+   "sources": {
+    "trib2025": {
+     "title": "A popular brewery is bringing its craft beer and pub grub to St. George",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://sltrib.com/artsliving/food/2025/01/03/st-george-get-more-craft-beer",
+     "date": "January 3, 2025"
+    }
+   }
+  },
+  {
+   "slug": "sugar-house-distillery",
+   "name": "Sugar House Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Sugar House Distillery",
+     "kind": "distillery",
+     "address": "2212 S. West Temple Unit #14, Salt Lake City, UT 84115"
+    }
+   ],
+   "website": "https://www.sugarhousedistillery.net/",
+   "places": [
+    {
+     "name": "Distillery and store",
+     "address": "2212 S West Temple, Unit 14",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A grain-to-glass Salt Lake distillery whose vodka has been on shelves since 2013, with its own store on site.",
+    "s": [
+     "slm2025",
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Owner and distiller James Fowler makes vodka, rum, bourbon, rye and malt whiskey from local grain, with no additives; it calls itself the third small-batch distillery in Utah.",
+     "s": [
+      "slm2025",
+      "home"
+     ]
+    },
+    {
+     "t": "Also cans cocktails made with its own spirits.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tours run Friday through Sunday.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "The distillery store sells bottles and canned cocktails.",
+     "s": [
+      "home",
+      "slm2025"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted its raspberry whiskey sour and raspberry lemonade the best canned cocktails of 2025 and placed its vodka third.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "2183"
+    ],
+    "prefixes": [
+     "SUGAR HOUSE "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Sugar House Distillery (home and tours)",
+     "publisher": "Sugar House Distillery",
+     "url": "https://www.sugarhousedistillery.net/"
+    }
+   }
+  },
+  {
+   "slug": "talisman-brewing",
+   "name": "Talisman Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Talisman Brewing Co.",
+     "kind": "brewery",
+     "address": "1258 Gibson Ave., Ogden, UT 84404"
+    }
+   ],
+   "website": "https://talismanbrewingco.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "1258 Gibson Ave.",
+     "city": "Ogden"
+    }
+   ],
+   "summary": {
+    "t": "A small Ogden taproom from Dusty and Joann Williams, pouring ales and lagers from 18 handles.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founded by Dusty and Joann Williams; the lineup runs from a session IPA and a Mexican-style lager to a Scottish export ale and a chocolate milk stout.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "An 18-handle taproom (draft beer up to 5% ABV, per Utah law); bring your own food or order from nearby, and dogs are welcome. Closed Sundays.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Draft beer to go in growlers, 32-ounce grumblers and crowlers.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "TALISMAN "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Talisman Brewing Company (home page)",
+     "publisher": "Talisman Brewing Co.",
+     "url": "https://talismanbrewingco.com/"
+    }
+   }
+  },
+  {
+   "slug": "templin-family-brewing",
+   "name": "Templin Family Brewing (T.F. Brewing)",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Templin Family Brewing",
+     "kind": "brewery",
+     "address": "936 S 300 W, Salt Lake City, UT 84101"
+    }
+   ],
+   "website": "https://tfbrewing.com/",
+   "places": [
+    {
+     "name": "Taproom",
+     "address": "936 S 300 W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Granary District brewery that specializes in traditional lagers, with a dog-friendly patio and fire pits.",
+    "s": [
+     "home",
+     "cw25Nightlife"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Kevin Templin moved to Alta in 1990 and later started the brewery with his wife, Britt; it specializes in traditional lagers such as its flagship Granary Kellerbier, plus barrel-aged beers, IPAs and sours.",
+     "s": [
+      "story",
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Thirteen taps plus wine, cider and spirits, with food trucks most days.",
+     "s": [
+      "taproom"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Beer to go every day it's open, holidays included, with high-point cans and crowlers.",
+     "s": [
+      "faq",
+      "taproom"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted its Ferda the best IPA of 2025, gave it the best beer selection at a brewery and the best dog-friendly bar patio, and ranked it second-best brewery.",
+     "s": [
+      "cw25Libations",
+      "cw25Nightlife"
+     ]
+    },
+    {
+     "t": "A City Cast Salt Lake reader praised how much flavor it gets out of lower-strength draft beers.",
+     "s": [
+      "cityCastBreweries"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "TEMPLIN "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Templin Family Brewing (home page)",
+     "publisher": "Templin Family Brewing",
+     "url": "https://tfbrewing.com/"
+    },
+    "taproom": {
+     "title": "Taproom",
+     "publisher": "Templin Family Brewing",
+     "url": "https://tfbrewing.com/location/taproom/"
+    },
+    "story": {
+     "title": "Our story",
+     "publisher": "Templin Family Brewing",
+     "url": "https://tfbrewing.com/our-story/"
+    },
+    "faq": {
+     "title": "FAQs",
+     "publisher": "Templin Family Brewing",
+     "url": "https://tfbrewing.com/faqs/"
+    }
+   }
+  },
+  {
+   "slug": "the-hive-winery",
+   "name": "The Hive Winery & Spirits Co.",
+   "kinds": [
+    "winery",
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "The Hive Winery",
+     "kind": "winery",
+     "address": "1220 W Jack D Drive, #2, Layton, UT 84041"
+    },
+    {
+     "listedAs": "The Hive Brandy Co.",
+     "kind": "distillery",
+     "address": "1220 W Jack D Dr., #2, Layton, UT 84041"
+    }
+   ],
+   "website": "https://www.thehivewinery.com/",
+   "places": [
+    {
+     "name": "Winery and distillery",
+     "address": "1220 W Jack D Dr., #2",
+     "city": "Layton"
+    }
+   ],
+   "summary": {
+    "t": "A Layton maker of fruit wines, meads, hard ciders and brandies, and Utah's first brandy distillery.",
+    "s": [
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Makes fruit wines from dry to sweet with no artificial flavors or colors, buying local fruit where it can; its brandy still started at 25 gallons and is now 100.",
+     "s": [
+      "about"
+     ]
+    },
+    {
+     "t": "DABS lists fruit wines like Zion Curtain Raspberry, meads, Stinger hard ciders and fruit brandies.",
+     "s": [
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [
+    {
+     "t": "Some wines are sold only at the winery; others are also in select state stores.",
+     "s": [
+      "wines"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "1854"
+    ],
+    "prefixes": [
+     "HIVE "
+    ]
+   },
+   "sources": {
+    "about": {
+     "title": "About us",
+     "publisher": "The Hive Winery & Spirits Co.",
+     "url": "https://www.thehivewinery.com/about-us"
+    },
+    "wines": {
+     "title": "Fruit wines",
+     "publisher": "The Hive Winery & Spirits Co.",
+     "url": "https://www.thehivewinery.com/fruit-wines"
+    }
+   }
+  },
+  {
+   "slug": "the-vine-yard",
+   "name": "The Vine Yard",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "The Vine Yard",
+     "kind": "winery",
+     "address": "1304 N Main St., Leeds, UT 84746"
+    }
+   ],
+   "website": "https://utahsown.org/profile/the-vine-yard",
+   "places": [
+    {
+     "name": "Winery",
+     "address": "1304 N Main St.",
+     "city": "Leeds"
+    }
+   ],
+   "summary": {
+    "t": "A small Leeds winery growing Spanish, French and Croatian grape varieties.",
+    "s": [
+     "utahsOwn"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Makes wine from its own vineyard in Leeds: ten vinifera varieties including Cariñena, Garnacha, Tempranillo, Albariño and Viognier.",
+     "s": [
+      "utahsOwn"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Tastings at the winery are served with tapas.",
+     "s": [
+      "utahsOwn"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200138"
+    ],
+    "prefixes": [
+     "VINE YARD "
+    ]
+   },
+   "sources": {
+    "utahsOwn": {
+     "title": "The Vine Yard (member listing)",
+     "publisher": "Utah's Own (Utah Department of Agriculture and Food)",
+     "url": "https://utahsown.org/member-directory/listing/the-vine-yard/"
+    }
+   }
+  },
+  {
+   "slug": "uinta-brewing",
+   "name": "Uinta Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Uinta Brewing Co.",
+     "kind": "brewery",
+     "address": "1722 S Fremont Dr., Salt Lake City, UT 84104"
+    }
+   ],
+   "website": "https://uintabrewing.com/",
+   "places": [
+    {
+     "name": "Brewery, pub and kitchen",
+     "address": "1722 S Fremont Dr.",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "One of Utah's biggest and oldest craft breweries, brewing in Salt Lake City since 1993.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Brewed its first beer in 1993 and is named for the Uinta Mountains; the range runs from Hop Nosh IPA to seltzers and experimental R&D beers.",
+     "s": [
+      "home",
+      "beers"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A pub and kitchen at the brewery.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers placed its Baba stout second for best stout and Uinta second for best hard seltzer in 2025.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "UINTA "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Uinta Brewing (home page)",
+     "publisher": "Uinta Brewing Co.",
+     "url": "https://uintabrewing.com/"
+    },
+    "beers": {
+     "title": "All beer",
+     "publisher": "Uinta Brewing Co.",
+     "url": "https://uintabrewing.com/all-beer"
+    }
+   }
+  },
+  {
+   "slug": "utog-brewing",
+   "name": "UTOG Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "UTOG Brewery",
+     "kind": "brewery",
+     "address": "2331 Grant Ave., Ogden, UT 84401"
+    }
+   ],
+   "website": "https://utogbrewing.com/",
+   "places": [
+    {
+     "name": "Brewpub",
+     "address": "2331 Grant Ave.",
+     "city": "Ogden"
+    }
+   ],
+   "summary": {
+    "t": "A locally owned downtown Ogden brewpub, open since 2019 in the historic Thorstensen Building.",
+    "s": [
+     "home",
+     "se2019"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Opened in March 2019 on Grant Avenue; head brewer Carson Foss is one of the co-owners.",
+     "s": [
+      "se2019"
+     ]
+    },
+    {
+     "t": "Aims for crushable, approachable beer; regulars mention its pilsner and golden ale.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A full restaurant that takes reservations, with a patio and room for parties and family dinners.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "UTOG "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "UTOG Brewing (home page)",
+     "publisher": "UTOG Brewing Co.",
+     "url": "https://utogbrewing.com/"
+    },
+    "se2019": {
+     "title": "UTOG Brewing Co. set to open its doors Thursday in downtown Ogden",
+     "publisher": "Standard-Examiner",
+     "url": "https://www.standard.net/news/business/2019/mar/27/utog-brewing-co-set-to-opens-its-doors-thursday-in-downtown-ogden/",
+     "date": "March 27, 2019"
+    }
+   }
+  },
+  {
+   "slug": "vernal-brewing",
+   "name": "Vernal Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Vernal Brewing Co.",
+     "kind": "brewery",
+     "address": "55 S 500 E, Vernal, UT 84078"
+    }
+   ],
+   "website": "https://vernalbrewing.com/",
+   "places": [
+    {
+     "name": "Brewery and restaurant",
+     "address": "55 S 500 E",
+     "city": "Vernal"
+    }
+   ],
+   "summary": {
+    "t": "The Uinta Basin's brewery restaurant, in downtown Vernal.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Brews a range from IPAs (including .50 Caliber IPA) to stouts such as Mama's Milk Stout.",
+     "s": [
+      "home",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "A brewery restaurant at 55 S 500 E; call ahead for reservations.",
+     "s": [
+      "contact"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "VERNAL BREWING"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Vernal Brewing Company (home page)",
+     "publisher": "Vernal Brewing Co.",
+     "url": "https://vernalbrewing.com/"
+    },
+    "contact": {
+     "title": "Contact",
+     "publisher": "Vernal Brewing Co.",
+     "url": "https://vernalbrewing.com/contact/"
+    }
+   }
+  },
+  {
+   "slug": "vintage-spirits-distillery",
+   "name": "Vintage Spirits Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Vintage Spirits Distillery",
+     "kind": "distillery",
+     "address": "6844 S Cottonwood St., Midvale, UT 84047"
+    }
+   ],
+   "website": "https://vsdistillery.com/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "6844 S Cottonwood St.",
+     "city": "Midvale"
+    }
+   ],
+   "summary": {
+    "t": "A Midvale grain-to-glass distillery, bottling since 2020, known for Salty Beach rums and its straight bourbon.",
+    "s": [
+     "slm2025",
+     "cw25Libations"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Has been bottling in Midvale since 2020, specializing in barrel-aged rum, whiskey and bourbon.",
+     "s": [
+      "slm2025"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Saturday tours from mash to finish.",
+     "s": [
+      "slm2025"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [
+    {
+     "t": "City Weekly readers in 2025 picked its straight bourbon as the best local whiskey, Salty Beach Silver as the best local rum and its bottle as the best-looking; they ranked it third-best distillery.",
+     "s": [
+      "cw25Libations"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200624"
+    ],
+    "prefixes": [
+     "VINTAGE SPIRITS "
+    ]
+   },
+   "sources": {}
+  },
+  {
+   "slug": "wasatch-brewery",
+   "name": "Wasatch Brewery",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Wasatch Brew Pub",
+     "kind": "brewery",
+     "address": "locations in Salt Lake City and Park City"
+    }
+   ],
+   "website": "https://wasatchbeers.com/",
+   "places": [
+    {
+     "name": "Utah Brewers Cooperative brewery",
+     "address": "1763 S 300 W",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "Utah's first craft brewery, founded in Park City in 1986, home of Polygamy Porter.",
+    "s": [
+     "story",
+     "wasatchBeers"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Greg Schirf founded Wasatch in 1986; in 1988 he pushed through the law that made brewpubs legal in Utah and opened the state's first at the top of Park City's Main Street.",
+     "s": [
+      "story"
+     ]
+    },
+    {
+     "t": "Best known for Polygamy Porter; it is the official beer of Ski Utah and is brewed with Squatters at the Utah Brewers Cooperative.",
+     "s": [
+      "wasatchBeers",
+      "story"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Wasatch brewpubs in Salt Lake City and Park City are run by a separate company, Salt Lake Brewing Co.",
+     "s": [
+      "story",
+      "dabsProudlyUtah"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "WASATCH "
+    ],
+    "exclude": [
+     "918863"
+    ]
+   },
+   "sources": {
+    "story": {
+     "title": "The story",
+     "publisher": "Utah Brewers Cooperative (Squatters and Wasatch)",
+     "url": "https://utahbeers.com/the-story/"
+    },
+    "wasatchBeers": {
+     "title": "Wasatch beers",
+     "publisher": "Utah Brewers Cooperative",
+     "url": "https://utahbeers.com/wasatch-beers/"
+    }
+   }
+  },
+  {
+   "slug": "water-canyon-winery",
+   "name": "Water Canyon Winery",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Water Canyon Winery",
+     "kind": "winery",
+     "address": "1050 W Field Ave., Hildale, UT 84784"
+    }
+   ],
+   "website": "https://watercanyonwinery.com/",
+   "places": [
+    {
+     "name": "Winery, cafe and event venue",
+     "address": "1050 W Field Ave.",
+     "city": "Hildale"
+    },
+    {
+     "name": "Springdale tasting room",
+     "address": "1066 Zion Park Blvd.",
+     "city": "Springdale"
+    }
+   ],
+   "summary": {
+    "t": "A family natural-wine winery in Hildale, with a second tasting room outside Zion.",
+    "s": [
+     "home"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Shane and Kalie Tooke bought a small vineyard in 2018 and make natural wine from it.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Walk-in tastings, charcuterie and wine tours in Hildale, where The Winery Café takes reservations; a second tasting room is in Springdale.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Both locations sell bottles.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "WATER CANYON "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Water Canyon Winery (home and about)",
+     "publisher": "Water Canyon Winery",
+     "url": "https://watercanyonwinery.com/"
+    }
+   }
+  },
+  {
+   "slug": "waterpocket-distillery",
+   "name": "Waterpocket Distillery",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Waterpocket Distillery/Robber's Roost",
+     "kind": "distillery",
+     "address": "2084 W 2200 S, West Valley City, UT 84119"
+    }
+   ],
+   "website": "https://www.waterpocket.co/",
+   "places": [
+    {
+     "name": "Distillery",
+     "address": "2084 W 2200 S",
+     "city": "West Valley City"
+    }
+   ],
+   "summary": {
+    "t": "Alan and Julia Scott's distillery reviving lost European-style amari, herbal liqueurs and bitters.",
+    "s": [
+     "home",
+     "vinepair2018"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Named for the Waterpocket Fold in Capitol Reef; the Scotts lived across Europe and now recreate pre-Prohibition herbal spirits and liqueurs from distilleries that no longer exist.",
+     "s": [
+      "story",
+      "vinepair2018"
+     ]
+    },
+    {
+     "t": "The range includes amari, an aquavit, a kümmel, a triple sec, gin and the Robber's Roost and Toadstool lines.",
+     "s": [
+      "home",
+      "dabsProductList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200091"
+    ],
+    "prefixes": [
+     "WATERPOCKET ",
+     "ROBBERS ROOST",
+     "ROBBER'S ROOST"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Waterpocket Distillery (home page)",
+     "publisher": "Waterpocket Distillery",
+     "url": "https://www.waterpocket.co/"
+    },
+    "story": {
+     "title": "Our story",
+     "publisher": "Waterpocket Distillery",
+     "url": "https://www.waterpocket.co/our-story"
+    },
+    "vinepair2018": {
+     "title": "'Not the worst place to own a distillery': the couple reviving craft spirits in Salt Lake City",
+     "publisher": "VinePair",
+     "url": "https://vinepair.com/articles/not-the-worst-place-to-own-a-distillery-the-couple-reviving-craft-spirits-in-salt-lake-city-utah/",
+     "date": "August 13, 2018"
+    }
+   }
+  },
+  {
+   "slug": "zion-canyon-brewing",
+   "name": "Zion Canyon Brewing Co.",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Zion Canyon Brewing Co.",
+     "kind": "brewery",
+     "address": "95 Zion Park Blvd., Springdale, UT 84767"
+    }
+   ],
+   "website": "https://zionbrewery.com/",
+   "places": [
+    {
+     "name": "Zion Canyon Brew Pub",
+     "address": "95 Zion Park Blvd.",
+     "city": "Springdale"
+    },
+    {
+     "name": "Station II Bar",
+     "address": "",
+     "city": "St. George"
+    }
+   ],
+   "summary": {
+    "t": "The brewpub at the entrance to Zion National Park, with canyon views and scratch-made pub food.",
+    "s": [
+     "home",
+     "about"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Handcrafted ales poured at its own pubs and at bars and restaurants in St. George, Springdale and around Utah.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The Brew Pub just south of the park entrance serves lunch and dinner seven days a week; the attached Tavern serves drinks without food. A second spot, Station II, is a taproom and bar in downtown St. George.",
+     "s": [
+      "home",
+      "about"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "A growler bar at the Springdale brew pub.",
+     "s": [
+      "home"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "ZION CANYON",
+     "ZION BREW"
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Zion Canyon Brewery (home page)",
+     "publisher": "Zion Canyon Brewing Co.",
+     "url": "https://zionbrewery.com/"
+    },
+    "about": {
+     "title": "About",
+     "publisher": "Zion Canyon Brewing Co.",
+     "url": "https://zionbrewery.com/about/"
+    }
+   }
+  },
+  {
+   "slug": "zion-vineyards",
+   "name": "Zion Vineyards",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [
+    {
+     "listedAs": "Zion Vineyards",
+     "kind": "winery",
+     "address": "5 Hidden Valley Rd., Leeds, UT 84746"
+    }
+   ],
+   "website": "https://zionvines.com/",
+   "places": [
+    {
+     "name": "Vineyard and tasting room",
+     "address": "5 Hidden Valley Rd.",
+     "city": "Leeds"
+    }
+   ],
+   "summary": {
+    "t": "A Leeds vineyard and tasting room among the sandstone hills, founded by Michael Jackson.",
+    "s": [
+     "sgn2023"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Founder Michael Jackson came to wine through travel in California wine country while in the Navy, and later settled in the St. George area to grow grapes.",
+     "s": [
+      "sgn2023"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "Offers tastings and vineyard tours, and has hosted wine yoga.",
+     "s": [
+      "sgn2023"
+     ]
+    }
+   ],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "ZION VINEYARDS"
+    ]
+   },
+   "sources": {
+    "sgn2023": {
+     "title": "On cloud wine: this new vineyard in Southern Utah offers wine tasting, vineyard tours, wine yoga and more",
+     "publisher": "St. George News",
+     "url": "https://www.stgeorgeutah.com/news/archive/2023/09/19/jsb-on-cloud-wine-this-new-vineyard-in-leeds-offers-wine-tasting-wine-yoga-vineyard-tours-and-more",
+     "date": "September 19, 2023"
+    }
+   }
+  }
+ ]
+}
