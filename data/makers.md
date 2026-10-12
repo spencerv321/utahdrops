@@ -5,6 +5,12 @@ list (83 listings, 77 pages: a few businesses are listed twice, e.g. Moab
 Brewery + Moab Distillery, and share a page with both listings in `dabs`).
 Rendered at `/makers` and `/makers/<slug>`; code in `lib/makers.ts`.
 
+Licensed makers that aren't on Proudly Utah (found in DABS's Licensee List,
+`data/licensees/`) get a page too: `dabs: []` and a `licenses` array copied
+exactly from the license rows (`tests/makers.test.ts` checks them against the
+snapshot). Cite the shared `licenseeList` source for license facts. Set
+`checked` on a maker when its sources were read after the file-wide date.
+
 ## Rules (same as Utah 101 and bottle notes)
 - Our words. Every sentence is a claim `{ "t": "...", "s": ["sourceId"] }` and
   cites at least one source: the maker's own `sources`, or a shared one in

@@ -2,7 +2,8 @@
  * Utah makers (/makers): every brewery, distillery, winery and cidery on
  * DABS's "Proudly Utah" list, one page per business (DABS lists a few
  * businesses twice, e.g. Moab Brewery and Moab Distillery; those share a page
- * and keep both listings in `dabs`).
+ * and keep both listings in `dabs`), plus licensed makers that aren't on that
+ * list, found in DABS's Licensee List (`dabs` empty, `licenses` set).
  *
  * Same rule as Utah 101 and bottle notes: our words, every fact from a cited
  * source, no guessing. Each claim carries the ids of the sources it relies
@@ -13,6 +14,7 @@
  * (credited and dated). Data: data/makers.json; how to edit: data/makers.md.
  */
 import data from "@/data/makers.json";
+import { LICENSEE_REPORT_URL } from "@/lib/licensees";
 
 export type MakerKind = "brewery" | "distillery" | "winery" | "cidery";
 
@@ -22,6 +24,9 @@ export type Source = { title: string; publisher: string; url: string; date?: str
 export type Claim = { t: string; s: string[] };
 
 export type MakerPlace = { name: string; address: string; city: string };
+
+/** A DABS license row (Licensee List), copied as DABS wrote it. */
+export type MakerLicense = { number: string; type: string; name: string; address: string; since: string };
 
 export type MakerNote = {
   text: string;
@@ -37,6 +42,8 @@ export type Maker = {
   kinds: MakerKind[];
   /** The business's entries on DABS's Proudly Utah list, as DABS wrote them. */
   dabs: { listedAs: string; kind: MakerKind; address: string }[];
+  /** For makers not on Proudly Utah: their DABS licenses, from the Licensee List. */
+  licenses?: MakerLicense[];
   /** Empty when the maker has no website we could find. */
   website: string;
   places: MakerPlace[];
@@ -53,6 +60,8 @@ export type Maker = {
    */
   catalog: { vendors?: string[]; prefixes?: string[]; exclude?: string[] };
   sources: Record<string, Source>;
+  /** ISO date this maker's sources were read, when later than MAKERS_CHECKED. */
+  checked?: string;
 };
 
 /** Sources several makers cite. */
@@ -61,6 +70,11 @@ export const MAKER_SOURCES = {
     title: "We are Proudly Utah: local breweries, distilleries, wineries and cideries",
     publisher: "Utah DABS",
     url: "https://abs.utah.gov/shop-products/proudly-utah/",
+  },
+  licenseeList: {
+    title: "Current DABS licenses and permits (Licensee List), read October 12, 2026",
+    publisher: "Utah DABS",
+    url: LICENSEE_REPORT_URL,
   },
   dabsPackageAgencies: {
     title: "Package agencies (the five types, including Type 5 at manufacturers)",
@@ -107,6 +121,8 @@ export const MAKERS_CHECKED: string = data.checked;
 // Shape is checked by tests/makers.test.ts (JSON imports widen string unions).
 export const MAKERS: Maker[] = data.makers as unknown as Maker[];
 
+export const makerChecked = (maker: Maker): string => maker.checked ?? MAKERS_CHECKED;
+
 export function getMaker(slug: string): Maker | undefined {
   return MAKERS.find((m) => m.slug === slug);
 }
@@ -122,8 +138,9 @@ export function citedSources(maker: Maker): { id: string; source: Source }[] {
   for (const c of [maker.summary, ...maker.makes, ...maker.visit, ...maker.toGo, ...maker.locals]) {
     for (const id of c.s) if (!ids.includes(id)) ids.push(id);
   }
-  // Every page shows its DABS listing, so DABS's list is always a source.
-  if (!ids.includes("dabsProudlyUtah")) ids.push("dabsProudlyUtah");
+  // Every page shows its DABS listing or licenses, so that list is always a source.
+  const listing = maker.dabs.length > 0 ? "dabsProudlyUtah" : "licenseeList";
+  if (!ids.includes(listing)) ids.push(listing);
   if (hasCatalogLink(maker) && !ids.includes("dabsProductList")) ids.push("dabsProductList");
   // The "Bottles to go" section always explains Type 5 package agencies.
   if (!ids.includes("dabsPackageAgencies")) ids.push("dabsPackageAgencies");
@@ -157,10 +174,15 @@ export const REGIONS = [
       "Sandy", "Draper", "Herriman", "West Valley City",
     ],
   },
-  { key: "north", label: "Ogden, Logan & the north", cities: ["Ogden", "Layton", "Pleasant View", "Eden", "Logan", "Mendon"] },
+  {
+    key: "north",
+    label: "Ogden, Logan & the north",
+    cities: ["Ogden", "Layton", "Pleasant View", "Eden", "Logan", "Mendon", "Hyde Park"],
+  },
   { key: "park-city", label: "Park City, Heber & Kamas", cities: ["Park City", "Wanship", "Kamas", "Heber City"] },
   { key: "utah-county", label: "Utah County", cities: ["Pleasant Grove", "Springville", "Lehi"] },
   { key: "tooele", label: "Tooele County", cities: ["Tooele", "Grantsville"] },
+  { key: "central", label: "Sanpete & central Utah", cities: ["Moroni"] },
   {
     key: "south",
     label: "St. George, Zion & Cedar City",

@@ -1,5 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { KIND_ORDER, MAKERS, MAKERS_CHECKED, MAKER_SOURCES, citedSources, makerForProduct, regionOf, sourceFor } from "../lib/makers";
 import { vendorCode } from "../lib/dabs/xlsx";
 
@@ -60,6 +62,7 @@ test("every shared source is used by some maker or by every page", () => {
 
 test("owner notes are credited and dated; checked date is real", () => {
   assert.ok(isoDate(MAKERS_CHECKED));
+  for (const m of MAKERS) if (m.checked) assert.ok(isoDate(m.checked) && m.checked >= MAKERS_CHECKED, `${m.slug}: checked ${m.checked}`);
   for (const m of MAKERS) {
     for (const n of m.notes) {
       assert.ok(n.text.trim() && n.by.trim(), `${m.slug}: note needs text and a byline`);
@@ -96,4 +99,18 @@ test("vendorCode normalizes DABS Vendor Cd values", () => {
   assert.equal(vendorCode("VC0000200479"), "200479");
   assert.equal(vendorCode(null, "EPIC BREWING COMPANY, LLC (001788)"), "1788");
   assert.equal(vendorCode("", "BEWILDER BREWING COMPANY"), null);
+});
+
+test("makers not on Proudly Utah carry real DABS manufacturing licenses", () => {
+  const csv = readFileSync(join(__dirname, "../data/licensees/dabs-licensees-2026-10-12.csv"), "utf8");
+  for (const m of MAKERS.filter((x) => x.dabs.length === 0)) {
+    const licenses = m.licenses ?? [];
+    assert.ok(licenses.some((l) => l.type.startsWith("Manufacturing")), `${m.slug}: needs a manufacturing license`);
+    for (const l of licenses) {
+      const row = csv.split("\n").find((r) => r.startsWith(`${l.number},`));
+      assert.ok(row?.includes(`,${l.type},`) && row.includes(l.since), `${m.slug}: ${l.number} doesn't match the license snapshot`);
+      assert.ok(isoDate(l.since), `${m.slug}: ${l.number} since ${l.since}`);
+    }
+  }
+  for (const m of MAKERS.filter((x) => x.dabs.length > 0)) assert.ok(!m.licenses, `${m.slug}: listed makers don't need licenses`);
 });

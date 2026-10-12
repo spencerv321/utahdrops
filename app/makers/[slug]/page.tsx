@@ -14,7 +14,7 @@ import {
 } from "@/components/makers";
 import {
   KIND_LABEL,
-  MAKERS_CHECKED,
+  makerChecked,
   MAKERS_PATH,
   MAKER_SOURCES,
   citiesLabel,
@@ -103,22 +103,42 @@ export default async function MakerPage({ params, searchParams }: Props) {
             <MakerWebsite maker={maker} />
           </div>
           <p className="text-sm text-subtle-foreground">
-            On DABS&apos;s{" "}
-            <a href={MAKER_SOURCES.dabsProudlyUtah.url} rel="noopener" className="underline underline-offset-4">
-              Proudly Utah
-            </a>{" "}
-            list as{" "}
-            {maker.dabs.map((d, i) => (
-              <span key={i}>
-                {i > 0 ? " and " : ""}
-                {d.listedAs} ({KIND_LABEL[d.kind].one.toLowerCase()}, {d.address})
-              </span>
-            ))}
-            . Sources read {checkedLabel(MAKERS_CHECKED)}.
+            {maker.dabs.length > 0 ? (
+              <>
+                On DABS&apos;s{" "}
+                <a href={MAKER_SOURCES.dabsProudlyUtah.url} rel="noopener" className="underline underline-offset-4">
+                  Proudly Utah
+                </a>{" "}
+                list as{" "}
+                {maker.dabs.map((d, i) => (
+                  <span key={i}>
+                    {i > 0 ? " and " : ""}
+                    {d.listedAs} ({KIND_LABEL[d.kind].one.toLowerCase()}, {d.address})
+                  </span>
+                ))}
+                .
+              </>
+            ) : (
+              <>
+                Not on DABS&apos;s Proudly Utah list. Licensed by DABS (
+                <a href={MAKER_SOURCES.licenseeList.url} rel="noopener" className="underline underline-offset-4">
+                  license list
+                </a>
+                ):{" "}
+                {(maker.licenses ?? []).map((l, i) => (
+                  <span key={l.number}>
+                    {i > 0 ? "; " : ""}
+                    {l.type} {l.number}, {l.address}, since {l.since.slice(0, 4)}
+                  </span>
+                ))}
+                .
+              </>
+            )}{" "}
+            Sources read {checkedLabel(makerChecked(maker))}.
           </p>
         </header>
 
-        <MakerSection id="makes" title="What they make" claims={maker.makes} notes={notes} empty="We couldn't confirm more than the DABS listing yet." />
+        <MakerSection id="makes" title="What they make" claims={maker.makes} notes={notes} empty={`We couldn't confirm more than the DABS ${maker.dabs.length > 0 ? "listing" : "license"} yet.`} />
         <MakerSection
           id="visit"
           title="Visiting"
@@ -210,7 +230,7 @@ export default async function MakerPage({ params, searchParams }: Props) {
           ) : null}
         </section>
 
-        <MakerSources maker={maker} checked={MAKERS_CHECKED} />
+        <MakerSources maker={maker} checked={makerChecked(maker)} />
       </article>
     </>
   );

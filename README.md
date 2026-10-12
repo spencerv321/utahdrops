@@ -232,7 +232,8 @@ article text is in `app/utah-101/_articles/`.
 ## Utah makers (/makers)
 
 Every brewery, distillery, winery and cidery on DABS's Proudly Utah list (83
-listings, 77 pages), grouped by region: what they make, visiting, bottles to
+listings, 77 pages), plus 7 licensed makers that list leaves out (from the
+DABS Licensee List), grouped by region: what they make, visiting, bottles to
 go, what locals say (local press and reader polls, summarized), owner notes,
 and their bottles in state stores with the area picker's "near you" counts.
 Data and rules: `data/makers.json`, `data/makers.md`; code `lib/makers.ts`,
