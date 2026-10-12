@@ -62,6 +62,7 @@ test("every shared source is used by some maker or by every page", () => {
 
 test("owner notes are credited and dated; checked date is real", () => {
   assert.ok(isoDate(MAKERS_CHECKED));
+  for (const m of MAKERS) if (m.checked) assert.ok(isoDate(m.checked) && m.checked >= MAKERS_CHECKED, `${m.slug}: checked ${m.checked}`);
   for (const m of MAKERS) {
     for (const n of m.notes) {
       assert.ok(n.text.trim() && n.by.trim(), `${m.slug}: note needs text and a byline`);

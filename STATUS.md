@@ -1,20 +1,27 @@
 # Utah Drops — status
 
-_Last updated: 2026-10-12 (/bars, /makers PR #58; homepage PRs #48, #55; earlier: PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
+_Last updated: 2026-10-12 (licensed makers, /bars PR #60, /makers PR #58; homepage PRs #48, #55; earlier: PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
 
 **Production is healthy (checked 2026-10-10).** Statewide stock refreshes 3×/day,
 store-by-store several times a day; all scheduled workflows are enabled and green;
 `/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
 (386 in-stock products at 0), as designed; the next pass was normal.
 
-## Bars & taverns (/bars, Phase 2, this branch)
-- 612 licenses from the DABS Licensee List pulled 2026-10-12 (4,543 rows in
-  all): bars 419, taverns 7, beer-only venues 170, airport lounges 16.
-- Needs `migrate.yml` (table `licensees`) and then `licensees.yml` in
-  production; until the first pull the page shows an empty list.
-- Licensed makers not on Proudly Utah (so no /makers page yet): Thieves Guild,
-  Black Feather Whiskey, Kid Curry, Blue Hills Brewery, Mount Naomi Winery,
-  Salt Lake Brewing Co, Summum. Candidates to add.
+## Bars & taverns (/bars, PR #60, live 2026-10-12)
+- 612 licenses from the DABS Licensee List (4,543 rows in all): bars 419,
+  taverns 7, beer-only venues 170, airport lounges 16. `licensees.yml` pulls
+  weekly (Mondays); first production pull 2026-10-12.
+
+## Licensed makers not on Proudly Utah (this branch)
+- 7 pages from the license list: Thieves Guild Cidery, Summum (sacramental
+  wine, not sold), Kid Curry, Black Feather Whiskey, Blue Hills Brewery
+  (license only; no website or press found), Mt. Naomi Winery, Salt Lake
+  Brewing Co. (runs the Squatters Pubs, brews downtown).
+- Squatters and Wasatch pages corrected: Monster closed the Utah Brewers
+  Cooperative brewery in May 2025 and brews both brands outside Utah.
+- Kid Curry: its site doesn't load and nothing ties the old Kid Curry brand
+  (Rocky Mountain Distilling, West Valley) to the 2026 license, so the page
+  says only what the license shows; its two vodkas link by name.
 
 ## Utah makers (/makers, Phase 1, PR #58, live 2026-10-11)
 - 77 maker pages for DABS's 83 Proudly Utah listings, sourced 2026-10-11 from

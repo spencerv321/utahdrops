@@ -60,6 +60,8 @@ export type Maker = {
    */
   catalog: { vendors?: string[]; prefixes?: string[]; exclude?: string[] };
   sources: Record<string, Source>;
+  /** ISO date this maker's sources were read, when later than MAKERS_CHECKED. */
+  checked?: string;
 };
 
 /** Sources several makers cite. */
@@ -118,6 +120,8 @@ export const MAKERS_CHECKED: string = data.checked;
 
 // Shape is checked by tests/makers.test.ts (JSON imports widen string unions).
 export const MAKERS: Maker[] = data.makers as unknown as Maker[];
+
+export const makerChecked = (maker: Maker): string => maker.checked ?? MAKERS_CHECKED;
 
 export function getMaker(slug: string): Maker | undefined {
   return MAKERS.find((m) => m.slug === slug);

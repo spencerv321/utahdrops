@@ -411,6 +411,210 @@
    }
   },
   {
+   "slug": "black-feather-whiskey",
+   "name": "Black Feather Whiskey",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MD-36",
+     "type": "Manufacturing - Distillery",
+     "name": "Black Feather Whiskey",
+     "address": "537 W PICKETT CIR, SALT LAKE CITY, UT 84115",
+     "since": "2026-06-25"
+    },
+    {
+     "number": "PA-604",
+     "type": "Package Agency",
+     "name": "Black Feather Whiskey",
+     "address": "537 W PICKETT CIRCLE, Unit 900, SALT LAKE CITY, UT 84115",
+     "since": "2026-06-25"
+    }
+   ],
+   "website": "https://blackfeatherspirits.com/",
+   "places": [
+    {
+     "name": "Bottle shop and package agency (temporary space)",
+     "address": "537 W Pickett Cir., Suite 900",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A Salt Lake City whiskey brand making bourbon and rye, now with a tiny bottle shop in its temporary home while it looks for a permanent one.",
+    "s": [
+     "home",
+     "whiskeys",
+     "bottleShop"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Started by three Utah-raised childhood friends, Jeremy Rawle, Jay Williams and Matthew Seegmiller; at its 2017 launch the bourbon came from Indiana allotments, was bottled in Houston and was run from a Salt Lake City headquarters.",
+     "s": [
+      "slug2017"
+     ]
+    },
+    {
+     "t": "The lineup is an American bourbon, an American rye and a limited-release straight rye, all 86 proof, aged in new American white oak and cut to proof with Wasatch snowmelt water.",
+     "s": [
+      "whiskeys",
+      "bourbon",
+      "rye",
+      "straightRye",
+      "home"
+     ]
+    },
+    {
+     "t": "The bourbon is a blend of two straight bourbons and took a Double Gold at the 2018 San Francisco World Spirits Competition.",
+     "s": [
+      "bourbon"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The bottle shop is small and stocks the whiskeys plus merch; the company calls the Pickett Circle space temporary.",
+     "s": [
+      "bottleShop"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Bottles are sold at the shop, where DABS lists a package agency (PA-604), the kind DABS says lets a distillery sell the bottled spirits it produces.",
+     "s": [
+      "bottleShop",
+      "licenseeList",
+      "dabsPackageAgencies"
+     ]
+    },
+    {
+     "t": "Its where-to-buy list names many Utah state liquor stores, from Logan to St. George, plus a handful of bars and restaurants.",
+     "s": [
+      "whereToBuy"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "SLUG Magazine's 2017 profile pitched it as an affordable premium whiskey from hometown friends, already poured at Salt Lake spots like HSL, Manoli's and Water Witch.",
+     "s": [
+      "slug2017"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "vendors": [
+     "200109"
+    ],
+    "prefixes": [
+     "BLACK FEATHER "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Black Feather Spirits - Let Your Spirit Fly",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/"
+    },
+    "whiskeys": {
+     "title": "Whiskey",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/pages/whiskey"
+    },
+    "bourbon": {
+     "title": "Bourbon",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/pages/bourbon"
+    },
+    "rye": {
+     "title": "Rye",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/pages/rye"
+    },
+    "straightRye": {
+     "title": "Black Feather Limited-Release Straight Rye Whiskey",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/pages/straight-rye"
+    },
+    "bottleShop": {
+     "title": "SLC Bottle Shop",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/pages/slc-bottle-shop"
+    },
+    "whereToBuy": {
+     "title": "Where to Buy",
+     "publisher": "Black Feather Spirits",
+     "url": "https://blackfeatherspirits.com/pages/where-to-buy"
+    },
+    "slug2017": {
+     "title": "The Untethered Whiskey: Black Feather",
+     "publisher": "SLUG Magazine",
+     "url": "https://www.slugmag.com/arts/art/interviews-features/untethered-whiskey-black-feather/",
+     "date": "November 2, 2017"
+    }
+   },
+   "checked": "2026-10-12"
+  },
+  {
+   "slug": "blue-hills-brewery",
+   "name": "Blue Hills Brewery",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MB-58",
+     "type": "Manufacturing - Beer",
+     "name": "Blue Hills Brewery LLC",
+     "address": "5345 E 19000 N, Moroni, UT 84646",
+     "since": "2024-06-27"
+    }
+   ],
+   "website": "",
+   "places": [
+    {
+     "name": "Licensed brewery",
+     "address": "5345 E 19000 N",
+     "city": "Moroni"
+    }
+   ],
+   "summary": {
+    "t": "A brewery in Moroni, in Sanpete County, licensed by DABS in June 2024.",
+    "s": [
+     "licenseeList",
+     "dabsJun2024"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Blue Hills Brewery came before the DABS commission as a new brewery applicant on June 27, 2024, and its beer manufacturing license dates from that day.",
+     "s": [
+      "dabsJun2024",
+      "licenseeList"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [],
+   "locals": [],
+   "notes": [],
+   "catalog": {},
+   "sources": {
+    "dabsJun2024": {
+     "title": "Utah Department of Alcoholic Beverage Services Commission Meeting (agenda)",
+     "publisher": "Utah DABS (Utah Public Notice Website)",
+     "url": "https://www.utah.gov/pmn/files/1140167.pdf",
+     "date": "June 27, 2024"
+    }
+   },
+   "checked": "2026-10-12"
+  },
+  {
    "slug": "bohemian-brewery",
    "name": "Bohemian Brewery & Grille",
    "kinds": [
@@ -2291,6 +2495,64 @@
    }
   },
   {
+   "slug": "kid-curry",
+   "name": "Kid Curry",
+   "kinds": [
+    "distillery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MD-34",
+     "type": "Manufacturing - Distillery",
+     "name": "Kid Curry",
+     "address": "3020 W 500 S, Unit I, SALT LAKE CITY, UT 84104",
+     "since": "2026-01-29"
+    },
+    {
+     "number": "PA-595",
+     "type": "Package Agency",
+     "name": "Kid Curry",
+     "address": "3020 W 500 S, Unit I, SALT LAKE CITY, UT 84104",
+     "since": "2026-03-19"
+    }
+   ],
+   "website": "",
+   "places": [
+    {
+     "name": "Distillery and package agency",
+     "address": "3020 W 500 S, Unit I",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A newly licensed Salt Lake City distillery: DABS lists its distillery license from January 2026 and a package agency at the same west-side address from March 2026.",
+    "s": [
+     "licenseeList"
+    ]
+   },
+   "makes": [],
+   "visit": [],
+   "toGo": [
+    {
+     "t": "DABS lists a package agency (PA-595) at the distillery's address; a package agency at a distillery is the kind DABS says lets the maker sell the bottled spirits it produces.",
+     "s": [
+      "licenseeList",
+      "dabsPackageAgencies"
+     ]
+    }
+   ],
+   "locals": [],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "KID CURRY "
+    ]
+   },
+   "sources": {},
+   "checked": "2026-10-12"
+  },
+  {
    "slug": "kiitos-brewing",
    "name": "Kiitos Brewing",
    "kinds": [
@@ -2806,6 +3068,159 @@
      "url": "https://mountainwestcider.com/ciders"
     }
    }
+  },
+  {
+   "slug": "mount-naomi-winery",
+   "name": "Mt. Naomi Winery",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MW-32",
+     "type": "Manufacturing - Wine",
+     "name": "Mount Naomi Winery",
+     "address": "1230 E MT NAOMI FARMS LN, HYDE PARK, UT 84318",
+     "since": "2025-09-25"
+    },
+    {
+     "number": "PA-592",
+     "type": "Package Agency",
+     "name": "Mount Naomi Winery",
+     "address": "1230 E Mt Naomi Farms Lane, Hyde Park, UT 84318",
+     "since": "2025-09-25"
+    }
+   ],
+   "website": "https://mtnaomifarms.com/winery/",
+   "places": [
+    {
+     "name": "Winery and tasting room at Mt. Naomi Farms",
+     "address": "1230 E. Mt. Naomi Farms Ln.",
+     "city": "Hyde Park"
+    }
+   ],
+   "summary": {
+    "t": "Cache Valley's first winery, on the Meikle family's Mt. Naomi Farms in Hyde Park, making wine only from grapes grown on the farm.",
+    "s": [
+     "hjn2026"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Every bottle comes from the farm's own vines, about 22 grape varieties; the summer 2026 tasting menu had 11 wines: five reds, five whites and a rosé.",
+     "s": [
+      "hjn2026"
+     ]
+    },
+    {
+     "t": "The winery says its vineyard sits near 5,000 feet; its pours include whites such as Chardonel, Riesling and Grüner Veltliner, and reds such as Cabernet Franc and its signature Chump blend, named for a family joke about Keith Meikle's father.",
+     "s": [
+      "winery",
+      "hjn2026"
+     ]
+    },
+    {
+     "t": "Keith Meikle, who took a two-year winemaking program at UC Davis, is the head winemaker; Brenda Meikle runs the business side.",
+     "s": [
+      "hjn2026"
+     ]
+    },
+    {
+     "t": "The Meikles spent about three years pushing Cache County to allow farm wineries as a way to keep their land in farming; the county passed its first alcohol ordinance in 2021.",
+     "s": [
+      "hjn2021",
+      "trib2021"
+     ]
+    },
+    {
+     "t": "Keith Meikle made wine in a home winery for years; the commercial winery was finished in 2025, and that year's harvest was its first public release.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The tasting room sits behind the farm's red barn, which is also a wedding venue; the winery offers tasting flights and a guided tour of the vineyard and production space.",
+     "s": [
+      "hjn2026",
+      "winery"
+     ]
+    },
+    {
+     "t": "The farm also runs a U-pick berry patch and the Vineyards at Mt. Naomi event venue.",
+     "s": [
+      "about"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "Since September 2025 the winery has held a DABS package agency on site, the Type 5 kind that lets a maker sell the bottles it produces.",
+     "s": [
+      "licenseeList",
+      "dabsPackageAgencies"
+     ]
+    },
+    {
+     "t": "Wine club members pick up their bottles at the tasting room.",
+     "s": [
+      "club"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "The Herald Journal reported that the winery found warm support from neighbors and Cache Valley businesses, despite a culturally dry valley and some friction with local government.",
+     "s": [
+      "hjn2026"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "MT NAOMI ",
+     "MT. NAOMI "
+    ]
+   },
+   "sources": {
+    "hjn2026": {
+     "title": "Red, white, rosé: Mt. Naomi Farms uncorks Cache Valley's first winery",
+     "publisher": "The Herald Journal",
+     "url": "https://www.hjnews.com/news/local/red-white-ros-mt-naomi-farms-uncorks-cache-valleys-first-winery/article_a682da64-4fd6-416a-a467-06a4bef738ce.html",
+     "date": "July 8, 2026"
+    },
+    "hjn2021": {
+     "title": "Cache Valley could soon have first wineries",
+     "publisher": "The Herald Journal",
+     "url": "https://www.hjnews.com/news/local/cache-valley-could-soon-have-first-wineries/article_0987b4a8-599a-58d0-8981-55ecbff5764c.html",
+     "date": "October 14, 2021"
+    },
+    "trib2021": {
+     "title": "'Dry' Cache county considers allowing wineries",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2021/02/15/dry-cache-county/",
+     "date": "February 15, 2021"
+    },
+    "winery": {
+     "title": "Winery",
+     "publisher": "Mt. Naomi Farms",
+     "url": "https://mtnaomifarms.com/winery/"
+    },
+    "about": {
+     "title": "About",
+     "publisher": "Mt. Naomi Farms",
+     "url": "https://mtnaomifarms.com/about-us/"
+    },
+    "club": {
+     "title": "Club (Soil to Soul Wine Club)",
+     "publisher": "Mt. Naomi Farms",
+     "url": "https://mtnaomifarms.com/club/"
+    }
+   },
+   "checked": "2026-10-12"
   },
   {
    "slug": "new-world-distillery",
@@ -4196,6 +4611,225 @@
    }
   },
   {
+   "slug": "salt-lake-brewing-co",
+   "name": "Salt Lake Brewing Co. (Squatters Pubs)",
+   "kinds": [
+    "brewery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MB-45",
+     "type": "Manufacturing - Beer",
+     "name": "SALT LAKE BREWING CO",
+     "address": "147 W 300 S, SALT LAKE CITY, UT 84101",
+     "since": "2023-02-23"
+    },
+    {
+     "number": "PA-156",
+     "type": "Package Agency",
+     "name": "SALT LAKE BREWING CO",
+     "address": "147 W 300 S, SALT LAKE CITY, UT 84101",
+     "since": "2023-02-23"
+    },
+    {
+     "number": "OP-1436",
+     "type": "Off-Premise Beer Retailer",
+     "name": "SALT LAKE BREWING CO.",
+     "address": "147 W BROADWAY, SALT LAKE CITY, UT 84101",
+     "since": "2023-03-01"
+    },
+    {
+     "number": "AL-4",
+     "type": "Airport Lounge",
+     "name": "Salt Lake Brewing Co. Airport Pub",
+     "address": "3920 W TERMINAL DR, SALT LAKE CITY, UT 84122",
+     "since": "2020-08-29"
+    }
+   ],
+   "website": "https://www.squatterspubs.com/",
+   "places": [
+    {
+     "name": "Squatters Downtown (pub and brewhouse)",
+     "address": "147 W. Broadway (300 South)",
+     "city": "Salt Lake City"
+    },
+    {
+     "name": "Squatters Sugar House",
+     "address": "2110 Highland Dr.",
+     "city": "Salt Lake City"
+    },
+    {
+     "name": "Squatters West Valley",
+     "address": "3555 Constitution Blvd.",
+     "city": "West Valley City"
+    },
+    {
+     "name": "Squatters Roadhouse",
+     "address": "1900 Park Ave.",
+     "city": "Park City"
+    }
+   ],
+   "summary": {
+    "t": "The locally owned company that runs the Squatters Pubs restaurants and brews its own beer at the downtown Salt Lake City pub.",
+    "s": [
+     "trib2022",
+     "trib2023",
+     "gastro2025"
+    ]
+   },
+   "makes": [
+    {
+     "t": "When Monster Beverage bought the Squatters and Wasatch beer brands in 2022, the restaurants and brewpubs were left out; a local group led by Squatters founders Peter Cole and Jeff Polychronis then bought Salt Lake Brewing Co., the company that runs them.",
+     "s": [
+      "trib2022"
+     ]
+    },
+    {
+     "t": "Under that deal the pubs kept pouring Squatters and Wasatch beers, buying them from Monster.",
+     "s": [
+      "trib2022"
+     ]
+    },
+    {
+     "t": "In March 2023 the company took over the 10-barrel brewhouse next to the downtown pub and brought back longtime Squatters brewmaster Jason Stock; his first beer for Salt Lake Brewing Co. was Dog Lake Pale Ale.",
+     "s": [
+      "trib2023",
+      "gastro2023"
+     ]
+    },
+    {
+     "t": "By late 2025 the pubs poured in-house beers by Stock and by Nils Imboden, alongside popular beers from the Squatters and Wasatch lineup.",
+     "s": [
+      "gastro2025"
+     ]
+    },
+    {
+     "t": "The Squatters Craft Beers and Wasatch Brewery brands still belong to Monster, which closed their Salt Lake City brewery in May 2025 and moved production to its other breweries; the pubs, a separate company, were not affected.",
+     "s": [
+      "trib2025"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "In late 2025 the company put all its locations, including the former Wasatch brewpubs, under one name: Squatters Pubs.",
+     "s": [
+      "gastro2025"
+     ]
+    },
+    {
+     "t": "The downtown pub opened in 1989 as Salt Lake City's first brewpub, and guests can watch beer being brewed.",
+     "s": [
+      "pubDowntown"
+     ]
+    },
+    {
+     "t": "Other Squatters Pubs are in Sugar House (the former Wasatch brewpub on Highland Drive), West Valley City (opened in 2025 as Squatters Corner Pub), the Roadhouse in Park City, the Craft Café near the airport, and Concourses A and B at Salt Lake City International Airport.",
+     "s": [
+      "pubs",
+      "trib2022",
+      "gastroWvc"
+     ]
+    },
+    {
+     "t": "The Top of Main brew pub on Park City's Main Street, where Wasatch opened in 1986, closed for good in spring 2026 as the building's owner moved to sell it.",
+     "s": [
+      "townlift2026"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "After the 2022 sale the pubs stopped selling beer to go, because a brewery package agency requires brewing on site and the brewing had gone to Monster.",
+     "s": [
+      "gastro2022"
+     ]
+    },
+    {
+     "t": "DABS lists a beer manufacturing license and a package agency for the company at the downtown pub since February 2023, plus an off-premise beer retailer license there; we couldn't confirm what it sells to go.",
+     "s": [
+      "licenseeList"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "City Weekly readers voted Squatters Pub Brewery the best brewery food of 2025 and second-best brewpub.",
+     "s": [
+      "cw25Nightlife"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "SALT LAKE BREWING "
+    ]
+   },
+   "sources": {
+    "pubs": {
+     "title": "Squatters Pubs | Utah's Original Craft Brewery Since 1989",
+     "publisher": "Squatters Pubs (Salt Lake Brewing Co.)",
+     "url": "https://www.squatterspubs.com/"
+    },
+    "pubDowntown": {
+     "title": "Squatters Downtown SLC | Salt Lake's First Brew Pub",
+     "publisher": "Squatters Pubs (Salt Lake Brewing Co.)",
+     "url": "https://www.squatterspubs.com/restaurants/downtown"
+    },
+    "trib2022": {
+     "title": "The founders of Squatters are buying back the label's restaurants and Wasatch brewpubs",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2022/02/17/founders-squatters-are/",
+     "date": "February 17, 2022"
+    },
+    "gastro2022": {
+     "title": "Local brewpubs come full circle – what's next for these Utah icons",
+     "publisher": "Gastronomic SLC",
+     "url": "https://gastronomicslc.com/2022/03/07/local-brewpubs-come-full-circle-whats-next-for-these-utah-icons/",
+     "date": "March 7, 2022"
+    },
+    "trib2023": {
+     "title": "Squatters brings brewing, and its old brewmaster, back to downtown SLC",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2023/03/30/squatters-brings-brewing-its-old/",
+     "date": "March 30, 2023"
+    },
+    "gastro2023": {
+     "title": "Iconic local brewpub comes full circle with big announcement",
+     "publisher": "Gastronomic SLC",
+     "url": "https://gastronomicslc.com/2023/03/27/iconic-local-brewery-comes-full-circle-with-big-announcement/",
+     "date": "March 27, 2023"
+    },
+    "gastroWvc": {
+     "title": "Iconic brewpub makes its mark on West Valley City",
+     "publisher": "Gastronomic SLC",
+     "url": "https://gastronomicslc.com/2025/02/13/iconic-brewpub-makes-its-mark-on-west-valley-city/",
+     "date": "February 13, 2025"
+    },
+    "trib2025": {
+     "title": "Monster Brewing is closing Utah brewery where Squatters, Wasatch are made",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2025/04/12/monster-brewing-is-closing-utah/",
+     "date": "April 12, 2025"
+    },
+    "gastro2025": {
+     "title": "Squatters Pubs rebrand takes hold at popular brewpub locations",
+     "publisher": "Gastronomic SLC",
+     "url": "https://gastronomicslc.com/2025/12/18/squatters-pubs-rebrand-takes-hold-at-popular-brewpub-locations/",
+     "date": "December 18, 2025"
+    },
+    "townlift2026": {
+     "title": "Local buyers plan new future for historic Top of Main building after brew pub closure",
+     "publisher": "TownLift",
+     "url": "https://townlift.com/2026/05/local-buyers-plan-new-future-for-historic-top-of-main-building-after-brew-pub-closure/",
+     "date": "May 15, 2026"
+    }
+   },
+   "checked": "2026-10-12"
+  },
+  {
    "slug": "saltfire-brewing",
    "name": "SaltFire Brewing Co.",
    "kinds": [
@@ -4809,8 +5443,8 @@
    "website": "https://utahbeers.com/",
    "places": [
     {
-     "name": "Utah Brewers Cooperative brewery",
-     "address": "1763 S 300 W",
+     "name": "Squatters Downtown pub (Salt Lake Brewing Co.)",
+     "address": "147 W. Broadway (300 South)",
      "city": "Salt Lake City"
     }
    ],
@@ -4822,7 +5456,7 @@
    },
    "makes": [
     {
-     "t": "Founded in 1989 by Jeff Polychronis and Peter Cole as Salt Lake City's first brewpub; since 2002 its beer has been brewed with Wasatch's at the Utah Brewers Cooperative.",
+     "t": "Founded in 1989 by Jeff Polychronis and Peter Cole as Salt Lake City's first brewpub; from 2002 its beer was brewed with Wasatch's at the Utah Brewers Cooperative in Salt Lake City.",
      "s": [
       "story"
      ]
@@ -4833,25 +5467,25 @@
       "story",
       "beers"
      ]
+    },
+    {
+     "t": "Monster Brewing, which owns the Squatters and Wasatch beer brands, closed that brewery in May 2025 and moved their production to its breweries outside Utah; the beers are still sold in Utah stores.",
+     "s": [
+      "trib2025"
+     ]
     }
    ],
    "visit": [
     {
-     "t": "The Squatters restaurants and brewpubs are run by a separate company, Salt Lake Brewing Co.; contact them for reservations.",
+     "t": "The Squatters Pubs are run by a separate, locally owned company, Salt Lake Brewing Co., which also brews its own beer at the downtown pub.",
      "s": [
-      "story"
+      "trib2022",
+      "trib2023"
      ]
     }
    ],
    "toGo": [],
-   "locals": [
-    {
-     "t": "City Weekly readers voted Squatters Pub the best brewery food of 2025 and second-best brewpub.",
-     "s": [
-      "cw25Nightlife"
-     ]
-    }
-   ],
+   "locals": [],
    "notes": [],
    "catalog": {
     "prefixes": [
@@ -4868,8 +5502,27 @@
      "title": "Beers",
      "publisher": "Utah Brewers Cooperative",
      "url": "https://utahbeers.com/beers/"
+    },
+    "trib2025": {
+     "title": "Monster Brewing is closing Utah brewery where Squatters, Wasatch are made",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2025/04/12/monster-brewing-is-closing-utah/",
+     "date": "April 12, 2025"
+    },
+    "trib2022": {
+     "title": "The founders of Squatters are buying back the label's restaurants and Wasatch brewpubs",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2022/02/17/founders-squatters-are/",
+     "date": "February 17, 2022"
+    },
+    "trib2023": {
+     "title": "Squatters brings brewing, and its old brewmaster, back to downtown SLC",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2023/03/30/squatters-brings-brewing-its-old/",
+     "date": "March 30, 2023"
     }
-   }
+   },
+   "checked": "2026-10-12"
   },
   {
    "slug": "silver-reef-brewing",
@@ -5128,6 +5781,118 @@
      "url": "https://www.sugarhousedistillery.net/"
     }
    }
+  },
+  {
+   "slug": "summum",
+   "name": "Summum",
+   "kinds": [
+    "winery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MW-1",
+     "type": "Manufacturing - Wine",
+     "name": "SUMMUM -MW1",
+     "address": "707 W GENESEE AVE, SALT LAKE CITY, UT 84104",
+     "since": "1981-02-26"
+    },
+    {
+     "number": "SA-35",
+     "type": "Special Use Permit - Religious Wine",
+     "name": "SUMMUM",
+     "address": "707 W GENESEE AVE, SALT LAKE CITY, UT 84104",
+     "since": "1985-07-01"
+    }
+   ],
+   "website": "https://www.summum.us/",
+   "places": [
+    {
+     "name": "Summum pyramid",
+     "address": "707 W Genesee Ave",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A religious organization based in a pyramid in Salt Lake City that makes sacramental wines, which it calls nectars, for its own religious practice; they are not sold.",
+    "s": [
+     "trib2024",
+     "nectars"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Summum was incorporated in Utah in 1975 as a nonprofit that teaches its philosophy, and it received the first wine manufacturing license Utah issued, in 1981.",
+     "s": [
+      "about",
+      "trib2024",
+      "licenseeList"
+     ]
+    },
+    {
+     "t": "Its nectars are made inside the pyramid from what Summum describes as an ancient pre-Egyptian formula: they rest for 77 days, then age for one to fifteen years.",
+     "s": [
+      "nectars",
+      "trib2024"
+     ]
+    },
+    {
+     "t": "Summum calls each nectar a \"publication\" because, in its teaching, the wine carries spiritual concepts; it says it has made nine of a planned 27.",
+     "s": [
+      "nectars"
+     ]
+    },
+    {
+     "t": "The nectars are meant as a sacrament for Summum's meditation practice, with a small amount drunk just before meditating.",
+     "s": [
+      "nectars"
+     ]
+    }
+   ],
+   "visit": [],
+   "toGo": [
+    {
+     "t": "There is nothing to buy: Summum told the Tribune it does not sell wine and may use it only in its religious practice.",
+     "s": [
+      "trib2024"
+     ]
+    },
+    {
+     "t": "Summum says the nectars are available only to people who have learned its beginning meditation.",
+     "s": [
+      "nectars"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "The Salt Lake Tribune looked into why a pyramid in the Poplar Grove neighborhood holds a wine license, and explained it as a religious sacrament, much as other faiths use wine.",
+     "s": [
+      "trib2024"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {},
+   "sources": {
+    "about": {
+     "title": "About Summum",
+     "publisher": "Summum",
+     "url": "https://www.summum.us/about/"
+    },
+    "nectars": {
+     "title": "The Summum Nectar Publications",
+     "publisher": "Summum",
+     "url": "https://www.summum.us/nectars/"
+    },
+    "trib2024": {
+     "title": "Why is a pyramid in Salt Lake City licensed to make wine?",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/2024/03/20/why-is-pyramid-salt-lake-city/",
+     "date": "March 20, 2024"
+    }
+   },
+   "checked": "2026-10-12"
   },
   {
    "slug": "talisman-brewing",
@@ -5435,6 +6200,163 @@
    }
   },
   {
+   "slug": "thieves-guild",
+   "name": "Thieves Guild Cidery",
+   "kinds": [
+    "cidery"
+   ],
+   "dabs": [],
+   "licenses": [
+    {
+     "number": "MW-26",
+     "type": "Manufacturing - Wine",
+     "name": "Thieves Guild",
+     "address": "117 W 900 S, SALT LAKE CITY, UT 84101",
+     "since": "2024-11-21"
+    },
+    {
+     "number": "PA-524",
+     "type": "Package Agency",
+     "name": "Thieves Guild Cidery",
+     "address": "117 W 900 S, SALT LAKE CITY, UT 84101",
+     "since": "2024-11-21"
+    },
+    {
+     "number": "BAR-362",
+     "type": "Bar Establishment",
+     "name": "Thieves Guild",
+     "address": "117 W 900 S, SALT LAKE CITY, UT 84101",
+     "since": "2024-02-29"
+    }
+   ],
+   "website": "https://www.thievesguildcidery.com/",
+   "places": [
+    {
+     "name": "Cidery and taproom",
+     "address": "117 W 900 S",
+     "city": "Salt Lake City"
+    }
+   ],
+   "summary": {
+    "t": "A fantasy-tavern cidery and meadery in Salt Lake City's Central Ninth neighborhood that makes its own ciders and meads and pours them in its taproom.",
+    "s": [
+     "home",
+     "trib2024",
+     "slug2025"
+    ]
+   },
+   "makes": [
+    {
+     "t": "Co-owners Jordy Kirkman and Maxwel Knudsen began brewing together as a home project; Kirkman got his start in cider by pressing apples at his parents' small orchard in Cache Valley.",
+     "s": [
+      "trib2024",
+      "slug2025"
+     ]
+    },
+    {
+     "t": "The house ciders include Prancing Pony, a dry cider made with apples from the Kirkman family farm, and flavored ciders such as Dark Portal, with black currant and black cherry.",
+     "s": [
+      "menu",
+      "slug2025"
+     ]
+    },
+    {
+     "t": "Its meads include Blood Gem Tiger Sword, a sparkling tart-cherry mead, and an oak-rested root beer mead.",
+     "s": [
+      "menu",
+      "trib2024"
+     ]
+    },
+    {
+     "t": "The cider and mead list rotates with the seasons and with whatever the makers want to try next.",
+     "s": [
+      "trib2024"
+     ]
+    }
+   ],
+   "visit": [
+    {
+     "t": "The taproom at 117 W 900 S opened in October 2024 in a former AlphaGraphics building, built out by the owners as a medieval fantasy tavern with handmade lanterns, sconces and themed restrooms.",
+     "s": [
+      "trib2024",
+      "home"
+     ]
+    },
+    {
+     "t": "It pours its ciders and meads by the glass or as flights, alongside cocktails and guest beers, and food trucks serve outside; you can bring their food in.",
+     "s": [
+      "menu"
+     ]
+    },
+    {
+     "t": "It keeps a library of board and card games and runs regular game and trivia nights, plus a yearly 21+ fantasy fair called Apples & Daggers.",
+     "s": [
+      "slug2025",
+      "festival"
+     ]
+    }
+   ],
+   "toGo": [
+    {
+     "t": "DABS licenses a package agency at the cidery; that type of agency, at a licensed maker, lets the business sell the packaged products it makes.",
+     "s": [
+      "licenseeList",
+      "dabsPackageAgencies"
+     ]
+    }
+   ],
+   "locals": [
+    {
+     "t": "The Salt Lake Tribune covered its opening as the owners' bid to make Utah's first \"experience\" bar, built around games like Dungeons & Dragons.",
+     "s": [
+      "trib2024"
+     ]
+    },
+    {
+     "t": "SLUG Magazine reported a strong welcome in its first months, with crowds growing month to month, and credited its game nights and do-it-yourself fantasy decor.",
+     "s": [
+      "slug2025"
+     ]
+    }
+   ],
+   "notes": [],
+   "catalog": {
+    "prefixes": [
+     "THIEVES GUILD "
+    ]
+   },
+   "sources": {
+    "home": {
+     "title": "Thieves Guild Cidery (home page)",
+     "publisher": "Thieves Guild Cidery",
+     "url": "https://www.thievesguildcidery.com/"
+    },
+    "menu": {
+     "title": "Menu",
+     "publisher": "Thieves Guild Cidery",
+     "url": "https://www.thievesguildcidery.com/menu"
+    },
+    "festival": {
+     "title": "Apples and Daggers Festival",
+     "publisher": "Thieves Guild Cidery",
+     "url": "https://www.thievesguildcidery.com/apples-and-daggers-festival"
+    },
+    "trib2024": {
+     "title": "Thieves Guild Cidery brings fantasy and magic to Central Ninth in Salt Lake City",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2024/11/18/thieves-guild-cidery-brings/",
+     "date": "November 17, 2024"
+    },
+    "slug2025": {
+     "title": "Thieves Guild Cidery Rolled a Nat 20 on Their Charisma Check",
+     "publisher": "SLUG Magazine",
+     "url": "https://www.slugmag.com/community/thieves-guild-cidery-rolled-a-nat-20-on-their-charisma-check/",
+     "date": "April 2, 2025"
+    }
+   },
+   "checked": "2026-10-12"
+  },
+  {
    "slug": "uinta-brewing",
    "name": "Uinta Brewing Co.",
    "kinds": [
@@ -5723,8 +6645,8 @@
    "website": "https://wasatchbeers.com/",
    "places": [
     {
-     "name": "Utah Brewers Cooperative brewery",
-     "address": "1763 S 300 W",
+     "name": "Former Wasatch brewpub, now Squatters Sugar House (Salt Lake Brewing Co.)",
+     "address": "2110 Highland Dr.",
      "city": "Salt Lake City"
     }
    ],
@@ -5743,19 +6665,31 @@
      ]
     },
     {
-     "t": "Best known for Polygamy Porter; it is the official beer of Ski Utah and is brewed with Squatters at the Utah Brewers Cooperative.",
+     "t": "Best known for Polygamy Porter; it is the official beer of Ski Utah and was brewed with Squatters at the Utah Brewers Cooperative in Salt Lake City.",
      "s": [
       "wasatchBeers",
       "story"
+     ]
+    },
+    {
+     "t": "Monster Brewing, which owns the brand, closed that brewery in May 2025 and moved Wasatch production to its breweries outside Utah; the beers are still sold in Utah stores.",
+     "s": [
+      "trib2025"
      ]
     }
    ],
    "visit": [
     {
-     "t": "The Wasatch brewpubs in Salt Lake City and Park City are run by a separate company, Salt Lake Brewing Co.",
+     "t": "The Wasatch brewpubs belong to a separate company, Salt Lake Brewing Co., which renamed them Squatters Pubs in late 2025; the Sugar House pub on Highland Drive carries on under that name.",
      "s": [
-      "story",
-      "dabsProudlyUtah"
+      "trib2022",
+      "gastro2025"
+     ]
+    },
+    {
+     "t": "The original Top of Main brewpub in Park City, where Wasatch opened in 1986, closed in spring 2026.",
+     "s": [
+      "townlift2026"
      ]
     }
    ],
@@ -5780,8 +6714,33 @@
      "title": "Wasatch beers",
      "publisher": "Utah Brewers Cooperative",
      "url": "https://utahbeers.com/wasatch-beers/"
+    },
+    "trib2025": {
+     "title": "Monster Brewing is closing Utah brewery where Squatters, Wasatch are made",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2025/04/12/monster-brewing-is-closing-utah/",
+     "date": "April 12, 2025"
+    },
+    "gastro2025": {
+     "title": "Squatters Pubs rebrand takes hold at popular brewpub locations",
+     "publisher": "Gastronomic SLC",
+     "url": "https://gastronomicslc.com/2025/12/18/squatters-pubs-rebrand-takes-hold-at-popular-brewpub-locations/",
+     "date": "December 18, 2025"
+    },
+    "townlift2026": {
+     "title": "Local buyers plan new future for historic Top of Main building after brew pub closure",
+     "publisher": "TownLift",
+     "url": "https://townlift.com/2026/05/local-buyers-plan-new-future-for-historic-top-of-main-building-after-brew-pub-closure/",
+     "date": "May 15, 2026"
+    },
+    "trib2022": {
+     "title": "The founders of Squatters are buying back the label's restaurants and Wasatch brewpubs",
+     "publisher": "The Salt Lake Tribune",
+     "url": "https://www.sltrib.com/artsliving/food/2022/02/17/founders-squatters-are/",
+     "date": "February 17, 2022"
     }
-   }
+   },
+   "checked": "2026-10-12"
   },
   {
    "slug": "water-canyon-winery",

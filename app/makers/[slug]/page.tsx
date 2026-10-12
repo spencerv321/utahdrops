@@ -14,7 +14,7 @@ import {
 } from "@/components/makers";
 import {
   KIND_LABEL,
-  MAKERS_CHECKED,
+  makerChecked,
   MAKERS_PATH,
   MAKER_SOURCES,
   citiesLabel,
@@ -134,7 +134,7 @@ export default async function MakerPage({ params, searchParams }: Props) {
                 .
               </>
             )}{" "}
-            Sources read {checkedLabel(MAKERS_CHECKED)}.
+            Sources read {checkedLabel(makerChecked(maker))}.
           </p>
         </header>
 
@@ -230,7 +230,7 @@ export default async function MakerPage({ params, searchParams }: Props) {
           ) : null}
         </section>
 
-        <MakerSources maker={maker} checked={MAKERS_CHECKED} />
+        <MakerSources maker={maker} checked={makerChecked(maker)} />
       </article>
     </>
   );
