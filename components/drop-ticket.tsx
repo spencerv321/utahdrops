@@ -60,10 +60,16 @@ export async function DropTicket({
         <p className="kicker text-primary">Next allocated drop</p>
         {listPosted(listSize) ? (
           <p className={cn("leading-snug", large ? "text-base" : "text-[15px]")}>
-            The list is out: {listSize} bottle{listSize === 1 ? "" : "s"} headed to stores.
+            {explain
+              ? `The list is out: ${listSize} of DABS\u2019s rarest bottles (think Blanton\u2019s) headed to select stores.`
+              : `The list is out: ${listSize} bottle${listSize === 1 ? "" : "s"} headed to stores.`}
           </p>
         ) : daysOut === 0 ? (
-          <p className="text-[15px] leading-snug">It&apos;s drop day. Bottles go to the stores on the list.</p>
+          <p className="text-[15px] leading-snug">
+            {explain
+              ? "It\u2019s drop day. DABS\u2019s rarest bottles go out at the stores on the list."
+              : "It\u2019s drop day. Bottles go to the stores on the list."}
+          </p>
         ) : (
           <p className={cn("leading-snug text-brand-foreground/95", large ? "text-base" : "text-[15px]")}>
             {explain

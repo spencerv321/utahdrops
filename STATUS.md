@@ -1,6 +1,6 @@
 # Utah Drops — status
 
-_Last updated: 2026-10-10 (PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
+_Last updated: 2026-10-11 (homepage PRs #48, #55; earlier: PR #40 product page, PR #42 rarity timeout). Production baseline 2026-09-26: `docs/production-baseline-2026-09-26.md`._
 
 **Production is healthy (checked 2026-10-10).** Statewide stock refreshes 3×/day,
 store-by-store several times a day; all scheduled workflows are enabled and green;
@@ -21,6 +21,20 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 - Owner notes: none yet (`data/makers.md` shows how to add one).
 - Phase 2 (bars/taverns): blocked on exporting the DABS Licensee List
   (`docs/licensee-list.md`); owner to check the report's download menu.
+
+## Homepage (PRs #48, #55, live 2026-10-11)
+- Design review 2026-10-11: the hero had ~20 clickables before any bottle.
+  #48 removed the "Try" examples row (the chips do that job), cut the pitch
+  to one sentence, turned "Help me choose" into a quiet link "Not sure? Pick
+  a wine by taste" (it is wine-only), outlined "See the list" so "Find
+  bottles" is the one amber button, faded the photo behind the ticket,
+  glossed DABS in the freshness line, labeled the chips "In stock statewide".
+- #55: signed in with watches, the pitch becomes "5 of your 8 watched
+  bottles are in stock · 3 at stores near Riverton, checked 2h ago"
+  (`lib/watch-summary.ts`, positive local claims only, never "none near").
+  The homepage drop ticket explains allocated once the list is out.
+- Open: the nav names "Worth a look" / "Drops" / "What's new" read alike to
+  newcomers; owner to pick names (touches titles and links site-wide).
 
 ## Utah 101 (PRs #49, #50, phase 2 on this branch)
 - `/utah-101`: hub + 11 sourced guides. Phase 1 (live): visitors, buying,
@@ -281,6 +295,12 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 - Measure: `report.yml` → `taste` (coverage, review drift, shown/clicks/
   feedback by typed/guided/followup, watches from `discover_events` surface
   `taste`, model p50/p90 and cost), `tasteeval` (53 cases), `searchlog`.
+- Usage 2026-10-11 (`taste`, last 14 days): 17 pick lists shown to ~5–8
+  visitors (12 typed, 4 panel, 1 follow-up), 1 click, no feedback, no
+  watches; 229 name searches in the same window; model cost ≈ $0.01. Some
+  of that is testing. Decision: don't expand to spirits; rerun early
+  November and decide whether the homepage link stays. The report only
+  looks back 14 days.
 - Next: more coverage only if usage shows people use it and picks get clicks,
   watches and "useful"; the smallest data gap is sweetness (a source such as
   producer sheets for the most-searched wines). Embeddings aren't needed at

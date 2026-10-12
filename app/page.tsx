@@ -17,6 +17,8 @@ import { SHORTCUTS, shortcutHref } from "@/lib/browse";
 import { getAllDiscover } from "@/lib/discover";
 import { mixPreview } from "@/lib/discover-rules";
 import { DiscoverPreview } from "@/components/discover-preview";
+import { WatchStatus } from "@/components/watch-status";
+import { watchSummary } from "@/lib/watch-summary";
 
 export const dynamic = "force-dynamic";
 
@@ -54,7 +56,7 @@ export default async function HomePage({
   // With the preview showing, keep the page about as long as before.
   const feed = picks.length > 0 ? fullFeed.slice(0, 6) : fullFeed;
   const feedCscs = feed.map((e) => e.csc).filter((c): c is string => !!c);
-  const [watched, optedIn, nearby] = await Promise.all([
+  const [watched, optedIn, nearby, myWatches] = await Promise.all([
     getWatchedSet(user?.id, [...feedCscs, ...picks.map((p) => p.item.csc)]),
     user
       ? (sql`select allocated_email from alert_prefs where user_id = ${user.id}` as unknown as Promise<
@@ -62,6 +64,20 @@ export default async function HomePage({
         >).then((r) => r[0]?.allocated_email ?? false)
       : Promise.resolve(false),
     area ? getNearby(feedCscs, area, NEARBY_MILES) : Promise.resolve(undefined),
+    // The signed-in hero line: optional, so a failure falls back to the pitch.
+    user
+      ? (
+          sql`select w.csc, p.in_stock from watchlist w join products p using (csc)
+              where w.user_id = ${user.id}` as unknown as Promise<{ csc: string; in_stock: boolean }[]>
+        )
+          .then(async (rows) =>
+            watchSummary(rows, area && rows.length > 0 ? await getNearby(rows.map((r) => r.csc), area, NEARBY_MILES) : undefined)
+          )
+          .catch((err) => {
+            console.error("[home] watch summary failed", err);
+            return null;
+          })
+      : Promise.resolve(null),
   ]);
 
   return (
@@ -90,9 +106,13 @@ export default async function HomePage({
             <br />
             <em className="text-primary">Then find the store.</em>
           </h1>
-          <p className="max-w-xl text-[17px] leading-relaxed text-muted-foreground">
-            Stock and prices at every Utah state liquor store: spirits, wine and beer.
-          </p>
+          {myWatches && myWatches.total > 0 ? (
+            <WatchStatus summary={myWatches} area={area} />
+          ) : (
+            <p className="max-w-xl text-[17px] leading-relaxed text-muted-foreground">
+              Stock and prices at every Utah state liquor store: spirits, wine and beer.
+            </p>
+          )}
           <Link prefetch={false} href="/utah-101" className="inline-flex min-h-9 items-center gap-1 text-[15px] text-foreground underline decoration-primary/60 underline-offset-4 hover:decoration-primary">
             New to Utah? How alcohol works here
             <ArrowRight className="size-4 text-primary" aria-hidden />
@@ -138,10 +158,16 @@ export default async function HomePage({
               </h2>
               <p className="mt-1.5 text-sm text-muted-foreground">Restocks, new listings and price drops from recent DABS updates.</p>
             </div>
-            <Link prefetch={false} href="/whats-new" className="flex min-h-11 shrink-0 items-center gap-1 text-sm text-foreground hover:text-primary">
-              All changes
-              <ArrowRight className="size-4" aria-hidden />
-            </Link>
+            <div className="flex shrink-0 gap-4">
+              <Link prefetch={false} href="/this-week" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
+                This week
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+              <Link prefetch={false} href="/whats-new" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
+                All changes
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </div>
           </div>
           <HomeFeed events={feed} watched={watched} signedIn={!!user} area={area} nearby={nearby} />
         </section>

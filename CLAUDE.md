@@ -6,8 +6,10 @@ Read `README.md` (architecture, env vars, jobs, runbook) and `STATUS.md` (curren
 state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screenshots.
 
 ## How the owner works
-- Claude does the work end to end: branch, PR, CI, merge (owner approves the
-  merge prompts), then verify in production. Keep explanations plain and short.
+- Claude does the work end to end: branch, PR, CI, merge, then verify in
+  production. Keep explanations plain and short.
+- Merge only after the owner says yes in chat for that PR. The GitHub merge
+  tool doesn't prompt, so a green PR is not approval (PR #48 went in early).
 - Never send emails to real users (invites, blasts) without explicit approval.
 
 ## Shipping safely
@@ -34,6 +36,10 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   `DABS_CONTACT_EMAIL` blank locally. Playwright + Chromium work for
   screenshots against `localhost` (Chromium doesn't trust the sandbox proxy
   CA, so it can't load outside sites; use Node fetch/curl for those).
+- Screenshots: set cookie `bf_age_ok=1` to pass the age gate. Signed-in pages
+  need a user, but `getCurrentUser` calls Supabase; for local screenshots
+  only, patch it to return a fake user and seed `auth.users`/`watchlist`,
+  then `git checkout lib/supabase/server.ts`. Never commit that patch.
 - The auto-mode safety check may block steps that look like widening your
   own access (editing agent instructions, certificate trust, workarounds
   after a refusal). Stop and ask the owner; don't route around it.
@@ -80,6 +86,16 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
 - Tests: `pnpm test` (pure, in CI), `pnpm test:db` (local Postgres with the
   catalog; sends no email). Report modes worth knowing: `freshness`,
   `searchcheck`, `storediag:<csc>`, `storecoverage`.
+
+## Homepage (PRs #48, #55)
+- One filled amber button in the hero ("Find bottles"); keep others outlined
+  or as links. Don't bring back a second row of example searches.
+- Chip counts are statewide (`products.in_stock`) and say so.
+- Signed-in watch line: `lib/watch-summary.ts`. Same claim rules as above:
+  local part only when a store check found the bottle and no newer statewide
+  count disproves it; never "none near". Errors fall back to the pitch.
+- Taste picks are a wine-only beta with little use (STATUS.md); don't expand
+  them without new `report.yml` → `taste` numbers.
 
 ## Worth a look (/discover)
 - Discovery rules, not rarity: thresholds live only in `DISCOVER`
