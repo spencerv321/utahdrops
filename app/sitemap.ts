@@ -31,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     })),
     { url: `${SITE_URL}${MAKERS_PATH}`, changeFrequency: "daily", priority: 0.8 },
+    { url: `${SITE_URL}/bars`, changeFrequency: "weekly", priority: 0.8 },
     ...MAKERS.map((m) => ({
       url: `${SITE_URL}${makerPath(m.slug)}`,
       lastModified: new Date(MAKERS_CHECKED + "T12:00:00Z"),

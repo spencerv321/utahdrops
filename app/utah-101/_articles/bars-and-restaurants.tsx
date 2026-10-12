@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Callout, Cite, GuideLink } from "@/components/utah-101";
 
 export default function BarsAndRestaurants() {
@@ -36,6 +37,13 @@ export default function BarsAndRestaurants() {
         Taverns sell only beer (5% or under) and are{" "}
         <Cite id="dabsVisitors">adults-only too</Cite>. Bowling alleys, golf courses, ski resorts and arenas often
         hold a <Cite id="dabsVisitors">beer-only license</Cite>.
+      </p>
+      <p>
+        Looking for one?{" "}
+        <Link prefetch={false} href="/bars" className="underline decoration-primary/60 underline-offset-4 hover:decoration-primary">
+          Every licensed bar and tavern in Utah
+        </Link>
+        , by town, from DABS&apos;s license list.
       </p>
 
       <h2 id="hours">Hours</h2>

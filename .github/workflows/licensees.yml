@@ -1,0 +1,46 @@
+name: DABS licensee list
+
+# Weekly pull of DABS's public Licensee List (a Looker Studio report that only
+# renders in a browser) into the licensees table, which powers /bars. Uses a
+# throwaway Playwright install so the app itself doesn't depend on it.
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays
+  workflow_dispatch:
+
+concurrency:
+  group: licensees
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        run: |
+          mkdir -p /tmp/pw && cd /tmp/pw
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Pull licensee list
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PLAYWRIGHT_DIR: /tmp/pw
+          NODE_ENV: production
+        run: pnpm exec tsx scripts/licensees.ts
