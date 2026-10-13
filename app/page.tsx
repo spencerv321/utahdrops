@@ -95,7 +95,8 @@ export default async function HomePage({
             src="/hero-main-street.webp"
             alt=""
             fill
-            priority
+            preload
+            quality={50}
             sizes="100vw"
             className="object-cover object-[center_40%] opacity-40 lg:opacity-55"
           />
