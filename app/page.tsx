@@ -163,11 +163,11 @@ export default async function HomePage({
               <p className="mt-1.5 text-sm text-muted-foreground">Restocks, new listings and price drops from recent DABS updates.</p>
             </div>
             <div className="flex shrink-0 gap-4">
-              <Link prefetch={false} href="/this-week" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
+              <Link prefetch={false} href="/whats-new" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
                 This week
                 <ArrowRight className="size-4" aria-hidden />
               </Link>
-              <Link prefetch={false} href="/whats-new" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
+              <Link prefetch={false} href="/whats-new?type=all" className="flex min-h-11 items-center gap-1 text-sm text-foreground hover:text-primary">
                 All changes
                 <ArrowRight className="size-4" aria-hidden />
               </Link>

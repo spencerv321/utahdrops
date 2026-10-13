@@ -47,8 +47,11 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   bottles are in stock · 3 at stores near Riverton, checked 2h ago"
   (`lib/watch-summary.ts`, positive local claims only, never "none near").
   The homepage drop ticket explains allocated once the list is out.
-- Open: the nav names "Worth a look" / "Drops" / "What's new" read alike to
-  newcomers; owner to pick names (touches titles and links site-wide).
+- Nav (PR #64, 2026-10-13): "This week" merged into What's new as its default
+  view ("Every change" and the type filters are chips beside it); `/this-week`
+  308-redirects to `/whats-new`. Phones get a fifth "More" tab listing the
+  sections without a tab (Worth a look, What's new, makers, bars, drawing
+  odds, Utah 101). Review and roadmap: `REVIEW-2026-10.md`.
 
 ## Utah 101 (PRs #49, #50, phase 2 on this branch)
 - `/utah-101`: hub + 11 sourced guides. Phase 1 (live): visitors, buying,

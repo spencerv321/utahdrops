@@ -3,18 +3,22 @@ import Link from "next/link";
 import { getEvents, getWatchedSet } from "@/lib/queries";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { HomeFeed } from "@/components/home-feed";
+import { WeekSummary } from "@/components/week-summary";
 import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "What's new",
+  title: "What's new at Utah's liquor stores",
   description:
-    "New products, restocks, clearance flags, and price changes across Utah's state liquor system.",
+    "This week at Utah's state liquor stores: what's back on shelves, new listings, real price drops, newly allocated bottles and what sold out, plus every change DABS makes.",
+  alternates: { canonical: "/whats-new" },
 };
 
+// "" is the weekly summary (it was /this-week); "all" is every change.
 const TABS = [
-  { key: "", label: "Everything" },
+  { key: "", label: "This week" },
+  { key: "all", label: "Every change" },
   { key: "restock", label: "Back in stock" },
   { key: "new_product", label: "New" },
   { key: "price_change", label: "Price changes" },
@@ -33,26 +37,18 @@ export default async function WhatsNewPage({
   const tabHref = (key: string) => {
     const p = new URLSearchParams();
     if (key) p.set("type", key);
-    if (withSpecial) p.set("special", "1");
+    if (withSpecial && key) p.set("special", "1");
     const q = p.toString();
     return q ? `/whats-new?${q}` : "/whats-new";
   };
-  const toggle = new URLSearchParams();
-  if (active) toggle.set("type", active);
-  if (!withSpecial) toggle.set("special", "1");
-  const toggleHref = toggle.toString() ? `/whats-new?${toggle.toString()}` : "/whats-new";
-  const [events, user] = await Promise.all([getEvents(active || undefined, 100, withSpecial), getCurrentUser()]);
-  const watched = await getWatchedSet(
-    user?.id,
-    events.map((e) => e.csc).filter((c): c is string => !!c)
-  );
+  const user = await getCurrentUser();
 
   return (
     <div className="space-y-5">
       <section className="space-y-2 pt-2 sm:pt-6">
         <h1 className="text-5xl leading-none sm:text-6xl">What&apos;s new</h1>
         <p className="text-muted-foreground">
-          Every change we spot between DABS updates: restocks, new listings, price moves and sell-outs.
+          What changed at Utah&apos;s state liquor stores: restocks, new listings, price moves and sell-outs.
         </p>
       </section>
 
@@ -72,11 +68,50 @@ export default async function WhatsNewPage({
         ))}
       </nav>
 
+      {active === "" ? (
+        <div className="pt-4">
+          <WeekSummary user={user} />
+        </div>
+      ) : (
+        <ChangeLog
+          type={active}
+          label={TABS.find((t) => t.key === active)!.label}
+          withSpecial={withSpecial}
+          userId={user?.id}
+        />
+      )}
+    </div>
+  );
+}
+
+async function ChangeLog({
+  type,
+  label,
+  withSpecial,
+  userId,
+}: {
+  type: string;
+  label: string;
+  withSpecial: boolean;
+  userId?: string;
+}) {
+  const toggle = new URLSearchParams({ type });
+  if (!withSpecial) toggle.set("special", "1");
+  const events = await getEvents(type === "all" ? undefined : type, 100, withSpecial);
+  const watched = await getWatchedSet(
+    userId,
+    events.map((e) => e.csc).filter((c): c is string => !!c)
+  );
+
+  return (
+    <>
+      {/* The feed's day labels are h3s. */}
+      <h2 className="sr-only">{label}</h2>
       <p className="text-sm text-muted-foreground">
         {withSpecial
           ? "Showing special orders too. Those are usually a customer's order arriving and rarely stay on a shelf. "
           : "Special orders are hidden: they're usually a customer's order arriving, not shelf stock. "}
-        <Link prefetch={false} href={toggleHref} className="underline underline-offset-2 hover:text-foreground">
+        <Link prefetch={false} href={`/whats-new?${toggle.toString()}`} className="underline underline-offset-2 hover:text-foreground">
           {withSpecial ? "Hide special orders" : "Show special orders"}
         </Link>
       </p>
@@ -84,9 +119,9 @@ export default async function WhatsNewPage({
       <HomeFeed
         events={events}
         watched={watched}
-        signedIn={!!user}
+        signedIn={!!userId}
         empty="Nothing here yet. Changes show up once DABS updates its numbers."
       />
-    </div>
+    </>
   );
 }
