@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Allocated & rare drops",
   description:
     "Utah DABS third-Saturday allocated drop tracker — current list, store assignments, and email alerts when the list posts.",
+  alternates: { canonical: "/drops" },
 };
 
 const dateLabel = (iso: string, opts: Intl.DateTimeFormatOptions) =>
