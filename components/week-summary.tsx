@@ -1,22 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { getWeek, WEEK_DAYS, type WeekSectionKey } from "@/lib/week";
 import { getNearby, getWatchedSet } from "@/lib/queries";
-import { getCurrentUser } from "@/lib/supabase/server";
+import type { User } from "@supabase/supabase-js";
 import { getArea } from "@/lib/area-server";
 import { NEARBY_MILES } from "@/lib/area";
 import { HomeFeed } from "@/components/home-feed";
 import { DropTicket } from "@/components/drop-ticket";
 import { sql } from "@/lib/db";
-
-export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "This week at Utah's liquor stores",
-  description:
-    "The last 7 days at Utah's state liquor stores: what's back on shelves, new listings, real price drops, newly allocated bottles and what sold out.",
-  alternates: { canonical: "/this-week" },
-};
 
 const SECTIONS: Record<WeekSectionKey, { title: string; blurb: string; all: string; empty: string }> = {
   restock: {
@@ -55,8 +45,12 @@ const ORDER: WeekSectionKey[] = ["restock", "status", "price_drop", "new_product
 const MT = "America/Denver";
 const day = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: MT });
 
-export default async function ThisWeekPage() {
-  const [sections, user, area] = await Promise.all([getWeek(10), getCurrentUser(), getArea()]);
+/**
+ * The last 7 days, grouped by what happened, hard-to-find bottles first. The
+ * default view of What's new (it was its own page, /this-week, until Oct 2026).
+ */
+export async function WeekSummary({ user }: { user: User | null }) {
+  const [sections, area] = await Promise.all([getWeek(10), getArea()]);
   const byKey = new Map(sections.map((s) => [s.key, s]));
   const cscs = sections.flatMap((s) => s.events.map((e) => e.csc)).filter((c): c is string => !!c);
   const inStock = sections.flatMap((s) => s.events.filter((e) => e.in_stock).map((e) => e.csc as string));
@@ -81,13 +75,12 @@ export default async function ThisWeekPage() {
   ] as const;
 
   return (
-    <div className="space-y-12 pt-2 sm:pt-6">
+    <div className="space-y-12">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
         <header className="space-y-3">
           <p className="kicker text-muted-foreground">
             This week · {day(from)} – {day(now)}
           </p>
-          <h1 className="text-5xl leading-[0.95] sm:text-6xl">The week at Utah&apos;s liquor stores</h1>
           <p className="max-w-prose text-[17px] leading-relaxed text-muted-foreground">
             What changed in the last 7 days, hard-to-find bottles first. Restocks mostly show up midweek, and the
             allocated drop lands on the third Saturday, so Friday is a good day to look.
@@ -138,10 +131,10 @@ export default async function ThisWeekPage() {
 
       <p className="max-w-3xl text-xs text-subtle-foreground">
         From DABS&apos;s catalog, which we check about 3 times a day. Special orders, minis and multipacks are left out;{" "}
-        <Link prefetch={false} className="underline underline-offset-4" href="/whats-new">
-          What&apos;s new
+        <Link prefetch={false} className="underline underline-offset-4" href="/whats-new?type=all">
+          Every change
         </Link>{" "}
-        has every change. Not affiliated with DABS.
+        has the rest. Not affiliated with DABS.
       </p>
     </div>
   );

@@ -18,8 +18,7 @@ const TABS: { href: string; label: string; icon: LucideIcon }[] = [
 /** Sections without a tab of their own; the desktop header shows most of them. */
 export const MORE_LINKS: { href: string; label: string; note: string }[] = [
   { href: "/discover", label: "Worth a look", note: "Scarce bottles and real price drops" },
-  { href: "/this-week", label: "This week", note: "The last 7 days at the stores" },
-  { href: "/whats-new", label: "What's new", note: "Every restock, listing and price change" },
+  { href: "/whats-new", label: "What's new", note: "This week's restocks, price drops and new listings" },
   { href: "/makers", label: "Utah makers", note: "Local breweries, distilleries, wineries" },
   { href: "/bars", label: "Bars & taverns", note: "Every licensed bar and what its license allows" },
   { href: "/drawings", label: "Drawing odds", note: "Your chances in DABS's rare-bottle drawings" },
