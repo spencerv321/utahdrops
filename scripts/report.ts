@@ -530,7 +530,7 @@ async function perf(sql: typeof import("../lib/db").sql) {
   console.log(`db host: ${db.hostname}:${db.port}`);
 
   console.log("\n## live pages (4 runs each, ms)");
-  for (const path of ["/api/health", "/", "/search?q=weller", `/product/${csc}`, "/drops", "/whats-new"]) {
+  for (const path of ["/api/health", "/", "/search?q=weller", `/product/${csc}`, "/drops", "/whats-new", "/makers", "/makers/epic-brewing", "/bars", "/utah-101/visitor-guide"]) {
     const runs: string[] = [];
     let meta = "";
     for (let i = 0; i < 4; i++) {

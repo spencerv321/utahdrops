@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { cachedQuery } from "@/lib/cached-query";
 import { sql } from "@/lib/db";
 import type { ProductRow } from "@/lib/queries";
 import { MAKERS, type Maker } from "@/lib/makers";
@@ -41,8 +43,30 @@ export async function getMakerProducts(maker: Maker): Promise<MakerProducts> {
   return { listed: rows.filter((r) => r.listed), other: rows.filter((r) => !r.listed) };
 }
 
-/** For the index: bottles on store shelves per maker slug (statewide, latest catalog pass). */
+/**
+ * For the index: bottles on store shelves per maker slug (statewide, latest
+ * catalog pass). Cached for an hour: the query matches every maker's prefixes
+ * against the whole catalog (~0.7s locally, ~2s in production) and the
+ * statewide counts only change 3 times a day.
+ */
 export async function getMakerShelfCounts(): Promise<Map<string, number>> {
+  return new Map(await cachedShelfCounts());
+}
+
+// Entries, not a Map: the cache stores JSON. The key carries a fingerprint of
+// the makers' catalog rules, because Vercel's data cache outlives deploys and a
+// changed matcher must not show the old counts.
+const MATCHERS_KEY = createHash("sha1")
+  .update(JSON.stringify(MAKERS.map((m) => [m.slug, m.catalog])))
+  .digest("hex")
+  .slice(0, 12);
+const cachedShelfCounts = cachedQuery(
+  async () => [...(await queryMakerShelfCounts())],
+  ["maker-shelf-counts", MATCHERS_KEY],
+  3600
+);
+
+async function queryMakerShelfCounts(): Promise<Map<string, number>> {
   const pairs = MAKERS.flatMap((m) => [
     ...(m.catalog.vendors ?? []).map((v) => [m.slug, "v", v]),
     ...(m.catalog.prefixes ?? []).map((pre) => [m.slug, "p", pre.replace(/[\\%_]/g, "\\$&") + "%"]),
