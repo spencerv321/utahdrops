@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -21,8 +22,37 @@ import { WatchStatus } from "@/components/watch-status";
 import { watchSummary } from "@/lib/watch-summary";
 import { MAKERS, MAKERS_PATH } from "@/lib/makers";
 import { BARS_PATH } from "@/lib/bars";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+// Tells search engines what the site is and how to search it (sitelinks search box).
+const SITE_JSON_LD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: `${SITE_URL}/`,
+    description: SITE_TAGLINE,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/search?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: `${SITE_URL}/`,
+    logo: `${SITE_URL}/icon-512.png`,
+    description: "An independent guide to Utah's state liquor stores. Not affiliated with Utah DABS.",
+  },
+];
 
 const SEARCH_PARAMS = ["q", "category", "status", "instock", "sort", "page"];
 
@@ -84,6 +114,7 @@ export default async function HomePage({
 
   return (
     <div className="space-y-12 sm:space-y-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }} />
       {/* Phones: headline, search, browse, then the drop. Desktop: headline beside the drop, search full width under both. */}
       <section
         className="relative isolate grid grid-cols-1 gap-6 pt-3 sm:pt-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-x-14 lg:gap-y-6 lg:pt-12"

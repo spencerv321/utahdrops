@@ -9,11 +9,15 @@ import { MAKERS, MAKERS_PATH, makerChecked, makerPath } from "@/lib/makers";
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // lastmod = the bottle's latest real change (restock, price, status…), not
+  // last_seen, which moves on every catalog pass and taught crawlers to ignore it.
   const products = (await sql`
-    select csc, last_seen from products
-    where delisted_at is null
-      and (category is null or category not like 'SPECIAL ORDERS%')
-    order by csc`) as unknown as { csc: string; last_seen: Date }[];
+    select p.csc,
+           coalesce((select max(e.created_at) from inventory_events e where e.csc = p.csc), p.first_seen) as changed_at
+    from products p
+    where p.delisted_at is null
+      and (p.category is null or p.category not like 'SPECIAL ORDERS%')
+    order by p.csc`) as unknown as { csc: string; changed_at: Date }[];
 
   const pages: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, changeFrequency: "hourly", priority: 1 },
@@ -42,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...pages,
     ...products.map((p) => ({
       url: `${SITE_URL}/product/${p.csc}`,
-      lastModified: p.last_seen,
+      lastModified: p.changed_at,
       changeFrequency: "daily" as const,
       priority: 0.6,
     })),
