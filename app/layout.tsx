@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
@@ -5,6 +6,7 @@ import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/config";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { TabBar } from "@/components/tab-bar";
+import { NavProgress } from "@/components/nav-progress";
 import { StaleDataBanner } from "@/components/stale-data-banner";
 import { AgeGate } from "@/components/age-gate";
 import { Toaster } from "@/components/ui/sonner";
@@ -71,10 +73,13 @@ export default function RootLayout({
     >
       {/* Bottom padding keeps content clear of the phone tab bar. */}
       <body className="flex min-h-full flex-col overflow-x-clip pb-[calc(4.5rem+env(safe-area-inset-bottom))] font-sans sm:pb-0">
+        <Suspense fallback={null}>
+          <NavProgress />
+        </Suspense>
         <SiteHeader />
         <StaleDataBanner />
         {/* At least a screen tall, so the footer starts below the fold and doesn't
-            jump (layout shift) when a page streams in under the loading skeleton. */}
+            jump (layout shift) when a page streams in. */}
         <main className="mx-auto min-h-svh w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">{children}</main>
         <SiteFooter />
         <TabBar />

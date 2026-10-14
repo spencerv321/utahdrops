@@ -27,6 +27,14 @@ pnpm dev
 Server code talks to Postgres directly via `lib/db.ts` (bypasses RLS). The
 Supabase client is only used for auth.
 
+**No site-wide `loading.tsx`.** A root loading skeleton makes every page
+stream: the HTML's `<main>` holds the skeleton and the real content arrives in
+hidden blocks after the footer, which crawlers and AI fetchers that don't run
+JavaScript can't read. Pages render whole; `components/nav-progress.tsx` shows
+a top bar while the next page loads. `/search` keeps its own skeleton. Slow,
+rarely changing queries are cached with `cachedQuery` (`lib/cached-query.ts`).
+`/llms.txt` describes the site for AI assistants.
+
 ## Environment variables
 
 | Variable | Used by | Notes |

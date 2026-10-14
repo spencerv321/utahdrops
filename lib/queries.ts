@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { sql } from "@/lib/db";
+import { cachedQuery } from "@/lib/cached-query";
 import { STORE_DATA_MAX_AGE_HOURS } from "@/lib/config";
 import { queryTokens, tokenPattern, type QueryToken } from "@/lib/search-key";
 
@@ -136,12 +137,17 @@ async function storesWithin(at: { lat: number; lng: number; miles: number }): Pr
   return rows.map((r) => r.id);
 }
 
-export async function getCategories(): Promise<string[]> {
-  const rows = (await sql`
-    select distinct category from products
-    where category is not null order by category`) as unknown as { category: string }[];
-  return rows.map((r) => r.category);
-}
+/** DABS's category list for the search filter. Changes only when DABS adds a category, so cached for an hour. */
+export const getCategories = cachedQuery(
+  async (): Promise<string[]> => {
+    const rows = (await sql`
+      select distinct category from products
+      where category is not null order by category`) as unknown as { category: string }[];
+    return rows.map((r) => r.category);
+  },
+  ["categories-v1"],
+  3600
+);
 
 /** Cached per request: the page and its metadata both look the product up. */
 export const getProduct = cache(async (csc: string) => {
