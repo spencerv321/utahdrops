@@ -1,3 +1,11 @@
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+
+# Security floors for packages that come in through next (pnpm audit, 2026-10-14).
+# Drop each one once next itself requires a patched version.
+overrides:
+  sharp: ^0.35.5
+  browserslist: ^4.28.7
+  source-map-js: ^1.2.2
+  baseline-browser-mapping: 2.11.26

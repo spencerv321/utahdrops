@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Navigation, Phone } from "lucide-react";
-import { checkedAgo, storeLabel } from "@/lib/format";
+import { checkedAgo, displayName, storeLabel } from "@/lib/format";
 import { canClaimNone, exceedsStatewide, type Statewide } from "@/lib/store-freshness";
 import { milesBetween } from "@/lib/local-availability";
 import { cn } from "@/lib/utils";
@@ -83,11 +83,14 @@ export function StoreAvailability({
       outdated: exceedsStatewide(s.qty, statewide, checkedAt),
       miles: here && s.lat != null && s.lng != null ? milesBetween(here, { lat: s.lat, lng: s.lng }) : null,
     }));
-    // Your stores first, then in stock, then nearest (or most bottles).
+    // Your stores first, then in stock, then nearest (or most bottles). Club
+    // stores (licensed businesses only) go last: listed, but a shopper can't
+    // buy there, so they never sit above a public store.
     const stocked = (r: Row) => Number(r.qty > 0 && !r.outdated);
     return withDistance.sort(
       (a, b) =>
         Number(b.mine) - Number(a.mine) ||
+        Number(!!a.is_club) - Number(!!b.is_club) ||
         stocked(b) - stocked(a) ||
         (here ? (a.miles ?? Infinity) - (b.miles ?? Infinity) : b.qty - a.qty)
     );
@@ -180,23 +183,31 @@ export function StoreAvailability({
       <ul className="divide-y border-y">
         {visible.map((s) => {
           const label = storeLabel(s.name, s.city);
+          // DABS names club stores "(Club store for licensed operations only)"; show the city and say so plainly.
+          const title = s.is_club ? (s.city ? displayName(s.city) : "Club store") : label.title;
           return (
             <li key={s.store_id} className="flex items-center gap-1 py-2">
               <div className="min-w-0 flex-1">
-                <p className={cn("font-medium", (s.qty === 0 || s.outdated) && "text-muted-foreground")}>
-                  {label.title}
+                <p className={cn("font-medium", (s.qty === 0 || s.outdated || s.is_club) && "text-muted-foreground")}>
+                  {title}
                   {label.number ? <span className="font-normal text-subtle-foreground"> #{label.number}</span> : null}
                   {s.mine ? <span className="ml-2 text-xs font-medium text-primary">Your store</span> : null}
                 </p>
                 <p className="truncate text-[13px] text-subtle-foreground">
-                  {[s.address, s.miles != null ? `${s.miles.toFixed(1)} mi` : null].filter(Boolean).join(" · ")}
+                  {[
+                    s.is_club ? "Licensed businesses only" : null,
+                    s.address,
+                    s.miles != null ? `${s.miles.toFixed(1)} mi` : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </p>
               </div>
               <span className="w-16 pr-1 text-right tabular-nums">
                 <span
                   className={cn(
                     "block text-lg font-medium leading-tight",
-                    (s.qty === 0 || s.outdated) && "text-muted-foreground",
+                    (s.qty === 0 || s.outdated || s.is_club) && "text-muted-foreground",
                     s.outdated && "line-through"
                   )}
                 >
@@ -206,25 +217,32 @@ export function StoreAvailability({
                   {s.outdated ? "out of date" : s.qty === 1 ? unit.one : unit.many}
                 </span>
               </span>
-              <a
-                href={mapHref(s)}
-                target="_blank"
-                rel="noopener"
-                aria-label={`Directions to ${label.title}${label.number ? ` #${label.number}` : ""}`}
-                className="flex size-11 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
-              >
-                <Navigation className="size-[18px]" aria-hidden />
-              </a>
-              {s.phone ? (
-                <a
-                  href={telHref(s.phone)}
-                  aria-label={`Call ${label.title}${label.number ? ` #${label.number}` : ""}`}
-                  className="flex size-11 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
-                >
-                  <Phone className="size-[18px]" aria-hidden />
-                </a>
+              {s.is_club ? (
+                // Not open to the public: no directions or call buttons.
+                <span className="w-[5.5rem] shrink-0" aria-hidden />
               ) : (
-                <span className="size-11" aria-hidden />
+                <>
+                  <a
+                    href={mapHref(s)}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`Directions to ${label.title}${label.number ? ` #${label.number}` : ""}`}
+                    className="flex size-11 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
+                  >
+                    <Navigation className="size-[18px]" aria-hidden />
+                  </a>
+                  {s.phone ? (
+                    <a
+                      href={telHref(s.phone)}
+                      aria-label={`Call ${label.title}${label.number ? ` #${label.number}` : ""}`}
+                      className="flex size-11 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
+                    >
+                      <Phone className="size-[18px]" aria-hidden />
+                    </a>
+                  ) : (
+                    <span className="size-11" aria-hidden />
+                  )}
+                </>
               )}
             </li>
           );

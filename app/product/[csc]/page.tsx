@@ -331,8 +331,8 @@ export default async function ProductPage({ params, searchParams }: Props) {
         {/* The long reading: what it is, how rare, and its history. */}
         <div className="space-y-10 lg:order-1">
           {about ? (
-            <section className="space-y-2" aria-labelledby="about-title">
-              <h2 id="about-title" className="kicker text-muted-foreground">About this bottle</h2>
+            <section className="space-y-2" aria-labelledby="bottle-about-title">
+              <h2 id="bottle-about-title" className="kicker text-muted-foreground">About this bottle</h2>
               <p className="max-w-prose text-[16px] leading-relaxed">{about.text}</p>
             </section>
           ) : null}
