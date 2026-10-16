@@ -457,6 +457,30 @@ async function main() {
       where not exists (select 1 from auth.users u where lower(u.email) = s.email)`);
     return sql.end();
   }
+  if (process.argv[2] === "dropalerts") {
+    // Did "the allocated list just posted" emails go out? Counts only; no emails.
+    const show = (title: string, rows: unknown) => console.log(`\n## ${title}\n${JSON.stringify(rows, null, 1)}`);
+    show("opted in now", await sql`
+      select count(*)::int as allocated_email_on,
+             count(*) filter (where u.email_confirmed_at is not null)::int as confirmed
+      from alert_prefs ap join auth.users u on u.id = ap.user_id where ap.allocated_email`);
+    show("allocated_drop events (180 days)", await sql`
+      select e.id, e.created_at, jsonb_array_length(coalesce(e.detail->'products', '[]'::jsonb))::int as products,
+             count(d.user_id)::int as delivered, min(d.sent_at) as first_sent, max(d.sent_at) as last_sent
+      from inventory_events e left join alert_deliveries d on d.event_id = e.id
+      where e.event_type = 'allocated_drop' and e.created_at > now() - interval '180 days'
+      group by e.id order by e.created_at desc`);
+    show("digest runs that sent drop alerts or failed (180 days)", await sql`
+      select started_at, ok, detail->'drop_alerts_sent' as drop_alerts_sent, detail->'failed' as failed,
+             detail->'skipped_permanent' as skipped
+      from scrape_runs where job = 'digest' and started_at > now() - interval '180 days'
+        and ((detail->>'drop_alerts_sent')::int > 0 or (detail->>'failed')::int > 0 or not ok)
+      order by started_at desc limit 40`);
+    show("digest runs (7 days)", await sql`
+      select count(*)::int as runs, count(*) filter (where ok)::int as ok, max(started_at) as last
+      from scrape_runs where job = 'digest' and started_at > now() - interval '7 days'`);
+    return sql.end();
+  }
   if (process.argv[2] === "slow") {
     const rows = await sql`
       select calls, round(max_exec_time)::int as max_ms, round(mean_exec_time::numeric, 1) as mean_ms,
