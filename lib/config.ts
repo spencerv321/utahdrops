@@ -70,10 +70,11 @@ export const MAX_HOME_STORES = 3;
  * Oldest acceptable last success per job, in hours (/api/health, /admin).
  * GitHub's scheduler often skips or delays "hourly" runs by several hours, so
  * digest also runs right after each catalog / store-inventory pass; 8h leaves
- * room for that without paging on GitHub's gaps.
+ * room for that without paging on GitHub's gaps. Catalog gets 16h because
+ * GitHub sometimes runs only 2 of its 3 daily passes (~12h apart).
  */
 export const JOB_MAX_AGE_HOURS: Record<string, number> = {
-  catalog: 12,
+  catalog: 16,
   store_inventory: 12,
   allocated: 24,
   digest: 8,
