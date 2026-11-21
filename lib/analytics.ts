@@ -82,6 +82,7 @@ const SOURCES: [RegExp, string][] = [
 export function sourceOf(host: string | null, utmSource: string | null): string {
   const probe = (utmSource ?? "").toLowerCase();
   if (probe) {
+    if (probe === "share") return "Shared link"; // ?ref=share from the share button (lib/share.ts)
     if (/e-?mail|newsletter|digest|resend/.test(probe)) return "Email";
     for (const [re, name] of SOURCES) if (re.test(probe)) return name;
     if (probe.includes(".")) return probe.replace(/^www\./, "");
@@ -93,7 +94,7 @@ export function sourceOf(host: string | null, utmSource: string | null): string 
 }
 
 /** Channel family for the source, used to group the traffic panel. */
-export const SOURCE_KIND: Record<string, "Search" | "AI" | "Social" | "Email" | "Direct"> = {
+export const SOURCE_KIND: Record<string, "Search" | "AI" | "Social" | "Email" | "Shared" | "Direct"> = {
   Google: "Search",
   Bing: "Search",
   DuckDuckGo: "Search",
@@ -115,5 +116,6 @@ export const SOURCE_KIND: Record<string, "Search" | "AI" | "Social" | "Email" | 
   Discord: "Social",
   Bluesky: "Social",
   Email: "Email",
+  "Shared link": "Shared",
   Direct: "Direct",
 };

@@ -35,7 +35,7 @@ const Body = z.object({
 /** An action on a result list or product page (lib/beacon.ts sendDiscoverEvent). */
 const Action = z.object({
   action: z.object({
-    kind: z.enum(["shown", "click", "watch_click", "useful_yes", "useful_no"]),
+    kind: z.enum(["shown", "click", "watch_click", "useful_yes", "useful_no", "share_tap", "share_native", "share_copy"]),
     source: z.string().max(40),
     csc: z.string().regex(/^\d{6}$/).nullish(),
     rank: z.number().int().min(1).max(100_000).nullish(),

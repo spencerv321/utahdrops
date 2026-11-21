@@ -7,6 +7,16 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 `/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
 (386 in-stock products at 0), as designed; the next pass was normal.
 
+## Share tracking (this branch, 2026-11-21)
+- Share button (product pages, /discover) records `share_tap`, then
+  `share_native` (sheet target picked) or `share_copy` in `discover_events`
+  (surface `share`, view = page). Shared links carry `?ref=share` (`lib/share.ts`),
+  so visits show as source "Shared link" / channel "Shared" even from texts.
+- Admin → Sharing: taps, sent, visits from shared links, recipients who
+  watched/signed up. `report.yml` → `shares` for the same, by day.
+- Plan: collect ~4 weeks, then decide on share moments (alert emails, search,
+  drawings) and richer share cards. No referral rewards or share prompts.
+
 ## Bars & taverns (/bars, PR #60, live 2026-10-12)
 - 612 licenses from the DABS Licensee List (4,543 rows in all): bars 419,
   taverns 7, beer-only venues 170, airport lounges 16. `licensees.yml` pulls
