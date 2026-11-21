@@ -23,6 +23,9 @@ import { watchSummary } from "@/lib/watch-summary";
 import { MAKERS, MAKERS_PATH } from "@/lib/makers";
 import { BARS_PATH } from "@/lib/bars";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/config";
+import { activeSeason, GROUPS, mixStrip } from "@/lib/holiday";
+import { getHolidayShelf } from "@/lib/holiday-query";
+import { HolidayStrip } from "@/components/holiday-strip";
 
 export const dynamic = "force-dynamic";
 
@@ -73,7 +76,9 @@ export default async function HomePage({
   }
 
   const area = await getArea();
-  const [user, fullFeed, counts, areas, discover] = await Promise.all([
+  // Only during the season (or ?holiday=1 to preview it outside).
+  const season = activeSeason(new Date(), params.holiday === "1");
+  const [user, fullFeed, counts, areas, discover, shelf] = await Promise.all([
     getCurrentUser(),
     getHomeFeed(10),
     getShortcutCounts(SHORTCUTS),
@@ -83,13 +88,22 @@ export default async function HomePage({
       console.error("[home] discover preview failed", err);
       return null;
     }),
+    // Optional like the preview: a failure hides the strip, never the page.
+    season
+      ? getHolidayShelf(area?.lat ?? null, area?.lng ?? null).catch((err) => {
+          console.error("[home] holiday shelf failed", err);
+          return null;
+        })
+      : Promise.resolve(null),
   ]);
+  const holidayPicks = shelf ? mixStrip(shelf) : [];
+  const holidayTotal = shelf ? GROUPS.reduce((n, g) => n + shelf[g.key].length, 0) : 0;
   const picks = discover ? mixPreview(discover, { hasArea: !!area }) : [];
   // With the preview showing, keep the page about as long as before.
   const feed = picks.length > 0 ? fullFeed.slice(0, 6) : fullFeed;
   const feedCscs = feed.map((e) => e.csc).filter((c): c is string => !!c);
   const [watched, optedIn, nearby, myWatches] = await Promise.all([
-    getWatchedSet(user?.id, [...feedCscs, ...picks.map((p) => p.item.csc)]),
+    getWatchedSet(user?.id, [...feedCscs, ...picks.map((p) => p.item.csc), ...holidayPicks.map((p) => p.csc)]),
     user
       ? (sql`select allocated_email from alert_prefs where user_id = ${user.id}` as unknown as Promise<
           { allocated_email: boolean }[]
@@ -180,6 +194,10 @@ export default async function HomePage({
           </ul>
         </nav>
       </section>
+
+      {season && holidayTotal > 0 ? (
+        <HolidayStrip season={season} picks={holidayPicks} total={holidayTotal} area={area} watched={watched} signedIn={!!user} />
+      ) : null}
 
       {picks.length > 0 ? <DiscoverPreview picks={picks} area={area} watched={watched} signedIn={!!user} /> : null}
 

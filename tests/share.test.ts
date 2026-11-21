@@ -21,5 +21,6 @@ test("shared-link visits get their own source and channel", () => {
 test("share events are attributed; unknown share pages are not", () => {
   assert.deepEqual(parseAttribution("share:product"), { surface: "share", view: "product" });
   assert.deepEqual(parseAttribution("share:discover"), { surface: "share", view: "discover" });
+  assert.deepEqual(parseAttribution("share:holidays"), { surface: "share", view: "holidays" });
   assert.equal(parseAttribution("share:admin"), null);
 });
