@@ -17,6 +17,15 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 - Plan: collect ~4 weeks, then decide on share moments (alert emails, search,
   drawings) and richer share cards. No referral rewards or share prompts.
 
+## Holidays 2026 (PR #73)
+- Homepage "The holiday shelf" (Nov 14 – Jan 2 only) and `/holidays/2026`
+  (`/holidays` redirects to the current season). Rules-only groups in
+  `lib/holiday.ts` from DABS names/categories; same stock and 24h nearby rules
+  as Worth a look. Closure dates from Utah Code 63G-1-301 (DABS hadn't posted a
+  2026 notice). Holiday rows hide "Trial listing" (DABS lists seasonal buys as T).
+- Next season: add a `SEASONS` entry and an `app/holidays/<year>` page.
+- Open: photos for 89 of 95 holiday bottles; site-wide wording for DABS status codes.
+
 ## Bars & taverns (/bars, PR #60, live 2026-10-12)
 - 612 licenses from the DABS Licensee List (4,543 rows in all): bars 419,
   taverns 7, beer-only venues 170, airport lounges 16. `licensees.yml` pulls
