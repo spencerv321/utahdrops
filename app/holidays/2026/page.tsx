@@ -112,6 +112,7 @@ export default async function Holidays2026({ searchParams }: { searchParams: Pro
         </div>
         <ShareButton
           title="Holidays 2026 on Utah Drops"
+          surface="holidays"
           className="-mr-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
         />
       </header>
