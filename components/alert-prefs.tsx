@@ -8,12 +8,15 @@ import { Label } from "@/components/ui/label";
 export function AlertPrefs({
   watchlistEmail,
   allocatedEmail,
+  drawingEmail,
 }: {
   watchlistEmail: boolean;
   allocatedEmail: boolean;
+  drawingEmail: boolean;
 }) {
   const [watch, setWatch] = useState(watchlistEmail);
   const [drops, setDrops] = useState(allocatedEmail);
+  const [drawings, setDrawings] = useState(drawingEmail);
   const [, startTransition] = useTransition();
 
   return (
@@ -39,6 +42,18 @@ export function AlertPrefs({
           setDrops(value);
           startTransition(async () => {
             await setAlertPrefs({ allocatedEmail: value });
+          });
+        }}
+      />
+      <Row
+        id="drawing-email"
+        title="Drawing alerts"
+        hint="When DABS posts or opens a rare-bottle drawing (Pappy, the Antique Collection and others), and the day before it closes when DABS shows the date. A few emails a year; we check about four times a day."
+        checked={drawings}
+        onChange={(value) => {
+          setDrawings(value);
+          startTransition(async () => {
+            await setAlertPrefs({ drawingEmail: value });
           });
         }}
       />

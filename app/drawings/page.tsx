@@ -3,6 +3,10 @@ import Link from "next/link";
 import { drawingTitle, getDrawings, type Drawing, type DrawingItem } from "@/lib/drawings";
 import { formatPrice } from "@/lib/format";
 import { DABS_RHDP_URL } from "@/lib/config";
+import { sql } from "@/lib/db";
+import { getCurrentUser } from "@/lib/supabase/server";
+import { closeLabel } from "@/lib/drawing-alerts";
+import { AlertSignup } from "@/components/drop-alert-signup";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +24,24 @@ const tidy = drawingTitle;
 const odds = (v: number | null) => (v == null ? "—" : v === 1 ? "Everyone" : `1 in ${n(v)}`);
 
 export default async function DrawingsPage() {
-  const drawings = await getDrawings();
+  const [drawings, user, closes] = await Promise.all([
+    getDrawings(),
+    getCurrentUser(),
+    // Close dates only when DABS's page showed one (see lib/drawing-alerts.ts).
+    sql`select drawing, closes_at from rhdp_drawing_windows where closes_at > now()` as unknown as Promise<
+      { drawing: string; closes_at: Date }[]
+    >,
+  ]);
+  const optedIn = user
+    ? ((await sql`select drawing_email from alert_prefs where user_id = ${user.id}`) as unknown as { drawing_email: boolean }[])[0]
+        ?.drawing_email ?? false
+    : false;
+  const closesAt = new Map(closes.map((c) => [c.drawing, c.closes_at]));
   const open = drawings.filter((d) => d.section !== "past");
+  const openLabel = (d: Drawing) => {
+    const at = d.section === "current" ? closesAt.get(d.name) : undefined;
+    return at ? `${tidy(d.name)} (closes ${closeLabel(at)})` : tidy(d.name);
+  };
   const lead = drawings.find((d) => d.entriesChange && d.section === "past");
 
   return (
@@ -43,10 +63,10 @@ export default async function DrawingsPage() {
         )}
       </header>
 
-      <div className="max-w-3xl rounded-md border px-4 py-3 text-sm">
+      <div className="max-w-3xl space-y-3 rounded-md border px-4 py-3 text-sm">
         {open.length > 0 ? (
           <p>
-            <span className="font-medium">Open now:</span> {open.map((d) => tidy(d.name)).join(", ")}.{" "}
+            <span className="font-medium">Open now:</span> {open.map(openLabel).join(", ")}.{" "}
             <a className="underline underline-offset-4" href={DABS_RHDP_URL} rel="noopener">
               Enter on DABS
             </a>
@@ -61,6 +81,12 @@ export default async function DrawingsPage() {
             ; you need a DABS account to enter.
           </p>
         )}
+        <div className="space-y-1">
+          <AlertSignup kind="drawing" signedIn={!!user} optedIn={optedIn} />
+          <p className="text-[13px] text-muted-foreground">
+            One email when DABS posts or opens a drawing, and one the day before it closes when DABS shows the date.
+          </p>
+        </div>
       </div>
 
       {drawings.length === 0 ? (

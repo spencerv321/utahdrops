@@ -13,6 +13,8 @@ const JOBS: Record<string, (params: URLSearchParams) => Promise<unknown>> = {
   percentiles: () => import("@/lib/jobs/percentiles").then((m) => m.runPercentilesJob()),
   digest: () => import("@/lib/jobs/digest").then((m) => m.runDigestJob()),
   rhdp: () => import("@/lib/jobs/rhdp").then((m) => m.runRhdpJob()),
+  // Also runs after every rhdp pass; alone it only re-sends what's due (deduped).
+  "drawing-alerts": () => import("@/lib/jobs/drawing-alerts").then((m) => m.runDrawingAlertsJob()),
   // One-time: dry run unless ?send=1
   "invite-signups": (params) =>
     import("@/lib/jobs/invite-signups").then((m) => m.runInviteSignupsJob(params.get("send") === "1")),

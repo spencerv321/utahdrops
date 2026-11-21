@@ -391,6 +391,38 @@ async function main() {
       order by store_qty desc limit 15`);
     return sql.end();
   }
+  if (process.argv[2] === "drawings") {
+    // Drawing alerts: open/upcoming windows with the date text DABS showed, sends by kind, opt-ins. Counts only.
+    show0("drawing windows (newest first)", await sql`
+      select drawing, announced_at, opened_at, closes_at, dates_text, updated_at
+      from rhdp_drawing_windows order by updated_at desc limit 10`);
+    show0("drawing alerts sent", await sql`
+      select drawing, kind, count(*)::int as sent, min(sent_at) as first, max(sent_at) as last
+      from drawing_alert_deliveries group by 1, 2 order by max(sent_at) desc limit 20`);
+    show0("drawing alerts on", await sql`select count(*)::int as people from alert_prefs where drawing_email`);
+    show0("rhdp + drawing_alerts runs, last 3 days", await sql`
+      select job, started_at, ok, detail from scrape_runs
+      where job in ('rhdp', 'drawing_alerts') and started_at > now() - interval '3 days'
+      order by started_at desc limit 24`);
+    return sql.end();
+  }
+  if (process.argv[2] === "rhdppage") {
+    // One read of DABS's drawing page (through the shared pacer): what it shows beside open and
+    // upcoming drawings, so the close-date parser can be checked. Past drawings (winners) aren't read.
+    const { fetchRhdpPageHtml, parseRhdpPage, parseRhdpWindows } = await import("../lib/dabs/rhdp");
+    const html = await fetchRhdpPageHtml();
+    const items = parseRhdpPage(html).filter((i) => i.section !== "past");
+    show0("open and upcoming drawings, with the text beside them", parseRhdpWindows(html));
+    show0("their bottles", items.map((i) => ({ section: i.section, drawing: i.drawing, code: i.itemCode, name: i.productName, bottles: i.bottles })));
+    const cheerio = await import("cheerio");
+    const $ = cheerio.load(html);
+    for (const section of ["future", "current"]) {
+      const root = $(`#${section}`).clone();
+      root.find(".NormalGridView").remove();
+      console.log(`\n## #${section} text without product lines\n${root.text().replace(/\s+/g, " ").trim().slice(0, 1500)}`);
+    }
+    return sql.end();
+  }
   if (process.argv[2] === "freshness") return freshness(sql);
   if (process.argv[2] === "checks") return checks(sql);
   if (process.argv[2] === "discover") return discover(sql);

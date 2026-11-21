@@ -358,6 +358,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           <Stat label="Watching bottles" value={num(a.watchers)} hint={`${num(a.watchItems)} bottles total`} />
           <Stat label="Home stores set" value={num(a.withStores)} hint="get “back at my store” alerts" />
           <Stat label="Drop-day alerts on" value={num(a.dropAlerts)} hint="allocated list emails" />
+          <Stat label="Drawing alerts on" value={num(a.drawingAlerts)} hint={`${num(a.drawingAlertsSent)} sent in range`} />
           <Stat label="Alert emails sent" value={num(a.alertsSent)} hint={`to ${num(a.alertedUsers)} people, in range`} />
           <Stat label="Watchlist emails off" value={num(a.watchAlertsOff)} />
           <Stat label="Old footer sign-ups" value={num(a.legacySignups)} hint="email_signups list" />

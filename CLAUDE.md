@@ -123,6 +123,13 @@ state) first. `REVIEW.md` is the 2026-09-23 audit; `review/` holds its screensho
   open or good; no ratings. House rules per type live in `BAR_GROUPS`
   (`lib/bars.ts`) as cited claims; restaurants stay out.
 
+## Drawing alerts (PR for layer 1 of the one-stop plan)
+- `lib/drawing-alerts.ts` (pure: kinds due, close-date parser) and
+  `lib/jobs/drawing-alerts.ts` (sender). Opt-in only; never guess a close
+  date (the closes-soon email needs one parsed from DABS's page). Past
+  drawings list winners: never read their text. Check the parser against
+  `report.yml` → `rhdppage` after DABS changes its page.
+
 ## Data gotchas
 - DABS sometimes returns bogus zero quantities; the catalog job rejects passes
   where too many in-stock products drop to 0. Don't remove that guard.
