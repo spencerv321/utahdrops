@@ -44,7 +44,15 @@ export function trackedSource(source: string | undefined): string | undefined {
   return source && !trackingOff() ? source : undefined;
 }
 
-export type DiscoverAction = "shown" | "click" | "watch_click" | "useful_yes" | "useful_no";
+export type DiscoverAction =
+  | "shown"
+  | "click"
+  | "watch_click"
+  | "useful_yes"
+  | "useful_no"
+  | "share_tap"
+  | "share_native"
+  | "share_copy";
 
 /**
  * Record an action on a result list or product page (see discover_events).

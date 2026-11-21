@@ -85,6 +85,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Pro
         </div>
         <ShareButton
           title="Worth a look on Utah Drops"
+          surface="discover"
           className="-mr-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
         />
       </header>
