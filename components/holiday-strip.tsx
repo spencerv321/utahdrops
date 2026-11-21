@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HolidayRow } from "@/components/holiday-row";
+import { HOLIDAY_GLOW, HolidaySprig } from "@/components/holiday-sprig";
+import { cn } from "@/lib/utils";
 import type { Area } from "@/lib/area";
 import { nextDropDate } from "@/lib/dabs/allocated";
 import { seasonPath, shortDate, upcomingClosures, utahToday, type HolidaySeason } from "@/lib/holiday";
@@ -30,7 +32,11 @@ export function HolidayStrip({
   const drop = nextDropDate().toISOString().slice(0, 10);
   const href = seasonPath(season);
   return (
-    <section className="space-y-3 rounded-lg border border-input px-4 py-4 sm:px-6 sm:py-5" aria-labelledby="holiday-title">
+    <section
+      className={cn("relative isolate space-y-3 overflow-hidden rounded-lg border border-input px-4 py-4 sm:px-6 sm:py-5", HOLIDAY_GLOW)}
+      aria-labelledby="holiday-title"
+    >
+      <HolidaySprig width={112} className="absolute -top-3 right-1 -z-10 text-primary opacity-80 sm:right-[16rem]" />
       <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
         <div>
           <p className="kicker text-primary">Holidays {season.year}</p>

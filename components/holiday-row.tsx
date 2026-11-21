@@ -26,7 +26,10 @@ export function HolidayRow({
 }) {
   const name = productTitle(item.name, item.sizeMl);
   const size = sizeLabel(item.sizeMl);
-  const note = listingNote(item.status);
+  // DABS buys most seasonal bottles as "T, Trial Distribution", so "Trial
+  // listing" would sit on nearly every row here and say nothing. Keep only
+  // the notes that change what a shopper does: it's leaving DABS.
+  const note = ["D", "X", "U"].includes(item.status ?? "") ? listingNote(item.status) : null;
   return (
     <li className={cn("flex gap-3", compact ? "py-3" : "py-4")}>
       <BottlePhoto csc={item.csc} kind={productKind(item.category, item.sizeMl)} className="mt-0.5 h-12 w-9" />
