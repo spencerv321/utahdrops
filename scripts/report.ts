@@ -421,6 +421,45 @@ async function main() {
   if (process.argv[2]?.startsWith("phototargets")) {
     return (await import("./photo-targets")).photoTargets(sql, Number(process.argv[2].split(":")[1] ?? 300));
   }
+  if (process.argv[2] === "shares") {
+    // Share button taps and visits from ?ref=share links (lib/share.ts). Counts only.
+    const show = (t: string, rows: unknown) => console.log(`\n## ${t}\n${JSON.stringify(rows, null, 0).replace(/},{/g, "},\n{")}`);
+    const sharers = sql`select visitor_id from discover_events where surface = 'share' and visitor_id is not null`;
+    show("share events by day, page and kind (share_tap; share_native = sheet target picked; share_copy = link copied)", await sql`
+      select (created_at at time zone 'America/Denver')::date::text as day, view as page, kind,
+             count(*)::int as events, count(distinct visitor_id)::int as people
+      from discover_events where surface = 'share' group by 1, 2, 3 order by 1, 2, 3`);
+    show("most shared (taps, sent)", await sql`
+      select e.view as page, e.csc, p.name,
+             count(*) filter (where kind = 'share_tap')::int as taps,
+             count(*) filter (where kind in ('share_native', 'share_copy'))::int as sent
+      from discover_events e left join products p using (csc)
+      where surface = 'share' group by 1, 2, 3 order by 4 desc limit 25`);
+    show("visits from shared links by day (landings with ref=share, sharers' own browsers left out)", await sql`
+      select (created_at at time zone 'America/Denver')::date::text as day, count(*)::int as visits,
+             count(distinct visitor_id)::int as people, source, device
+      from page_events where is_landing and utm_source = 'share' and visitor_id not in (${sharers})
+      group by 1, 4, 5 order by 1, 4, 5`);
+    show("recipients: new to the site, then signed up / watched after the shared visit", await sql`
+      with r as (
+        select visitor_id, min(created_at) as at from page_events
+        where is_landing and utm_source = 'share' and visitor_id not in (${sharers}) group by 1
+      ),
+      u as (
+        select distinct r.visitor_id, e.user_id, r.at from r
+        join page_events e on e.visitor_id = r.visitor_id and e.user_id is not null and e.created_at >= r.at
+      )
+      select (select count(*)::int from r) as recipients,
+             (select count(*)::int from r where not exists (
+                select 1 from page_events p where p.visitor_id = r.visitor_id and p.created_at < r.at)) as new_to_site,
+             (select count(*)::int from r where exists (
+                select 1 from page_events p where p.visitor_id = r.visitor_id and p.created_at > r.at
+                  and p.session_id <> (select session_id from page_events l where l.visitor_id = r.visitor_id and l.created_at = r.at limit 1)
+             )) as came_back_later,
+             (select count(distinct u.visitor_id)::int from u join auth.users a on a.id = u.user_id and a.created_at >= u.at) as signed_up,
+             (select count(distinct u.visitor_id)::int from u join watchlist w on w.user_id = u.user_id and w.created_at >= u.at) as watched`);
+    return sql.end();
+  }
   if (process.argv[2] === "rarity") return (await import("./rarity-report")).rarityReport(sql);
   if (process.argv[2] === "taste") return (await import("./taste-report")).tasteReport(sql);
   if (process.argv[2] === "searchlog") return (await import("./taste-report")).searchLog(sql);

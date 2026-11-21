@@ -402,7 +402,7 @@ export async function getDiscovery(range: RangeKey) {
              count(*) filter (where kind = 'watch_click') as watch_clicks,
              count(*) filter (where kind = 'watch_request') as email_requests,
              count(*) filter (where kind = 'watch_added') as confirmed
-      from discover_events where created_at >= ${start} and view is not null
+      from discover_events where created_at >= ${start} and view is not null and surface <> 'share'
       group by 1, 2`.catch(() => []),
     sql`
       select count(*) filter (where kind = 'useful_yes') as yes, count(*) filter (where kind = 'useful_no') as no
@@ -438,3 +438,79 @@ export async function getDiscovery(range: RangeKey) {
 }
 
 export type Discovery = Awaited<ReturnType<typeof getDiscovery>>;
+
+/**
+ * Sharing: taps on the share button and how they went (discover_events,
+ * surface "share"), then visits that landed from a shared link (?ref=share,
+ * page_events.utm_source = 'share'). Recipients are visitor ids, so one person
+ * on two devices counts twice, and a sharer opening their own link isn't a
+ * recipient (left out by visitor id). Signed up / watched = the recipient
+ * signed in later and that account was created, or added a watch, after the
+ * shared visit.
+ */
+export async function getSharing(range: RangeKey) {
+  const days = RANGES[range].days;
+  const start = sql`((date_trunc('day', now() at time zone ${TZ}) - make_interval(days => ${days - 1})) at time zone ${TZ})`;
+  const [[t], shared, landed] = await Promise.all([
+    sql`
+      with s as (
+        select kind, visitor_id from discover_events where created_at >= ${start} and surface = 'share'
+      ),
+      sharers as (
+        select distinct visitor_id from discover_events where surface = 'share' and visitor_id is not null
+      ),
+      r as (
+        select visitor_id, min(created_at) as at from page_events
+        where created_at >= ${start} and is_landing and utm_source = 'share'
+          and visitor_id not in (select visitor_id from sharers)
+        group by 1
+      ),
+      u as (
+        select distinct r.visitor_id, e.user_id, r.at from r
+        join page_events e on e.visitor_id = r.visitor_id and e.user_id is not null and e.created_at >= r.at
+      )
+      select
+        (select count(*) filter (where kind = 'share_tap') from s) as taps,
+        (select count(distinct visitor_id) filter (where kind = 'share_tap') from s) as sharers,
+        (select count(*) filter (where kind = 'share_native') from s) as native,
+        (select count(*) filter (where kind = 'share_copy') from s) as copied,
+        (select count(*) from page_events where created_at >= ${start} and is_landing and utm_source = 'share'
+           and visitor_id not in (select visitor_id from sharers)) as visits,
+        (select count(*) from r) as recipients,
+        (select count(*) from r where not exists (
+           select 1 from page_events p where p.visitor_id = r.visitor_id and p.created_at < r.at)) as new_recipients,
+        (select count(distinct u.visitor_id) from u join auth.users a on a.id = u.user_id and a.created_at >= u.at) as signed_up,
+        (select count(distinct u.visitor_id) from u join watchlist w on w.user_id = u.user_id and w.created_at >= u.at) as watched`,
+    sql`
+      select coalesce(p.name, case when e.view = 'discover' then 'Worth a look' else e.csc end) as label,
+             count(*) filter (where e.kind = 'share_tap') as value,
+             count(*) filter (where e.kind in ('share_native', 'share_copy'))::text || ' sent' as sub,
+             case when e.csc is not null then '/product/' || e.csc when e.view = 'discover' then '/discover' end as href
+      from discover_events e left join products p using (csc)
+      where e.created_at >= ${start} and e.surface = 'share'
+      group by e.view, e.csc, p.name having count(*) filter (where e.kind = 'share_tap') > 0
+      order by 2 desc limit 10`,
+    sql`
+      select coalesce(p.name, e.path) as label, count(*) as value,
+             case when e.csc is not null then '/product/' || e.csc else e.path end as href
+      from page_events e left join products p using (csc)
+      where e.created_at >= ${start} and e.is_landing and e.utm_source = 'share'
+        and e.visitor_id not in (select visitor_id from discover_events where surface = 'share' and visitor_id is not null)
+      group by e.path, e.csc, p.name order by 2 desc limit 10`,
+  ]);
+  return {
+    taps: n(t.taps),
+    sharers: n(t.sharers),
+    native: n(t.native),
+    copied: n(t.copied),
+    visits: n(t.visits),
+    recipients: n(t.recipients),
+    newRecipients: n(t.new_recipients),
+    signedUp: n(t.signed_up),
+    watched: n(t.watched),
+    shared: rows(shared),
+    landed: rows(landed),
+  };
+}
+
+export type Sharing = Awaited<ReturnType<typeof getSharing>>;

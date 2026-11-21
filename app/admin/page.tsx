@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { adminEmails, isAdmin } from "@/lib/admin";
 import { JOB_MAX_AGE_HOURS } from "@/lib/config";
-import { getAccounts, getDashboard, getDiscovery, getRatingsBeta, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
+import { getAccounts, getDashboard, getDiscovery, getRatingsBeta, getSharing, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
 import { TrendChart } from "@/components/admin/trend-chart";
 import { AutoRefresh } from "@/components/admin/auto-refresh";
 import { cn } from "@/lib/utils";
@@ -176,6 +176,7 @@ const SECTIONS = [
   ["audience", "Audience"],
   ["users", "Users"],
   ["ratings", "Ratings"],
+  ["sharing", "Sharing"],
   ["discovery", "Discovery"],
   ["data", "Data"],
 ] as const;
@@ -202,11 +203,12 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   }
 
   const range = parseRange((await searchParams).range);
-  const [d, a, rb, dv] = await Promise.all([
+  const [d, a, rb, dv, sh] = await Promise.all([
     getDashboard(range),
     getAccounts(range),
     getRatingsBeta(range),
     getDiscovery(range),
+    getSharing(range),
   ]);
   const pct = (x: number, of: number) => (of ? `${((100 * x) / of).toFixed(1)}%` : "—");
   const c: Kpis = d.current;
@@ -458,6 +460,37 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             )}
           </Panel>
         </div>
+      </Section>
+
+      <Section id="sharing" title="Sharing">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <Stat label="Share taps" value={num(sh.taps)} hint={`${num(sh.sharers)} people tapped Share`} />
+          <Stat
+            label="Shares sent"
+            value={num(sh.native + sh.copied)}
+            hint={`${num(sh.native)} share sheet · ${num(sh.copied)} link copied`}
+          />
+          <Stat label="Visits from shared links" value={num(sh.visits)} hint={`${num(sh.recipients)} people, ${num(sh.newRecipients)} new to the site`} />
+          <Stat
+            label="Recipients who acted"
+            value={num(sh.watched)}
+            hint={`watched a bottle · ${num(sh.signedUp)} signed up`}
+          />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Panel title="Most shared" note="taps">
+            <BarList rows={sh.shared} empty="No share taps in range." />
+          </Panel>
+          <Panel title="Where shared links land" note="visits">
+            <BarList rows={sh.landed} empty="No visits from shared links in range." />
+          </Panel>
+        </div>
+        <p className="text-xs text-subtle-foreground">
+          Shared links carry ?ref=share, so they count even when sent by text. A sheet closed without sharing counts as a
+          tap only. On phones, “sent” means a target was picked; some apps report that before the message goes. People
+          are counted by browser, so a sharer opening their own link isn&apos;t a recipient, and one person on two devices
+          counts twice.
+        </p>
       </Section>
 
       <Section id="discovery" title="Worth a look">

@@ -7,14 +7,18 @@ import { isUntracked } from "@/lib/admin";
  * "home:back"), taste picks ("taste:typed" | "taste:guided" |
  * "taste:followup", stored as surface "taste" with the mode as view), search
  * result lists ("search:exact" | "search:rough" | "search:browse") and the
- * product page's Watch button ("product:page").
+ * product page's Watch button ("product:page"), and share buttons
+ * ("share:product" | "share:discover").
  */
 export function parseAttribution(v: unknown): { surface: string; view: string } | null {
   const d = parseSource(v);
   if (d) return d;
   if (typeof v !== "string") return null;
   const m =
-    v.match(/^(taste):(typed|guided|followup)$/) ?? v.match(/^(search):(exact|rough|browse)$/) ?? v.match(/^(product):(page)$/);
+    v.match(/^(taste):(typed|guided|followup)$/) ??
+    v.match(/^(search):(exact|rough|browse)$/) ??
+    v.match(/^(product):(page)$/) ??
+    v.match(/^(share):(product|discover)$/);
   return m ? { surface: m[1], view: m[2] } : null;
 }
 
@@ -25,7 +29,10 @@ export type DiscoverEventKind =
   | "watch_request"
   | "watch_added"
   | "useful_yes"
-  | "useful_no";
+  | "useful_no"
+  | "share_tap"
+  | "share_native"
+  | "share_copy";
 
 /** Search context on search events: 1-based rank of a clicked result, total matches, the words. */
 export interface SearchContext {

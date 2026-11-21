@@ -214,6 +214,8 @@ export default async function ProductPage({ params, searchParams }: Props) {
           </div>
           <ShareButton
             title={name}
+            surface="product"
+            csc={product.csc}
             className="-mt-1 -mr-2 flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground"
           />
         </header>
