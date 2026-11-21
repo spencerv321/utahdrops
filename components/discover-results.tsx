@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
  * otherwise "not checked" (unknown, never zero). Statewide stock is a
  * separate line with its own DABS timestamp.
  */
-function Availability({ item, area }: { item: DiscoverItem; area: Area | null }) {
+export function Availability({ item, area }: { item: DiscoverItem; area: Area | null }) {
   const s = nearState(item, !!area);
   const units = (n: number) => unitWord(item.category, item.sizeMl, n);
   return (

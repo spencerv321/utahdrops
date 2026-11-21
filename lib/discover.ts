@@ -11,7 +11,7 @@ import { DISCOVER, type DiscoverItem, type DiscoverView, type Tier } from "@/lib
  * store count and our own successful store checks.
  */
 
-type Row = {
+export type DiscoverRowData = {
   csc: string;
   name: string;
   category: string | null;
@@ -38,7 +38,7 @@ type Row = {
  * and special-order/unavailable listings, and anything DABS has released by
  * drawing (bottles in stores may be held for winners; retail access unclear).
  */
-const eligible = () => sql`
+export const eligible = () => sql`
   p.in_stock and coalesce(p.store_qty, 0) > 0
   and p.current_price is not null
   and p.last_seen > now() - make_interval(hours => ${DISCOVER.statewideMaxAgeHours})
@@ -57,7 +57,7 @@ const notReusedCode = () => sql`
 /** Published tier after overrides (an override with tier null hides the badge). */
 const tierExpr = () => sql`case when o.csc is not null then o.tier when pr.published then pr.tier end`;
 
-function nearJoin(area: Area | null) {
+export function nearJoin(area: Area | null) {
   if (!area) {
     return {
       cte: sql``,
@@ -87,13 +87,13 @@ function nearJoin(area: Area | null) {
   };
 }
 
-const baseCols = () => sql`
+export const baseCols = () => sql`
   p.csc, p.name, p.category, p.size_ml, p.current_price::text as price, p.is_spa, p.status,
   p.store_qty, p.last_seen, p.store_checked_at,
   ${tierExpr()} as tier,
   case when o.csc is not null and o.explanation is not null then o.explanation else pr.headline end as rarity_headline`;
 
-async function scarce(area: Area | null): Promise<Row[]> {
+async function scarce(area: Area | null): Promise<DiscoverRowData[]> {
   const n = nearJoin(area);
   return (await sql`
     with ${n.cte} _ as (select 1)
@@ -103,7 +103,7 @@ async function scarce(area: Area | null): Promise<Row[]> {
     left join rarity_overrides o on o.csc = p.csc
     ${n.join}
     where ${eligible()}
-      and ${tierExpr()} = any(${[...DISCOVER.tiers]})`) as unknown as Row[];
+      and ${tierExpr()} = any(${[...DISCOVER.tiers]})`) as unknown as DiscoverRowData[];
 }
 
 type Return = { csc: string; out_since: Date; back_at: Date };
@@ -186,7 +186,7 @@ async function recentReturns(): Promise<Return[]> {
 }
 
 /** Recent returns with current facts (re-checked: still eligible now) and nearby stock. */
-async function back(area: Area | null): Promise<Row[]> {
+async function back(area: Area | null): Promise<DiscoverRowData[]> {
   const returns = await recentReturns();
   if (returns.length === 0) return [];
   const n = nearJoin(area);
@@ -201,7 +201,7 @@ async function back(area: Area | null): Promise<Row[]> {
     left join product_rarity pr on pr.csc = p.csc
     left join rarity_overrides o on o.csc = p.csc
     ${n.join}
-    where ${eligible()}`) as unknown as Row[];
+    where ${eligible()}`) as unknown as DiscoverRowData[];
 }
 
 /**
@@ -210,7 +210,7 @@ async function back(area: Area | null): Promise<Row[]> {
  * one pass earlier). The latest change must be the drop, DABS's current
  * price must still equal it, and the old price must have held prevMinDays.
  */
-async function price(area: Area | null): Promise<Row[]> {
+async function price(area: Area | null): Promise<DiscoverRowData[]> {
   const n = nearJoin(area);
   const c = DISCOVER.price;
   return (await sql`
@@ -238,10 +238,10 @@ async function price(area: Area | null): Promise<Row[]> {
         where e2.csc = l.csc and e2.event_type = 'price_change'
           and e2.created_at < l.created_at
           and e2.created_at > l.created_at - make_interval(days => ${c.prevMinDays}))
-      and ${notReusedCode()}`) as unknown as Row[];
+      and ${notReusedCode()}`) as unknown as DiscoverRowData[];
 }
 
-function toItem(r: Row): DiscoverItem {
+export function toItem(r: DiscoverRowData): DiscoverItem {
   return {
     csc: r.csc,
     name: r.name,
@@ -266,7 +266,7 @@ function toItem(r: Row): DiscoverItem {
   };
 }
 
-const QUERIES: Record<DiscoverView, (area: Area | null) => Promise<Row[]>> = { scarce, back, price };
+const QUERIES: Record<DiscoverView, (area: Area | null) => Promise<DiscoverRowData[]>> = { scarce, back, price };
 
 /** Unranked candidates for one view (rank with rankView). */
 export async function getDiscoverCandidates(view: DiscoverView, area: Area | null): Promise<DiscoverItem[]> {
