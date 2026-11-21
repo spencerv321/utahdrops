@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import { DABS_RHDP_URL } from "@/lib/config";
 import { politeFetch, ScrapeShapeError, cleanName } from "./client";
+import { parseCloseDate } from "@/lib/drawing-alerts";
 
 /**
  * DABS Rare High Demand Product (RHDP) drawing page: future, current and past
@@ -21,10 +22,54 @@ export interface RhdpItem {
 
 const ITEM = /^(.*?)\s+-\s+(\d{6})\s+-\s+\$([\d,.]+)(?:\s+-\s+([\d,]+)\s+Bottles?)?(?:\s+-\s+([\d,]+)\s+Entr(?:y|ies))?/i;
 
-export async function fetchRhdpDrawings(): Promise<RhdpItem[]> {
+/** Open or upcoming drawing, with whatever date text DABS shows beside it. */
+export interface RhdpWindow {
+  section: "future" | "current";
+  drawing: string;
+  /** Text around the drawing other than its product lines (dates, notes), or null. */
+  datesText: string | null;
+  closesAt: Date | null;
+}
+
+export async function fetchRhdpPageHtml(): Promise<string> {
   const res = await politeFetch(DABS_RHDP_URL);
   if (!res.ok) throw new Error(`RHDP page returned ${res.status}`);
-  return parseRhdpPage(await res.text());
+  return res.text();
+}
+
+export async function fetchRhdpDrawings(): Promise<RhdpItem[]> {
+  return parseRhdpPage(await fetchRhdpPageHtml());
+}
+
+/**
+ * Drawings under "future" and "current", with the text DABS shows around
+ * each one minus its product lines, and a close date when that text gives
+ * one. Past drawings (which list winners) are never read here.
+ */
+export function parseRhdpWindows(html: string): RhdpWindow[] {
+  const $ = cheerio.load(html);
+  const out: RhdpWindow[] = [];
+  for (const section of ["future", "current"] as const) {
+    const root = $(`#${section}`);
+    root.find("a.btn-link[href^='#']").each((_, a) => {
+      const drawing = cleanName($(a).text());
+      const panel = root.find($(a).attr("href")!);
+      if (!drawing || !panel.length) return;
+      const body = panel.clone();
+      body.find("button.NormalGridView, .NormalGridView").remove();
+      // The header row beside the link, when it's its own element (not the section or the panel's parent).
+      const parent = $(a).parent();
+      let headerText = "";
+      if (!parent.is(root) && !parent.find($(a).attr("href")!).length && !parent.find(".NormalGridView").length) {
+        const header = parent.clone();
+        header.find("a.btn-link").remove();
+        headerText = header.text();
+      }
+      const text = cleanName(`${headerText} ${body.text()}`).slice(0, 500);
+      out.push({ section, drawing, datesText: text || null, closesAt: parseCloseDate(text) });
+    });
+  }
+  return out;
 }
 
 export function parseRhdpPage(html: string): RhdpItem[] {

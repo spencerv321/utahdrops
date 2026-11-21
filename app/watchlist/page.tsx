@@ -31,9 +31,9 @@ export default async function WatchlistPage({
       where w.user_id = ${user.id}
       order by p.in_stock desc, p.name` as unknown as Promise<ProductRow[]>,
     sql`
-      select watchlist_email, allocated_email from alert_prefs
+      select watchlist_email, allocated_email, drawing_email from alert_prefs
       where user_id = ${user.id}` as unknown as Promise<
-      { watchlist_email: boolean; allocated_email: boolean }[]
+      { watchlist_email: boolean; allocated_email: boolean; drawing_email: boolean }[]
     >,
     sql`select id, name, city from stores order by city nulls last, name` as unknown as Promise<StoreOption[]>,
     sql`select store_id from user_stores where user_id = ${user.id} order by created_at` as unknown as Promise<
@@ -41,7 +41,7 @@ export default async function WatchlistPage({
     >,
   ]);
 
-  const prefs = prefRows[0] ?? { watchlist_email: true, allocated_email: false };
+  const prefs = prefRows[0] ?? { watchlist_email: true, allocated_email: false, drawing_email: false };
   const inStock = rows.filter((r) => r.in_stock).length;
 
   return (
@@ -97,7 +97,11 @@ export default async function WatchlistPage({
         <h2 id="alerts-title" className="font-display text-[2rem] leading-none sm:text-4xl">
           Email alerts
         </h2>
-        <AlertPrefs watchlistEmail={prefs.watchlist_email} allocatedEmail={prefs.allocated_email} />
+        <AlertPrefs
+          watchlistEmail={prefs.watchlist_email}
+          allocatedEmail={prefs.allocated_email}
+          drawingEmail={prefs.drawing_email}
+        />
       </section>
     </div>
   );

@@ -113,23 +113,26 @@ export async function requestWatchSignIn(input: {
 const Prefs = z.object({
   watchlistEmail: z.boolean().optional(),
   allocatedEmail: z.boolean().optional(),
+  drawingEmail: z.boolean().optional(),
 });
 
-export async function setAlertPrefs(prefs: { watchlistEmail?: boolean; allocatedEmail?: boolean }) {
+export async function setAlertPrefs(prefs: { watchlistEmail?: boolean; allocatedEmail?: boolean; drawingEmail?: boolean }) {
   const user = await currentUser();
   if (!user) return { ok: false, error: "not_signed_in" };
   const parsed = Prefs.safeParse(prefs);
   if (!parsed.success) return { ok: false, error: "bad_request" };
-  const { watchlistEmail, allocatedEmail } = parsed.data;
+  const { watchlistEmail, allocatedEmail, drawingEmail } = parsed.data;
 
   await sql`
-    insert into alert_prefs (user_id, watchlist_email, allocated_email)
-    values (${user.id}, ${watchlistEmail ?? true}, ${allocatedEmail ?? false})
+    insert into alert_prefs (user_id, watchlist_email, allocated_email, drawing_email)
+    values (${user.id}, ${watchlistEmail ?? true}, ${allocatedEmail ?? false}, ${drawingEmail ?? false})
     on conflict (user_id) do update set
       watchlist_email = coalesce(${watchlistEmail ?? null}, alert_prefs.watchlist_email),
       allocated_email = coalesce(${allocatedEmail ?? null}, alert_prefs.allocated_email),
+      drawing_email = coalesce(${drawingEmail ?? null}, alert_prefs.drawing_email),
       updated_at = now()`;
   revalidatePath("/watchlist");
+  if (drawingEmail !== undefined) revalidatePath("/drawings");
   return { ok: true };
 }
 

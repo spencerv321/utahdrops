@@ -63,7 +63,7 @@ Postgres with the catalog loaded, see CLAUDE.md; never sends email).
 |---|---|---|
 | `catalog` | `.github/workflows/catalog.yml` (in the runner) | 06, 14, 22:00 |
 | `store-inventory` | `.github/workflows/store-inventory.yml` (in the runner) | cron every 2h + after catalog/health/cron runs; runs when the last success is ≥ 3.5h old, ~120 SKUs per hour since then |
-| `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass) |
+| `allocated`, `digest`, `percentiles`, `rhdp`, `xlsx` | `.github/workflows/cron.yml` → `/api/cron/<job>` | see workflow (digest also runs after each catalog / store-inventory pass; `drawing-alerts` runs after each `rhdp` pass, 4×/day) |
 | `sales` | `.github/workflows/sales.yml` (in the runner) | Mondays 16:40 |
 | `licensees` | `.github/workflows/licensees.yml` (in the runner, headless Chromium) | Mondays 09:17 |
 | `rarity`, then `taste-profiles` | `.github/workflows/rarity.yml` (in the runner) | daily 09:50 |
@@ -77,7 +77,14 @@ DABS's own total; months already in are skipped except the newest two
 "not in report", not a confirmed zero, and bottles sold are not bottles
 received. `rhdp` records DABS's Rare High Demand Product drawings (product, item code,
 bottles offered, entries) from the public drawing page into `rhdp_drawings`;
-winner names on that page are never stored. Sales, drawings, allocated drops
+winner names on that page are never stored. It also records each open or
+upcoming drawing's window (`rhdp_drawing_windows`: first seen upcoming/open, and a
+close date only when DABS's page shows one), then `drawing-alerts` emails people
+who switched drawing alerts on (`alert_prefs.drawing_email`, off by default):
+announced, open, and closes-soon (36h before a known close). Each
+(person, drawing, kind) is sent once (`drawing_alert_deliveries`). `report.yml`
+→ `drawings` shows windows and sends; `rhdppage` shows what DABS's page lists
+beside open drawings, to check the close-date parser. Sales, drawings, allocated drops
 and our stock history feed the availability rating (beta, `lib/rarity.ts`):
 the `rarity` job writes `product_rarity`, and product pages show a badge
 (Everyday → Unicorn) only where `published` is true. Manual corrections go in
