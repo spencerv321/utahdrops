@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { sendDiscoverEvent } from "@/lib/beacon";
 
-/** A link from a "Worth a look" result to a bottle, counted as a product click. */
+/** A link counted as a click for its source (a bottle when `csc` is set). */
 export function DiscoverLink({
   href,
   csc,
@@ -12,7 +12,7 @@ export function DiscoverLink({
   children,
 }: {
   href: string;
-  csc: string;
+  csc?: string | null;
   source: string;
   className?: string;
   children: React.ReactNode;

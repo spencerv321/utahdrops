@@ -1,6 +1,7 @@
 import { sql } from "@/lib/db";
 import { parseSource } from "@/lib/discover-rules";
 import { isUntracked } from "@/lib/admin";
+import { parseHolidaySource } from "@/lib/holiday";
 
 /**
  * Attribution sources that record events: "Worth a look" ("discover:price",
@@ -8,12 +9,15 @@ import { isUntracked } from "@/lib/admin";
  * "taste:followup", stored as surface "taste" with the mode as view), search
  * result lists ("search:exact" | "search:rough" | "search:browse") and the
  * product page's Watch button ("product:page"), and share buttons
- * ("share:product" | "share:discover" | "share:holidays").
+ * ("share:product" | "share:discover" | "share:holidays"), and the holiday
+ * shelf ("holiday:home" | "holiday:guide" | "holiday:<group>").
  */
 export function parseAttribution(v: unknown): { surface: string; view: string } | null {
   const d = parseSource(v);
   if (d) return d;
   if (typeof v !== "string") return null;
+  const h = parseHolidaySource(v);
+  if (h) return h;
   const m =
     v.match(/^(taste):(typed|guided|followup)$/) ??
     v.match(/^(search):(exact|rough|browse)$/) ??

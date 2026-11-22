@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { DiscoverLink } from "@/components/discover-link";
 import { HolidayRow } from "@/components/holiday-row";
 import { HOLIDAY_GLOW, HolidayLights } from "@/components/holiday-lights";
 import { cn } from "@/lib/utils";
@@ -50,10 +50,10 @@ export function HolidayStrip({
             {total.toLocaleString()} seasonal bottles and gift sets in stock statewide.
           </p>
         </div>
-        <Link prefetch={false} href={href} className="flex min-h-11 shrink-0 items-center gap-1 text-sm text-foreground hover:text-primary">
+        <DiscoverLink href={href} source="holiday:guide" className="flex min-h-11 shrink-0 items-center gap-1 text-sm text-foreground hover:text-primary">
           See the holiday guide
           <ArrowRight className="size-4" aria-hidden />
-        </Link>
+        </DiscoverLink>
       </div>
       <ul className="flex flex-wrap gap-x-5 gap-y-1 text-[14px]">
         {closure ? (
@@ -77,7 +77,7 @@ export function HolidayStrip({
       {picks.length > 0 ? (
         <ul className="grid grid-cols-1 divide-y border-t md:grid-cols-2 md:gap-x-8">
           {picks.map((item) => (
-            <HolidayRow key={item.csc} item={item} area={area} watched={watched.has(item.csc)} signedIn={signedIn} compact showGroup />
+            <HolidayRow key={item.csc} item={item} source="holiday:home" area={area} watched={watched.has(item.csc)} signedIn={signedIn} compact showGroup />
           ))}
         </ul>
       ) : null}

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { adminEmails, isAdmin } from "@/lib/admin";
 import { JOB_MAX_AGE_HOURS } from "@/lib/config";
-import { getAccounts, getDashboard, getDiscovery, getRatingsBeta, getSharing, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
+import { getAccounts, getDashboard, getDiscovery, getHolidays, getRatingsBeta, getSharing, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
 import { TrendChart } from "@/components/admin/trend-chart";
 import { AutoRefresh } from "@/components/admin/auto-refresh";
 import { cn } from "@/lib/utils";
@@ -51,6 +51,18 @@ function delta(cur: number, prev: number, lowerIsBetter = false): Delta {
   const up = pct > 0;
   return { text: `${up ? "↑" : "↓"} ${Math.abs(Math.round(pct))}%`, good: up !== lowerIsBetter };
 }
+
+/** Row labels for the Holidays table (discover_events views on surface "holiday"). */
+const HOLIDAY_PLACE: Record<string, string> = {
+  home: "Home card: bottle",
+  guide: "Home card: guide link",
+  nog: "Page: eggnog & peppermint",
+  warm: "Page: mulled wine",
+  beer: "Page: holiday beer",
+  nouveau: "Page: Nouveau",
+  seasonal: "Page: seasonal bottles",
+  gift: "Page: gift sets",
+};
 
 // ── building blocks ──────────────────────────────────────────────────
 
@@ -171,6 +183,7 @@ function HourStrip({ counts }: { counts: number[] }) {
 // ── page ─────────────────────────────────────────────────────────────
 
 const SECTIONS = [
+  ["holidays", "Holidays"],
   ["traffic", "Traffic"],
   ["content", "Content"],
   ["audience", "Audience"],
@@ -203,12 +216,13 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   }
 
   const range = parseRange((await searchParams).range);
-  const [d, a, rb, dv, sh] = await Promise.all([
+  const [d, a, rb, dv, sh, hol] = await Promise.all([
     getDashboard(range),
     getAccounts(range),
     getRatingsBeta(range),
     getDiscovery(range),
     getSharing(range),
+    getHolidays(range),
   ]);
   const pct = (x: number, of: number) => (of ? `${((100 * x) / of).toFixed(1)}%` : "—");
   const c: Kpis = d.current;
@@ -298,6 +312,91 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           </div>
         </div>
       </section>
+
+      <Section id="holidays" title="Holidays">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <Stat
+            label="Holiday page visitors"
+            value={num(hol.visitors)}
+            hint={`${num(hol.views)} views · ${num(hol.returning)} came back`}
+          />
+          <Stat
+            label="Home card click-through"
+            value={pct(hol.stripClickers, hol.homeVisitors)}
+            hint={`${num(hol.stripClickers)} of ${num(hol.homeVisitors)} home visitors · ${num(hol.guideClickers)} opened the guide`}
+          />
+          <Stat
+            label="Bottle click-through on the page"
+            value={pct(hol.pageClickers, hol.visitors)}
+            hint={`${num(hol.pageClickers)} visitors clicked a bottle`}
+          />
+          <Stat
+            label="Confirmed watches"
+            value={num(hol.confirmed)}
+            hint={`from ${num(hol.watchClicks)} Watch taps (card + page)`}
+          />
+          <Stat
+            label="Arrived straight on the page"
+            value={num(hol.landings)}
+            hint={`first page of a visit · ${num(hol.fromShares)} from shared links`}
+          />
+          <Stat
+            label="Page shares"
+            value={num(hol.sharesSent)}
+            hint={`sent, from ${num(hol.shareTaps)} Share taps`}
+          />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Panel title="Most clicked holiday bottles" note="clicks">
+            <BarList rows={hol.bottles} empty="No holiday bottle clicks in range." />
+          </Panel>
+          <Panel title="How people arrive on the page" note="landings">
+            <BarList rows={hol.sources} empty="Nobody started a visit on the holiday page in range." />
+          </Panel>
+        </div>
+        <div className="grid gap-4 md:grid-cols-[2fr_1fr]">
+          <Panel title="By place" note="card = home page card">
+            {hol.byView.length ? (
+              <div className="-mx-2 overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="text-left text-xs text-subtle-foreground">
+                    <tr>
+                      <th className="px-2 pb-2 font-normal">Where</th>
+                      <th className="px-2 pb-2 text-right font-normal">Clicks</th>
+                      <th className="px-2 pb-2 text-right font-normal">Clickers</th>
+                      <th className="px-2 pb-2 text-right font-normal">Watch taps</th>
+                      <th className="px-2 pb-2 text-right font-normal">Email asked</th>
+                      <th className="px-2 pb-2 text-right font-normal">Confirmed watches</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hol.byView.map((r) => (
+                      <tr key={r.view} className="border-t">
+                        <td className="px-2 py-2">{HOLIDAY_PLACE[r.view] ?? r.view}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(r.clicks)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(r.clickers)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(r.watchClicks)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(r.emailRequests)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(r.confirmed)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-sm text-subtle-foreground">No clicks or watches from the holiday card or page in range.</p>
+            )}
+          </Panel>
+          <Panel title="Page visitors by day" note="unique">
+            <BarList rows={hol.daily} empty="No visits in range." />
+          </Panel>
+        </div>
+        <p className="text-xs text-subtle-foreground">
+          The home card shows on every home page visit from Nov 14 to Jan 2, so home visitors are its audience. A
+          confirmed watch is one actually added (after the email link for signed-out visitors), not a tap. Tracking for
+          clicks and watches started when this section shipped; page visits count from the page&apos;s launch on Nov 21.
+        </p>
+      </Section>
 
       <Section id="traffic" title="Where visitors come from">
         <div className="grid gap-4 md:grid-cols-2">

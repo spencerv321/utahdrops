@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { BottlePhoto } from "@/components/bottle-photo";
+import { DiscoverLink } from "@/components/discover-link";
 import { Availability } from "@/components/discover-results";
 import { WatchStar } from "@/components/watch-star";
 import type { Area } from "@/lib/area";
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 /** One holiday bottle: group kicker, name, price, DABS listing note, where it is. */
 export function HolidayRow({
   item,
+  source,
   area,
   watched,
   signedIn,
@@ -18,6 +19,8 @@ export function HolidayRow({
   showGroup = false,
 }: {
   item: HolidayItem;
+  /** Tracking source: "holiday:home" or "holiday:<group>". */
+  source: string;
   area: Area | null;
   watched: boolean;
   signedIn: boolean;
@@ -41,10 +44,15 @@ export function HolidayRow({
           </p>
         ) : null}
         <div className="flex items-baseline justify-between gap-3">
-          <Link prefetch={false} href={`/product/${item.csc}`} className="line-clamp-2 font-medium hover:underline hover:underline-offset-4">
+          <DiscoverLink
+            href={`/product/${item.csc}`}
+            csc={item.csc}
+            source={source}
+            className="line-clamp-2 font-medium hover:underline hover:underline-offset-4"
+          >
             {name}
             {size ? <span className="font-normal text-muted-foreground"> · {size}</span> : null}
-          </Link>
+          </DiscoverLink>
           <span className="shrink-0 text-right font-medium tabular-nums">
             {formatPrice(item.price)}
             {item.isSpa ? <span className="block text-[11px] font-normal text-price-drop">on sale</span> : null}
@@ -52,7 +60,7 @@ export function HolidayRow({
         </div>
         <Availability item={item} area={area} />
       </div>
-      <WatchStar csc={item.csc} name={name} initialWatched={watched} signedIn={signedIn} className="-mr-2" />
+      <WatchStar csc={item.csc} name={name} initialWatched={watched} signedIn={signedIn} source={source} className="-mr-2" />
     </li>
   );
 }

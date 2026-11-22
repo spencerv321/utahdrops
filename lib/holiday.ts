@@ -174,6 +174,18 @@ export function holidayGroup(
   return null;
 }
 
+/**
+ * Tracking sources (discover_events surface "holiday"): "holiday:home" for the
+ * homepage strip's bottles, "holiday:guide" for its link to the page, and
+ * "holiday:<group>" for bottles on the page.
+ */
+export const HOLIDAY_VIEWS = ["home", "guide", ...GROUPS.map((g) => g.key)] as const;
+export type HolidayView = (typeof HOLIDAY_VIEWS)[number];
+export function parseHolidaySource(v: string): { surface: "holiday"; view: HolidayView } | null {
+  const m = v.match(/^holiday:([a-z]+)$/);
+  return m && (HOLIDAY_VIEWS as readonly string[]).includes(m[1]) ? { surface: "holiday", view: m[1] as HolidayView } : null;
+}
+
 export const GIFT_BANDS = [
   { key: "under25", label: "Under $25", min: 0, max: 25 },
   { key: "25to50", label: "$25–50", min: 25, max: 50 },

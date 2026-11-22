@@ -209,7 +209,7 @@ export default async function Holidays2026({ searchParams }: { searchParams: Pro
               {rows.length > 0 ? (
                 <ul className="grid grid-cols-1 divide-y border-y md:grid-cols-2 md:gap-x-8">
                   {rows.map((item) => (
-                    <HolidayRow key={item.csc} item={item} area={area} watched={watched.has(item.csc)} signedIn={!!user} />
+                    <HolidayRow key={item.csc} item={item} source={`holiday:${g.key}`} area={area} watched={watched.has(item.csc)} signedIn={!!user} />
                   ))}
                 </ul>
               ) : (
