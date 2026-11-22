@@ -310,7 +310,7 @@ export async function getHomeFeed(limit = 12): Promise<FeedEvent[]> {
           -- only real price drops (DABS also shaves cents off, and raises prices)
           and (e.event_type <> 'price_change'
                or (e.detail->>'new')::numeric <= (e.detail->>'old')::numeric * 0.95)
-          -- a status change only matters when it's news: clearance or allocation
+          -- a status change only matters when it's news: discontinued, allocated or limited
           and (e.event_type <> 'status_change' or e.detail->>'new' in ('D', 'A', 'L'))
           -- restocks of things that are gone again aren't actionable
           and (e.event_type <> 'restock' or p.in_stock)

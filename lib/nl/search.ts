@@ -173,7 +173,7 @@ function describe(parsed: ParsedQuery): string[] {
   if (parsed.price_min != null) chips.push(`$${parsed.price_min}+`);
   if (parsed.price_max != null) chips.push(`under $${parsed.price_max}`);
   if (parsed.status_filter === "in_stock") chips.push("in stock");
-  if (parsed.status_filter === "discontinued_clearance") chips.push("clearance (D status)");
+  if (parsed.status_filter === "discontinued_clearance") chips.push("discontinued (D status)");
   if (parsed.status_filter === "allocated") chips.push("allocated/limited");
   if (parsed.location_text === "NEAR_ME") chips.push("near you");
   else if (parsed.location_text) chips.push(`near ${parsed.location_text}`);
