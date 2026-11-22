@@ -292,7 +292,7 @@
   }
 }
 
-/* Holiday lights (components/holiday-sprig.tsx): a slow, soft twinkle. The
+/* Holiday lights (components/holiday-lights.tsx): a slow, soft twinkle. The
    reduced-motion rule above stops it at full brightness. */
 @keyframes holiday-twinkle {
   from {

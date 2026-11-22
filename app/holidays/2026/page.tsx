@@ -4,7 +4,7 @@ import { ArrowRight, CalendarX } from "lucide-react";
 import { AreaPicker } from "@/components/area-picker";
 import { DropTicket } from "@/components/drop-ticket";
 import { HolidayRow } from "@/components/holiday-row";
-import { HOLIDAY_GLOW, HolidayLights, HolidaySprig } from "@/components/holiday-sprig";
+import { HOLIDAY_GLOW, HolidayLights } from "@/components/holiday-lights";
 import { ShareButton } from "@/components/share-button";
 import { GuideLink } from "@/components/utah-101";
 import { NEARBY_MILES, nearLabel } from "@/lib/area";
@@ -102,8 +102,6 @@ export default async function Holidays2026({ searchParams }: { searchParams: Pro
         )}
       >
         <HolidayLights className="absolute inset-x-0 top-0 -z-10" />
-        <HolidaySprig width={130} className="absolute -top-2 right-10 -z-10 text-primary sm:hidden" />
-        <HolidaySprig width={200} className="absolute -top-4 right-24 -z-10 hidden text-primary sm:block" />
         <div className="space-y-2">
           <p className="kicker text-primary">Utah state liquor stores</p>
           <h1 className="text-5xl leading-none sm:text-6xl">Holidays 2026</h1>

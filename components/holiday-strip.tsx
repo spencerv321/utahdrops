@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HolidayRow } from "@/components/holiday-row";
-import { HOLIDAY_GLOW, HolidayLights, HolidaySprig } from "@/components/holiday-sprig";
+import { HOLIDAY_GLOW, HolidayLights } from "@/components/holiday-lights";
 import { cn } from "@/lib/utils";
 import type { Area } from "@/lib/area";
 import { nextDropDate } from "@/lib/dabs/allocated";
@@ -40,8 +40,6 @@ export function HolidayStrip({
       aria-labelledby="holiday-title"
     >
       <HolidayLights className="absolute inset-x-0 top-0 -z-10" />
-      <HolidaySprig width={118} className="absolute -top-2 -right-3 -z-10 text-primary sm:hidden" />
-      <HolidaySprig width={190} className="absolute -top-4 right-[15rem] -z-10 hidden text-primary sm:block" />
       <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
         <div>
           <p className="kicker text-primary">Holidays {season.year}</p>
