@@ -4,7 +4,7 @@ import { ArrowRight, CalendarX } from "lucide-react";
 import { AreaPicker } from "@/components/area-picker";
 import { DropTicket } from "@/components/drop-ticket";
 import { HolidayRow } from "@/components/holiday-row";
-import { HOLIDAY_GLOW, HolidaySprig } from "@/components/holiday-sprig";
+import { HOLIDAY_GLOW, HolidayLights } from "@/components/holiday-lights";
 import { ShareButton } from "@/components/share-button";
 import { GuideLink } from "@/components/utah-101";
 import { NEARBY_MILES, nearLabel } from "@/lib/area";
@@ -97,11 +97,11 @@ export default async function Holidays2026({ searchParams }: { searchParams: Pro
     <div className="space-y-10 pt-2 sm:pt-6">
       <header
         className={cn(
-          "relative isolate -mx-4 flex items-start justify-between gap-4 overflow-hidden px-4 pt-2 pb-4 sm:mx-0 sm:rounded-lg sm:px-6 sm:pt-5",
+          "relative isolate -mx-4 flex items-start justify-between gap-4 overflow-hidden px-4 pt-11 pb-4 sm:mx-0 sm:rounded-lg sm:px-6 sm:pt-12",
           HOLIDAY_GLOW
         )}
       >
-        <HolidaySprig width={150} className="absolute -top-3 right-12 -z-10 text-primary opacity-80 sm:right-24" />
+        <HolidayLights className="absolute inset-x-0 top-0 -z-10" />
         <div className="space-y-2">
           <p className="kicker text-primary">Utah state liquor stores</p>
           <h1 className="text-5xl leading-none sm:text-6xl">Holidays 2026</h1>
@@ -209,7 +209,7 @@ export default async function Holidays2026({ searchParams }: { searchParams: Pro
               {rows.length > 0 ? (
                 <ul className="grid grid-cols-1 divide-y border-y md:grid-cols-2 md:gap-x-8">
                   {rows.map((item) => (
-                    <HolidayRow key={item.csc} item={item} area={area} watched={watched.has(item.csc)} signedIn={!!user} />
+                    <HolidayRow key={item.csc} item={item} source={`holiday:${g.key}`} area={area} watched={watched.has(item.csc)} signedIn={!!user} />
                   ))}
                 </ul>
               ) : (

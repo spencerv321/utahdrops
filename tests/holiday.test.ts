@@ -49,3 +49,12 @@ test("gift price bands", () => {
   assert.ok(inBand(25, "25to50"));
   assert.ok(inBand(50, "over50"));
 });
+
+test("holiday tracking sources", async () => {
+  const { parseAttribution } = await import("../lib/discover-events");
+  assert.deepEqual(parseAttribution("holiday:home"), { surface: "holiday", view: "home" });
+  assert.deepEqual(parseAttribution("holiday:guide"), { surface: "holiday", view: "guide" });
+  assert.deepEqual(parseAttribution("holiday:nog"), { surface: "holiday", view: "nog" });
+  assert.equal(parseAttribution("holiday:santa"), null);
+  assert.equal(parseAttribution("holiday:"), null);
+});

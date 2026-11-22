@@ -291,3 +291,25 @@
     color: var(--muted-foreground);
   }
 }
+
+/* Holiday lights (components/holiday-lights.tsx): a slow, soft twinkle. The
+   reduced-motion rule above stops it at full brightness. */
+@keyframes holiday-twinkle {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@layer components {
+  .holiday-twinkle {
+    animation: holiday-twinkle 2.6s ease-in-out infinite alternate;
+  }
+  .holiday-twinkle-2 {
+    animation-delay: -0.9s;
+  }
+  .holiday-twinkle-3 {
+    animation-delay: -1.7s;
+  }
+}

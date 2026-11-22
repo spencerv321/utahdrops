@@ -402,7 +402,7 @@ export async function getDiscovery(range: RangeKey) {
              count(*) filter (where kind = 'watch_click') as watch_clicks,
              count(*) filter (where kind = 'watch_request') as email_requests,
              count(*) filter (where kind = 'watch_added') as confirmed
-      from discover_events where created_at >= ${start} and view is not null and surface <> 'share'
+      from discover_events where created_at >= ${start} and view is not null and surface not in ('share', 'holiday')
       group by 1, 2`.catch(() => []),
     sql`
       select count(*) filter (where kind = 'useful_yes') as yes, count(*) filter (where kind = 'useful_no') as no
@@ -514,3 +514,96 @@ export async function getSharing(range: RangeKey) {
 }
 
 export type Sharing = Awaited<ReturnType<typeof getSharing>>;
+
+/**
+ * Holidays: the homepage holiday strip and /holidays/<year>. Visits from
+ * page_events; bottle clicks, Watch taps, email requests and confirmed watches
+ * from discover_events surface "holiday" (view "home" = a strip bottle,
+ * "guide" = the strip's link to the page, otherwise the page's group); shares
+ * of the page from surface "share", view "holidays". The strip shows on every
+ * homepage visit during the season, so home visitors are its audience.
+ */
+export async function getHolidays(range: RangeKey) {
+  const days = RANGES[range].days;
+  const start = sql`((date_trunc('day', now() at time zone ${TZ}) - make_interval(days => ${days - 1})) at time zone ${TZ})`;
+  const page = sql`path like '/holidays%'`;
+  const [[v], byView, bottles, sources, daily] = await Promise.all([
+    sql`
+      with p as (select * from page_events where created_at >= ${start} and ${page}),
+      ev as (select * from discover_events where created_at >= ${start} and surface = 'holiday')
+      select
+        (select count(distinct visitor_id) from p) as visitors,
+        (select count(*) from p) as views,
+        (select count(*) from (select visitor_id from p group by 1 having count(distinct session_id) >= 2) r) as returning,
+        (select count(*) from p where is_landing) as landings,
+        (select count(*) from p where is_landing and utm_source = 'share') as from_shares,
+        (select count(distinct visitor_id) from page_events where created_at >= ${start} and path = '/') as home_visitors,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view in ('home', 'guide')) as strip_clickers,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view = 'guide') as guide_clickers,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view not in ('home', 'guide')) as page_clickers,
+        (select count(*) from ev where kind = 'watch_click') as watch_clicks,
+        (select count(*) from ev where kind = 'watch_added') as confirmed,
+        (select count(*) from discover_events where created_at >= ${start} and surface = 'share' and view = 'holidays'
+           and kind = 'share_tap') as share_taps,
+        (select count(*) from discover_events where created_at >= ${start} and surface = 'share' and view = 'holidays'
+           and kind in ('share_native', 'share_copy')) as shares_sent`,
+    sql`
+      select view,
+             count(*) filter (where kind = 'click') as clicks,
+             count(distinct visitor_id) filter (where kind = 'click') as clickers,
+             count(*) filter (where kind = 'watch_click') as watch_clicks,
+             count(*) filter (where kind = 'watch_request') as email_requests,
+             count(*) filter (where kind = 'watch_added') as confirmed
+      from discover_events where created_at >= ${start} and surface = 'holiday'
+      group by 1`,
+    sql`
+      select coalesce(p.name, e.csc) as label, count(*) filter (where e.kind = 'click') as value,
+             count(*) filter (where e.kind = 'watch_added')::text || ' watched' as sub,
+             '/product/' || e.csc as href
+      from discover_events e left join products p using (csc)
+      where e.created_at >= ${start} and e.surface = 'holiday' and e.csc is not null
+      group by e.csc, p.name having count(*) filter (where e.kind = 'click') > 0
+      order by 2 desc limit 10`,
+    sql`
+      select coalesce(source, 'Direct') as label, count(*) as value
+      from page_events where created_at >= ${start} and ${page} and is_landing
+      group by 1 order by 2 desc limit 8`,
+    sql`
+      select to_char(day, 'Dy Mon DD') as label, count(distinct visitor_id) as value, count(*)::text || ' views' as sub
+      from (select date_trunc('day', created_at at time zone ${TZ}) as day, visitor_id
+            from page_events where created_at >= ${start} and ${page}) d
+      group by day order by day desc limit 14`,
+  ]);
+  const order = ["home", "guide", "nog", "warm", "beer", "nouveau", "seasonal", "gift"];
+  const views = byView
+    .map((r) => ({
+      view: String(r.view),
+      clicks: n(r.clicks),
+      clickers: n(r.clickers),
+      watchClicks: n(r.watch_clicks),
+      emailRequests: n(r.email_requests),
+      confirmed: n(r.confirmed),
+    }))
+    .sort((a, b) => order.indexOf(a.view) - order.indexOf(b.view));
+  return {
+    visitors: n(v.visitors),
+    views: n(v.views),
+    returning: n(v.returning),
+    landings: n(v.landings),
+    fromShares: n(v.from_shares),
+    homeVisitors: n(v.home_visitors),
+    stripClickers: n(v.strip_clickers),
+    guideClickers: n(v.guide_clickers),
+    pageClickers: n(v.page_clickers),
+    watchClicks: n(v.watch_clicks),
+    confirmed: n(v.confirmed),
+    shareTaps: n(v.share_taps),
+    sharesSent: n(v.shares_sent),
+    byView: views,
+    bottles: rows(bottles),
+    sources: rows(sources),
+    daily: rows(daily),
+  };
+}
+
+export type Holidays = Awaited<ReturnType<typeof getHolidays>>;

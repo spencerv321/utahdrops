@@ -23,6 +23,9 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   `lib/holiday.ts` from DABS names/categories; same stock and 24h nearby rules
   as Worth a look. Closure dates from Utah Code 63G-1-301 (DABS hadn't posted a
   2026 notice). Holiday rows hide "Trial listing" (DABS lists seasonal buys as T).
+- Tracking (PR #74): /admin → Holidays. Clicks, Watch taps and confirmed
+  watches as discover_events surface "holiday" (view home | guide | <group>);
+  page shares as share:holidays. Starts counting from the #74 deploy.
 - Next season: add a `SEASONS` entry and an `app/holidays/<year>` page.
 - Open: photos for 89 of 95 holiday bottles; site-wide wording for DABS status codes.
 
