@@ -1,3 +1,5 @@
+import { STATUS_INFO } from "@/lib/config";
+
 export function formatPrice(price: string | number | null | undefined): string {
   if (price == null || price === "") return "—";
   const n = typeof price === "string" ? parseFloat(price) : price;
@@ -174,32 +176,13 @@ export function dayLabel(date: Date | string): string {
 export { dayKey };
 
 /**
- * DABS's listing status in plain words. This is how DABS lists a product, not
- * whether it's on a shelf: keep it visually separate from availability.
- * General listings need no note.
+ * DABS's listing status as a short note beside a bottle (STATUS_INFO in
+ * lib/config.ts). This is how DABS lists a product, not whether it's on a
+ * shelf: keep it visually separate from availability. General listings need
+ * no note.
  */
 export function listingNote(status: string | null | undefined): string | null {
-  switch (status) {
-    case "A":
-      return "Allocated listing";
-    case "L":
-    case "P":
-      return "Limited listing";
-    case "D":
-      return "Clearance: being discontinued";
-    case "X":
-      return "Discontinued";
-    case "T":
-      return "Trial listing";
-    case "U":
-      return "Leaving soon";
-    case "S":
-      return "Special order only";
-    case "N":
-      return "Unavailable";
-    default:
-      return null;
-  }
+  return (status && STATUS_INFO[status]?.note) || null;
 }
 
 /** Size in ml parsed from the end of a DABS name ("… 750ML", "… 1.75L"), for rows with no size column. */

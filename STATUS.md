@@ -27,7 +27,9 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   watches as discover_events surface "holiday" (view home | guide | <group>);
   page shares as share:holidays. Starts counting from the #74 deploy.
 - Next season: add a `SEASONS` entry and an `app/holidays/<year>` page.
-- Open: photos for 89 of 95 holiday bottles; site-wide wording for DABS status codes.
+- Status labels (PR #76): DABS codes worded from its locator names and the 2026
+  Vendor Partnership Manual (`STATUS_INFO` in `lib/config.ts`); U was wrongly
+  "Leaving soon", D wrongly "Clearance".
 
 ## Bars & taverns (/bars, PR #60, live 2026-10-12)
 - 612 licenses from the DABS Licensee List (4,543 rows in all): bars 419,

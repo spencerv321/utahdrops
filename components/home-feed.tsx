@@ -30,7 +30,7 @@ function change(e: FeedEvent): { label: string; tone: string } {
         ? { label: `Price drop from ${formatPrice(d.old as number)}`, tone: "text-price-drop" }
         : { label: `Price up from ${formatPrice(d.old as number)}`, tone: "text-muted-foreground" };
     case "status_change":
-      if (d.new === "D") return { label: "Clearance: being discontinued", tone: "text-clearance" };
+      if (d.new === "D") return { label: "Discontinued: won't be restocked", tone: "text-clearance" };
       if (d.new === "A") return { label: "Now allocated", tone: "text-fresh" };
       if (d.new === "L") return { label: "Now limited", tone: "text-fresh" };
       return { label: "Listing changed", tone: "text-muted-foreground" };

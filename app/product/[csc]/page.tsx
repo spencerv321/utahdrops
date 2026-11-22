@@ -40,7 +40,7 @@ import {
 } from "@/lib/format";
 import { BottlePhoto } from "@/components/bottle-photo";
 import { bottleDescription } from "@/lib/bottle-notes";
-import { DABS_LOCATOR_URL, SITE_URL, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
+import { DABS_LOCATOR_URL, SITE_URL, STATUS_INFO, STATUS_LABELS, WATCH_REFRESH_NOTE, isFreshStoreCheck } from "@/lib/config";
 import { noneStatewideSince } from "@/lib/store-freshness";
 import { makerForProduct, makerPath } from "@/lib/makers";
 
@@ -388,7 +388,10 @@ export default async function ProductPage({ params, searchParams }: Props) {
               <Detail term="DABS code">{product.csc}</Detail>
               <Detail term="Listing status">
                 {product.status ? `${STATUS_LABELS[product.status] ?? product.status}` : "—"}
-                <span className="block text-xs text-subtle-foreground">How DABS carries it, not whether it&apos;s on a shelf.</span>
+                <span className="block text-xs text-subtle-foreground">
+                  {product.status && STATUS_INFO[product.status] ? `${STATUS_INFO[product.status].explain} ` : ""}
+                  How DABS carries it, not whether it&apos;s on a shelf.
+                </span>
               </Detail>
               <Detail term="In stores">{formatQty(product.store_qty)}</Detail>
               <Detail term="At the DABS warehouse">

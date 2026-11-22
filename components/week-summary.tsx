@@ -16,7 +16,7 @@ const SECTIONS: Record<WeekSectionKey, { title: string; blurb: string; all: stri
     empty: "No notable restocks this week.",
   },
   status: {
-    title: "Newly allocated, limited or on clearance",
+    title: "Newly allocated, limited or discontinued",
     blurb: "DABS changed how these are sold.",
     all: "/whats-new?type=status_change",
     empty: "No listing changes this week.",

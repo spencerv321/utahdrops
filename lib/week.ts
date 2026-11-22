@@ -58,7 +58,7 @@ export async function getWeek(limit = 10): Promise<WeekSection[]> {
       sql`e.event_type = 'price_change' and (e.detail->>'new')::numeric <= (e.detail->>'old')::numeric * 0.95`,
       limit
     ),
-    // News in a listing: now allocated, limited, or on clearance.
+    // News in a listing: now allocated, limited, or discontinued.
     section("status", sql`e.event_type = 'status_change' and e.detail->>'new' in ('A', 'L', 'D')`, limit),
     // Sold out statewide, only the ones people hunt for, and still gone.
     section(

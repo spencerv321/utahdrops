@@ -23,18 +23,73 @@ export const DABS_DISCLAIMER =
   "Inventory data is collected from public DABS pages and may be out of date. " +
   "No availability is guaranteed — always confirm with the store.";
 
-export const STATUS_LABELS: Record<string, string> = {
-  "1": "General",
-  A: "Allocated",
-  D: "Discontinued (clearance)",
-  L: "Limited",
-  N: "Unavailable",
-  P: "Limited availability",
-  S: "Special order",
-  T: "Trial",
-  U: "Unavailable soon",
-  X: "Discontinued limited",
+/**
+ * DABS listing status codes, worded for shoppers. Sources: DABS's product
+ * locator names every code ("T  Trial Distribution", "U  Unavailable Limited
+ * Distribution"…), and the 2026 Vendor Partnership Manual (section 2d) defines
+ * 1, L, A, T and S. D, X, N, U and P have only their locator names, so their
+ * words stay close to them: no claims about clearance prices or dates.
+ * `label` is the full name (filters, history, listing details, emails),
+ * `note` the short one beside a bottle in lists (none for general listings),
+ * `explain` one line on the product page.
+ */
+export const STATUS_INFO: Record<string, { label: string; note: string | null; explain: string }> = {
+  "1": {
+    label: "General",
+    note: null,
+    explain: "A core item DABS stocks in most state stores.",
+  },
+  L: {
+    label: "Limited: select stores",
+    note: "Select stores",
+    explain: "Stocked only in the stores where DABS expects it to sell.",
+  },
+  A: {
+    label: "Allocated",
+    note: "Allocated",
+    explain: "Supply is limited by the maker, so DABS gets small amounts and releases them to select stores.",
+  },
+  T: {
+    label: "Seasonal or trial",
+    note: "Seasonal or trial",
+    explain: "A one-time buy for a season or a short test. Once it sells out, DABS may not bring it back.",
+  },
+  S: {
+    label: "Special order",
+    note: "Special order only",
+    explain: "Not stocked in stores. You can order it through DABS.",
+  },
+  D: {
+    label: "Discontinued",
+    note: "Discontinued",
+    explain: "DABS has discontinued it, so what's left in stores won't be restocked.",
+  },
+  X: {
+    label: "Discontinued (select stores)",
+    note: "Discontinued",
+    explain: "A select-stores item DABS has discontinued, so what's left won't be restocked.",
+  },
+  N: {
+    label: "Unavailable",
+    note: "Unavailable",
+    explain: "DABS lists it as unavailable.",
+  },
+  U: {
+    label: "Unavailable (select stores)",
+    note: "Unavailable",
+    explain: "A select-stores item DABS lists as unavailable.",
+  },
+  P: {
+    label: "Limited availability",
+    note: "Limited availability",
+    explain: "DABS lists it as limited availability.",
+  },
 };
+
+/** Full label for a status code (falls back to the raw code). */
+export const STATUS_LABELS: Record<string, string> = Object.fromEntries(
+  Object.entries(STATUS_INFO).map(([k, v]) => [k, v.label])
+);
 
 /**
  * Store-by-store checks older than this are treated as unknown everywhere on
