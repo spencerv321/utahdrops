@@ -393,6 +393,7 @@ async function main() {
   }
   if (process.argv[2] === "freshness") return freshness(sql);
   if (process.argv[2] === "checks") return checks(sql);
+  if (process.argv[2] === "monetization") return (await import("./monetization-report")).monetizationReport(sql);
   if (process.argv[2] === "discover") return discover(sql);
   if (process.argv[2] === "funnel") return funnel(sql);
   if (process.argv[2] === "dropstores") {
