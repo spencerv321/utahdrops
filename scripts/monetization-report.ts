@@ -26,9 +26,9 @@ export async function monetizationReport(sql: typeof import("../lib/db").sql) {
            count(*)::int as users, count(*) filter (where user_id in (${tracked}))::int as tracked_users, sum(n)::int as total_watches
     from w group by 1 order by 1`);
   show("watch totals", await sql`
-    select count(*)::int as watches, count(distinct user_id)::int as users, count(distinct csc)::int as bottles,
+    select sum(n)::int as watches, count(*)::int as users, (select count(distinct csc)::int from watchlist) as bottles,
            max(n)::int as max_per_user, percentile_cont(0.5) within group (order by n)::float8 as median_per_user
-    from (select user_id, csc, count(*) over (partition by user_id) as n from watchlist) x`);
+    from (select user_id, count(*) as n from watchlist group by 1) x`);
   show("watches added by week", await sql`
     select to_char(date_trunc('week', created_at at time zone 'America/Denver'), 'YYYY-MM-DD') as week,
            count(*)::int as watches, count(distinct user_id)::int as users
