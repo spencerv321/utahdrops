@@ -7,6 +7,19 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
 `/api/health` is green. On Oct 9 the catalog guard rejected one partial DABS pass
 (386 in-stock products at 0), as designed; the next pass was normal.
 
+## Utah's Year in Bottles (PRs #77, #78)
+- `/year-in-bottles/2026`: a statewide year in review, Oct 2025 – Sep 2026, from
+  DABS monthly sales only (no store or city data exists). Numbers are frozen in
+  `data/year-in-bottles-2026.json` (`scripts/year-in-bottles.ts`; production
+  check `report.yml` → `yearinbottles`). Card copy is generated in
+  `lib/year-in-bottles-cards.ts`: claims are checked (`need`), bottle names come
+  from the reviewed `NAMES` list.
+- Nine cards, each with its own share link and image
+  (`/year-in-bottles/2026/<card>`). Shares record as `share:year`. The homepage
+  shows an outlined link through Jan 31 (`HOME_WINDOW`).
+- Next edition: rebuild the snapshot with `--write`, add it to `EDITIONS`, fix
+  any failing `need()` claims or missing `NAMES`.
+
 ## Share tracking (this branch, 2026-11-21)
 - Share button (product pages, /discover) records `share_tap`, then
   `share_native` (sheet target picked) or `share_copy` in `discover_events`

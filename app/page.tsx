@@ -23,7 +23,8 @@ import { watchSummary } from "@/lib/watch-summary";
 import { MAKERS, MAKERS_PATH } from "@/lib/makers";
 import { BARS_PATH } from "@/lib/bars";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/config";
-import { activeSeason, GROUPS, mixStrip } from "@/lib/holiday";
+import { activeSeason, GROUPS, mixStrip, utahToday } from "@/lib/holiday";
+import { CURRENT_EDITION, EDITIONS, compact, editionPath, onHome, windowLabel } from "@/lib/year-in-bottles-cards";
 import { getHolidayShelf } from "@/lib/holiday-query";
 import { HolidayStrip } from "@/components/holiday-strip";
 
@@ -201,6 +202,8 @@ export default async function HomePage({
 
       {picks.length > 0 ? <DiscoverPreview picks={picks} area={area} watched={watched} signedIn={!!user} /> : null}
 
+      {onHome(utahToday()) ? <YearInBottlesLink /> : null}
+
       <MoreUtah />
 
       <div className={user ? "max-w-3xl" : "grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-14"}>
@@ -242,6 +245,27 @@ export default async function HomePage({
         ) : null}
       </div>
     </div>
+  );
+}
+
+// Year-end pointer to /year-in-bottles (HOME_WINDOW). Outlined: the hero's
+// "Find bottles" stays the one filled button.
+function YearInBottlesLink() {
+  const s = EDITIONS[CURRENT_EDITION];
+  return (
+    <Link
+      prefetch={false}
+      href={editionPath(CURRENT_EDITION)}
+      className="group flex flex-col gap-1 rounded-md border border-input px-4 py-3 hover:border-primary sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+    >
+      <span className="flex items-center gap-1.5 font-display text-2xl leading-none">
+        Utah&apos;s Year in Bottles
+        <ArrowRight className="size-4 text-subtle-foreground group-hover:text-primary" aria-hidden />
+      </span>
+      <span className="text-sm leading-snug text-muted-foreground">
+        {compact(s.totals.units)} bottles and cans, the #1 bottle and the biggest month, {windowLabel(s)}.
+      </span>
+    </Link>
   );
 }
 
