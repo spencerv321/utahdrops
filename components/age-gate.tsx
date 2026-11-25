@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { GlassMark } from "@/components/glass-mark";
 import { SITE_NAME } from "@/lib/config";
 import { UTAH_101_PATH } from "@/lib/utah-101";
+import { YEAR_IN_BOTTLES_PATH } from "@/lib/year-in-bottles-paths";
 
 const COOKIE = "bf_age_ok";
 
@@ -22,7 +23,9 @@ export function AgeGate() {
   const [dismissed, setDismissed] = useState(false);
 
   // Utah 101 is general education (laws, history, safety), readable by anyone.
-  const exempt = pathname === UTAH_101_PATH || pathname.startsWith(`${UTAH_101_PATH}/`);
+  // Year in Bottles is statewide sales statistics, opened mostly from shared links.
+  const under = (base: string) => pathname === base || pathname.startsWith(`${base}/`);
+  const exempt = under(UTAH_101_PATH) || under(YEAR_IN_BOTTLES_PATH);
   if (confirmed || dismissed || exempt) return null;
 
   return (
