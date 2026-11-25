@@ -78,3 +78,11 @@ test("the client deck doesn't bundle the snapshot", () => {
   assert.doesNotMatch(src, /import \{[^}]*\} from "@\/lib\/year-in-bottles-cards"/);
   assert.match(src, /import type \{ YearCard \} from "@\/lib\/year-in-bottles-cards"/);
 });
+
+test("site banner runs from launch through mid-January", async () => {
+  const { onBanner } = await import("../lib/year-in-bottles-paths");
+  assert.equal(onBanner("2026-11-23"), false);
+  assert.equal(onBanner("2026-11-24"), true);
+  assert.equal(onBanner("2027-01-15"), true);
+  assert.equal(onBanner("2027-01-16"), false);
+});

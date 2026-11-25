@@ -10,7 +10,16 @@ import { setAlertPrefs } from "@/app/actions";
  * "Email me when the list posts": the monthly allocated-list alert. Signed-out
  * visitors go sign in first (and land back on Drops).
  */
-export function DropAlertSignup({ signedIn, optedIn }: { signedIn: boolean; optedIn: boolean }) {
+export function DropAlertSignup({
+  signedIn,
+  optedIn,
+  next = "/drops",
+}: {
+  signedIn: boolean;
+  optedIn: boolean;
+  /** Where signed-out visitors land after signing in. */
+  next?: string;
+}) {
   const [on, setOn] = useState(optedIn);
   const [pending, startTransition] = useTransition();
   const button =
@@ -18,7 +27,7 @@ export function DropAlertSignup({ signedIn, optedIn }: { signedIn: boolean; opte
 
   if (!signedIn) {
     return (
-      <Link prefetch={false} href="/login?next=/drops" className={button}>
+      <Link prefetch={false} href={`/login?next=${encodeURIComponent(next)}`} className={button}>
         <Bell className="size-4" aria-hidden />
         Email me the list
       </Link>

@@ -2,11 +2,21 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { YearDeck } from "@/components/year-deck";
+import { YearNext } from "@/components/year-next";
+import { sql } from "@/lib/db";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { DABS_SALES_URL, monthYear, windowLabel, type YearCard, type YearEdition } from "@/lib/year-in-bottles-cards";
 
 /** /year-in-bottles/<edition> and its per-card share links (same page, opened on that card). */
-export function YearInBottles({ snapshot, cards, focus }: { snapshot: YearEdition; cards: YearCard[]; focus?: string }) {
+export async function YearInBottles({ snapshot, cards, focus }: { snapshot: YearEdition; cards: YearCard[]; focus?: string }) {
   const label = windowLabel(snapshot);
+  // Only for the closing panel's signup state; the cards never touch the database.
+  const user = await getCurrentUser().catch(() => null);
+  const optedIn = user
+    ? await (sql`select allocated_email from alert_prefs where user_id = ${user.id}` as unknown as Promise<{ allocated_email: boolean }[]>)
+        .then((r) => r[0]?.allocated_email ?? false)
+        .catch(() => false)
+    : false;
   return (
     <div className="space-y-8 sm:space-y-12">
       <header className="space-y-3 sm:space-y-4">
@@ -28,7 +38,13 @@ export function YearInBottles({ snapshot, cards, focus }: { snapshot: YearEditio
         </p>
       </header>
 
-      <YearDeck cards={cards} edition={snapshot.edition} windowLabel={label} focus={focus} />
+      <YearDeck
+        cards={cards}
+        edition={snapshot.edition}
+        windowLabel={label}
+        focus={focus}
+        end={<YearNext signedIn={!!user} optedIn={optedIn} returnTo={`/year-in-bottles/${snapshot.edition}`} />}
+      />
 
       <section aria-labelledby="how-title" className="max-w-2xl space-y-3 border-t pt-6 text-[15px] leading-relaxed text-muted-foreground">
         <h2 id="how-title" className="font-display text-3xl text-foreground">

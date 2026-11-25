@@ -16,7 +16,11 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   from the reviewed `NAMES` list.
 - Nine cards, each with its own share link and image
   (`/year-in-bottles/2026/<card>`). Shares record as `share:year`. The homepage
-  shows an outlined link through Jan 31 (`HOME_WINDOW`).
+  shows an outlined link through Jan 31 (`HOME_WINDOW`), and every page a
+  one-line banner through Jan 15 (`BANNER_WINDOW`), gone once the visitor
+  opens the deck or closes it (cookie `ud_yib_seen`). No age gate on it.
+- The deck ends with a "What's next" panel: allocated-list email signup and
+  a pointer to watching a bottle (existing flows).
 - Next edition: rebuild the snapshot with `--write`, add it to `EDITIONS`, fix
   any failing `need()` claims or missing `NAMES`.
 

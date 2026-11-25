@@ -5,27 +5,31 @@ import { ChevronLeft, ChevronRight, Share } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { YearCardView } from "@/components/year-card";
 import type { YearCard } from "@/lib/year-in-bottles-cards";
-import { cardPath } from "@/lib/year-in-bottles-paths";
+import { cardPath, markBannerSeen } from "@/lib/year-in-bottles-paths";
 import { cn } from "@/lib/utils";
 
 /**
  * The card deck: a horizontal row that snaps card by card (swipe on phones,
  * arrows or the dots elsewhere). Every card is in the page at rest, so it
- * reads without script. `focus` opens a shared card's link on that card.
+ * reads without script. `focus` opens a shared card's link on that card;
+ * `end` is a closing panel (not shareable) after the last card.
  */
 export function YearDeck({
   cards,
   edition,
   windowLabel,
   focus,
+  end,
 }: {
   cards: YearCard[];
   edition: string;
   windowLabel: string;
   focus?: string;
+  end?: React.ReactNode;
 }) {
   const track = useRef<HTMLOListElement>(null);
   const deck = useRef<HTMLDivElement>(null);
+  const last = cards.length - (end ? 0 : 1);
   const [current, setCurrent] = useState(() => Math.max(0, cards.findIndex((c) => c.slug === focus)));
 
   const go = useCallback((i: number, smooth = true) => {
@@ -34,6 +38,9 @@ export function YearDeck({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     track.current.scrollTo({ left: el.offsetLeft - track.current.offsetLeft, behavior: smooth && !reduce ? "smooth" : "auto" });
   }, []);
+
+  // Seen it: the site-wide banner stops pointing here.
+  useEffect(() => markBannerSeen(), []);
 
   useEffect(() => {
     if (!focus) return;
@@ -64,7 +71,7 @@ export function YearDeck({
         aria-label="Year in bottles cards"
         className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
         onKeyDown={(e) => {
-          if (e.key === "ArrowRight") go(Math.min(cards.length - 1, current + 1));
+          if (e.key === "ArrowRight") go(Math.min(last, current + 1));
           if (e.key === "ArrowLeft") go(Math.max(0, current - 1));
         }}
       >
@@ -89,18 +96,23 @@ export function YearDeck({
             />
           </li>
         ))}
+        {end ? (
+          <li id="whats-next" data-index={cards.length} className="w-[min(84vw,22rem)] shrink-0 snap-start">
+            {end}
+          </li>
+        ) : null}
       </ol>
 
       <div className="flex items-center justify-between gap-4">
         <div className="flex" role="group" aria-label="Go to card">
-          {cards.map((c, i) => (
+          {[...cards.map((c, i) => `Card ${i + 1}: ${c.kicker}`), ...(end ? ["What's next"] : [])].map((label, i) => (
             <button
-              key={c.slug}
+              key={label}
               type="button"
               onClick={() => go(i)}
-              aria-label={`Card ${i + 1}: ${c.kicker}`}
+              aria-label={label}
               aria-current={i === current ? "true" : undefined}
-              className="flex h-11 w-6 items-center justify-center"
+              className="flex h-11 w-[22px] items-center justify-center"
             >
               <span className={cn("block h-1.5 rounded-full transition-all", i === current ? "w-5 bg-primary" : "w-1.5 bg-input")} />
             </button>
@@ -118,8 +130,8 @@ export function YearDeck({
           </button>
           <button
             type="button"
-            onClick={() => go(Math.min(cards.length - 1, current + 1))}
-            disabled={current === cards.length - 1}
+            onClick={() => go(Math.min(last, current + 1))}
+            disabled={current === last}
             aria-label="Next card"
             className="flex size-11 items-center justify-center rounded-full border border-input hover:border-primary disabled:opacity-40"
           >
