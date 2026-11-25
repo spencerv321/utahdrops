@@ -1,0 +1,6262 @@
+{
+ "edition": "2026",
+ "note": "Frozen snapshot from DABS monthly Sales Analysis reports. Built by scripts/year-in-bottles.ts; reviewed by eye. Units are DABS bottle counts (cans included).",
+ "builtAt": "2026-11-25",
+ "rules": {
+  "WINDOW_MONTHS": 12,
+  "MIN_YOY_MONTHS": 3,
+  "MIN_YOY_GROUP_DOLLARS": 1000000,
+  "MIN_YOY_CLASS_DOLLARS": 500000,
+  "MIN_SEASON_GROUP_SHARE": 0.01,
+  "MIN_SEASON_CLASS_SHARE": 0.005,
+  "TOP_LIST": 10,
+  "NOT_STYLES": [
+   "offers",
+   "special-orders",
+   "gift-sets",
+   "other"
+  ],
+  "TOP_PER_GROUP": 3
+ },
+ "sources": [
+  {
+   "month": "2025-10",
+   "fiscalLabel": "FY26 P4",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P04_Oct.xlsx"
+  },
+  {
+   "month": "2025-11",
+   "fiscalLabel": "FY26 P5",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P05_Nov.xlsx"
+  },
+  {
+   "month": "2025-12",
+   "fiscalLabel": "FY26 P6",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P06_Dec.xlsx"
+  },
+  {
+   "month": "2026-01",
+   "fiscalLabel": "FY26 P7",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P07_Jan.xlsx"
+  },
+  {
+   "month": "2026-02",
+   "fiscalLabel": "FY26 P8",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P08_Feb.xlsx"
+  },
+  {
+   "month": "2026-03",
+   "fiscalLabel": "FY26 P9",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P09_Mar.xlsx"
+  },
+  {
+   "month": "2026-04",
+   "fiscalLabel": "FY26 P10",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P10_Apr.xlsx"
+  },
+  {
+   "month": "2026-05",
+   "fiscalLabel": "FY26 P11",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P11_May.xlsx"
+  },
+  {
+   "month": "2026-06",
+   "fiscalLabel": "FY26 P12",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY26_P12_Jun.xlsx"
+  },
+  {
+   "month": "2026-07",
+   "fiscalLabel": "FY27 P1",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY27_P01_Jul.xlsx"
+  },
+  {
+   "month": "2026-08",
+   "fiscalLabel": "FY27 P2",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY27_P02_Aug.xlsx"
+  },
+  {
+   "month": "2026-09",
+   "fiscalLabel": "FY27 P3",
+   "url": "https://abs.utah.gov/wp-content/uploads/Sales-Analysis_FY27_P03_Sep.xlsx"
+  }
+ ],
+ "window": {
+  "from": "2025-10",
+  "through": "2026-09",
+  "months": [
+   "2025-10",
+   "2025-11",
+   "2025-12",
+   "2026-01",
+   "2026-02",
+   "2026-03",
+   "2026-04",
+   "2026-05",
+   "2026-06",
+   "2026-07",
+   "2026-08",
+   "2026-09"
+  ],
+  "days": 365
+ },
+ "totals": {
+  "dollars": 539067754,
+  "units": 42689698,
+  "items": 11738,
+  "unitsPerDay": 116958,
+  "dollarsPerDay": 1476898
+ },
+ "mix": [
+  {
+   "kind": "spirits",
+   "label": "Spirits",
+   "dollars": 298155421.8,
+   "units": 13504575,
+   "dollarShare": 0.5531,
+   "unitShare": 0.3163
+  },
+  {
+   "kind": "wine",
+   "label": "Wine",
+   "dollars": 182156339.84,
+   "units": 11217944,
+   "dollarShare": 0.3379,
+   "unitShare": 0.2628
+  },
+  {
+   "kind": "beer",
+   "label": "Beer & cider",
+   "dollars": 35756688.12,
+   "units": 12703315,
+   "dollarShare": 0.0663,
+   "unitShare": 0.2976
+  },
+  {
+   "kind": "premixed",
+   "label": "Premixed cocktails",
+   "dollars": 22956345.46,
+   "units": 5259758,
+   "dollarShare": 0.0426,
+   "unitShare": 0.1232
+  },
+  {
+   "kind": "other",
+   "label": "Other",
+   "dollars": 42958.78,
+   "units": 4106,
+   "dollarShare": 0.0001,
+   "unitShare": 0.0001
+  }
+ ],
+ "groups": [
+  {
+   "slug": "whiskey",
+   "label": "Whiskey",
+   "dollars": 106655809.59,
+   "units": 4224193,
+   "dollarShare": 0.1979
+  },
+  {
+   "slug": "vodka",
+   "label": "Vodka",
+   "dollars": 73951426.87,
+   "units": 4676234,
+   "dollarShare": 0.1372
+  },
+  {
+   "slug": "red-wine",
+   "label": "Red wine",
+   "dollars": 72805111.15,
+   "units": 4014457,
+   "dollarShare": 0.1351
+  },
+  {
+   "slug": "white-wine",
+   "label": "White wine",
+   "dollars": 58957252.94,
+   "units": 3998821,
+   "dollarShare": 0.1094
+  },
+  {
+   "slug": "tequila",
+   "label": "Tequila & mezcal",
+   "dollars": 49044948.74,
+   "units": 1551172,
+   "dollarShare": 0.091
+  },
+  {
+   "slug": "beer",
+   "label": "Beer",
+   "dollars": 27264354.73,
+   "units": 10201182,
+   "dollarShare": 0.0506
+  },
+  {
+   "slug": "sparkling",
+   "label": "Sparkling wine",
+   "dollars": 24209615.07,
+   "units": 1614428,
+   "dollarShare": 0.0449
+  },
+  {
+   "slug": "premixed",
+   "label": "Premixed cocktails",
+   "dollars": 22956345.46,
+   "units": 5259758,
+   "dollarShare": 0.0426
+  },
+  {
+   "slug": "liqueurs",
+   "label": "Liqueurs & schnapps",
+   "dollars": 22361332.25,
+   "units": 1002617,
+   "dollarShare": 0.0415
+  },
+  {
+   "slug": "rum",
+   "label": "Rum",
+   "dollars": 18930512.69,
+   "units": 1018476,
+   "dollarShare": 0.0351
+  },
+  {
+   "slug": "special-orders",
+   "label": "Special orders",
+   "dollars": 11465693.61,
+   "units": 710463,
+   "dollarShare": 0.0213
+  },
+  {
+   "slug": "gin",
+   "label": "Gin",
+   "dollars": 10420879.22,
+   "units": 411633,
+   "dollarShare": 0.0193
+  },
+  {
+   "slug": "rose",
+   "label": "Rosé & blush",
+   "dollars": 8656416.24,
+   "units": 561941,
+   "dollarShare": 0.0161
+  },
+  {
+   "slug": "cider",
+   "label": "Cider & malt drinks",
+   "dollars": 7159005.17,
+   "units": 2226228,
+   "dollarShare": 0.0133
+  },
+  {
+   "slug": "offers",
+   "label": "Offers & allocated",
+   "dollars": 7006737.42,
+   "units": 262384,
+   "dollarShare": 0.013
+  },
+  {
+   "slug": "other-wine",
+   "label": "Sake, orange & fruit wine",
+   "dollars": 5612512.68,
+   "units": 444293,
+   "dollarShare": 0.0104
+  },
+  {
+   "slug": "brandy",
+   "label": "Brandy & cognac",
+   "dollars": 5461044.17,
+   "units": 207959,
+   "dollarShare": 0.0101
+  },
+  {
+   "slug": "gift-sets",
+   "label": "Gift sets",
+   "dollars": 3676464.79,
+   "units": 165353,
+   "dollarShare": 0.0068
+  },
+  {
+   "slug": "fortified",
+   "label": "Port, sherry & dessert wine",
+   "dollars": 2472291.21,
+   "units": 137870,
+   "dollarShare": 0.0046
+  },
+  {
+   "slug": "other",
+   "label": "Other",
+   "dollars": 0,
+   "units": 236,
+   "dollarShare": 0
+  }
+ ],
+ "top": {
+  "familiesByDollars": [
+   {
+    "title": "Titos Handmade Vodka",
+    "group": "vodka",
+    "sizesMl": [
+     200,
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "038174",
+     "038176",
+     "038177",
+     "038178",
+     "038179"
+    ],
+    "dollars": 16249809.86,
+    "units": 617406
+   },
+   {
+    "title": "Jack Daniels Black Label",
+    "group": "whiskey",
+    "sizesMl": [
+     200,
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "026820",
+     "026823",
+     "026826",
+     "026827",
+     "026828"
+    ],
+    "dollars": 5770899.31,
+    "units": 201432
+   },
+   {
+    "title": "Jameson Irish Whiskey",
+    "group": "whiskey",
+    "sizesMl": [
+     200,
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "015622",
+     "015626",
+     "015627",
+     "015628",
+     "015644"
+    ],
+    "dollars": 5685661.2,
+    "units": 168564
+   },
+   {
+    "title": "Crown Royal",
+    "group": "whiskey",
+    "sizesMl": [
+     200,
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "011294",
+     "011296",
+     "011297",
+     "011298",
+     "011299"
+    ],
+    "dollars": 5434333.32,
+    "units": 173962
+   },
+   {
+    "title": "Barton Vodka",
+    "group": "vodka",
+    "sizesMl": [
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "035314",
+     "035316",
+     "035317",
+     "035318"
+    ],
+    "dollars": 4539771.97,
+    "units": 656739
+   },
+   {
+    "title": "Grey Goose Vodka",
+    "group": "vodka",
+    "sizesMl": [
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "034422",
+     "034423",
+     "034425",
+     "034433"
+    ],
+    "dollars": 3637570.96,
+    "units": 125260
+   },
+   {
+    "title": "Jim Beam",
+    "group": "whiskey",
+    "sizesMl": [
+     200,
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "019063",
+     "019064",
+     "019066",
+     "019067",
+     "019068"
+    ],
+    "dollars": 3300110.45,
+    "units": 158618
+   },
+   {
+    "title": "Patron Silver Tequila",
+    "group": "tequila",
+    "sizesMl": [
+     375,
+     750,
+     1750
+    ],
+    "itemCodes": [
+     "088294",
+     "088296",
+     "088298"
+    ],
+    "dollars": 3239574.14,
+    "units": 64870
+   },
+   {
+    "title": "Crown Royal Regal Apple",
+    "group": "whiskey",
+    "sizesMl": [
+     375,
+     750,
+     1750
+    ],
+    "itemCodes": [
+     "010805",
+     "010807",
+     "010809"
+    ],
+    "dollars": 3157131.52,
+    "units": 105148
+   },
+   {
+    "title": "Pendleton Canadian Whisky",
+    "group": "whiskey",
+    "sizesMl": [
+     375,
+     750,
+     1000,
+     1750
+    ],
+    "itemCodes": [
+     "014192",
+     "014194",
+     "014197",
+     "014199"
+    ],
+    "dollars": 3074280.77,
+    "units": 91199
+   }
+  ],
+  "itemsByUnits": [
+   {
+    "itemCode": "918885",
+    "title": "Natty Daddy",
+    "name": "NATTY DADDY 355 ml",
+    "sizeMl": 355,
+    "group": "beer",
+    "dollars": 791659.7,
+    "units": 772280
+   },
+   {
+    "itemCode": "989410",
+    "title": "Squatters Hop Rising Double IPA Can",
+    "name": "SQUATTERS HOP RISING DBLE IPA CAN 355ml",
+    "sizeMl": 355,
+    "group": "beer",
+    "dollars": 889257.38,
+    "units": 425482
+   },
+   {
+    "itemCode": "058250",
+    "title": "Cutwater RTD Tequila Margarita",
+    "name": "CUTWATER RTD TEQUILA MARGARITA 355ml",
+    "sizeMl": 355,
+    "group": "premixed",
+    "dollars": 1410007.1,
+    "units": 381083
+   },
+   {
+    "itemCode": "954782",
+    "title": "Templin Ferda Dbl IPA",
+    "name": "TEMPLIN FERDA DBL IPA 473ml",
+    "sizeMl": 473,
+    "group": "beer",
+    "dollars": 1356651.2,
+    "units": 343456
+   },
+   {
+    "itemCode": "918825",
+    "title": "Monaco Citrus Rush",
+    "name": "MONACO CITRUS RUSH 355ml",
+    "sizeMl": 355,
+    "group": "premixed",
+    "dollars": 864675,
+    "units": 288225
+   },
+   {
+    "itemCode": "035314",
+    "title": "Barton Vodka",
+    "name": "BARTON VODKA 375ml",
+    "sizeMl": 375,
+    "group": "vodka",
+    "dollars": 875083.99,
+    "units": 274321
+   },
+   {
+    "itemCode": "918800",
+    "title": "Copper Can Moscow Mule",
+    "name": "COPPER CAN MOSCOW MULE 355 ml",
+    "sizeMl": 355,
+    "group": "premixed",
+    "dollars": 1055460.88,
+    "units": 272026
+   },
+   {
+    "itemCode": "035318",
+    "title": "Barton Vodka",
+    "name": "BARTON VODKA 1750ml",
+    "sizeMl": 1750,
+    "group": "vodka",
+    "dollars": 2912642.26,
+    "units": 265282
+   },
+   {
+    "itemCode": "989012",
+    "title": "Modelo Negra Dark Ale",
+    "name": "MODELO NEGRA DARK ALE 355 ml",
+    "sizeMl": 355,
+    "group": "beer",
+    "dollars": 521837.75,
+    "units": 254555
+   },
+   {
+    "itemCode": "989177",
+    "title": "Icehouse Beer",
+    "name": "ICEHOUSE BEER 355ml",
+    "sizeMl": 355,
+    "group": "beer",
+    "dollars": 240835.32,
+    "units": 243268
+   }
+  ],
+  "perGroup": [
+   {
+    "slug": "whiskey",
+    "label": "Whiskey",
+    "byUnits": [
+     {
+      "itemCode": "064864",
+      "title": "Fireball Cinnamon Whisky Pet",
+      "name": "FIREBALL CINNAMON WHISKY PET 375ml",
+      "sizeMl": 375,
+      "group": "whiskey",
+      "dollars": 1153420.42,
+      "units": 144358
+     },
+     {
+      "itemCode": "064863",
+      "title": "Fireball",
+      "name": "FIREBALL 200 ml",
+      "sizeMl": 200,
+      "group": "whiskey",
+      "dollars": 559108.27,
+      "units": 124523
+     },
+     {
+      "itemCode": "064866",
+      "title": "Fireball Cinnamon Whisky",
+      "name": "FIREBALL CINNAMON WHISKY 750ml",
+      "sizeMl": 750,
+      "group": "whiskey",
+      "dollars": 1078413.44,
+      "units": 69256
+     }
+    ]
+   },
+   {
+    "slug": "vodka",
+    "label": "Vodka",
+    "byUnits": [
+     {
+      "itemCode": "035314",
+      "title": "Barton Vodka",
+      "name": "BARTON VODKA 375ml",
+      "sizeMl": 375,
+      "group": "vodka",
+      "dollars": 875083.99,
+      "units": 274321
+     },
+     {
+      "itemCode": "035318",
+      "title": "Barton Vodka",
+      "name": "BARTON VODKA 1750ml",
+      "sizeMl": 1750,
+      "group": "vodka",
+      "dollars": 2912642.26,
+      "units": 265282
+     },
+     {
+      "itemCode": "038177",
+      "title": "Titos Handmade Vodka",
+      "name": "TITOS HANDMADE VODKA 1000ml",
+      "sizeMl": 1000,
+      "group": "vodka",
+      "dollars": 5221970.13,
+      "units": 195387
+     }
+    ]
+   },
+   {
+    "slug": "red-wine",
+    "label": "Red wine",
+    "byUnits": [
+     {
+      "itemCode": "923499",
+      "title": "Beatbox Blue Razzberry",
+      "name": "BEATBOX BLUE RAZZBERRY 500ml",
+      "sizeMl": 500,
+      "group": "red-wine",
+      "dollars": 374277.35,
+      "units": 89790
+     },
+     {
+      "itemCode": "923498",
+      "title": "Beatbox Fruit Punch",
+      "name": "BEATBOX FRUIT PUNCH 500ml",
+      "sizeMl": 500,
+      "group": "red-wine",
+      "dollars": 331830.9,
+      "units": 79676
+     },
+     {
+      "itemCode": "925516",
+      "title": "Beatbox Juicy Mango",
+      "name": "BEATBOX JUICY MANGO 500ml",
+      "sizeMl": 500,
+      "group": "red-wine",
+      "dollars": 304844.34,
+      "units": 73190
+     }
+    ]
+   },
+   {
+    "slug": "white-wine",
+    "label": "White wine",
+    "byUnits": [
+     {
+      "itemCode": "407766",
+      "title": "Kim Crawford Sauvignon Blanc",
+      "name": "KIM CRAWFORD SAUVIGNON BLANC 750ml",
+      "sizeMl": 750,
+      "group": "white-wine",
+      "dollars": 1384477.49,
+      "units": 94775
+     },
+     {
+      "itemCode": "418330",
+      "title": "Matua Sauvignon Blanc",
+      "name": "MATUA SAUVIGNON BLANC 750ml",
+      "sizeMl": 750,
+      "group": "white-wine",
+      "dollars": 763870.65,
+      "units": 58931
+     },
+     {
+      "itemCode": "633746",
+      "title": "Vendange Pinot Grigio",
+      "name": "VENDANGE PINOT GRIGIO 500ml",
+      "sizeMl": 500,
+      "group": "white-wine",
+      "dollars": 237575.74,
+      "units": 49146
+     }
+    ]
+   },
+   {
+    "slug": "tequila",
+    "label": "Tequila & mezcal",
+    "byUnits": [
+     {
+      "itemCode": "088018",
+      "title": "Lunazul Tequila Blanco",
+      "name": "LUNAZUL TEQUILA BLANCO 750ml",
+      "sizeMl": 750,
+      "group": "tequila",
+      "dollars": 1500892.14,
+      "units": 65186
+     },
+     {
+      "itemCode": "087408",
+      "title": "Cuervo Especial Silver Tequila",
+      "name": "CUERVO ESPECIAL SILVER TEQUILA 750ml",
+      "sizeMl": 750,
+      "group": "tequila",
+      "dollars": 1117470.17,
+      "units": 59387
+     },
+     {
+      "itemCode": "087280",
+      "title": "Casamigos Blanco Tequila",
+      "name": "CASAMIGOS BLANCO TEQUILA 750ml",
+      "sizeMl": 750,
+      "group": "tequila",
+      "dollars": 2294357.77,
+      "units": 56087
+     }
+    ]
+   },
+   {
+    "slug": "beer",
+    "label": "Beer",
+    "byUnits": [
+     {
+      "itemCode": "918885",
+      "title": "Natty Daddy",
+      "name": "NATTY DADDY 355 ml",
+      "sizeMl": 355,
+      "group": "beer",
+      "dollars": 791659.7,
+      "units": 772280
+     },
+     {
+      "itemCode": "989410",
+      "title": "Squatters Hop Rising Double IPA Can",
+      "name": "SQUATTERS HOP RISING DBLE IPA CAN 355ml",
+      "sizeMl": 355,
+      "group": "beer",
+      "dollars": 889257.38,
+      "units": 425482
+     },
+     {
+      "itemCode": "954782",
+      "title": "Templin Ferda Dbl IPA",
+      "name": "TEMPLIN FERDA DBL IPA 473ml",
+      "sizeMl": 473,
+      "group": "beer",
+      "dollars": 1356651.2,
+      "units": 343456
+     }
+    ]
+   },
+   {
+    "slug": "sparkling",
+    "label": "Sparkling wine",
+    "byUnits": [
+     {
+      "itemCode": "728795",
+      "title": "Lamarca Prosecco",
+      "name": "LAMARCA PROSECCO 750ml",
+      "sizeMl": 750,
+      "group": "sparkling",
+      "dollars": 2178404,
+      "units": 115684
+     },
+     {
+      "itemCode": "737346",
+      "title": "Zonin Prosecco",
+      "name": "ZONIN PROSECCO 750ml",
+      "sizeMl": 750,
+      "group": "sparkling",
+      "dollars": 1235757.39,
+      "units": 82823
+     },
+     {
+      "itemCode": "744205",
+      "title": "Cooks Brut Sparkling Wine",
+      "name": "COOKS BRUT SPARKLING WINE 750ml",
+      "sizeMl": 750,
+      "group": "sparkling",
+      "dollars": 659629.61,
+      "units": 72235
+     }
+    ]
+   },
+   {
+    "slug": "premixed",
+    "label": "Premixed cocktails",
+    "byUnits": [
+     {
+      "itemCode": "058250",
+      "title": "Cutwater RTD Tequila Margarita",
+      "name": "CUTWATER RTD TEQUILA MARGARITA 355ml",
+      "sizeMl": 355,
+      "group": "premixed",
+      "dollars": 1410007.1,
+      "units": 381083
+     },
+     {
+      "itemCode": "918825",
+      "title": "Monaco Citrus Rush",
+      "name": "MONACO CITRUS RUSH 355ml",
+      "sizeMl": 355,
+      "group": "premixed",
+      "dollars": 864675,
+      "units": 288225
+     },
+     {
+      "itemCode": "918800",
+      "title": "Copper Can Moscow Mule",
+      "name": "COPPER CAN MOSCOW MULE 355 ml",
+      "sizeMl": 355,
+      "group": "premixed",
+      "dollars": 1055460.88,
+      "units": 272026
+     }
+    ]
+   },
+   {
+    "slug": "liqueurs",
+    "label": "Liqueurs & schnapps",
+    "byUnits": [
+     {
+      "itemCode": "064147",
+      "title": "Aperol",
+      "name": "APEROL 750ml",
+      "sizeMl": 750,
+      "group": "liqueurs",
+      "dollars": 1055347.18,
+      "units": 37178
+     },
+     {
+      "itemCode": "086390",
+      "title": "Montezuma Triple Sec",
+      "name": "MONTEZUMA TRIPLE SEC 1000ml",
+      "sizeMl": 1000,
+      "group": "liqueurs",
+      "dollars": 177599.09,
+      "units": 35591
+     },
+     {
+      "itemCode": "068036",
+      "title": "Baileys Irish Cream",
+      "name": "BAILEYS IRISH CREAM 750ml",
+      "sizeMl": 750,
+      "group": "liqueurs",
+      "dollars": 924321.44,
+      "units": 33456
+     }
+    ]
+   },
+   {
+    "slug": "rum",
+    "label": "Rum",
+    "byUnits": [
+     {
+      "itemCode": "043338",
+      "title": "Captain Morgan Spiced Rum",
+      "name": "CAPTAIN MORGAN SPICED RUM 1750ml",
+      "sizeMl": 1750,
+      "group": "rum",
+      "dollars": 1334276.26,
+      "units": 48699
+     },
+     {
+      "itemCode": "043128",
+      "title": "Bacardi Superior Rum",
+      "name": "BACARDI SUPERIOR RUM 1750ml",
+      "sizeMl": 1750,
+      "group": "rum",
+      "dollars": 1164305.54,
+      "units": 43946
+     },
+     {
+      "itemCode": "042716",
+      "title": "Malibu Coconut Rum",
+      "name": "MALIBU COCONUT RUM 750ml",
+      "sizeMl": 750,
+      "group": "rum",
+      "dollars": 749579.81,
+      "units": 41671
+     }
+    ]
+   },
+   {
+    "slug": "gin",
+    "label": "Gin",
+    "byUnits": [
+     {
+      "itemCode": "028236",
+      "title": "Bombay Sapphire Gin",
+      "name": "BOMBAY SAPPHIRE GIN 750ml",
+      "sizeMl": 750,
+      "group": "gin",
+      "dollars": 664295.55,
+      "units": 25448
+     },
+     {
+      "itemCode": "028866",
+      "title": "Tanqueray Gin",
+      "name": "TANQUERAY GIN 750ml",
+      "sizeMl": 750,
+      "group": "gin",
+      "dollars": 630348.47,
+      "units": 24765
+     },
+     {
+      "itemCode": "029911",
+      "title": "Dented Brick Craft Gin",
+      "name": "DENTED BRICK CRAFT GIN 1000ml",
+      "sizeMl": 1000,
+      "group": "gin",
+      "dollars": 324344.27,
+      "units": 18473
+     }
+    ]
+   },
+   {
+    "slug": "rose",
+    "label": "Rosé & blush",
+    "byUnits": [
+     {
+      "itemCode": "275090",
+      "title": "Chat D'Esclans Whispering Angel 2025",
+      "name": "CHAT D'ESCLANS WHISPERING ANGEL 2025 750ml",
+      "sizeMl": 750,
+      "group": "rose",
+      "dollars": 738822.6,
+      "units": 32512
+     },
+     {
+      "itemCode": "654625",
+      "title": "Franzia Sunset Blush House Win",
+      "name": "FRANZIA SUNSET BLUSH HOUSE WIN 5000ml",
+      "sizeMl": 5000,
+      "group": "rose",
+      "dollars": 541503.96,
+      "units": 29788
+     },
+     {
+      "itemCode": "891004",
+      "title": "Peter Vella Pink Moscato Sangria",
+      "name": "PETER VELLA PINK MOSCATO SANGRIA 5000 ml",
+      "sizeMl": 5000,
+      "group": "rose",
+      "dollars": 378895.56,
+      "units": 21060
+     }
+    ]
+   },
+   {
+    "slug": "cider",
+    "label": "Cider & malt drinks",
+    "byUnits": [
+     {
+      "itemCode": "901637",
+      "title": "Angry Orchard Crisp Apple Hrd Cdr",
+      "name": "ANGRY ORCHARD CRISP APPLE HRD CDR 355 ml",
+      "sizeMl": 355,
+      "group": "cider",
+      "dollars": 479323.53,
+      "units": 185067
+     },
+     {
+      "itemCode": "902930",
+      "title": "Original Sin Black Widow Cider",
+      "name": "ORIGINAL SIN BLACK WIDOW CIDER 355ml",
+      "sizeMl": 355,
+      "group": "cider",
+      "dollars": 404763.65,
+      "units": 152741
+     },
+     {
+      "itemCode": "952138",
+      "title": "Incline Imperial Honeycrisp Haze",
+      "name": "INCLINE IMPERIAL HONEYCRISP HAZE",
+      "sizeMl": 355,
+      "group": "cider",
+      "dollars": 304681.62,
+      "units": 123104
+     }
+    ]
+   },
+   {
+    "slug": "other-wine",
+    "label": "Sake, orange & fruit wine",
+    "byUnits": [
+     {
+      "itemCode": "886300",
+      "title": "Franzia Fruity Red Sangria Hou",
+      "name": "FRANZIA FRUITY RED SANGRIA HOU 5000ml",
+      "sizeMl": 5000,
+      "group": "other-wine",
+      "dollars": 325501.19,
+      "units": 17985
+     },
+     {
+      "itemCode": "891002",
+      "title": "Peter Vella Moscato Sangria",
+      "name": "PETER VELLA MOSCATO SANGRIA 5000ml",
+      "sizeMl": 5000,
+      "group": "other-wine",
+      "dollars": 317921.04,
+      "units": 17572
+     },
+     {
+      "itemCode": "097064",
+      "title": "Gekkeikan Sake",
+      "name": "GEKKEIKAN SAKE 750ml",
+      "sizeMl": 750,
+      "group": "other-wine",
+      "dollars": 103867.25,
+      "units": 14407
+     }
+    ]
+   },
+   {
+    "slug": "brandy",
+    "label": "Brandy & cognac",
+    "byUnits": [
+     {
+      "itemCode": "048106",
+      "title": "Hennessy Vs Cognac",
+      "name": "HENNESSY VS COGNAC 750ml",
+      "sizeMl": 750,
+      "group": "brandy",
+      "dollars": 1310850.48,
+      "units": 32784
+     },
+     {
+      "itemCode": "052594",
+      "title": "E&J Vs Brandy",
+      "name": "E&J VS BRANDY 375ml",
+      "sizeMl": 375,
+      "group": "brandy",
+      "dollars": 133993.59,
+      "units": 19041
+     },
+     {
+      "itemCode": "048105",
+      "title": "Hennessy Vs Cognac",
+      "name": "HENNESSY VS COGNAC 375ml",
+      "sizeMl": 375,
+      "group": "brandy",
+      "dollars": 341702.61,
+      "units": 15539
+     }
+    ]
+   },
+   {
+    "slug": "fortified",
+    "label": "Port, sherry & dessert wine",
+    "byUnits": [
+     {
+      "itemCode": "098197",
+      "title": "Martini & Rossi Extra Dry Vermouth",
+      "name": "MARTINI & ROSSI EXTRA DRY VERMOUTH 750ml",
+      "sizeMl": 750,
+      "group": "fortified",
+      "dollars": 110485.01,
+      "units": 9341
+     },
+     {
+      "itemCode": "098747",
+      "title": "Martini & Rossi Rosso Vermouth",
+      "name": "MARTINI & ROSSI ROSSO VERMOUTH 750ml",
+      "sizeMl": 750,
+      "group": "fortified",
+      "dollars": 93264.61,
+      "units": 7979
+     },
+     {
+      "itemCode": "093146",
+      "title": "Christian Bros Ruby Port",
+      "name": "CHRISTIAN BROS RUBY PORT 1500ml",
+      "sizeMl": 1500,
+      "group": "fortified",
+      "dollars": 96999.76,
+      "units": 7632
+     }
+    ]
+   }
+  ]
+ },
+ "monthly": [
+  {
+   "month": "2025-10",
+   "dollars": 47133441.42,
+   "units": 3754029
+  },
+  {
+   "month": "2025-11",
+   "dollars": 44838289.91,
+   "units": 3468458
+  },
+  {
+   "month": "2025-12",
+   "dollars": 61315410.6,
+   "units": 4507789
+  },
+  {
+   "month": "2026-01",
+   "dollars": 42960701.91,
+   "units": 3236555
+  },
+  {
+   "month": "2026-02",
+   "dollars": 43626132.1,
+   "units": 3312435
+  },
+  {
+   "month": "2026-03",
+   "dollars": 44451982.1,
+   "units": 3531509
+  },
+  {
+   "month": "2026-04",
+   "dollars": 40993579.86,
+   "units": 3391120
+  },
+  {
+   "month": "2026-05",
+   "dollars": 44265406.89,
+   "units": 3676792
+  },
+  {
+   "month": "2026-06",
+   "dollars": 43678776.39,
+   "units": 3590578
+  },
+  {
+   "month": "2026-07",
+   "dollars": 42055721.04,
+   "units": 3441403
+  },
+  {
+   "month": "2026-08",
+   "dollars": 40705596.9,
+   "units": 3295277
+  },
+  {
+   "month": "2026-09",
+   "dollars": 43042714.88,
+   "units": 3483753
+  }
+ ],
+ "peakMonth": {
+  "month": "2025-12",
+  "dollars": 61315410.6,
+  "units": 4507789,
+  "typicalMonthDollars": 43652454.25,
+  "vsTypical": 1.4046,
+  "surges": [
+   {
+    "slug": "sparkling",
+    "label": "Sparkling wine",
+    "peakUnits": 288344,
+    "typicalUnits": 119833.5,
+    "vsTypical": 2.4062
+   },
+   {
+    "slug": "red-wine",
+    "label": "Red wine",
+    "peakUnits": 533208,
+    "typicalUnits": 315238.5,
+    "vsTypical": 1.6914
+   },
+   {
+    "slug": "liqueurs",
+    "label": "Liqueurs & schnapps",
+    "peakUnits": 132828,
+    "typicalUnits": 78895.5,
+    "vsTypical": 1.6836
+   },
+   {
+    "slug": "brandy",
+    "label": "Brandy & cognac",
+    "peakUnits": 26120,
+    "typicalUnits": 16477.5,
+    "vsTypical": 1.5852
+   },
+   {
+    "slug": "whiskey",
+    "label": "Whiskey",
+    "peakUnits": 486674,
+    "typicalUnits": 340323.5,
+    "vsTypical": 1.43
+   }
+  ]
+ },
+ "seasons": {
+  "groups": [
+   {
+    "slug": "sparkling",
+    "label": "Sparkling wine",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0716
+    },
+    "low": {
+     "month": "2025-10",
+     "share": 0.0358
+    },
+    "peakVsLow": 2,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0358
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0436
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0716
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0422
+     },
+     {
+      "month": "2026-02",
+      "share": 0.045
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0402
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0395
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0428
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0412
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0421
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0425
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0419
+     }
+    ]
+   },
+   {
+    "slug": "rose",
+    "label": "Rosé & blush",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0211
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0124
+    },
+    "peakVsLow": 1.7016,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0141
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0136
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0124
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0137
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0146
+     },
+     {
+      "month": "2026-03",
+      "share": 0.016
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0156
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0174
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0197
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0211
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0201
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0164
+     }
+    ]
+   },
+   {
+    "slug": "premixed",
+    "label": "Premixed cocktails",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0532
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0334
+    },
+    "peakVsLow": 1.5928,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0391
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0358
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0334
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0358
+     },
+     {
+      "month": "2026-02",
+      "share": 0.037
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0404
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0447
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0491
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0495
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0532
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0495
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0488
+     }
+    ]
+   },
+   {
+    "slug": "other-wine",
+    "label": "Sake, orange & fruit wine",
+    "peak": {
+     "month": "2026-08",
+     "share": 0.0131
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0089
+    },
+    "peakVsLow": 1.4719,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0091
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0097
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0089
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0097
+     },
+     {
+      "month": "2026-02",
+      "share": 0.01
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0096
+     },
+     {
+      "month": "2026-04",
+      "share": 0.01
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0096
+     },
+     {
+      "month": "2026-06",
+      "share": 0.012
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0123
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0131
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0119
+     }
+    ]
+   },
+   {
+    "slug": "cider",
+    "label": "Cider & malt drinks",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0153
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0105
+    },
+    "peakVsLow": 1.4571,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0139
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0126
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0105
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0119
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0117
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0127
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0139
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0145
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0143
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0153
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0147
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0147
+     }
+    ]
+   },
+   {
+    "slug": "red-wine",
+    "label": "Red wine",
+    "peak": {
+     "month": "2026-02",
+     "share": 0.161
+    },
+    "low": {
+     "month": "2026-07",
+     "share": 0.1111
+    },
+    "peakVsLow": 1.4491,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.139
+     },
+     {
+      "month": "2025-11",
+      "share": 0.1482
+     },
+     {
+      "month": "2025-12",
+      "share": 0.1499
+     },
+     {
+      "month": "2026-01",
+      "share": 0.1554
+     },
+     {
+      "month": "2026-02",
+      "share": 0.161
+     },
+     {
+      "month": "2026-03",
+      "share": 0.1437
+     },
+     {
+      "month": "2026-04",
+      "share": 0.1257
+     },
+     {
+      "month": "2026-05",
+      "share": 0.1156
+     },
+     {
+      "month": "2026-06",
+      "share": 0.1119
+     },
+     {
+      "month": "2026-07",
+      "share": 0.1111
+     },
+     {
+      "month": "2026-08",
+      "share": 0.1226
+     },
+     {
+      "month": "2026-09",
+      "share": 0.1282
+     }
+    ]
+   },
+   {
+    "slug": "beer",
+    "label": "Beer",
+    "peak": {
+     "month": "2026-04",
+     "share": 0.0551
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.042
+    },
+    "peakVsLow": 1.3119,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0511
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0472
+     },
+     {
+      "month": "2025-12",
+      "share": 0.042
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0486
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0498
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0546
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0551
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0537
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0524
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0531
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0515
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0518
+     }
+    ]
+   },
+   {
+    "slug": "white-wine",
+    "label": "White wine",
+    "peak": {
+     "month": "2026-08",
+     "share": 0.1219
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0952
+    },
+    "peakVsLow": 1.2805,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.1021
+     },
+     {
+      "month": "2025-11",
+      "share": 0.1042
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0952
+     },
+     {
+      "month": "2026-01",
+      "share": 0.1089
+     },
+     {
+      "month": "2026-02",
+      "share": 0.1098
+     },
+     {
+      "month": "2026-03",
+      "share": 0.1124
+     },
+     {
+      "month": "2026-04",
+      "share": 0.1122
+     },
+     {
+      "month": "2026-05",
+      "share": 0.1113
+     },
+     {
+      "month": "2026-06",
+      "share": 0.1116
+     },
+     {
+      "month": "2026-07",
+      "share": 0.1171
+     },
+     {
+      "month": "2026-08",
+      "share": 0.1219
+     },
+     {
+      "month": "2026-09",
+      "share": 0.1135
+     }
+    ]
+   },
+   {
+    "slug": "brandy",
+    "label": "Brandy & cognac",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0115
+    },
+    "low": {
+     "month": "2026-06",
+     "share": 0.0092
+    },
+    "peakVsLow": 1.25,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0105
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0108
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0115
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0104
+     },
+     {
+      "month": "2026-02",
+      "share": 0.01
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0095
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0097
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0102
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0092
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0097
+     },
+     {
+      "month": "2026-08",
+      "share": 0.01
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0095
+     }
+    ]
+   },
+   {
+    "slug": "gin",
+    "label": "Gin",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0212
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0171
+    },
+    "peakVsLow": 1.2398,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0186
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0177
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0171
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0188
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0182
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0199
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0204
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0203
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0209
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0212
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0208
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0194
+     }
+    ]
+   },
+   {
+    "slug": "liqueurs",
+    "label": "Liqueurs & schnapps",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0476
+    },
+    "low": {
+     "month": "2026-09",
+     "share": 0.0391
+    },
+    "peakVsLow": 1.2174,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0411
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0408
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0476
+     },
+     {
+      "month": "2026-01",
+      "share": 0.041
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0396
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0409
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0403
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0411
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0406
+     },
+     {
+      "month": "2026-07",
+      "share": 0.042
+     },
+     {
+      "month": "2026-08",
+      "share": 0.041
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0391
+     }
+    ]
+   },
+   {
+    "slug": "vodka",
+    "label": "Vodka",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.1441
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.1188
+    },
+    "peakVsLow": 1.213,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.1426
+     },
+     {
+      "month": "2025-11",
+      "share": 0.1316
+     },
+     {
+      "month": "2025-12",
+      "share": 0.1188
+     },
+     {
+      "month": "2026-01",
+      "share": 0.1379
+     },
+     {
+      "month": "2026-02",
+      "share": 0.13
+     },
+     {
+      "month": "2026-03",
+      "share": 0.1357
+     },
+     {
+      "month": "2026-04",
+      "share": 0.1425
+     },
+     {
+      "month": "2026-05",
+      "share": 0.1416
+     },
+     {
+      "month": "2026-06",
+      "share": 0.1433
+     },
+     {
+      "month": "2026-07",
+      "share": 0.1441
+     },
+     {
+      "month": "2026-08",
+      "share": 0.1439
+     },
+     {
+      "month": "2026-09",
+      "share": 0.1425
+     }
+    ]
+   },
+   {
+    "slug": "tequila",
+    "label": "Tequila & mezcal",
+    "peak": {
+     "month": "2026-05",
+     "share": 0.1002
+    },
+    "low": {
+     "month": "2025-11",
+     "share": 0.0827
+    },
+    "peakVsLow": 1.2116,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0926
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0827
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0838
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0852
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0858
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0894
+     },
+     {
+      "month": "2026-04",
+      "share": 0.091
+     },
+     {
+      "month": "2026-05",
+      "share": 0.1002
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0975
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0999
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0959
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0912
+     }
+    ]
+   },
+   {
+    "slug": "rum",
+    "label": "Rum",
+    "peak": {
+     "month": "2026-06",
+     "share": 0.0371
+    },
+    "low": {
+     "month": "2026-02",
+     "share": 0.0319
+    },
+    "peakVsLow": 1.163,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0369
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0357
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0348
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0336
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0319
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0335
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0363
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0365
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0371
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0368
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0344
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0339
+     }
+    ]
+   },
+   {
+    "slug": "whiskey",
+    "label": "Whiskey",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.2066
+    },
+    "low": {
+     "month": "2026-08",
+     "share": 0.1829
+    },
+    "peakVsLow": 1.1296,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.204
+     },
+     {
+      "month": "2025-11",
+      "share": 0.2064
+     },
+     {
+      "month": "2025-12",
+      "share": 0.2066
+     },
+     {
+      "month": "2026-01",
+      "share": 0.2013
+     },
+     {
+      "month": "2026-02",
+      "share": 0.1939
+     },
+     {
+      "month": "2026-03",
+      "share": 0.1998
+     },
+     {
+      "month": "2026-04",
+      "share": 0.2036
+     },
+     {
+      "month": "2026-05",
+      "share": 0.198
+     },
+     {
+      "month": "2026-06",
+      "share": 0.1944
+     },
+     {
+      "month": "2026-07",
+      "share": 0.1848
+     },
+     {
+      "month": "2026-08",
+      "share": 0.1829
+     },
+     {
+      "month": "2026-09",
+      "share": 0.1929
+     }
+    ]
+   }
+  ],
+  "classes": [
+   {
+    "className": "ROSE WINE - IMPORTED",
+    "group": "rose",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0096
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0036
+    },
+    "peakVsLow": 2.6667,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.004
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0039
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0036
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0047
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0055
+     },
+     {
+      "month": "2026-03",
+      "share": 0.006
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0055
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0068
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0085
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0096
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0087
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0059
+     }
+    ]
+   },
+   {
+    "className": "SPARKLING WINE - BRUT & BLANC DE BLANCS",
+    "group": "sparkling",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0268
+    },
+    "low": {
+     "month": "2025-10",
+     "share": 0.0116
+    },
+    "peakVsLow": 2.3103,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0116
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0137
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0268
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0148
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0164
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0131
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0127
+     },
+     {
+      "month": "2026-05",
+      "share": 0.014
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0127
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0128
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0131
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0137
+     }
+    ]
+   },
+   {
+    "className": "LIQUEURS - CREAM",
+    "group": "liqueurs",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0138
+    },
+    "low": {
+     "month": "2026-07",
+     "share": 0.0065
+    },
+    "peakVsLow": 2.1231,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.009
+     },
+     {
+      "month": "2025-11",
+      "share": 0.01
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0138
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0082
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0079
+     },
+     {
+      "month": "2026-03",
+      "share": 0.008
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0076
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0072
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0068
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0065
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0066
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0069
+     }
+    ]
+   },
+   {
+    "className": "SPARKLING WINE - PROSECCO",
+    "group": "sparkling",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0213
+    },
+    "low": {
+     "month": "2025-10",
+     "share": 0.0113
+    },
+    "peakVsLow": 1.885,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0113
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0128
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0213
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0118
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0127
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0127
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0137
+     },
+     {
+      "month": "2026-05",
+      "share": 0.014
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0154
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0148
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0152
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0137
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - BOURBON SINGLE BARREL, BATCH",
+    "group": "whiskey",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0071
+    },
+    "low": {
+     "month": "2025-10",
+     "share": 0.0043
+    },
+    "peakVsLow": 1.6512,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0043
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0061
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0071
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0049
+     },
+     {
+      "month": "2026-02",
+      "share": 0.006
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0057
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0061
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0048
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0048
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0052
+     }
+    ]
+   },
+   {
+    "className": "PREMIXED - MISC",
+    "group": "premixed",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0376
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0229
+    },
+    "peakVsLow": 1.6419,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0275
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0241
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0229
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0241
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0245
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0276
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0318
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0331
+     },
+     {
+      "month": "2026-06",
+      "share": 0.035
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0376
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0356
+     },
+     {
+      "month": "2026-09",
+      "share": 0.035
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - SCOTCH BLENDED",
+    "group": "whiskey",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0131
+    },
+    "low": {
+     "month": "2026-07",
+     "share": 0.0086
+    },
+    "peakVsLow": 1.5233,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0102
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0106
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0131
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0096
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0089
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0089
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0101
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0094
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0093
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0086
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0092
+     },
+     {
+      "month": "2026-09",
+      "share": 0.009
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - SCOTCH SINGLE MALT",
+    "group": "whiskey",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0103
+    },
+    "low": {
+     "month": "2026-07",
+     "share": 0.0069
+    },
+    "peakVsLow": 1.4928,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0072
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0083
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0103
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0076
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0081
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0076
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0072
+     },
+     {
+      "month": "2026-05",
+      "share": 0.007
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0083
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0069
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0078
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0073
+     }
+    ]
+   },
+   {
+    "className": "RED VARIETAL - CABERNET",
+    "group": "red-wine",
+    "peak": {
+     "month": "2026-02",
+     "share": 0.0513
+    },
+    "low": {
+     "month": "2026-07",
+     "share": 0.0346
+    },
+    "peakVsLow": 1.4827,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.042
+     },
+     {
+      "month": "2025-11",
+      "share": 0.044
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0468
+     },
+     {
+      "month": "2026-01",
+      "share": 0.049
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0513
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0471
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0385
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0359
+     },
+     {
+      "month": "2026-06",
+      "share": 0.036
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0346
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0388
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0415
+     }
+    ]
+   },
+   {
+    "className": "ARGENTINE RED - MALBEC",
+    "group": "red-wine",
+    "peak": {
+     "month": "2026-02",
+     "share": 0.0062
+    },
+    "low": {
+     "month": "2026-06",
+     "share": 0.0042
+    },
+    "peakVsLow": 1.4762,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0059
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0054
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0053
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0056
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0062
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0053
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-05",
+      "share": 0.005
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0042
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0044
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0042
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0047
+     }
+    ]
+   },
+   {
+    "className": "VODKA - DOMESTIC",
+    "group": "vodka",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0186
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0126
+    },
+    "peakVsLow": 1.4762,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0172
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0144
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0126
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0161
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0149
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0156
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0168
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0157
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0159
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0186
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0165
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0164
+     }
+    ]
+   },
+   {
+    "className": "RED VARIETAL - PINOT NOIR",
+    "group": "red-wine",
+    "peak": {
+     "month": "2026-02",
+     "share": 0.0273
+    },
+    "low": {
+     "month": "2026-06",
+     "share": 0.0186
+    },
+    "peakVsLow": 1.4677,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0219
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0242
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0237
+     },
+     {
+      "month": "2026-01",
+      "share": 0.026
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0273
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0236
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0205
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0192
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0186
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0189
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0208
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0211
+     }
+    ]
+   },
+   {
+    "className": "NEW ZEALAND WHITE",
+    "group": "white-wine",
+    "peak": {
+     "month": "2026-08",
+     "share": 0.0137
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0094
+    },
+    "peakVsLow": 1.4574,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0105
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0096
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0094
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0106
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0106
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0122
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0119
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0107
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0122
+     },
+     {
+      "month": "2026-07",
+      "share": 0.013
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0137
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0126
+     }
+    ]
+   },
+   {
+    "className": "ALE - MISC & SEASONAL",
+    "group": "beer",
+    "peak": {
+     "month": "2026-09",
+     "share": 0.0061
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0042
+    },
+    "peakVsLow": 1.4524,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0055
+     },
+     {
+      "month": "2025-11",
+      "share": 0.005
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0042
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0046
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0047
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0055
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0057
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0057
+     },
+     {
+      "month": "2026-07",
+      "share": 0.006
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0059
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0061
+     }
+    ]
+   },
+   {
+    "className": "WHITE VARIETAL - SAUVIGNON BLANC",
+    "group": "white-wine",
+    "peak": {
+     "month": "2026-08",
+     "share": 0.0187
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0129
+    },
+    "peakVsLow": 1.4496,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0145
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0145
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0129
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0148
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0165
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0163
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0165
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0176
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0175
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0177
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0187
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0163
+     }
+    ]
+   },
+   {
+    "className": "ITALIAN WHITE - PINOT GRIGIO",
+    "group": "white-wine",
+    "peak": {
+     "month": "2026-08",
+     "share": 0.0063
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0044
+    },
+    "peakVsLow": 1.4318,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.005
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0046
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0044
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0048
+     },
+     {
+      "month": "2026-02",
+      "share": 0.005
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0053
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0047
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0057
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0053
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0057
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0063
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0059
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - IRISH",
+    "group": "whiskey",
+    "peak": {
+     "month": "2026-03",
+     "share": 0.0184
+    },
+    "low": {
+     "month": "2026-08",
+     "share": 0.0129
+    },
+    "peakVsLow": 1.4264,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0148
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0152
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0149
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0142
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0145
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0184
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0144
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0147
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0141
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0132
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0129
+     },
+     {
+      "month": "2026-09",
+      "share": 0.014
+     }
+    ]
+   },
+   {
+    "className": "ALE - PALE",
+    "group": "beer",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0106
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0078
+    },
+    "peakVsLow": 1.359,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0095
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0088
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0078
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0093
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0095
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0103
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0105
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0104
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0102
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0106
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0103
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0101
+     }
+    ]
+   },
+   {
+    "className": "ALE - BITTER & ESB",
+    "group": "beer",
+    "peak": {
+     "month": "2026-04",
+     "share": 0.0183
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0135
+    },
+    "peakVsLow": 1.3556,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0162
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0148
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0135
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0158
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0167
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0178
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0183
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0175
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0167
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0166
+     },
+     {
+      "month": "2026-08",
+      "share": 0.016
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0162
+     }
+    ]
+   },
+   {
+    "className": "RED VARIETAL - MERLOT",
+    "group": "red-wine",
+    "peak": {
+     "month": "2025-10",
+     "share": 0.0073
+    },
+    "low": {
+     "month": "2026-07",
+     "share": 0.0054
+    },
+    "peakVsLow": 1.3519,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0073
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0072
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0069
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0066
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0073
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0065
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0068
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0064
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0056
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0054
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0062
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0061
+     }
+    ]
+   },
+   {
+    "className": "FLAVORED MALT BEVERAGES",
+    "group": "cider",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0066
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0049
+    },
+    "peakVsLow": 1.3469,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0063
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0056
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0049
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0054
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-04",
+      "share": 0.006
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0064
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0062
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0066
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0065
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0061
+     }
+    ]
+   },
+   {
+    "className": "LIQUEURS - TRIPLE SEC & ORANGE",
+    "group": "liqueurs",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0074
+    },
+    "low": {
+     "month": "2025-11",
+     "share": 0.0055
+    },
+    "peakVsLow": 1.3455,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0061
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0055
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0059
+     },
+     {
+      "month": "2026-01",
+      "share": 0.006
+     },
+     {
+      "month": "2026-02",
+      "share": 0.006
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0067
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0062
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0072
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0068
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0074
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0068
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0061
+     }
+    ]
+   },
+   {
+    "className": "PREMIXED - DSD",
+    "group": "premixed",
+    "peak": {
+     "month": "2026-05",
+     "share": 0.0074
+    },
+    "low": {
+     "month": "2025-11",
+     "share": 0.0055
+    },
+    "peakVsLow": 1.3455,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0058
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0055
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0055
+     },
+     {
+      "month": "2026-01",
+      "share": 0.006
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0064
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0063
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0071
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0074
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0063
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0064
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0059
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0055
+     }
+    ]
+   },
+   {
+    "className": "RED GENERIC - RED TABLE & PROPRIETARY",
+    "group": "red-wine",
+    "peak": {
+     "month": "2025-10",
+     "share": 0.0158
+    },
+    "low": {
+     "month": "2026-06",
+     "share": 0.0119
+    },
+    "peakVsLow": 1.3277,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0158
+     },
+     {
+      "month": "2025-11",
+      "share": 0.015
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0142
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0146
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0143
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0132
+     },
+     {
+      "month": "2026-04",
+      "share": 0.014
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0126
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0119
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0121
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0125
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0122
+     }
+    ]
+   },
+   {
+    "className": "TEQUILA - SILVER",
+    "group": "tequila",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0612
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0468
+    },
+    "peakVsLow": 1.3077,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0547
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0477
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0468
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0493
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0514
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0525
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0548
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0603
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0592
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0612
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0588
+     },
+     {
+      "month": "2026-09",
+      "share": 0.055
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - RYE",
+    "group": "whiskey",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0124
+    },
+    "low": {
+     "month": "2026-05",
+     "share": 0.0095
+    },
+    "peakVsLow": 1.3053,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0103
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0108
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0124
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0114
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0114
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0109
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0106
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0095
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0098
+     },
+     {
+      "month": "2026-07",
+      "share": 0.01
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0096
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0097
+     }
+    ]
+   },
+   {
+    "className": "BRANDY - COGNAC & ARMAGNAC",
+    "group": "brandy",
+    "peak": {
+     "month": "2025-12",
+     "share": 0.0075
+    },
+    "low": {
+     "month": "2026-06",
+     "share": 0.0058
+    },
+    "peakVsLow": 1.2931,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0067
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0067
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0075
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0067
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0063
+     },
+     {
+      "month": "2026-03",
+      "share": 0.006
+     },
+     {
+      "month": "2026-04",
+      "share": 0.006
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0067
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0058
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0063
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0066
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0062
+     }
+    ]
+   },
+   {
+    "className": "GIN - DRY",
+    "group": "gin",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0151
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0118
+    },
+    "peakVsLow": 1.2797,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0132
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0128
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0118
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0135
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0127
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0139
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0145
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0146
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0146
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0151
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0147
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0139
+     }
+    ]
+   },
+   {
+    "className": "WHITE VARIETAL - PINOT GRIS",
+    "group": "white-wine",
+    "peak": {
+     "month": "2026-06",
+     "share": 0.0139
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0109
+    },
+    "peakVsLow": 1.2752,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0131
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0134
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0109
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0124
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0124
+     },
+     {
+      "month": "2026-03",
+      "share": 0.013
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0136
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0135
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0139
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0139
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0139
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0134
+     }
+    ]
+   },
+   {
+    "className": "LIQUEURS - BITTERS & HERBAL",
+    "group": "liqueurs",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0137
+    },
+    "low": {
+     "month": "2025-11",
+     "share": 0.0108
+    },
+    "peakVsLow": 1.2685,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0109
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0108
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0112
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0122
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0121
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0126
+     },
+     {
+      "month": "2026-04",
+      "share": 0.013
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0129
+     },
+     {
+      "month": "2026-06",
+      "share": 0.013
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0137
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0133
+     },
+     {
+      "month": "2026-09",
+      "share": 0.012
+     }
+    ]
+   },
+   {
+    "className": "RUM - LIGHT",
+    "group": "rum",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0084
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0067
+    },
+    "peakVsLow": 1.2537,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0078
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0073
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0067
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0069
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0067
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0073
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0078
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0083
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0082
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0084
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0079
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0073
+     }
+    ]
+   },
+   {
+    "className": "VODKA - FLAVORED",
+    "group": "vodka",
+    "peak": {
+     "month": "2025-10",
+     "share": 0.023
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0184
+    },
+    "peakVsLow": 1.25,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.023
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0203
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0184
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0194
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0198
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0204
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0216
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0228
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0224
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0228
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0229
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0218
+     }
+    ]
+   },
+   {
+    "className": "WHITE VARIETAL - CHARDONNAY",
+    "group": "white-wine",
+    "peak": {
+     "month": "2026-07",
+     "share": 0.0346
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.028
+    },
+    "peakVsLow": 1.2357,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0321
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0303
+     },
+     {
+      "month": "2025-12",
+      "share": 0.028
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0321
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0318
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0325
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0317
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0311
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0324
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0346
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0341
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0339
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - BLENDED",
+    "group": "whiskey",
+    "peak": {
+     "month": "2026-01",
+     "share": 0.0056
+    },
+    "low": {
+     "month": "2026-05",
+     "share": 0.0046
+    },
+    "peakVsLow": 1.2174,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0052
+     },
+     {
+      "month": "2025-11",
+      "share": 0.005
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0047
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0056
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0055
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0051
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0052
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0046
+     },
+     {
+      "month": "2026-06",
+      "share": 0.005
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0048
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0048
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0047
+     }
+    ]
+   },
+   {
+    "className": "VODKA - BASIC",
+    "group": "vodka",
+    "peak": {
+     "month": "2026-06",
+     "share": 0.1036
+    },
+    "low": {
+     "month": "2025-12",
+     "share": 0.0862
+    },
+    "peakVsLow": 1.2019,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.1012
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0957
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0862
+     },
+     {
+      "month": "2026-01",
+      "share": 0.1009
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0934
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0982
+     },
+     {
+      "month": "2026-04",
+      "share": 0.1025
+     },
+     {
+      "month": "2026-05",
+      "share": 0.1017
+     },
+     {
+      "month": "2026-06",
+      "share": 0.1036
+     },
+     {
+      "month": "2026-07",
+      "share": 0.1011
+     },
+     {
+      "month": "2026-08",
+      "share": 0.1027
+     },
+     {
+      "month": "2026-09",
+      "share": 0.1028
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - FLAVORED",
+    "group": "whiskey",
+    "peak": {
+     "month": "2025-10",
+     "share": 0.0427
+    },
+    "low": {
+     "month": "2026-08",
+     "share": 0.0359
+    },
+    "peakVsLow": 1.1894,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0427
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0415
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0412
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0395
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0368
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0385
+     },
+     {
+      "month": "2026-04",
+      "share": 0.041
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0403
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0395
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0371
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0359
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0382
+     }
+    ]
+   },
+   {
+    "className": "RUM - SPICED AND FLAVORED",
+    "group": "rum",
+    "peak": {
+     "month": "2025-10",
+     "share": 0.0236
+    },
+    "low": {
+     "month": "2026-02",
+     "share": 0.02
+    },
+    "peakVsLow": 1.18,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0236
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0223
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0218
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0212
+     },
+     {
+      "month": "2026-02",
+      "share": 0.02
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0206
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0229
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0225
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0235
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0229
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0211
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0211
+     }
+    ]
+   },
+   {
+    "className": "TEQUILA - REPOSADO & ANEJO",
+    "group": "tequila",
+    "peak": {
+     "month": "2026-05",
+     "share": 0.0287
+    },
+    "low": {
+     "month": "2026-02",
+     "share": 0.0247
+    },
+    "peakVsLow": 1.1619,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0268
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0254
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0278
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0262
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0247
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0264
+     },
+     {
+      "month": "2026-04",
+      "share": 0.026
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0287
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0275
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0276
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0265
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0262
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - CANADIAN",
+    "group": "whiskey",
+    "peak": {
+     "month": "2025-10",
+     "share": 0.0332
+    },
+    "low": {
+     "month": "2026-08",
+     "share": 0.0287
+    },
+    "peakVsLow": 1.1568,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0332
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0331
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0298
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0316
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0295
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0307
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0331
+     },
+     {
+      "month": "2026-05",
+      "share": 0.0322
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0314
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0295
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0287
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0322
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - BOURBON & TENNESSEE",
+    "group": "whiskey",
+    "peak": {
+     "month": "2026-01",
+     "share": 0.0688
+    },
+    "low": {
+     "month": "2026-08",
+     "share": 0.0607
+    },
+    "peakVsLow": 1.1334,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.068
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0674
+     },
+     {
+      "month": "2025-12",
+      "share": 0.0652
+     },
+     {
+      "month": "2026-01",
+      "share": 0.0688
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0653
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0665
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0675
+     },
+     {
+      "month": "2026-05",
+      "share": 0.066
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0639
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0615
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0607
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0645
+     }
+    ]
+   },
+   {
+    "className": "WHISKEY - MISC IMPORTED",
+    "group": "whiskey",
+    "peak": {
+     "month": "2026-04",
+     "share": 0.0054
+    },
+    "low": {
+     "month": "2026-06",
+     "share": 0.0048
+    },
+    "peakVsLow": 1.125,
+    "shares": [
+     {
+      "month": "2025-10",
+      "share": 0.0049
+     },
+     {
+      "month": "2025-11",
+      "share": 0.0049
+     },
+     {
+      "month": "2025-12",
+      "share": 0.005
+     },
+     {
+      "month": "2026-01",
+      "share": 0.005
+     },
+     {
+      "month": "2026-02",
+      "share": 0.0049
+     },
+     {
+      "month": "2026-03",
+      "share": 0.0049
+     },
+     {
+      "month": "2026-04",
+      "share": 0.0054
+     },
+     {
+      "month": "2026-05",
+      "share": 0.005
+     },
+     {
+      "month": "2026-06",
+      "share": 0.0048
+     },
+     {
+      "month": "2026-07",
+      "share": 0.0053
+     },
+     {
+      "month": "2026-08",
+      "share": 0.0054
+     },
+     {
+      "month": "2026-09",
+      "share": 0.0049
+     }
+    ]
+   }
+  ]
+ },
+ "yoy": {
+  "months": [
+   "2026-05",
+   "2026-06",
+   "2026-07",
+   "2026-08",
+   "2026-09"
+  ],
+  "priorMonths": [
+   "2025-05",
+   "2025-06",
+   "2025-07",
+   "2025-08",
+   "2025-09"
+  ],
+  "total": {
+   "prev": {
+    "dollars": 220877524.64,
+    "units": 17840305
+   },
+   "cur": {
+    "dollars": 213748216.1,
+    "units": 17487803
+   },
+   "dollarChange": -0.0323,
+   "unitChange": -0.0198
+  },
+  "kinds": [
+   {
+    "kind": "premixed",
+    "label": "Premixed cocktails",
+    "prev": {
+     "dollars": 9192135.54,
+     "units": 2097997
+    },
+    "cur": {
+     "dollars": 10686656.67,
+     "units": 2409965
+    },
+    "dollarChange": 0.1626,
+    "unitChange": 0.1487
+   },
+   {
+    "kind": "wine",
+    "label": "Wine",
+    "prev": {
+     "dollars": 70999246.84,
+     "units": 4524600
+    },
+    "cur": {
+     "dollars": 69766245.93,
+     "units": 4363060
+    },
+    "dollarChange": -0.0174,
+    "unitChange": -0.0357
+   },
+   {
+    "kind": "beer",
+    "label": "Beer & cider",
+    "prev": {
+     "dollars": 15215092.18,
+     "units": 5542071
+    },
+    "cur": {
+     "dollars": 14898722.93,
+     "units": 5243796
+    },
+    "dollarChange": -0.0208,
+    "unitChange": -0.0538
+   },
+   {
+    "kind": "spirits",
+    "label": "Spirits",
+    "prev": {
+     "dollars": 125452410.5,
+     "units": 5674024
+    },
+    "cur": {
+     "dollars": 118382461.59,
+     "units": 5469960
+    },
+    "dollarChange": -0.0564,
+    "unitChange": -0.036
+   }
+  ],
+  "groups": [
+   {
+    "slug": "premixed",
+    "label": "Premixed cocktails",
+    "prev": {
+     "dollars": 9192135.54,
+     "units": 2097997
+    },
+    "cur": {
+     "dollars": 10686656.67,
+     "units": 2409965
+    },
+    "dollarChange": 0.1626,
+    "unitChange": 0.1487
+   },
+   {
+    "slug": "other-wine",
+    "label": "Sake, orange & fruit wine",
+    "prev": {
+     "dollars": 2228470.62,
+     "units": 179671
+    },
+    "cur": {
+     "dollars": 2518030.44,
+     "units": 244927
+    },
+    "dollarChange": 0.1299,
+    "unitChange": 0.3632
+   },
+   {
+    "slug": "sparkling",
+    "label": "Sparkling wine",
+    "prev": {
+     "dollars": 8924360.4,
+     "units": 629777
+    },
+    "cur": {
+     "dollars": 8998265.33,
+     "units": 615715
+    },
+    "dollarChange": 0.0083,
+    "unitChange": -0.0223
+   },
+   {
+    "slug": "liqueurs",
+    "label": "Liqueurs & schnapps",
+    "prev": {
+     "dollars": 8747603.3,
+     "units": 397520
+    },
+    "cur": {
+     "dollars": 8708170.18,
+     "units": 387479
+    },
+    "dollarChange": -0.0045,
+    "unitChange": -0.0253
+   },
+   {
+    "slug": "white-wine",
+    "label": "White wine",
+    "prev": {
+     "dollars": 24695000.23,
+     "units": 1653568
+    },
+    "cur": {
+     "dollars": 24572633.82,
+     "units": 1650205
+    },
+    "dollarChange": -0.005,
+    "unitChange": -0.002
+   },
+   {
+    "slug": "beer",
+    "label": "Beer",
+    "prev": {
+     "dollars": 11460982.27,
+     "units": 4391768
+    },
+    "cur": {
+     "dollars": 11224044.14,
+     "units": 4176077
+    },
+    "dollarChange": -0.0207,
+    "unitChange": -0.0491
+   },
+   {
+    "slug": "cider",
+    "label": "Cider & malt drinks",
+    "prev": {
+     "dollars": 3209470.61,
+     "units": 1024846
+    },
+    "cur": {
+     "dollars": 3141116.12,
+     "units": 954739
+    },
+    "dollarChange": -0.0213,
+    "unitChange": -0.0684
+   },
+   {
+    "slug": "rose",
+    "label": "Rosé & blush",
+    "prev": {
+     "dollars": 4160069.95,
+     "units": 267609
+    },
+    "cur": {
+     "dollars": 4044762.05,
+     "units": 260901
+    },
+    "dollarChange": -0.0277,
+    "unitChange": -0.0251
+   },
+   {
+    "slug": "brandy",
+    "label": "Brandy & cognac",
+    "prev": {
+     "dollars": 2176608.24,
+     "units": 84311
+    },
+    "cur": {
+     "dollars": 2077279.93,
+     "units": 77851
+    },
+    "dollarChange": -0.0456,
+    "unitChange": -0.0766
+   },
+   {
+    "slug": "vodka",
+    "label": "Vodka",
+    "prev": {
+     "dollars": 32052433.3,
+     "units": 2019085
+    },
+    "cur": {
+     "dollars": 30578883.07,
+     "units": 1938522
+    },
+    "dollarChange": -0.046,
+    "unitChange": -0.0399
+   },
+   {
+    "slug": "tequila",
+    "label": "Tequila & mezcal",
+    "prev": {
+     "dollars": 21762617.06,
+     "units": 675423
+    },
+    "cur": {
+     "dollars": 20726360.2,
+     "units": 667599
+    },
+    "dollarChange": -0.0476,
+    "unitChange": -0.0116
+   },
+   {
+    "slug": "gin",
+    "label": "Gin",
+    "prev": {
+     "dollars": 4607017.79,
+     "units": 184783
+    },
+    "cur": {
+     "dollars": 4377356.55,
+     "units": 173474
+    },
+    "dollarChange": -0.0499,
+    "unitChange": -0.0612
+   },
+   {
+    "slug": "red-wine",
+    "label": "Red wine",
+    "prev": {
+     "dollars": 26919240.33,
+     "units": 1594588
+    },
+    "cur": {
+     "dollars": 25182224.37,
+     "units": 1360590
+    },
+    "dollarChange": -0.0645,
+    "unitChange": -0.1467
+   },
+   {
+    "slug": "whiskey",
+    "label": "Whiskey",
+    "prev": {
+     "dollars": 44164930.23,
+     "units": 1753119
+    },
+    "cur": {
+     "dollars": 40779153.24,
+     "units": 1637280
+    },
+    "dollarChange": -0.0767,
+    "unitChange": -0.0661
+   },
+   {
+    "slug": "rum",
+    "label": "Rum",
+    "prev": {
+     "dollars": 8459537.87,
+     "units": 460250
+    },
+    "cur": {
+     "dollars": 7647001.38,
+     "units": 416232
+    },
+    "dollarChange": -0.096,
+    "unitChange": -0.0956
+   }
+  ],
+  "classes": [
+   {
+    "className": "PREMIXED - MARGARITA",
+    "prev": {
+     "dollars": 1026250.5,
+     "units": 97369
+    },
+    "cur": {
+     "dollars": 1249380.77,
+     "units": 152207
+    },
+    "dollarChange": 0.2174,
+    "unitChange": 0.5632
+   },
+   {
+    "className": "PREMIXED - MISC",
+    "prev": {
+     "dollars": 6308615.47,
+     "units": 1595254
+    },
+    "cur": {
+     "dollars": 7534590.74,
+     "units": 1801209
+    },
+    "dollarChange": 0.1943,
+    "unitChange": 0.1291
+   },
+   {
+    "className": "CIDER - BASIC",
+    "prev": {
+     "dollars": 850458,
+     "units": 277849
+    },
+    "cur": {
+     "dollars": 978445.15,
+     "units": 311143
+    },
+    "dollarChange": 0.1505,
+    "unitChange": 0.1198
+   },
+   {
+    "className": "FRENCH WHITE - BORDEAUX & LOIRE",
+    "prev": {
+     "dollars": 530724.38,
+     "units": 19813
+    },
+    "cur": {
+     "dollars": 600627.33,
+     "units": 20588
+    },
+    "dollarChange": 0.1317,
+    "unitChange": 0.0391
+   },
+   {
+    "className": "ROSE WINE - IMPORTED",
+    "prev": {
+     "dollars": 1499381.19,
+     "units": 92272
+    },
+    "cur": {
+     "dollars": 1685437.68,
+     "units": 100668
+    },
+    "dollarChange": 0.1241,
+    "unitChange": 0.091
+   },
+   {
+    "className": "CIDER - FLAVORED",
+    "prev": {
+     "dollars": 725158.55,
+     "units": 230890
+    },
+    "cur": {
+     "dollars": 803129,
+     "units": 250804
+    },
+    "dollarChange": 0.1075,
+    "unitChange": 0.0862
+   },
+   {
+    "className": "WHITE VARIETAL - MUSCAT & MOSCATO",
+    "prev": {
+     "dollars": 526796.5,
+     "units": 46010
+    },
+    "cur": {
+     "dollars": 567439.92,
+     "units": 54630
+    },
+    "dollarChange": 0.0772,
+    "unitChange": 0.1874
+   },
+   {
+    "className": "NEW ZEALAND WHITE",
+    "prev": {
+     "dollars": 2505269.04,
+     "units": 167633
+    },
+    "cur": {
+     "dollars": 2655671.3,
+     "units": 173799
+    },
+    "dollarChange": 0.06,
+    "unitChange": 0.0368
+   },
+   {
+    "className": "LIQUEURS - BITTERS & HERBAL",
+    "prev": {
+     "dollars": 2620916.87,
+     "units": 97778
+    },
+    "cur": {
+     "dollars": 2776982.78,
+     "units": 98986
+    },
+    "dollarChange": 0.0595,
+    "unitChange": 0.0124
+   },
+   {
+    "className": "ITALIAN WHITE - PINOT GRIGIO",
+    "prev": {
+     "dollars": 1164727.06,
+     "units": 75786
+    },
+    "cur": {
+     "dollars": 1231883.93,
+     "units": 79266
+    },
+    "dollarChange": 0.0577,
+    "unitChange": 0.0459
+   },
+   {
+    "className": "SPARKLING WINE - PROSECCO",
+    "prev": {
+     "dollars": 2959189.52,
+     "units": 184798
+    },
+    "cur": {
+     "dollars": 3122907.78,
+     "units": 197097
+    },
+    "dollarChange": 0.0553,
+    "unitChange": 0.0666
+   },
+   {
+    "className": "WHISKEY - MISC IMPORTED",
+    "prev": {
+     "dollars": 1030520.59,
+     "units": 121662
+    },
+    "cur": {
+     "dollars": 1086767.37,
+     "units": 139065
+    },
+    "dollarChange": 0.0546,
+    "unitChange": 0.143
+   },
+   {
+    "className": "ALE - MISC & SEASONAL",
+    "prev": {
+     "dollars": 1198227.78,
+     "units": 376809
+    },
+    "cur": {
+     "dollars": 1255363.07,
+     "units": 385156
+    },
+    "dollarChange": 0.0477,
+    "unitChange": 0.0222
+   },
+   {
+    "className": "ITALIAN RED - TUSCANY",
+    "prev": {
+     "dollars": 541598.62,
+     "units": 17083
+    },
+    "cur": {
+     "dollars": 567255.5,
+     "units": 16941
+    },
+    "dollarChange": 0.0474,
+    "unitChange": -0.0083
+   },
+   {
+    "className": "ALE - PALE",
+    "prev": {
+     "dollars": 2112611.42,
+     "units": 716990
+    },
+    "cur": {
+     "dollars": 2207092.05,
+     "units": 713476
+    },
+    "dollarChange": 0.0447,
+    "unitChange": -0.0049
+   },
+   {
+    "className": "SPARKLING WINE - BRUT & BLANC DE BLANCS",
+    "prev": {
+     "dollars": 2730449.29,
+     "units": 169580
+    },
+    "cur": {
+     "dollars": 2836573.65,
+     "units": 174704
+    },
+    "dollarChange": 0.0389,
+    "unitChange": 0.0302
+   },
+   {
+    "className": "ITALIAN RED - CHIANTI",
+    "prev": {
+     "dollars": 518420.4,
+     "units": 29761
+    },
+    "cur": {
+     "dollars": 533535.27,
+     "units": 29972
+    },
+    "dollarChange": 0.0292,
+    "unitChange": 0.0071
+   },
+   {
+    "className": "WHITE VARIETAL - SAUVIGNON BLANC",
+    "prev": {
+     "dollars": 3655387.35,
+     "units": 241398
+    },
+    "cur": {
+     "dollars": 3748940.18,
+     "units": 237777
+    },
+    "dollarChange": 0.0256,
+    "unitChange": -0.015
+   },
+   {
+    "className": "VODKA - DOMESTIC",
+    "prev": {
+     "dollars": 3464894.93,
+     "units": 230984
+    },
+    "cur": {
+     "dollars": 3550493.21,
+     "units": 245911
+    },
+    "dollarChange": 0.0247,
+    "unitChange": 0.0646
+   },
+   {
+    "className": "LIQUEURS - COFFEE",
+    "prev": {
+     "dollars": 541001.65,
+     "units": 25755
+    },
+    "cur": {
+     "dollars": 553919.69,
+     "units": 25133
+    },
+    "dollarChange": 0.0239,
+    "unitChange": -0.0242
+   },
+   {
+    "className": "WHISKEY - SCOTCH SINGLE MALT",
+    "prev": {
+     "dollars": 1584341.45,
+     "units": 23543
+    },
+    "cur": {
+     "dollars": 1593619.07,
+     "units": 22826
+    },
+    "dollarChange": 0.0059,
+    "unitChange": -0.0305
+   },
+   {
+    "className": "LIQUEURS - TRIPLE SEC & ORANGE",
+    "prev": {
+     "dollars": 1468352.9,
+     "units": 73194
+    },
+    "cur": {
+     "dollars": 1471401.84,
+     "units": 73297
+    },
+    "dollarChange": 0.0021,
+    "unitChange": 0.0014
+   },
+   {
+    "className": "PREMIXED - DSD",
+    "prev": {
+     "dollars": 1355202.03,
+     "units": 308120
+    },
+    "cur": {
+     "dollars": 1349661.68,
+     "units": 338248
+    },
+    "dollarChange": -0.0041,
+    "unitChange": 0.0978
+   },
+   {
+    "className": "WHISKEY - BOURBON & TENNESSEE",
+    "prev": {
+     "dollars": 13861757.57,
+     "units": 456279
+    },
+    "cur": {
+     "dollars": 13547762.84,
+     "units": 444806
+    },
+    "dollarChange": -0.0227,
+    "unitChange": -0.0251
+   },
+   {
+    "className": "TEQUILA - SILVER",
+    "prev": {
+     "dollars": 12891516.01,
+     "units": 416565
+    },
+    "cur": {
+     "dollars": 12582478.79,
+     "units": 426721
+    },
+    "dollarChange": -0.024,
+    "unitChange": 0.0244
+   },
+   {
+    "className": "BRANDY - COGNAC & ARMAGNAC",
+    "prev": {
+     "dollars": 1386844.88,
+     "units": 32359
+    },
+    "cur": {
+     "dollars": 1352457.63,
+     "units": 30423
+    },
+    "dollarChange": -0.0248,
+    "unitChange": -0.0598
+   },
+   {
+    "className": "ALE - BITTER & ESB",
+    "prev": {
+     "dollars": 3652812.76,
+     "units": 1426870
+    },
+    "cur": {
+     "dollars": 3547258.55,
+     "units": 1360918
+    },
+    "dollarChange": -0.0289,
+    "unitChange": -0.0462
+   },
+   {
+    "className": "BEER - FRUIT & FLAVORED",
+    "prev": {
+     "dollars": 737658.37,
+     "units": 237127
+    },
+    "cur": {
+     "dollars": 712905.05,
+     "units": 213564
+    },
+    "dollarChange": -0.0336,
+    "unitChange": -0.0994
+   },
+   {
+    "className": "ITALIAN RED - VARIETAL",
+    "prev": {
+     "dollars": 550801.2,
+     "units": 38262
+    },
+    "cur": {
+     "dollars": 531996.62,
+     "units": 37992
+    },
+    "dollarChange": -0.0341,
+    "unitChange": -0.0071
+   },
+   {
+    "className": "WHITE VARIETAL - RIESLING",
+    "prev": {
+     "dollars": 662531.05,
+     "units": 51685
+    },
+    "cur": {
+     "dollars": 634720.88,
+     "units": 49792
+    },
+    "dollarChange": -0.042,
+    "unitChange": -0.0366
+   },
+   {
+    "className": "TEQUILA - MEZCAL",
+    "prev": {
+     "dollars": 648625.75,
+     "units": 16343
+    },
+    "cur": {
+     "dollars": 620831.16,
+     "units": 16277
+    },
+    "dollarChange": -0.0429,
+    "unitChange": -0.004
+   },
+   {
+    "className": "GIN - DRY",
+    "prev": {
+     "dollars": 3266933.84,
+     "units": 128422
+    },
+    "cur": {
+     "dollars": 3118507.04,
+     "units": 121401
+    },
+    "dollarChange": -0.0454,
+    "unitChange": -0.0547
+   },
+   {
+    "className": "ITALIAN RED - MISC DOC",
+    "prev": {
+     "dollars": 812158.24,
+     "units": 54609
+    },
+    "cur": {
+     "dollars": 775145.78,
+     "units": 47859
+    },
+    "dollarChange": -0.0456,
+    "unitChange": -0.1236
+   },
+   {
+    "className": "RED VARIETAL - PINOT NOIR",
+    "prev": {
+     "dollars": 4414053.75,
+     "units": 239754
+    },
+    "cur": {
+     "dollars": 4211664.15,
+     "units": 224743
+    },
+    "dollarChange": -0.0459,
+    "unitChange": -0.0626
+   },
+   {
+    "className": "WINE - SANGRIA",
+    "prev": {
+     "dollars": 510372.37,
+     "units": 32267
+    },
+    "cur": {
+     "dollars": 486384.11,
+     "units": 31361
+    },
+    "dollarChange": -0.047,
+    "unitChange": -0.0281
+   },
+   {
+    "className": "RED VARIETAL - MISC",
+    "prev": {
+     "dollars": 551955.37,
+     "units": 25648
+    },
+    "cur": {
+     "dollars": 525475.13,
+     "units": 23464
+    },
+    "dollarChange": -0.048,
+    "unitChange": -0.0852
+   },
+   {
+    "className": "ROSE WINE - DOMESTIC",
+    "prev": {
+     "dollars": 1237990.29,
+     "units": 80025
+    },
+    "cur": {
+     "dollars": 1178306.67,
+     "units": 78464
+    },
+    "dollarChange": -0.0482,
+    "unitChange": -0.0195
+   },
+   {
+    "className": "VODKA - FLAVORED",
+    "prev": {
+     "dollars": 5093566.31,
+     "units": 316871
+    },
+    "cur": {
+     "dollars": 4817341.72,
+     "units": 312471
+    },
+    "dollarChange": -0.0542,
+    "unitChange": -0.0139
+   },
+   {
+    "className": "ARGENTINE RED - MALBEC",
+    "prev": {
+     "dollars": 1020316.27,
+     "units": 65858
+    },
+    "cur": {
+     "dollars": 962067.24,
+     "units": 62183
+    },
+    "dollarChange": -0.0571,
+    "unitChange": -0.0558
+   },
+   {
+    "className": "RED VARIETAL - CABERNET",
+    "prev": {
+     "dollars": 8467879.86,
+     "units": 440881
+    },
+    "cur": {
+     "dollars": 7982974.28,
+     "units": 404606
+    },
+    "dollarChange": -0.0573,
+    "unitChange": -0.0823
+   },
+   {
+    "className": "VODKA - BASIC",
+    "prev": {
+     "dollars": 23221794.28,
+     "units": 1463708
+    },
+    "cur": {
+     "dollars": 21882100.25,
+     "units": 1371481
+    },
+    "dollarChange": -0.0577,
+    "unitChange": -0.063
+   },
+   {
+    "className": "GIN - DOMESTIC",
+    "prev": {
+     "dollars": 799986.29,
+     "units": 38912
+    },
+    "cur": {
+     "dollars": 752790.16,
+     "units": 36140
+    },
+    "dollarChange": -0.059,
+    "unitChange": -0.0712
+   },
+   {
+    "className": "RUM - DARK",
+    "prev": {
+     "dollars": 565610.88,
+     "units": 37343
+    },
+    "cur": {
+     "dollars": 530132.17,
+     "units": 34614
+    },
+    "dollarChange": -0.0627,
+    "unitChange": -0.0731
+   },
+   {
+    "className": "RED GENERIC - RED TABLE & PROPRIETARY",
+    "prev": {
+     "dollars": 2804077.4,
+     "units": 181796
+    },
+    "cur": {
+     "dollars": 2621458.58,
+     "units": 169508
+    },
+    "dollarChange": -0.0651,
+    "unitChange": -0.0676
+   },
+   {
+    "className": "TEQUILA - REPOSADO & ANEJO",
+    "prev": {
+     "dollars": 6265724.63,
+     "units": 147888
+    },
+    "cur": {
+     "dollars": 5843924.46,
+     "units": 142544
+    },
+    "dollarChange": -0.0673,
+    "unitChange": -0.0361
+   },
+   {
+    "className": "LIQUEURS - FRUIT",
+    "prev": {
+     "dollars": 719959.31,
+     "units": 29824
+    },
+    "cur": {
+     "dollars": 671182.14,
+     "units": 28775
+    },
+    "dollarChange": -0.0677,
+    "unitChange": -0.0352
+   },
+   {
+    "className": "WHITE VARIETAL - CHARDONNAY",
+    "prev": {
+     "dollars": 7617258.77,
+     "units": 494278
+    },
+    "cur": {
+     "dollars": 7099323.51,
+     "units": 462040
+    },
+    "dollarChange": -0.068,
+    "unitChange": -0.0652
+   },
+   {
+    "className": "WHISKEY - RYE",
+    "prev": {
+     "dollars": 2240323.87,
+     "units": 61847
+    },
+    "cur": {
+     "dollars": 2077359.36,
+     "units": 57966
+    },
+    "dollarChange": -0.0727,
+    "unitChange": -0.0628
+   },
+   {
+    "className": "WHITE VARIETAL - PINOT GRIS",
+    "prev": {
+     "dollars": 3158964.16,
+     "units": 241738
+    },
+    "cur": {
+     "dollars": 2927879.96,
+     "units": 227890
+    },
+    "dollarChange": -0.0732,
+    "unitChange": -0.0573
+   },
+   {
+    "className": "WHISKEY - IRISH",
+    "prev": {
+     "dollars": 3193274.79,
+     "units": 94253
+    },
+    "cur": {
+     "dollars": 2950006.05,
+     "units": 87650
+    },
+    "dollarChange": -0.0762,
+    "unitChange": -0.0701
+   },
+   {
+    "className": "LAGER - PILSNER",
+    "prev": {
+     "dollars": 850457,
+     "units": 539542
+    },
+    "cur": {
+     "dollars": 783053.39,
+     "units": 493648
+    },
+    "dollarChange": -0.0793,
+    "unitChange": -0.0851
+   },
+   {
+    "className": "RUM - LIGHT",
+    "prev": {
+     "dollars": 1866554.45,
+     "units": 115843
+    },
+    "cur": {
+     "dollars": 1711917.55,
+     "units": 104847
+    },
+    "dollarChange": -0.0828,
+    "unitChange": -0.0949
+   },
+   {
+    "className": "ITALIAN WHITE - MISC DOC",
+    "prev": {
+     "dollars": 711986.37,
+     "units": 47547
+    },
+    "cur": {
+     "dollars": 652236.74,
+     "units": 41779
+    },
+    "dollarChange": -0.0839,
+    "unitChange": -0.1213
+   },
+   {
+    "className": "RED VARIETAL - MERLOT",
+    "prev": {
+     "dollars": 1387211.76,
+     "units": 90391
+    },
+    "cur": {
+     "dollars": 1267689.86,
+     "units": 81250
+    },
+    "dollarChange": -0.0862,
+    "unitChange": -0.1011
+   },
+   {
+    "className": "SCHNAPPS - FRUIT",
+    "prev": {
+     "dollars": 525082.39,
+     "units": 41945
+    },
+    "cur": {
+     "dollars": 471581.68,
+     "units": 40876
+    },
+    "dollarChange": -0.1019,
+    "unitChange": -0.0255
+   },
+   {
+    "className": "RUM - SPICED AND FLAVORED",
+    "prev": {
+     "dollars": 5338990.12,
+     "units": 278608
+    },
+    "cur": {
+     "dollars": 4754708.82,
+     "units": 250314
+    },
+    "dollarChange": -0.1094,
+    "unitChange": -0.1016
+   },
+   {
+    "className": "WHISKEY - SCOTCH BLENDED",
+    "prev": {
+     "dollars": 2188129.48,
+     "units": 55008
+    },
+    "cur": {
+     "dollars": 1943567.26,
+     "units": 48403
+    },
+    "dollarChange": -0.1118,
+    "unitChange": -0.1201
+   },
+   {
+    "className": "BRANDY - BASIC",
+    "prev": {
+     "dollars": 587364.21,
+     "units": 40831
+    },
+    "cur": {
+     "dollars": 521576.84,
+     "units": 35783
+    },
+    "dollarChange": -0.112,
+    "unitChange": -0.1236
+   },
+   {
+    "className": "WHISKEY - FLAVORED",
+    "prev": {
+     "dollars": 9214105.6,
+     "units": 470354
+    },
+    "cur": {
+     "dollars": 8172403.7,
+     "units": 427929
+    },
+    "dollarChange": -0.1131,
+    "unitChange": -0.0902
+   },
+   {
+    "className": "LIQUEURS - CREAM",
+    "prev": {
+     "dollars": 1638080.05,
+     "units": 68367
+    },
+    "cur": {
+     "dollars": 1452631.34,
+     "units": 60159
+    },
+    "dollarChange": -0.1132,
+    "unitChange": -0.1201
+   },
+   {
+    "className": "WHISKEY - CANADIAN",
+    "prev": {
+     "dollars": 7549778.38,
+     "units": 342089
+    },
+    "cur": {
+     "dollars": 6598350.16,
+     "units": 298237
+    },
+    "dollarChange": -0.126,
+    "unitChange": -0.1282
+   },
+   {
+    "className": "TEQUILA - GOLD",
+    "prev": {
+     "dollars": 1122811.59,
+     "units": 59941
+    },
+    "cur": {
+     "dollars": 980814.05,
+     "units": 51040
+    },
+    "dollarChange": -0.1265,
+    "unitChange": -0.1485
+   },
+   {
+    "className": "ALE - HEAVY, PORTER, STOUT",
+    "prev": {
+     "dollars": 533887.83,
+     "units": 156907
+    },
+    "cur": {
+     "dollars": 465713.32,
+     "units": 134854
+    },
+    "dollarChange": -0.1277,
+    "unitChange": -0.1405
+   },
+   {
+    "className": "SPARKLING WINE - BLANC DE NOIRS & ROSE",
+    "prev": {
+     "dollars": 639785.48,
+     "units": 32765
+    },
+    "cur": {
+     "dollars": 556081.76,
+     "units": 30719
+    },
+    "dollarChange": -0.1308,
+    "unitChange": -0.0624
+   },
+   {
+    "className": "WHISKEY - BOURBON SINGLE BARREL, BATCH",
+    "prev": {
+     "dollars": 1282464.46,
+     "units": 26957
+    },
+    "cur": {
+     "dollars": 1109377.66,
+     "units": 20348
+    },
+    "dollarChange": -0.135,
+    "unitChange": -0.2452
+   },
+   {
+    "className": "SPARKLING WINE - EXTRA DRY",
+    "prev": {
+     "dollars": 643886.73,
+     "units": 45811
+    },
+    "cur": {
+     "dollars": 556559.99,
+     "units": 37243
+    },
+    "dollarChange": -0.1356,
+    "unitChange": -0.187
+   },
+   {
+    "className": "RED VARIETAL - ZINFANDEL",
+    "prev": {
+     "dollars": 938453.52,
+     "units": 50479
+    },
+    "cur": {
+     "dollars": 807314.7,
+     "units": 42043
+    },
+    "dollarChange": -0.1397,
+    "unitChange": -0.1671
+   },
+   {
+    "className": "WHISKEY - BLENDED",
+    "prev": {
+     "dollars": 1214448.16,
+     "units": 69060
+    },
+    "cur": {
+     "dollars": 1022965.24,
+     "units": 65118
+    },
+    "dollarChange": -0.1577,
+    "unitChange": -0.0571
+   },
+   {
+    "className": "WHISKEY - DOMESTIC",
+    "prev": {
+     "dollars": 805785.88,
+     "units": 32067
+    },
+    "cur": {
+     "dollars": 676974.53,
+     "units": 24932
+    },
+    "dollarChange": -0.1599,
+    "unitChange": -0.2225
+   },
+   {
+    "className": "TEQUILA - FLAVORED",
+    "prev": {
+     "dollars": 833939.08,
+     "units": 34686
+    },
+    "cur": {
+     "dollars": 698311.74,
+     "units": 31017
+    },
+    "dollarChange": -0.1626,
+    "unitChange": -0.1058
+   },
+   {
+    "className": "FLAVORED MALT BEVERAGES",
+    "prev": {
+     "dollars": 1633854.06,
+     "units": 516107
+    },
+    "cur": {
+     "dollars": 1359541.97,
+     "units": 392792
+    },
+    "dollarChange": -0.1679,
+    "unitChange": -0.2389
+   },
+   {
+    "className": "WINE - FRUIT",
+    "prev": {
+     "dollars": 722593.75,
+     "units": 87660
+    },
+    "cur": {
+     "dollars": 503273.23,
+     "units": 41172
+    },
+    "dollarChange": -0.3035,
+    "unitChange": -0.5303
+   },
+   {
+    "className": "RED SMALL PACKAGE WINE - DSD",
+    "prev": {
+     "dollars": 530279.41,
+     "units": 131781
+    },
+    "cur": {
+     "dollars": 36656.13,
+     "units": 6287
+    },
+    "dollarChange": -0.9309,
+    "unitChange": -0.9523
+   }
+  ]
+ },
+ "homegrown": {
+  "dollars": 38949478.15,
+  "units": 5945248,
+  "dollarShare": 0.0723,
+  "unitShare": 0.1393,
+  "byKind": [
+   {
+    "kind": "spirits",
+    "label": "Spirits",
+    "dollars": 20761853.28,
+    "units": 827574,
+    "dollarShare": 0.0696,
+    "unitShare": 0.0613
+   },
+   {
+    "kind": "beer",
+    "label": "Beer & cider",
+    "dollars": 13398913.64,
+    "units": 4112598,
+    "dollarShare": 0.3747,
+    "unitShare": 0.3237
+   },
+   {
+    "kind": "premixed",
+    "label": "Premixed cocktails",
+    "dollars": 3647786.77,
+    "units": 900029,
+    "dollarShare": 0.1589,
+    "unitShare": 0.1711
+   },
+   {
+    "kind": "wine",
+    "label": "Wine",
+    "dollars": 1140924.46,
+    "units": 105047,
+    "dollarShare": 0.0063,
+    "unitShare": 0.0094
+   }
+  ],
+  "makers": [
+   {
+    "slug": "high-west-distillery",
+    "name": "High West Distillery",
+    "dollars": 7885039.29,
+    "units": 176285
+   },
+   {
+    "slug": "ogdens-own-distillery",
+    "name": "Ogden's Own Distillery",
+    "dollars": 5981032.9,
+    "units": 406623
+   },
+   {
+    "slug": "dented-brick-distillery",
+    "name": "Dented Brick Distillery",
+    "dollars": 2399630.52,
+    "units": 137948
+   },
+   {
+    "slug": "sugar-house-distillery",
+    "name": "Sugar House Distillery",
+    "dollars": 2317255.46,
+    "units": 430250
+   },
+   {
+    "slug": "templin-family-brewing",
+    "name": "Templin Family Brewing (T.F. Brewing)",
+    "dollars": 2091617.23,
+    "units": 512264
+   },
+   {
+    "slug": "beehive-distilling",
+    "name": "Beehive Distilling",
+    "dollars": 2069362.68,
+    "units": 318114
+   },
+   {
+    "slug": "epic-brewing",
+    "name": "Epic Brewing Co.",
+    "dollars": 2024201.22,
+    "units": 588891
+   },
+   {
+    "slug": "red-rock-brewing",
+    "name": "Red Rock Brewing",
+    "dollars": 1999243.85,
+    "units": 509534
+   },
+   {
+    "slug": "squatters",
+    "name": "Squatters Craft Beers",
+    "dollars": 1749233.86,
+    "units": 836954
+   },
+   {
+    "slug": "salt-flats",
+    "name": "Salt Flats Brewing & Salt Flats Spirits",
+    "dollars": 860225.09,
+    "units": 174051
+   }
+  ],
+  "topByUnits": [
+   {
+    "itemCode": "989410",
+    "title": "Squatters Hop Rising Double IPA Can",
+    "maker": "squatters",
+    "sizeMl": 355,
+    "dollars": 889257.38,
+    "units": 425482
+   },
+   {
+    "itemCode": "954782",
+    "title": "Templin Ferda Dbl IPA",
+    "maker": "templin-family-brewing",
+    "sizeMl": 473,
+    "dollars": 1356651.2,
+    "units": 343456
+   },
+   {
+    "itemCode": "953656",
+    "title": "Squatters Hop Rising Tropical IPA",
+    "maker": "squatters",
+    "sizeMl": 355,
+    "dollars": 426165.63,
+    "units": 203907
+   },
+   {
+    "itemCode": "900286",
+    "title": "Epic Chasing Ghosts Hazy DIPA Cans",
+    "maker": "epic-brewing",
+    "sizeMl": 473,
+    "dollars": 544748.37,
+    "units": 189341
+   },
+   {
+    "itemCode": "922315",
+    "title": "Sugar House Raspberry Lemonade Vo",
+    "maker": "sugar-house-distillery",
+    "sizeMl": 355,
+    "dollars": 584035.01,
+    "units": 162763
+   },
+   {
+    "itemCode": "989451",
+    "title": "Uinta Detour Double IPA Can",
+    "maker": "uinta-brewing",
+    "sizeMl": 355,
+    "dollars": 355416.9,
+    "units": 148710
+   },
+   {
+    "itemCode": "922389",
+    "title": "Squatters Hazy Hop Rising",
+    "maker": "squatters",
+    "sizeMl": 355,
+    "dollars": 261020.1,
+    "units": 124890
+   },
+   {
+    "itemCode": "989412",
+    "title": "Wasatch Devastator Double Bock Cn",
+    "maker": "wasatch-brewery",
+    "sizeMl": 355,
+    "dollars": 255872.43,
+    "units": 122427
+   },
+   {
+    "itemCode": "923852",
+    "title": "Red Rock Elephino IPA Cans",
+    "maker": "red-rock-brewing",
+    "sizeMl": 473,
+    "dollars": 441596.25,
+    "units": 117759
+   },
+   {
+    "itemCode": "062869",
+    "title": "Sugar House White Peach Vodka RTD",
+    "maker": "sugar-house-distillery",
+    "sizeMl": 355,
+    "dollars": 403914.51,
+    "units": 112605
+   }
+  ]
+ },
+ "allocated": {
+  "dollars": 1739630.86,
+  "units": 18570,
+  "items": 131,
+  "topByUnits": [
+   {
+    "itemCode": "017766",
+    "name": "EAGLE RARE 10 YR BOURBON 750ml",
+    "title": "Eagle Rare 10 Yr Bourbon",
+    "dollars": 136497.16,
+    "units": 3584
+   },
+   {
+    "itemCode": "021602",
+    "name": "E H TAYLOR SMALL BATCH 750ml",
+    "title": "E H Taylor Small Batch",
+    "dollars": 84869.61,
+    "units": 1723
+   },
+   {
+    "itemCode": "016483",
+    "name": "OLD FITZGERALD 7YR BIB 700ml",
+    "title": "Old Fitzgerald 7yr Bib",
+    "dollars": 48591.9,
+    "units": 810
+   },
+   {
+    "itemCode": "025915",
+    "name": "JACK DANIELS SNGL BRL HERITAGE 750ml",
+    "title": "Jack Daniels Sngl Brl Heritage",
+    "dollars": 46193.4,
+    "units": 660
+   },
+   {
+    "itemCode": "064706",
+    "name": "CHARTREUSE YELLOW 750ml",
+    "title": "Chartreuse Yellow",
+    "dollars": 45433.69,
+    "units": 631
+   }
+  ]
+ },
+ "splurge": [
+  {
+   "month": "2026-09",
+   "itemCode": "915474",
+   "title": "Drc Romanee-Conti'23",
+   "sizeMl": 750,
+   "units": 2,
+   "unitPrice": 11287.03
+  },
+  {
+   "month": "2025-10",
+   "itemCode": "925461",
+   "title": "Drc Romanee-Conti'22",
+   "sizeMl": 750,
+   "units": 4,
+   "unitPrice": 10032.95
+  },
+  {
+   "month": "2026-06",
+   "itemCode": "925461",
+   "title": "Drc Romanee-Conti'22",
+   "sizeMl": 750,
+   "units": 2,
+   "unitPrice": 10032.95
+  },
+  {
+   "month": "2026-09",
+   "itemCode": "911585",
+   "title": "Drc Le Montrachet Blanc'23",
+   "sizeMl": 750,
+   "units": 2,
+   "unitPrice": 6175.54
+  },
+  {
+   "month": "2025-10",
+   "itemCode": "925462",
+   "title": "Drc Montrachet'22",
+   "sizeMl": 750,
+   "units": 2,
+   "unitPrice": 5490.1
+  }
+ ]
+}
