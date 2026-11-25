@@ -14,21 +14,28 @@ export function ShareButton({
   title,
   surface,
   csc,
+  path,
+  label = "Share",
   className,
+  children,
 }: {
   title: string;
   surface: ShareSurface;
   csc?: string | null;
+  /** Share this path instead of the current page (one card of a deck). */
+  path?: string;
+  label?: string;
   className?: string;
+  children?: React.ReactNode;
 }) {
   const source = `share:${surface}`;
   return (
     <button
       type="button"
-      aria-label="Share"
+      aria-label={label}
       className={className}
       onClick={async () => {
-        const url = shareUrl(window.location.href);
+        const url = shareUrl(path ? new URL(path, window.location.origin).href : window.location.href);
         sendDiscoverEvent("share_tap", source, csc);
         if (navigator.share) {
           try {
@@ -48,7 +55,7 @@ export function ShareButton({
         }
       }}
     >
-      <Share className="size-5" aria-hidden />
+      {children ?? <Share className="size-5" aria-hidden />}
     </button>
   );
 }

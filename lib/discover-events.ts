@@ -9,7 +9,7 @@ import { parseHolidaySource } from "@/lib/holiday";
  * "taste:followup", stored as surface "taste" with the mode as view), search
  * result lists ("search:exact" | "search:rough" | "search:browse") and the
  * product page's Watch button ("product:page"), and share buttons
- * ("share:product" | "share:discover" | "share:holidays"), and the holiday
+ * ("share:product" | "share:discover" | "share:holidays" | "share:year"), and the holiday
  * shelf ("holiday:home" | "holiday:guide" | "holiday:<group>").
  */
 export function parseAttribution(v: unknown): { surface: string; view: string } | null {
@@ -22,7 +22,7 @@ export function parseAttribution(v: unknown): { surface: string; view: string } 
     v.match(/^(taste):(typed|guided|followup)$/) ??
     v.match(/^(search):(exact|rough|browse)$/) ??
     v.match(/^(product):(page)$/) ??
-    v.match(/^(share):(product|discover|holidays)$/);
+    v.match(/^(share):(product|discover|holidays|year)$/);
   return m ? { surface: m[1], view: m[2] } : null;
 }
 

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { sql } from "@/lib/db";
 import { SITE_URL } from "@/lib/config";
 import { ARTICLES, UTAH_101_PATH, articlePath } from "@/lib/utah-101";
+import { CURRENT_EDITION, editionPath } from "@/lib/year-in-bottles-cards";
 import { MAKERS, MAKERS_PATH, makerChecked, makerPath } from "@/lib/makers";
 
 // Rendered per request (not at build time, when there's no database). ~30k
@@ -27,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/drawings`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/whats-new`, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}${UTAH_101_PATH}`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}${editionPath(CURRENT_EDITION)}`, changeFrequency: "yearly", priority: 0.6 },
     ...ARTICLES.map((a) => ({
       url: `${SITE_URL}${articlePath(a.slug)}`,
       lastModified: new Date(a.checked + "T12:00:00Z"),

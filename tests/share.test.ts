@@ -22,5 +22,6 @@ test("share events are attributed; unknown share pages are not", () => {
   assert.deepEqual(parseAttribution("share:product"), { surface: "share", view: "product" });
   assert.deepEqual(parseAttribution("share:discover"), { surface: "share", view: "discover" });
   assert.deepEqual(parseAttribution("share:holidays"), { surface: "share", view: "holidays" });
+  assert.deepEqual(parseAttribution("share:year"), { surface: "share", view: "year" });
   assert.equal(parseAttribution("share:admin"), null);
 });

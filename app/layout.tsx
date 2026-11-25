@@ -9,6 +9,7 @@ import { TabBar } from "@/components/tab-bar";
 import { NavProgress } from "@/components/nav-progress";
 import { StaleDataBanner } from "@/components/stale-data-banner";
 import { AgeGate } from "@/components/age-gate";
+import { YearBanner } from "@/components/year-banner";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@/components/analytics";
 import { releaseIdleConnections } from "@/lib/db-release";
@@ -78,6 +79,7 @@ export default function RootLayout({
         </Suspense>
         <SiteHeader />
         <StaleDataBanner />
+        <YearBanner />
         {/* At least a screen tall, so the footer starts below the fold and doesn't
             jump (layout shift) when a page streams in. */}
         <main className="mx-auto min-h-svh w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">{children}</main>
