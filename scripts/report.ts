@@ -408,6 +408,7 @@ async function main() {
     return (await import("./makers-check")).makersReport(sql, process.argv[2].split(":")[1]);
   }
   if (process.argv[2] === "deepdive") return (await import("./deepdive")).deepdive(sql);
+  if (process.argv[2] === "yearinbottles") return (await import("./year-in-bottles")).yearInBottlesReport(sql);
   if (process.argv[2] === "searchcheck") {
     const { runSearchCheck } = await import("./search-check");
     const ok = await runSearchCheck();
