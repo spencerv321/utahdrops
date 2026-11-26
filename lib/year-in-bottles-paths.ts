@@ -11,3 +11,15 @@ export const BANNER_COOKIE = "ud_yib_seen";
 export const markBannerSeen = () => {
   document.cookie = `${BANNER_COOKIE}=1; path=/; max-age=${60 * 60 * 24 * 120}; samesite=lax`;
 };
+
+/**
+ * Year in Bottles actions in discover_events (surface "year"): the banner
+ * ("banner" shown once per browser session, clicked; "dismiss"), the homepage
+ * link ("home"), the closing panel ("drops", "watch"), and how far people
+ * swipe ("card-<slug>" shown once per page view, "card-next" for the panel).
+ * Card shares are surface "share", view "year-<slug>"; the whole page "year".
+ */
+export function parseYearSource(v: string): { surface: "year"; view: string } | null {
+  const m = v.match(/^year:(banner|dismiss|home|drops|watch|card-[a-z0-9-]{1,30})$/);
+  return m ? { surface: "year", view: m[1] } : null;
+}

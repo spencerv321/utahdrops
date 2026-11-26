@@ -2,6 +2,7 @@ import { sql } from "@/lib/db";
 import { parseSource } from "@/lib/discover-rules";
 import { isUntracked } from "@/lib/admin";
 import { parseHolidaySource } from "@/lib/holiday";
+import { parseYearSource } from "@/lib/year-in-bottles-paths";
 
 /**
  * Attribution sources that record events: "Worth a look" ("discover:price",
@@ -9,7 +10,8 @@ import { parseHolidaySource } from "@/lib/holiday";
  * "taste:followup", stored as surface "taste" with the mode as view), search
  * result lists ("search:exact" | "search:rough" | "search:browse") and the
  * product page's Watch button ("product:page"), and share buttons
- * ("share:product" | "share:discover" | "share:holidays" | "share:year"), and the holiday
+ * ("share:product" | "share:discover" | "share:holidays" | "share:year[-<card>]"),
+ * Year in Bottles ("year:<action>", lib/year-in-bottles-paths.ts), and the holiday
  * shelf ("holiday:home" | "holiday:guide" | "holiday:<group>").
  */
 export function parseAttribution(v: unknown): { surface: string; view: string } | null {
@@ -18,11 +20,13 @@ export function parseAttribution(v: unknown): { surface: string; view: string } 
   if (typeof v !== "string") return null;
   const h = parseHolidaySource(v);
   if (h) return h;
+  const y = parseYearSource(v);
+  if (y) return y;
   const m =
     v.match(/^(taste):(typed|guided|followup)$/) ??
     v.match(/^(search):(exact|rough|browse)$/) ??
     v.match(/^(product):(page)$/) ??
-    v.match(/^(share):(product|discover|holidays|year)$/);
+    v.match(/^(share):(product|discover|holidays|year(?:-[a-z0-9-]{1,30})?)$/);
   return m ? { surface: m[1], view: m[2] } : null;
 }
 

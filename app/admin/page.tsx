@@ -4,7 +4,21 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { adminEmails, isAdmin } from "@/lib/admin";
 import { JOB_MAX_AGE_HOURS } from "@/lib/config";
-import { getAccounts, getDashboard, getDiscovery, getHolidays, getRatingsBeta, getSharing, parseRange, RANGES, TZ, type Kpis, type Row } from "@/lib/admin-metrics";
+import {
+  getAccounts,
+  getDashboard,
+  getDiscovery,
+  getHolidays,
+  getRatingsBeta,
+  getSharing,
+  getYearInBottles,
+  parseRange,
+  RANGES,
+  TZ,
+  type Kpis,
+  type Row,
+} from "@/lib/admin-metrics";
+import { CURRENT_EDITION, getEdition } from "@/lib/year-in-bottles-cards";
 import { TrendChart } from "@/components/admin/trend-chart";
 import { AutoRefresh } from "@/components/admin/auto-refresh";
 import { cn } from "@/lib/utils";
@@ -183,6 +197,7 @@ function HourStrip({ counts }: { counts: number[] }) {
 // ── page ─────────────────────────────────────────────────────────────
 
 const SECTIONS = [
+  ["year", "Year in Bottles"],
   ["holidays", "Holidays"],
   ["traffic", "Traffic"],
   ["content", "Content"],
@@ -216,14 +231,19 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   }
 
   const range = parseRange((await searchParams).range);
-  const [d, a, rb, dv, sh, hol] = await Promise.all([
+  const [d, a, rb, dv, sh, hol, yib] = await Promise.all([
     getDashboard(range),
     getAccounts(range),
     getRatingsBeta(range),
     getDiscovery(range),
     getSharing(range),
     getHolidays(range),
+    getYearInBottles(range),
   ]);
+  const yibCards = [
+    ...(getEdition(CURRENT_EDITION)?.cards ?? []).map((c) => ({ slug: c.slug, label: c.kicker })),
+    { slug: "next", label: "What's next (closing panel)" },
+  ];
   const pct = (x: number, of: number) => (of ? `${((100 * x) / of).toFixed(1)}%` : "—");
   const c: Kpis = d.current;
   const p: Kpis = d.previous;
@@ -312,6 +332,107 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           </div>
         </div>
       </section>
+
+      <Section id="year" title="Year in Bottles">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <Stat
+            label="Visitors"
+            value={num(yib.visitors)}
+            hint={`${num(yib.views)} views · ${num(yib.newToSite)} new to the site · ${num(yib.returning)} came back`}
+          />
+          <Stat
+            label="Arrived from shared links"
+            value={num(yib.fromShares)}
+            hint={`of ${num(yib.landings)} visits that started on the page`}
+          />
+          <Stat
+            label="Shares sent"
+            value={num(yib.sharesSent)}
+            hint={`from ${num(yib.shareTaps)} Share taps · ${num(yib.sharers)} sharers`}
+          />
+          <Stat
+            label="Swiped to the end"
+            value={pct(yib.reachedEnd, yib.deckViewers)}
+            hint={`${num(yib.reachedEnd)} of ${num(yib.deckViewers)} reached the closing panel`}
+          />
+          <Stat
+            label="Banner click-through"
+            value={pct(yib.bannerClickers, yib.bannerShown)}
+            hint={`${num(yib.bannerClickers)} clicked · shown in ${num(yib.bannerShown)} visits · ${num(yib.dismissed)} closed it`}
+          />
+          <Stat
+            label="Home link click-through"
+            value={pct(yib.homeClickers, yib.homeVisitors)}
+            hint={`${num(yib.homeClickers)} of ${num(yib.homeVisitors)} home visitors`}
+          />
+          <Stat
+            label="Closing panel clicks"
+            value={num(yib.dropsClickers + yib.watchClickers)}
+            hint={`${num(yib.dropsClickers)} drop list · ${num(yib.watchClickers)} find a bottle`}
+          />
+          <Stat
+            label="Converted after visiting"
+            value={num(yib.signedUp + yib.watched + yib.dropEmails)}
+            hint={`${num(yib.signedUp)} signed up · ${num(yib.watched)} watched · ${num(yib.dropEmails)} drop emails on`}
+          />
+        </div>
+        <div className="grid gap-4 md:grid-cols-[2fr_1fr]">
+          <Panel title="Card by card" note="visitors who reached each card · shares">
+            {yib.deckViewers || Object.keys(yib.cardShares).length ? (
+              <div className="-mx-2 overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="text-left text-xs text-subtle-foreground">
+                    <tr>
+                      <th className="px-2 pb-2 font-normal">Card</th>
+                      <th className="px-2 pb-2 text-right font-normal">Reached</th>
+                      <th className="px-2 pb-2 text-right font-normal">% of viewers</th>
+                      <th className="px-2 pb-2 text-right font-normal">Share taps</th>
+                      <th className="px-2 pb-2 text-right font-normal">Sent</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {yibCards.map((c) => {
+                      const reached = yib.cardViewers[c.slug] ?? 0;
+                      const share = yib.cardShares[`year-${c.slug}`];
+                      return (
+                        <tr key={c.slug} className="border-t">
+                          <td className="px-2 py-2">{c.label}</td>
+                          <td className="px-2 py-2 text-right tabular-nums">{num(reached)}</td>
+                          <td className="px-2 py-2 text-right tabular-nums">{pct(reached, yib.deckViewers)}</td>
+                          <td className="px-2 py-2 text-right tabular-nums">{share ? num(share.taps) : "—"}</td>
+                          <td className="px-2 py-2 text-right tabular-nums">{share ? num(share.sent) : "—"}</td>
+                        </tr>
+                      );
+                    })}
+                    {yib.cardShares.year ? (
+                      <tr className="border-t">
+                        <td className="px-2 py-2">Whole page</td>
+                        <td className="px-2 py-2 text-right">—</td>
+                        <td className="px-2 py-2 text-right">—</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(yib.cardShares.year.taps)}</td>
+                        <td className="px-2 py-2 text-right tabular-nums">{num(yib.cardShares.year.sent)}</td>
+                      </tr>
+                    ) : null}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No card views in range.</p>
+            )}
+          </Panel>
+          <Panel title="How people arrive" note="visits that started on the page">
+            <BarList rows={yib.sources} empty="Nobody started a visit on the page in range." />
+          </Panel>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Panel title="Shared links opened" note="landings by link">
+            <BarList rows={yib.landed} empty="No shared links opened in range." />
+          </Panel>
+          <Panel title="Daily visitors" note="visitors · views">
+            <BarList rows={yib.daily} empty="No visits in range." />
+          </Panel>
+        </div>
+      </Section>
 
       <Section id="holidays" title="Holidays">
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">

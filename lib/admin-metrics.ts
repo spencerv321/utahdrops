@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import { SOURCE_KIND } from "@/lib/analytics";
+import { CURRENT_EDITION, editionPath } from "@/lib/year-in-bottles-cards";
 
 /**
  * Aggregations for /admin. Days are Mountain time. Each range is compared
@@ -482,10 +483,14 @@ export async function getSharing(range: RangeKey) {
         (select count(distinct u.visitor_id) from u join auth.users a on a.id = u.user_id and a.created_at >= u.at) as signed_up,
         (select count(distinct u.visitor_id) from u join watchlist w on w.user_id = u.user_id and w.created_at >= u.at) as watched`,
     sql`
-      select coalesce(p.name, case when e.view = 'discover' then 'Worth a look' else e.csc end) as label,
+      select coalesce(p.name, case when e.view = 'discover' then 'Worth a look' when e.view = 'holidays' then 'Holidays'
+               when e.view = 'year' then 'Year in Bottles' when e.view like 'year-%' then 'Year in Bottles · ' || substr(e.view, 6)
+               else e.csc end) as label,
              count(*) filter (where e.kind = 'share_tap') as value,
              count(*) filter (where e.kind in ('share_native', 'share_copy'))::text || ' sent' as sub,
-             case when e.csc is not null then '/product/' || e.csc when e.view = 'discover' then '/discover' end as href
+             case when e.csc is not null then '/product/' || e.csc when e.view = 'discover' then '/discover'
+                  when e.view = 'holidays' then '/holidays'
+                  when e.view like 'year%' then ${editionPath(CURRENT_EDITION)} || coalesce('/' || nullif(substr(e.view, 6), ''), '') end as href
       from discover_events e left join products p using (csc)
       where e.created_at >= ${start} and e.surface = 'share'
       group by e.view, e.csc, p.name having count(*) filter (where e.kind = 'share_tap') > 0
@@ -607,3 +612,110 @@ export async function getHolidays(range: RangeKey) {
 }
 
 export type Holidays = Awaited<ReturnType<typeof getHolidays>>;
+
+/**
+ * Year in Bottles (/year-in-bottles): visits from page_events (path), actions
+ * from discover_events surface "year" (lib/year-in-bottles-paths.ts:
+ * banner shown/click, dismiss, home, drops, watch, card-<slug> shown) and
+ * shares from surface "share", view "year" or "year-<card>". Converted =
+ * after their first visit to the deck, the visitor's account was created,
+ * added a watch, or has the allocated-list email on (alert_prefs updated
+ * since). Visitor ids, so one person on two devices counts twice.
+ */
+export async function getYearInBottles(range: RangeKey) {
+  const days = RANGES[range].days;
+  const start = sql`((date_trunc('day', now() at time zone ${TZ}) - make_interval(days => ${days - 1})) at time zone ${TZ})`;
+  const page = sql`path like '/year-in-bottles%'`;
+  const [[v], cards, shares, landed, sources, daily] = await Promise.all([
+    sql`
+      with p as (select * from page_events where created_at >= ${start} and ${page}),
+      ev as (select * from discover_events where created_at >= ${start} and surface = 'year'),
+      sh as (select * from discover_events where created_at >= ${start} and surface = 'share' and view like 'year%'),
+      firsts as (
+        select visitor_id, min(created_at) as at from page_events where ${page} and visitor_id in (select visitor_id from p) group by 1
+      ),
+      u as (
+        select distinct f.visitor_id, e.user_id, f.at from firsts f
+        join page_events e on e.visitor_id = f.visitor_id and e.user_id is not null and e.created_at >= f.at
+      )
+      select
+        (select count(distinct visitor_id) from p) as visitors,
+        (select count(*) from p) as views,
+        (select count(*) from (select visitor_id from p group by 1 having count(distinct session_id) >= 2) r) as returning,
+        (select count(*) from p where is_landing) as landings,
+        (select count(*) from p where is_landing and utm_source = 'share') as from_shares,
+        (select count(*) from firsts f where not exists (
+           select 1 from page_events e where e.visitor_id = f.visitor_id and e.created_at < f.at)) as new_to_site,
+        (select count(*) from ev where kind = 'shown' and view = 'banner') as banner_shown,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view = 'banner') as banner_clickers,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view = 'dismiss') as dismissed,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view = 'home') as home_clickers,
+        (select count(distinct visitor_id) from page_events where created_at >= ${start} and path = '/') as home_visitors,
+        (select count(distinct visitor_id) from ev where kind = 'shown' and view like 'card-%') as deck_viewers,
+        (select count(distinct visitor_id) from ev where kind = 'shown' and view = 'card-next') as reached_end,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view = 'drops') as drops_clickers,
+        (select count(distinct visitor_id) from ev where kind = 'click' and view = 'watch') as watch_clickers,
+        (select count(*) from sh where kind = 'share_tap') as share_taps,
+        (select count(distinct visitor_id) from sh where kind = 'share_tap') as sharers,
+        (select count(*) from sh where kind in ('share_native', 'share_copy')) as shares_sent,
+        (select count(distinct u.visitor_id) from u join auth.users a on a.id = u.user_id and a.created_at >= u.at) as signed_up,
+        (select count(distinct u.visitor_id) from u join watchlist w on w.user_id = u.user_id and w.created_at >= u.at) as watched,
+        (select count(distinct u.visitor_id) from u join alert_prefs ap on ap.user_id = u.user_id
+           and ap.allocated_email and ap.updated_at >= u.at) as drop_emails`,
+    sql`
+      select substr(view, 6) as slug, count(distinct visitor_id) as visitors
+      from discover_events where created_at >= ${start} and surface = 'year' and kind = 'shown' and view like 'card-%'
+      group by 1`,
+    sql`
+      select view, count(*) filter (where kind = 'share_tap') as taps,
+             count(*) filter (where kind in ('share_native', 'share_copy')) as sent
+      from discover_events where created_at >= ${start} and surface = 'share' and view like 'year%'
+      group by 1`,
+    sql`
+      select path as label, count(*) as value, path as href
+      from page_events where created_at >= ${start} and ${page} and is_landing and utm_source = 'share'
+      group by 1 order by 2 desc limit 12`,
+    sql`
+      select coalesce(source, 'Direct') as label, count(*) as value
+      from page_events where created_at >= ${start} and ${page} and is_landing
+      group by 1 order by 2 desc limit 8`,
+    sql`
+      select to_char(day, 'Dy Mon DD') as label, count(distinct visitor_id) as value, count(*)::text || ' views' as sub
+      from (select date_trunc('day', created_at at time zone ${TZ}) as day, visitor_id
+            from page_events where created_at >= ${start} and ${page}) d
+      group by day order by day desc limit 14`,
+  ]);
+  return {
+    visitors: n(v.visitors),
+    views: n(v.views),
+    returning: n(v.returning),
+    landings: n(v.landings),
+    fromShares: n(v.from_shares),
+    newToSite: n(v.new_to_site),
+    bannerShown: n(v.banner_shown),
+    bannerClickers: n(v.banner_clickers),
+    dismissed: n(v.dismissed),
+    homeClickers: n(v.home_clickers),
+    homeVisitors: n(v.home_visitors),
+    deckViewers: n(v.deck_viewers),
+    reachedEnd: n(v.reached_end),
+    dropsClickers: n(v.drops_clickers),
+    watchClickers: n(v.watch_clickers),
+    shareTaps: n(v.share_taps),
+    sharers: n(v.sharers),
+    sharesSent: n(v.shares_sent),
+    signedUp: n(v.signed_up),
+    watched: n(v.watched),
+    dropEmails: n(v.drop_emails),
+    cardViewers: Object.fromEntries(cards.map((r) => [String(r.slug), n(r.visitors)])) as Record<string, number>,
+    cardShares: Object.fromEntries(shares.map((r) => [String(r.view), { taps: n(r.taps), sent: n(r.sent) }])) as Record<
+      string,
+      { taps: number; sent: number }
+    >,
+    landed: rows(landed),
+    sources: rows(sources),
+    daily: rows(daily),
+  };
+}
+
+export type YearInBottlesStats = Awaited<ReturnType<typeof getYearInBottles>>;
