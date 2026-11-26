@@ -21,6 +21,10 @@ store-by-store several times a day; all scheduled workflows are enabled and gree
   opens the deck or closes it (cookie `ud_yib_seen`). No age gate on it.
 - The deck ends with a "What's next" panel: allocated-list email signup and
   a pointer to watching a bottle (existing flows).
+- Tracking (/admin → Year in Bottles): discover_events surface "year" (banner
+  shown/clicked/closed, home link, each card reached, closing-panel clicks) and
+  card shares as surface "share", view "year-<card>". Starts at this deploy;
+  card shares before it are all view "year".
 - Next edition: rebuild the snapshot with `--write`, add it to `EDITIONS`, fix
   any failing `need()` claims or missing `NAMES`.
 

@@ -23,5 +23,14 @@ test("share events are attributed; unknown share pages are not", () => {
   assert.deepEqual(parseAttribution("share:discover"), { surface: "share", view: "discover" });
   assert.deepEqual(parseAttribution("share:holidays"), { surface: "share", view: "holidays" });
   assert.deepEqual(parseAttribution("share:year"), { surface: "share", view: "year" });
+  assert.deepEqual(parseAttribution("share:year-peak-month"), { surface: "share", view: "year-peak-month" });
   assert.equal(parseAttribution("share:admin"), null);
+  assert.equal(parseAttribution("share:year-Bad Slug"), null);
+});
+
+test("Year in Bottles actions are attributed", () => {
+  assert.deepEqual(parseAttribution("year:banner"), { surface: "year", view: "banner" });
+  assert.deepEqual(parseAttribution("year:card-the-hunt"), { surface: "year", view: "card-the-hunt" });
+  assert.deepEqual(parseAttribution("year:drops"), { surface: "year", view: "drops" });
+  assert.equal(parseAttribution("year:anything"), null);
 });

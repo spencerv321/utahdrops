@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Share } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
+import { sendDiscoverEvent } from "@/lib/beacon";
 import { YearCardView } from "@/components/year-card";
 import type { YearCard } from "@/lib/year-in-bottles-cards";
 import { cardPath, markBannerSeen } from "@/lib/year-in-bottles-paths";
@@ -36,11 +37,17 @@ export function YearDeck({
     const el = track.current?.children[i] as HTMLElement | undefined;
     if (!el || !track.current) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.current.scrollTo({ left: el.offsetLeft - track.current.offsetLeft, behavior: smooth && !reduce ? "smooth" : "auto" });
+    track.current.scrollTo({
+      left: el.offsetLeft - track.current.offsetLeft,
+      behavior: smooth && !reduce ? "smooth" : "auto",
+    });
   }, []);
 
   // Seen it: the site-wide banner stops pointing here.
   useEffect(() => markBannerSeen(), []);
+
+  // How far people get: each card counted once per page view when it's mostly on screen.
+  const counted = useRef(new Set<number>());
 
   useEffect(() => {
     if (!focus) return;
@@ -55,14 +62,20 @@ export function YearDeck({
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) setCurrent(Number((e.target as HTMLElement).dataset.index));
+          if (!e.isIntersecting) continue;
+          const i = Number((e.target as HTMLElement).dataset.index);
+          setCurrent(i);
+          if (!counted.current.has(i)) {
+            counted.current.add(i);
+            sendDiscoverEvent("shown", `year:card-${i < cards.length ? cards[i].slug : "next"}`);
+          }
         }
       },
       { root, threshold: 0.6 }
     );
     for (const child of Array.from(root.children)) io.observe(child);
     return () => io.disconnect();
-  }, []);
+  }, [cards]);
 
   return (
     <div ref={deck} className="scroll-mt-20 space-y-4">
@@ -85,7 +98,7 @@ export function YearDeck({
               share={
                 <ShareButton
                   title={`Utah's Year in Bottles: ${card.ogLine}`}
-                  surface="year"
+                  surface={`year-${card.slug}`}
                   path={cardPath(edition, card.slug)}
                   label={`Share the ${card.kicker} card`}
                   className="flex size-11 shrink-0 items-center justify-center rounded-full border border-current/30 text-current hover:border-current"
@@ -114,7 +127,9 @@ export function YearDeck({
               aria-current={i === current ? "true" : undefined}
               className="flex h-11 w-[22px] items-center justify-center"
             >
-              <span className={cn("block h-1.5 rounded-full transition-all", i === current ? "w-5 bg-primary" : "w-1.5 bg-input")} />
+              <span
+                className={cn("block h-1.5 rounded-full transition-all", i === current ? "w-5 bg-primary" : "w-1.5 bg-input")}
+              />
             </button>
           ))}
         </div>

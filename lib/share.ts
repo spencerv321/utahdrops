@@ -7,7 +7,7 @@
 export const SHARE_REF = "share";
 
 /** Pages with a share button; stored as discover_events.view under surface "share". */
-export type ShareSurface = "product" | "discover" | "holidays" | "year";
+export type ShareSurface = "product" | "discover" | "holidays" | "year" | `year-${string}`;
 
 /**
  * The address to share: the current page with tracking params from the

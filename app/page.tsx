@@ -27,6 +27,7 @@ import { activeSeason, GROUPS, mixStrip, utahToday } from "@/lib/holiday";
 import { CURRENT_EDITION, EDITIONS, compact, editionPath, onHome, windowLabel } from "@/lib/year-in-bottles-cards";
 import { getHolidayShelf } from "@/lib/holiday-query";
 import { HolidayStrip } from "@/components/holiday-strip";
+import { DiscoverLink } from "@/components/discover-link";
 
 export const dynamic = "force-dynamic";
 
@@ -253,8 +254,8 @@ export default async function HomePage({
 function YearInBottlesLink() {
   const s = EDITIONS[CURRENT_EDITION];
   return (
-    <Link
-      prefetch={false}
+    <DiscoverLink
+      source="year:home"
       href={editionPath(CURRENT_EDITION)}
       className="group flex flex-col gap-1 rounded-md border border-input px-4 py-3 hover:border-primary sm:flex-row sm:items-center sm:justify-between sm:gap-6"
     >
@@ -265,7 +266,7 @@ function YearInBottlesLink() {
       <span className="text-sm leading-snug text-muted-foreground">
         {compact(s.totals.units)} bottles and cans, the #1 bottle and the biggest month, {windowLabel(s)}.
       </span>
-    </Link>
+    </DiscoverLink>
   );
 }
 
